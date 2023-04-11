@@ -1,3 +1,27 @@
+$font-stack: 'Poppins', san-serif;
+$primary-color-blue: #007EA7;
+$primary-color-dark-blue: #003459;
+$primary-color-light-blue: #00A8E8;
+%button {
+  border-radius: 10px;
+  color: white;
+  font-size: 12px;
+  width: 144px;
+  height: 42px;
+  border: none;
+  letter-spacing: 1px;
+}
+
+body {
+  margin: 0;
+  font-family: $font-stack;
+}
+
+.primaryButton {
+  background-color: $primary-color-dark-blue;
+  @extend %button;
+}
+
 @font-face {
   font-family: 'Poppins';
   src: local("OpenSans"),
