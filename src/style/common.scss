@@ -10,6 +10,13 @@ $primary-color-light-blue: #00A8E8;
   height: 42px;
   border: none;
   letter-spacing: 1px;
+  transition: all .3s;
+}
+
+%centralized {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 body {
@@ -19,6 +26,100 @@ body {
 
 .primaryButton {
   background-color: $primary-color-dark-blue;
+  @extend %button;
+}
+
+.primaryButton:hover {
+  background-color: #406782;
+  @extend %button;
+}
+
+.primaryButton:active {
+  background-color: $primary-color-blue;
+  @extend %button;
+}
+
+.primaryButton:disabled {
+  background-color: #BFCCD6;
+  @extend %button;
+}
+
+.secondaryButton {
+  background-color: #ffffff;
+  @extend %button;
+  border: solid 1px #000000;
+  color: #000000;
+}
+
+.secondaryButton:hover {
+  background-color: #ffffff;
+  @extend %button;
+  border: solid 1px #808B8F;
+  color: #808B8F;
+}
+
+.secondaryButton:active {
+  background-color: #ffffff;
+  @extend %button;
+  border: solid 1px $primary-color-blue;
+  color: $primary-color-blue;
+}
+
+.secondaryButton:disabled {
+  background-color: #ffffff;
+  @extend %button;
+  border: solid 1px #BFC5C7;
+  color: #BFC5C7;
+}
+
+.primaryButtonAdd {
+  background-color: $primary-color-dark-blue;
+  @extend %button;
+  @extend %centralized;
+}
+
+.primaryButtonAdd img, .secondaryButtonAdd img {
+  margin-right: 15px;
+}
+
+.primaryButtonAdd:hover {
+  background-color: #406782;
+  @extend %button;
+}
+
+.primaryButtonAdd:active {
+  background-color: $primary-color-blue;
+  @extend %button;
+}
+
+.primaryButtonAdd:disabled {
+  background-color: #BFCCD6;
+  @extend %button;
+}
+
+.secondaryButtonAdd {
+  background-color: #00171F;
+  @extend %button;
+  @extend %centralized;
+}
+
+.secondaryButtonAdd:hover {
+  background-color: #405157;
+  @extend %button;
+}
+
+.secondaryButtonAdd:active {
+  background-color: #808B8F;
+  @extend %button;
+}
+
+.secondaryButtonAdd:focus {
+  background-color: #808B8F;
+  @extend %button;
+}
+
+.secondaryButtonAdd:disabled {
+  background-color: #BFC5C7;
   @extend %button;
 }
 
