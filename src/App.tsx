@@ -19,7 +19,7 @@ function App() {
                 label={'Button'}
             />
             <br/>
-            <br/>F
+            <br/>
             <Button
                 type={'primaryButtonAdd'}
                 label={'Button'}
@@ -28,6 +28,20 @@ function App() {
             <Button
                 type={'secondaryButtonAdd'}
                 label={'Button'}
+            />
+            <br/>
+            <Button
+                type={'smallBlue'}
+            />
+            <br/>
+            <br/>
+            <Button
+                type={'smallRed'}
+            />
+            <br/>
+            <br/>
+            <Button
+                type={'smallDark'}
             />
         </Provider>
     );

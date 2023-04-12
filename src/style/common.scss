@@ -13,6 +13,14 @@ $primary-color-light-blue: #00A8E8;
   transition: all .3s;
 }
 
+%smallButton {
+  border-radius: 10px;
+  border: none;
+  transition: all .3s;
+  width: 48px;
+  height: 42px;
+}
+
 %centralized {
   display: flex;
   justify-content: center;
@@ -121,6 +129,45 @@ body {
 .secondaryButtonAdd:disabled {
   background-color: #BFC5C7;
   @extend %button;
+}
+
+.smallBlue {
+  background-color: $primary-color-dark-blue;
+  @extend %smallButton;
+}
+
+.smallBlue:hover {
+  background-color: #406782;
+}
+
+.smallBlue:active {
+  background-color: $primary-color-blue;
+}
+
+.smallRed {
+  background-color: #590030;
+  @extend %smallButton;
+}
+
+.smallRed:hover {
+  background-color: #77415d;
+}
+
+.smallRed:active {
+  background-color: #ab0032;
+}
+
+.smallDark {
+  background-color: #00171F;
+  @extend %smallButton;
+}
+
+.smallDark:hover {
+  background-color: #3c4f56;
+}
+
+.smallDark:active {
+  background-color: #02667a;
 }
 
 @font-face {
