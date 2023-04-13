@@ -4,6 +4,7 @@ import './style/common.scss';
 import {store} from './store/store'
 import {Provider} from 'react-redux'
 import Button from './components/Button/Button'
+import Table from "./components/Table/Table";
 
 function App() {
     return (
@@ -43,6 +44,8 @@ function App() {
             <Button
                 type={'smallDark'}
             />
+
+                <Table/>
         </Provider>
     );
 }
