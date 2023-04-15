@@ -1,72 +1,104 @@
+
 import React, {useEffect, useState} from "react";
 
-const Table = (props: any) => {
-    const [currentPage, setCurrentPage] = useState(1);
+interface Props {
+    data: any[];
+    rowsPerPage: number;
+    renderHead: () => JSX.Element;
+    renderRow: (item: any, index: number) => JSX.Element;
+}
 
+const Table = ({data, rowsPerPage, renderRow, renderHead}: Props) => {
+    const [currentPage, setCurrentPage] = useState(0);
+    const [totalPages, setTotalPages] = useState<number[]>([]);
 
-    const arr = [
-        {firstname: "Daniyar",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar2",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar2",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar2",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar2",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar3",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar3",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar3",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar3",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar4",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar4",lastname:"Myrzasary",middlename:"Timurylu",age:20},
-        {firstname: "Daniyar4",lastname:"Myrzasary",middlename:"Timurylu",age:20},
+    useEffect(() => {
+        // Вычисляем количество страниц и создаем массив со значениями от 1 до n
+        const pageCount = Math.ceil(data.length / rowsPerPage);
+        const pagesArray = Array.from(Array(pageCount), (_, i) => i + 1);
+        setTotalPages(pagesArray);
+    }, [data, rowsPerPage]);
 
-    ]
+    const renderCountItems = () => {
+        return data.length < rowsPerPage + rowsPerPage * currentPage
+            ? data.length
+            : rowsPerPage + rowsPerPage * currentPage;
+    };
 
+    const handlePageClick = (pageNumber: number) => {
+        setCurrentPage(pageNumber - 1);
+    };
 
-    let totalPages:any = [];
-    for(let i = 1; i<=Math.ceil(arr.length/4);i++){
-        totalPages.push(i);
-    }
+    const renderPagination = () => {
+        // Определяем начальную и конечную страницу в зависимости от текущей страницы
+        let startPage = Math.max(currentPage - 2, 0);
+        let endPage = Math.min(startPage + 4, totalPages.length - 1);
+
+        if (endPage - startPage < 4) {
+            startPage = Math.max(endPage - 4, 0);
+        }
+
+        // Создаем массив с кнопками пагинации
+        const pages = [];
+        if (startPage > 0) {
+            pages.push(
+                <button key={1}
+                        className={currentPage === 1 ? " pagination-btn active-pagination-btn" : "pagination-btn"}
+                        onClick={() => handlePageClick(1)}>
+                    1
+                </button>,
+                <span className="ellipsis" key={"ellipsis-start"}>...</span>
+            );
+        }
+
+        for (let i = startPage; i <= endPage; i++) {
+            pages.push(
+                <button
+                    key={totalPages[i]}
+                    onClick={() => handlePageClick(totalPages[i])}
+                    className={currentPage === i ? "pagination-btn active-pagination-btn" : "pagination-btn"}
+                >
+                    {totalPages[i]}
+                </button>
+            );
+        }
+
+        if (endPage < totalPages.length - 1) {
+            pages.push(
+                <span className="ellipsis" key={"ellipsis-end"}>...</span>,
+                <button
+                    className={currentPage === 10 ? "pagination-btn active-pagination-btn" : "pagination-btn"}
+                    key={totalPages[totalPages.length - 1]}
+                    onClick={() => handlePageClick(totalPages[totalPages.length - 1])}
+                >
+                    {totalPages[totalPages.length - 1]}
+                </button>
+            );
+        }
+
+        return pages;
+    };
 
     return (
-        <div>
-            <table>
-                <thead>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Middlename</th>
-                    <th>Age</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    arr.slice(0+(currentPage*4),4+(currentPage*4)).map((item:any)=>{
-                        return(
-                            <tr>
-                                <td>{item.firstname}</td>
-                                <td>{item.lastname}</td>
-                                <td>{item.middlename}</td>
-                                <td>{item.age}</td>
-                            </tr>
-                        )
-                    })
-                }
-                </tbody>
-                <div>{
-                    totalPages.map((item:any)=>{
-                        return(
-                            <button onClick={()=>{
-                                 setCurrentPage(item-1);
-                            }}>{item}</button>
-                        )
-                    })
-                }</div>
-            </table>
-        </div>
-    )
-
-}
+        <table>
+            <thead>{renderHead()}</thead>
+            <tbody>
+            {data
+                .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+                .map((item: any, index: number) => {
+                    return renderRow(item, index);
+                })}
+            </tbody>
+            <tfoot>
+                     <div className="pagination">
+                         <div className="count-of-elements">
+                             {`${renderCountItems()} of ${data.length} items`}
+                         </div>
+                         <div>{renderPagination()}</div>
+                     </div>
+            </tfoot>
+        </table>
+    );
+};
 
 export default Table;

@@ -28,6 +28,7 @@ $primary-color-light-blue: #00A8E8;
 }
 
 body {
+  box-sizing: border-box;
   margin: 0;
   font-family: $font-stack;
 }
@@ -183,6 +184,7 @@ table{
 
 thead{
   background-color: #F5F5F5;
+  height: 32px;
 }
 
 thead th{
@@ -194,11 +196,63 @@ thead th{
 
 tbody tr{
   border-bottom: 2px solid #F5F5F5;
+  height: 64px;
 }
 
-tbody td{
+tbody tr td{
   padding: 26px 0px 26px 10px;
 }
+
+tfoot {
+  width: 100%;
+}
+
+.pagination{
+  display: flex;
+  flex-direction: row;
+  height: 68px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.count-of-elements{
+  font-size: 14px;
+  font-weight: lighter;
+  font-family: $font-stack;
+  color: #747474;
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.ellipsis{
+  font-family: $font-stack;
+  color: #007EA7;
+  font-weight: bold;
+}
+
+.pagination-btn{
+  border: none;
+  background-color: unset;
+  color: #007EA7;
+  font-weight: bold;
+  margin-left: 6px;
+}
+.active-pagination-btn{
+  font-weight: lighter;
+  background-color: #007EA7;
+  border-radius: 50%;
+  color: white;
+  width: 32px;
+  height: 32px;
+}
+
+.pagination-btn:last-child{
+  margin-left: 0;
+}
+.active-pagination-btn:last-child{
+  margin-left: 0;
+}
+
 
 
 
