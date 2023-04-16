@@ -25,6 +25,11 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
     const totalPages: any = [];
 
 
+    for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
+        totalPages.push(i);
+    }
+
+
     const renderCountItems = () => {
         return data.length < rowsPerPage + rowsPerPage * currentPage
             ? data.length
