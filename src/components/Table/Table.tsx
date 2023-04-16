@@ -4,19 +4,27 @@ import Checkbox from "../Checkbox/Checkbox";
 
 
 interface Props {
-    data: any[];
+    array: any[];
     rowsPerPage: number;
     renderHead: (maxWidthColumns: number[]) => JSX.Element;
     renderBody: (item: any, index: number, maxWidthColumns: number[], checkbox: any) => JSX.Element;
     maxWidthTable: number;
     maxWidthColumns: number[];
     haveDelete: boolean;
+    onDelete: any;
 }
 
-const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete}: Props) => {
+const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete, onDelete}: Props) => {
+    const [data, setData] = useState(array);
     const [currentPage, setCurrentPage] = useState(0);
+    const checked = data.map((item:any) => {
+        return {id: item.id, checked: false}
+    });
+    const [itemsToDelete, setItemsToDelete]:any[] = useState([]);
+    const [itemsChecked, setItemsChecked]:any[] = useState([...checked]);
     const totalPages: any = [];
-    const itemsToDelete: any[] = [];
+
+
     for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
         totalPages.push(i);
     }
@@ -33,19 +41,28 @@ const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWid
     };
 
     const getCheckbox = (item: any) => {
+
+        const obj = itemsChecked.find((i:any) => i.id === item.id);
+        const ind = itemsChecked.indexOf(obj);
         return haveDelete ?
             <Checkbox
                 id={data.indexOf(item)}
-                defaultChecked={itemsToDelete.includes(item)}
+                checked={itemsChecked[ind].checked}
                 onChange={(e:any) => {
                     if(e.target.checked){
-                        itemsToDelete.push(item);
+                        let array = itemsToDelete;
+                        array.push(item);
+                        setItemsToDelete([...array]);
+                        itemsChecked[ind].checked = true;
                         console.log(itemsToDelete)
                     }else{
                         if(itemsToDelete.includes(item)){
-                            const index = itemsToDelete.indexOf(item);
-                            itemsToDelete.splice(index,1);
+                            let array = itemsToDelete;
+                            const index = array.indexOf(item);
+                            array.splice(index,1);
+                            setItemsToDelete([...array]);
                             console.log(itemsToDelete)
+                            itemsChecked[ind].checked = false;
                         }
                     }
 
@@ -106,7 +123,7 @@ const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWid
     };
 
     return (
-        <div className="table-main" style={{maxWidth: maxWidthTable}}>
+        <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
             <div className="table-header">{renderHead(maxWidthColumns)}</div>
             <div className="table-body">
                 {data
@@ -121,9 +138,15 @@ const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWid
                 </div>
                 <div className="pages">{renderPagination()}</div>
                 <div className="delete-btn">{haveDelete ?
-                    <button>
+                    <button onClick={()=>{
+                        setData(data.filter(item => !(itemsToDelete.includes(item))));
+                        setCurrentPage(0);
+                        setItemsToDelete([]);
+                        onDelete();
+                    }
+                    }>
                         <img src={Delete} alt={'icon'}/>
-                        <div>Delete</div>
+                        <div>{`Delete${itemsToDelete.length > 0 ? `(${itemsToDelete.length})`: ""}`}</div>
                     </button> : null}</div>
             </div>
         </div>

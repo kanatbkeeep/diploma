@@ -8,7 +8,8 @@ import Table from "./components/Table/Table";
 
 function App() {
     const arr = Array.from({ length: 40 }, (_, i) => ({
-        firstname: `Firstname${Math.floor(i / 4) + 1}`,
+        id:i,
+        firstname: `Firstname${i}`,
         lastname: "Myrzasary",
         middlename: "Timurylu",
         age: 20,
@@ -55,11 +56,14 @@ function App() {
             <br/>
             <br/>
             <Table
-                data={arr}
+                array={arr}
                 rowsPerPage={4}
                 maxWidthTable={800}
                 maxWidthColumns={[200, 200, 200, 200]}
                 haveDelete={true}
+                onDelete={()=>{
+                    console.log("deleted");
+                }}
                 renderHead={(maxWidthColumns) => {
                     return <div>
                         <div style={{maxWidth:50}}></div>
