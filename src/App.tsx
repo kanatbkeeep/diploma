@@ -7,7 +7,7 @@ import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
 
 function App() {
-    const arr = Array.from({ length: 4 }, (_, i) => ({
+    const arr = Array.from({ length: 40 }, (_, i) => ({
         firstname: `Firstname${Math.floor(i / 4) + 1}`,
         lastname: "Myrzasary",
         middlename: "Timurylu",
