@@ -11,9 +11,10 @@ interface Props {
     maxWidthTable: number;
     maxWidthColumns: number[];
     haveDelete: boolean;
+    onDelete: any;
 }
 
-const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete}: Props) => {
+const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete, onDelete}: Props) => {
     const [data, setData] = useState(array);
     const [currentPage, setCurrentPage] = useState(0);
     const checked = data.map((item:any) => {
@@ -139,7 +140,9 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
                 <div className="delete-btn">{haveDelete ?
                     <button onClick={()=>{
                         setData(data.filter(item => !(itemsToDelete.includes(item))));
+                        setCurrentPage(0);
                         setItemsToDelete([]);
+                        onDelete();
                     }
                     }>
                         <img src={Delete} alt={'icon'}/>

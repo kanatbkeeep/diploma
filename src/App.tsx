@@ -61,6 +61,9 @@ function App() {
                 maxWidthTable={800}
                 maxWidthColumns={[200, 200, 200, 200]}
                 haveDelete={true}
+                onDelete={()=>{
+                    console.log("deleted");
+                }}
                 renderHead={(maxWidthColumns) => {
                     return <div>
                         <div style={{maxWidth:50}}></div>
