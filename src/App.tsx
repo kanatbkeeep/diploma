@@ -8,6 +8,7 @@ import Table from "./components/Table/Table";
 
 function App() {
     const arr = Array.from({ length: 40 }, (_, i) => ({
+        id:i,
         firstname: `Firstname${i}`,
         lastname: "Myrzasary",
         middlename: "Timurylu",
