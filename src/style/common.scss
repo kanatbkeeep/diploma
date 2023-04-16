@@ -173,91 +173,83 @@ body {
 
 //таблица
 
-.table-main{
+.table-main {
   box-shadow: 0px 5px 11px 4px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
   font-size: 12px;
   font-family: $font-stack;
+  overflow-wrap: anywhere;
 }
 
-.table-header{
+.table-header {
   background-color: #F5F5F5;
-  height: 32px;
-  padding-right: 6px;
 }
 
-.table-header div:first-child{
+.table-header div:first-child {
   display: flex;
   flex-direction: row;
+}
+
+.table-header div:first-child div {
+  display: flex;
+  justify-content: flex-start;
+  padding: 7.5px 20px 7.5px 5px;
   width: 100%;
-  height: inherit;
 }
 
-.table-header div:first-child div{
+.table-body div {
+  display: flex;
+  flex-direction: row;
+}
+
+.table-body div div {
+  padding: 7.5px 20px 7.5px 5px;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: inherit;
-  font-weight: 400;
+  overflow-wrap: anywhere;
 }
 
-.table-body div{
-  display: flex;
-  flex-direction: row;
-  border-bottom: 2px solid #F5F5F5;
-  height: 64px;
-}
-
-.table-body div div{
+.pagination {
   width: 100%;
-  height: inherit;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-weight: 600;
-}
-
-
-
-.pagination{
   display: flex;
   flex-direction: row;
   height: 68px;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
 }
 
-.count-of-elements{
+.count-of-elements {
   font-size: 14px;
   font-weight: lighter;
   font-family: $font-stack;
   color: #747474;
-  width: 90px;
+  height: 20px;
+  width: 100%;
+  max-width: 90px;
 }
-
 .pages{
-  width: 220px;
+  height: 32px;
+  width: 100%;
+  max-width: 210px;
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: space-around;
+  align-items: center;
 }
 
-.ellipsis{
-  font-family: $font-stack;
+
+.ellipsis {
   color: #007EA7;
   font-weight: bold;
 }
 
-.pagination-btn{
+.pagination-btn {
   border: none;
   background-color: unset;
   color: #007EA7;
   font-weight: bold;
-  margin-left: 6px;
 }
-.active-pagination-btn{
+
+.active-pagination-btn {
   font-weight: lighter;
   background-color: #007EA7;
   border-radius: 50%;
@@ -266,6 +258,7 @@ body {
   height: 32px;
 }
 
+
 .delete-btn{
   width: 144px;
   height: 42px;
@@ -273,16 +266,20 @@ body {
 
 .delete-btn button{
   border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
   height: 100%;
   background-color: #007EA7;
-  color: white;
+  border-radius: 10px;
+}
+
+.delete-btn button div{
   font-size: 12px;
   font-weight: lighter;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 10px;
+  color: white;
 }
 
 .delete-btn button img{
@@ -292,11 +289,57 @@ body {
   margin-right: 12px;
 }
 
+// input
+
+.forms-group label {
+  text-align: left;
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 20px;
+  color: #000000;
+}
+
+.forms-group .forms-control {
+  width: 100%;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 20px;
+  background: #f1f2f2;
+  border: 1px solid #747474;
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #000000;
+}
+
+.forms-group .forms-control:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid #007EA7;
+}
+
+textarea {
+  resize: none;
+}
+
 // checkbox
+
+.checkbox-group{
+  display: block;
+}
 
 .checkbox-group input[type=checkbox]{
   width: 20px;
   height: 20px;
+}
+
+.checkbox-group input[type=checkbox]:before{
+  content: "";
+}
+
+.checkbox-group input[type=checkbox]:checked:after{
+  content: "";
+  background-color: black;
 }
 
 @font-face {
