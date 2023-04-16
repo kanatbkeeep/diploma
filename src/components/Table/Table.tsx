@@ -24,13 +24,6 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
     const [itemsChecked, setItemsChecked]:any[] = useState([...checked]);
     const totalPages: any = [];
 
-    useEffect(()=>{
-        console.log(itemsToDelete);
-    },[])
-    for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
-        totalPages.push(i);
-    }
-
 
     const renderCountItems = () => {
         return data.length < rowsPerPage + rowsPerPage * currentPage
