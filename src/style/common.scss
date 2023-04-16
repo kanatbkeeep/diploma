@@ -215,8 +215,6 @@ body {
   align-items: center;
 }
 
-
-
 .pagination{
   display: flex;
   flex-direction: row;
@@ -290,6 +288,10 @@ body {
 }
 
 // checkbox
+
+.checkbox-group{
+  display: block;
+}
 
 .checkbox-group input[type=checkbox]{
   width: 20px;
