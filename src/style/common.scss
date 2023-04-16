@@ -173,39 +173,49 @@ body {
 
 //таблица
 
-table{
+.table-main{
   box-shadow: 0px 5px 11px 4px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
   font-size: 12px;
-  border-spacing: 0;
-  border-collapse: collapse;
   font-family: $font-stack;
 }
 
-thead{
+.table-header{
   background-color: #F5F5F5;
   height: 32px;
 }
 
-thead th{
-  padding: 4px 100px 4px 10px;
-  text-align: left;
-  color: #747474;
-  font-weight: lighter;
+.table-header div:first-child{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: inherit;
 }
 
-tbody tr{
+.table-header div:first-child div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: inherit;
+}
+
+.table-body div{
+  display: flex;
+  flex-direction: row;
   border-bottom: 2px solid #F5F5F5;
   height: 64px;
 }
 
-tbody tr td{
-  padding: 26px 0px 26px 10px;
+.table-body div div{
+  width: 100%;
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-tfoot {
-  width: 100%;
-}
+
 
 .pagination{
   display: flex;
@@ -220,8 +230,15 @@ tfoot {
   font-weight: lighter;
   font-family: $font-stack;
   color: #747474;
-  margin-left: 60px;
-  margin-right: 60px;
+  width: 90px;
+}
+
+.pages{
+  width: 220px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .ellipsis{
@@ -246,13 +263,33 @@ tfoot {
   height: 32px;
 }
 
-.pagination-btn:last-child{
-  margin-left: 0;
-}
-.active-pagination-btn:last-child{
-  margin-left: 0;
+.delete-btn{
+  width: 144px;
+  height: 42px;
 }
 
+.delete-btn button{
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-color: #007EA7;
+  color: white;
+  font-size: 12px;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.delete-btn button img{
+  width: 16px;
+  height: 18px;
+  margin-left: 22px;
+  margin-right: 12px;
+}
+
+// checkbox
 
 
 
