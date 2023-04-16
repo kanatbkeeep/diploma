@@ -7,7 +7,7 @@ import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
 
 function App() {
-    const arr = Array.from({ length: 40 }, (_, i) => ({
+    const arr = Array.from({ length: 4 }, (_, i) => ({
         firstname: `Firstname${Math.floor(i / 4) + 1}`,
         lastname: "Myrzasary",
         middlename: "Timurylu",
@@ -62,7 +62,7 @@ function App() {
                 haveDelete={true}
                 renderHead={(maxWidthColumns) => {
                     return <div>
-                        <div style={{maxWidth:30}}></div>
+                        <div style={{maxWidth:50}}></div>
                         <div style={{maxWidth: maxWidthColumns[0]}}>Имя</div>
                         <div style={{maxWidth: maxWidthColumns[1]}}>Фамилия</div>
                         <div style={{maxWidth: maxWidthColumns[2]}}>Отчество</div>
@@ -72,7 +72,7 @@ function App() {
                 renderBody={(item, index, maxWidthColumns, checkbox) => {
                     return (
                         <div key={index}>
-                            <div style={checkbox ? {maxWidth:30} : {}}>{checkbox}</div>
+                            <div style={checkbox ? {maxWidth:50} : {}}>{checkbox}</div>
                             <div style={{maxWidth: maxWidthColumns[0]}}>{item.firstname}</div>
                             <div style={{maxWidth: maxWidthColumns[1]}}>{item.lastname}</div>
                             <div style={{maxWidth: maxWidthColumns[2]}}>{item.middlename}</div>

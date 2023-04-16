@@ -291,7 +291,10 @@ body {
 
 // checkbox
 
-
+.checkbox-group input[type=checkbox]{
+  width: 20px;
+  height: 20px;
+}
 
 @font-face {
   font-family: 'Poppins';
