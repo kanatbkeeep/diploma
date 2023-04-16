@@ -25,11 +25,6 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
     const totalPages: any = [];
 
 
-    for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
-        totalPages.push(i);
-    }
-
-
     const renderCountItems = () => {
         return data.length < rowsPerPage + rowsPerPage * currentPage
             ? data.length
@@ -54,14 +49,12 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
                         array.push(item);
                         setItemsToDelete([...array]);
                         itemsChecked[ind].checked = true;
-                        console.log(itemsToDelete)
                     }else{
                         if(itemsToDelete.includes(item)){
                             let array = itemsToDelete;
                             const index = array.indexOf(item);
                             array.splice(index,1);
                             setItemsToDelete([...array]);
-                            console.log(itemsToDelete)
                             itemsChecked[ind].checked = false;
                         }
                     }
@@ -138,7 +131,9 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
                 </div>
                 <div className="pages">{renderPagination()}</div>
                 <div className="delete-btn">{haveDelete ?
-                    <button onClick={()=>{
+                    <button
+                        disabled={!(itemsToDelete.length !== 0)}
+                        onClick={()=>{
                         setData(data.filter(item => !(itemsToDelete.includes(item))));
                         setCurrentPage(0);
                         setItemsToDelete([]);
