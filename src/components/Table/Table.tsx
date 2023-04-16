@@ -4,7 +4,7 @@ import Checkbox from "../Checkbox/Checkbox";
 
 
 interface Props {
-    data: any[];
+    array: any[];
     rowsPerPage: number;
     renderHead: (maxWidthColumns: number[]) => JSX.Element;
     renderBody: (item: any, index: number, maxWidthColumns: number[], checkbox: any) => JSX.Element;
@@ -13,10 +13,11 @@ interface Props {
     haveDelete: boolean;
 }
 
-const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete}: Props) => {
+const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete}: Props) => {
     const [currentPage, setCurrentPage] = useState(0);
     const totalPages: any = [];
     const itemsToDelete: any[] = [];
+    const [data, setData] = useState(array);
     for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
         totalPages.push(i);
     }
@@ -121,7 +122,10 @@ const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWid
                 </div>
                 <div className="pages">{renderPagination()}</div>
                 <div className="delete-btn">{haveDelete ?
-                    <button>
+                    <button onClick={()=>{
+                        setData(data.filter(item => !(itemsToDelete.includes(item))));
+                    }
+                    }>
                         <img src={Delete} alt={'icon'}/>
                         <div>Delete</div>
                     </button> : null}</div>
