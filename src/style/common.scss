@@ -280,12 +280,17 @@ body {
   border-radius: 10px;
 }
 
+.delete-btn button:disabled{
+  background-color: #BFCCD6;
+}
+
 .delete-btn button img{
   width: 16px;
   height: 18px;
   margin-left: 22px;
   margin-right: 12px;
 }
+
 
 // checkbox
 
