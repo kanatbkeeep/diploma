@@ -36,17 +36,19 @@ const Table = ({data, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWid
         return haveDelete ?
             <Checkbox
                 id={data.indexOf(item)}
-                checked={itemsToDelete.includes(item)}
+                defaultChecked={itemsToDelete.includes(item)}
                 onChange={(e:any) => {
                     if(e.target.checked){
-                        console.log(`checked ${data.indexOf(item)}`)
+                        itemsToDelete.push(item);
+                        console.log(itemsToDelete)
+                    }else{
                         if(itemsToDelete.includes(item)){
                             const index = itemsToDelete.indexOf(item);
                             itemsToDelete.splice(index,1);
-                        }else{
-                            itemsToDelete.push(item);
+                            console.log(itemsToDelete)
                         }
                     }
+
                 }
                 }
             />
