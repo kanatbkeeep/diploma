@@ -215,6 +215,14 @@ body {
   align-items: center;
 }
 
+.table-body div .checkbox-group{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: inherit;
+  justify-content: space-evenly;
+}
+
 .pagination{
   display: flex;
   flex-direction: row;
@@ -302,6 +310,7 @@ body {
   width: 20px;
   height: 20px;
 }
+
 
 @font-face {
   font-family: 'Poppins';
