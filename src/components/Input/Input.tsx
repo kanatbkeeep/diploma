@@ -1,37 +1,60 @@
-import React from "react";
+import React, {useState} from "react";
+import visiblePass from "../../assets/icon/visible_pass.svg";
+import hiddenPass from "../../assets/icon/hidden_pass.svg";
 
 const Input = (props:any) => {
+    const [visible,setVisible] = useState(false);
+
 
     if (props.type === "area") {
         return (
-            <div className="forms-group">
+            <div className="forms-group" style={{maxWidth: props.maxWidth}}>
                 <label htmlFor="forInput">{props.label}</label>
                 <textarea
                     rows={4}
-                    style={{maxWidth: props.maxWidth}}
                     onChange={props.onChange}
                     id="forInput"
-                    className="forms-control"
                     placeholder={props.placeholder}
                     disabled={props.disabled}
+                    value={props.value}
                 />
             </div>
         );
     }
 
+    else if (props.type === "password"){
+          return <div className="forms-group" style={{maxWidth: props.maxWidth}}>
+              <label htmlFor="forInput">{props.label}</label>
+              <div className="container-password">
+                  <input
+                      className="input-password"
+                      type={visible ? "text" : "password"}
+                      onChange={props.onChange}
+                      placeholder={props.placeholder}
+                      id="forInput"
+                      disabled={props.disabled}
+                      value={props.value}
+                  />
+                  <button onClick={()=>{setVisible(!visible)}}>
+                      <img src={visible ? hiddenPass : visiblePass}/>
+                  </button>
+              </div>
+          </div>
+    }
+
     return(
-            <div className="forms-group">
+            <div className="forms-group" style={{maxWidth: props.maxWidth}}>
                 <label htmlFor="forInput">{props.label}</label>
                 <input
-                    style={{maxWidth: props.maxWidth}}
                     type="text"
                     onChange={props.onChange}
-                    required={props.required ? props.required : false}
                     placeholder={props.placeholder}
                     id="forInput"
-                    className="forms-control"
                     disabled={props.disabled}
+                    value={props.value}
                 />
+
+
             </div>
         )
 

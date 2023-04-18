@@ -5,6 +5,7 @@ import {store} from './store/store'
 import {Provider} from 'react-redux'
 import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
+import Input from "./components/Input/Input";
 
 function App() {
     const arr = Array.from({ length: 40 }, (_, i) => ({
@@ -18,6 +19,18 @@ function App() {
 
     return (
         <Provider store={store}>
+
+            <Input
+                label="Email"
+            maxWidth={200}
+            />
+
+            <Input
+                type="password"
+                label="Passowrd"
+                maxWidth={200}
+            />
+
             <Button
                 type={'primaryButton'}
                 label={'Button'}
