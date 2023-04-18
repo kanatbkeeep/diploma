@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
 const Input = (props:any) => {
+    const [visible,setVisible] = useState(false);
+
 
     if (props.type === "area") {
         return (
@@ -11,12 +13,27 @@ const Input = (props:any) => {
                     style={{maxWidth: props.maxWidth}}
                     onChange={props.onChange}
                     id="forInput"
-                    className="forms-control"
                     placeholder={props.placeholder}
                     disabled={props.disabled}
+                    value={props.value}
                 />
             </div>
         );
+    }
+
+    else if (props.type === "password"){
+          return <div className="forms-group">
+              <label htmlFor="forInput">{props.label}</label>
+              <input
+                  style={{maxWidth: props.maxWidth}}
+                  type={visible ? "text" : "password"}
+                  onChange={props.onChange}
+                  placeholder={props.placeholder}
+                  id="forInput"
+                  disabled={props.disabled}
+                  value={props.value}
+              />
+          </div>
     }
 
     return(
@@ -26,11 +43,10 @@ const Input = (props:any) => {
                     style={{maxWidth: props.maxWidth}}
                     type="text"
                     onChange={props.onChange}
-                    required={props.required ? props.required : false}
                     placeholder={props.placeholder}
                     id="forInput"
-                    className="forms-control"
                     disabled={props.disabled}
+                    value={props.value}
                 />
             </div>
         )
