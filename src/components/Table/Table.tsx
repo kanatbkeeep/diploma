@@ -12,16 +12,28 @@ interface Props {
     maxWidthColumns: number[];
     haveDelete: boolean;
     onDelete: any;
+    search: boolean;
 }
 
-const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWidthColumns, haveDelete, onDelete}: Props) => {
+const Table = ({
+                   array,
+                   rowsPerPage,
+                   renderBody,
+                   renderHead,
+                   maxWidthTable,
+                   maxWidthColumns,
+                   haveDelete,
+                   onDelete,
+                   search
+               }: Props) => {
     const [data, setData] = useState(array);
     const [currentPage, setCurrentPage] = useState(0);
-    const checked = data.map((item:any) => {
+    const [nameSearch, setNameSearch] = useState("");
+    const checked = data.map((item: any) => {
         return {id: item.id, checked: false}
     });
-    const [itemsToDelete, setItemsToDelete]:any[] = useState([]);
-    const [itemsChecked, setItemsChecked]:any[] = useState([...checked]);
+    const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
+    const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
     const totalPages: any = [];
 
 
@@ -42,23 +54,23 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
 
     const getCheckbox = (item: any) => {
 
-        const obj = itemsChecked.find((i:any) => i.id === item.id);
+        const obj = itemsChecked.find((i: any) => i.id === item.id);
         const ind = itemsChecked.indexOf(obj);
         return haveDelete ?
             <Checkbox
                 id={data.indexOf(item)}
                 checked={itemsChecked[ind].checked}
-                onChange={(e:any) => {
-                    if(e.target.checked){
+                onChange={(e: any) => {
+                    if (e.target.checked) {
                         let array = itemsToDelete;
                         array.push(item);
                         setItemsToDelete([...array]);
                         itemsChecked[ind].checked = true;
-                    }else{
-                        if(itemsToDelete.includes(item)){
+                    } else {
+                        if (itemsToDelete.includes(item)) {
                             let array = itemsToDelete;
                             const index = array.indexOf(item);
-                            array.splice(index,1);
+                            array.splice(index, 1);
                             setItemsToDelete([...array]);
                             itemsChecked[ind].checked = false;
                         }
@@ -121,35 +133,49 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
     };
 
     return (
-        <div className="table-main" style={{maxWidth: maxWidthTable, margin: 'auto'}}>
-            <div className="table-header">{renderHead(maxWidthColumns)}</div>
-            <div className="table-body">
-                {data
-                    .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                    .map((item: any, index: number) => {
-                        return renderBody(item, index, maxWidthColumns, getCheckbox(item));
-                    })}
-            </div>
-            <div className="pagination">
-                <div className="count-of-elements">
-                    {`${renderCountItems()} of ${data.length} items`}
+        <div className="container-table">
+            {
+                search ? <>
+                    <input
+                        type="search"
+                        onChange={(e: any) => {
+                            setNameSearch(e.target.value);
+                         }
+                        }
+                    />
+                </> : null
+            }
+            <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
+                <div className="table-header">{renderHead(maxWidthColumns)}</div>
+                <div className="table-body">
+                    {data
+                        .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+                        .map((item: any, index: number) => {
+                            return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                        })}
                 </div>
-                <div className="pages">{renderPagination()}</div>
-                <div className="delete-btn">{haveDelete ?
-                    <button
-                        disabled={!(itemsToDelete.length !== 0)}
-                        onClick={()=>{
-                        setData(data.filter(item => !(itemsToDelete.includes(item))));
-                        setCurrentPage(0);
-                        setItemsToDelete([]);
-                        onDelete();
-                    }
-                    }>
-                        <img src={Delete} alt={'icon'}/>
-                        <div>{`Delete${itemsToDelete.length > 0 ? `(${itemsToDelete.length})`: ""}`}</div>
-                    </button> : null}</div>
+                <div className="pagination">
+                    <div className="count-of-elements">
+                        {`${renderCountItems()} of ${data.length} items`}
+                    </div>
+                    <div className="pages">{renderPagination()}</div>
+                    <div className="delete-btn">{haveDelete ?
+                        <button
+                            disabled={!(itemsToDelete.length !== 0)}
+                            onClick={() => {
+                                setData(data.filter(item => !(itemsToDelete.includes(item))));
+                                setCurrentPage(0);
+                                setItemsToDelete([]);
+                                onDelete();
+                            }
+                            }>
+                            <img src={Delete} alt={'icon'}/>
+                            <div>{`Delete${itemsToDelete.length > 0 ? `(${itemsToDelete.length})` : ""}`}</div>
+                        </button> : null}</div>
+                </div>
             </div>
         </div>
+
     );
 };
 
