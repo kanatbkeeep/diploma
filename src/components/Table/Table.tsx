@@ -29,9 +29,10 @@ const Table = ({
     const [data, setData] = useState(array);
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
-    const checked = data.map((item: any) => {
+    const arrChecked = data.map((item: any) => {
         return {id: item.id, checked: false}
     });
+    const [checked, setChecked] = useState(arrChecked);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
     const totalPages: any = [];
@@ -137,9 +138,12 @@ const Table = ({
             {
                 search ? <>
                     <input
-                        type="search"
                         onChange={(e: any) => {
                             setNameSearch(e.target.value);
+                            for(let i = 0; i <= checked.length -1; i++){
+                                checked[i].checked = false;
+                            }
+                            setItemsToDelete([]);
                          }
                         }
                     />
@@ -148,11 +152,24 @@ const Table = ({
             <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
                 <div className="table-body">
-                    {data
-                        .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                        .map((item: any, index: number) => {
-                            return renderBody(item, index, maxWidthColumns, getCheckbox(item));
-                        })}
+                    {search
+                        ? data.filter((i: any) => {
+                            if (nameSearch && nameSearch.trim()) {
+                                return i.firstname.toLowerCase().includes(nameSearch.toLowerCase());
+                            } else return i;
+                        })
+                            .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+                            .map((item: any, index: number) => {
+                                return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                            })
+
+                        :data
+                            .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+                            .map((item: any, index: number) => {
+                                return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                            })
+
+                    }
                 </div>
                 <div className="pagination">
                     <div className="count-of-elements">
