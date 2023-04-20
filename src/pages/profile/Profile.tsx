@@ -20,6 +20,18 @@ function Profile() {
                         type={'secondaryButton'}
                         icon={iconHouse}
                     />
+
+                    <Button
+                        label={'Notifications'}
+                        type={'secondaryButton'}
+                        icon={iconBell}
+                    />
+
+                    <Button
+                        label={'Log out'}
+                        type={'primaryButton'}
+                        icon={iconLogout}
+                    />
                 </aside>
             </nav>
         </>

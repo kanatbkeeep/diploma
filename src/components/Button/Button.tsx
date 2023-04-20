@@ -14,7 +14,7 @@ const Button = (props: any) => {
                 {classname === 'primaryButtonAdd' || classname === 'secondaryButtonAdd' ||
                 classname === 'smallBlue' || classname === 'smallRed' || classname === 'smallDark' ?
                     <><img src={Plus} alt={'icon'}/> {props.label}</> : props.icon ?
-                    <><img src={props.icon} alt={'icon'}/> {props.label}</> : props.label
+                    <><img src={props.icon} alt={'icon'} className='icon'/> {props.label}</> : props.label
                 }
             </button>
         </>
