@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useMemo, useState} from "react";
+import React, {FC, useEffect, useMemo, useRef, useState} from "react";
 import Cross from "../../assets/icon/cross.svg"
 import CrossIcon from "../../assets/icon/notification/cross.svg"
 import TickIcon from "../../assets/icon/notification/tick.svg"
@@ -11,6 +11,22 @@ interface Props {
 
 const Notification: FC<Props> = ({open, onModalStateChanged}) => {
     const [opened, setOpened]: any = useState(!!open);
+    const boxRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        window.onclick = (event: MouseEvent) => {
+            const target = event.target as HTMLDivElement
+                | HTMLInputElement
+                | HTMLParagraphElement
+                | HTMLButtonElement
+                | HTMLHeadingElement;
+
+            if (!target?.contains(boxRef.current) && target !== boxRef.current) {
+                setOpened(false);
+            }
+        }
+    }, []);
+
     useEffect(() => {
         onModalStateChanged?.(opened);
     }, [opened]);
@@ -41,7 +57,7 @@ const Notification: FC<Props> = ({open, onModalStateChanged}) => {
 
     return (
         <>
-            <section className={opened ? 'notification' : 'notificationClosed'}>
+            <div ref={boxRef} className={opened ? 'notification' : 'notification notificationClosed'}>
                 <div onClick={() => setOpened(false)}><img src={Cross} alt={'cross'}/></div>
                 {notificationList?.map((notification: any) => {
                     return <>
@@ -70,7 +86,7 @@ const Notification: FC<Props> = ({open, onModalStateChanged}) => {
                         </div>
                     </>
                 })}
-            </section>
+            </div>
         </>
     )
 }
