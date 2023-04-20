@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import Delete from "../../assets/icon/delete.svg";
 import Checkbox from "../Checkbox/Checkbox";
+import login from "../../pages/authorization/Login";
 
 
 interface Props {
@@ -27,24 +28,118 @@ const Table = ({
                    search
                }: Props) => {
     const [data, setData] = useState(array);
+    let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
     const arrChecked = data.map((item: any) => {
         return {id: item.id, checked: false}
     });
+    const keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
     const [checked, setChecked] = useState(arrChecked);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
-    const totalPages: any = [];
-
-
+    let totalPages: any[] = [];
+    const copyTotalPages: any[] = [];
     for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
         totalPages.push(i);
+        copyTotalPages.push(i);
+    }
+
+
+    const showData = () =>{
+        if(search && nameSearch && nameSearch.trim()){
+            let length = data.filter((i: any, ind:any) => {
+                if (nameSearch && nameSearch.trim()) {
+                    let obj:any = null;
+                    keysOfData?.map((key:any,ind:any)=>{
+                        if(typeof i[key] === 'string'){
+                            if(i[key].toLowerCase().includes(nameSearch.toLowerCase())){
+                                console.log("нашел1")
+                                obj = i[key];
+                            }
+                        }else if(typeof i[key] === 'number'){
+                            if(i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())){
+                                console.log("нашел2")
+                                obj = i[key].toString();
+                            }
+                        }
+                    })
+                    return obj ? obj.toLowerCase().includes(nameSearch.toLowerCase()) : false;
+                } else{
+                    return i
+                };
+            }).length;
+
+            copyData = data.filter((i: any, ind:any) => {
+                if (nameSearch && nameSearch.trim()) {
+                    let obj:any = null;
+                    keysOfData?.map((key:any,ind:any)=>{
+                        if(typeof i[key] === 'string'){
+                            if(i[key].toLowerCase().includes(nameSearch.toLowerCase())){
+                                console.log("нашел1")
+                                obj = i[key];
+                            }
+                        }else if(typeof i[key] === 'number'){
+                            if(i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())){
+                                console.log("нашел2")
+                                obj = i[key].toString();
+                            }
+                        }
+                    })
+                    return obj ? obj.toLowerCase().includes(nameSearch.toLowerCase()) : false;
+                } else{
+                    return i
+                };
+            })
+
+            if(length === 0) length++;
+
+            let arr = [];
+            for(let i = 1; i <= Math.ceil(length / 4);i++){
+                arr.push(i);
+            }
+            totalPages = arr;
+
+            return data.filter((i: any, ind:any) => {
+                if (nameSearch && nameSearch.trim()) {
+                    let obj:any = null;
+                    keysOfData?.map((key:any)=>{
+                        if(typeof i[key] === 'string'){
+                            if(i[key].toLowerCase().includes(nameSearch.toLowerCase())){
+                                console.log("нашел1")
+                                obj = i[key];
+                            }
+                        }else if(typeof i[key] === 'number'){
+                            if(i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())){
+                                console.log("нашел2")
+                                obj = i[key].toString();
+                            }
+                        }
+                    })
+                    return obj ? obj.toLowerCase().includes(nameSearch.toLowerCase()) : false;
+                } else{
+                    totalPages = copyTotalPages;
+                    return i
+                };
+            }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+                .map((item: any, index: number) => {
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                });
+        }else{
+            return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+                .map((item: any, index: number) => {
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                })
+        }
     }
 
 
     const renderCountItems = () => {
-        return data.length < rowsPerPage + rowsPerPage * currentPage
+        if(search){
+            return copyData.length < rowsPerPage + rowsPerPage * currentPage
+                ? copyData.length
+                : rowsPerPage + rowsPerPage * currentPage;
+        }else return data.length < rowsPerPage + rowsPerPage * currentPage
             ? data.length
             : rowsPerPage + rowsPerPage * currentPage;
     };
@@ -152,28 +247,11 @@ const Table = ({
             <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
                 <div className="table-body">
-                    {search
-                        ? data.filter((i: any) => {
-                            if (nameSearch && nameSearch.trim()) {
-                                return i.firstname.toLowerCase().includes(nameSearch.toLowerCase());
-                            } else return i;
-                        })
-                            .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                            .map((item: any, index: number) => {
-                                return renderBody(item, index, maxWidthColumns, getCheckbox(item));
-                            })
-
-                        :data
-                            .slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                            .map((item: any, index: number) => {
-                                return renderBody(item, index, maxWidthColumns, getCheckbox(item));
-                            })
-
-                    }
+                    {data.length > 0 ? showData() : <div>Данных нет</div>}
                 </div>
                 <div className="pagination">
                     <div className="count-of-elements">
-                        {`${renderCountItems()} of ${data.length} items`}
+                        {`${renderCountItems()} of ${search && nameSearch && nameSearch.trim() ? copyData.length : data.length} items`}
                     </div>
                     <div className="pages">{renderPagination()}</div>
                     <div className="delete-btn">{haveDelete ?
@@ -181,6 +259,7 @@ const Table = ({
                             disabled={!(itemsToDelete.length !== 0)}
                             onClick={() => {
                                 setData(data.filter(item => !(itemsToDelete.includes(item))));
+                                copyData = copyData.filter(item => !(itemsToDelete.includes(item)));
                                 setCurrentPage(0);
                                 setItemsToDelete([]);
                                 onDelete();
