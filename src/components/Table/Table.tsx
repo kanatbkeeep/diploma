@@ -121,7 +121,7 @@ const Table = ({array, rowsPerPage, renderBody, renderHead, maxWidthTable, maxWi
     };
 
     return (
-        <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
+        <div className="table-main" style={{maxWidth: maxWidthTable, margin: 'auto'}}>
             <div className="table-header">{renderHead(maxWidthColumns)}</div>
             <div className="table-body">
                 {data
