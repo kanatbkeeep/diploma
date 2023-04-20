@@ -4,6 +4,31 @@ $primary-color-dark-blue: #003459;
 $primary-color-light-blue: #00A8E8;
 $primary-color-darker-blue: #00171F;
 
+.mt-24 {
+  margin-top: 24px;
+}
+
+.mt-38 {
+  margin-top: 38px;
+}
+
+.mt-42 {
+  margin-top: 42px;
+}
+
+.mr-58 {
+  margin-right: 58px;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
 .bg_darker_blue {
   background-color: $primary-color-darker-blue;
 }

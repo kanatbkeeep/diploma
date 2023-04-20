@@ -36,7 +36,32 @@ function Profile() {
             </nav>
 
             <main>
+                <section className={'userInfo mt-38'}>
+                    <aside className={'userAvatar'}></aside>
+                    <aside className={'userData'}>
+                        <h2>{'Berkinbayev Kanat Galymuly'}</h2>
+                        <div className="column">
+                            <h4 className="mt-24">{'Position'}</h4>
+                            <span>{'Associate Professor'}</span>
+                            <h4 className="mt-24">{'Degree'}</h4>
+                            <span>{'Research'}</span>
+                            <div className="row mt-24">
+                                <div  className="column mr-58">
+                                    <h4>{'Department'}</h4>
+                                    <span>{'Computer Engineering'}</span>
+                                </div>
+                                <div  className="column">
+                                    <h4>{'Director of the Department'}</h4>
+                                    <span>{'Assel Smayil'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </section>
+                <div className="line mt-42"/>
+                <section>
 
+                </section>
             </main>
         </>
     )
