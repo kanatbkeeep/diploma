@@ -34,6 +34,10 @@ function Profile() {
                     />
                 </aside>
             </nav>
+
+            <main>
+
+            </main>
         </>
     )
 }

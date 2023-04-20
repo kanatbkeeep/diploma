@@ -26,6 +26,7 @@ $primary-color-darker-blue: #00171F;
   color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 12px;
   width: 100%;
   height: 42px;
@@ -37,7 +38,7 @@ $primary-color-darker-blue: #00171F;
 }
 
 button .icon {
-  margin-right: 30px;
+  margin-right: 15px;
 }
 
 %smallButton {

@@ -8,3 +8,18 @@ nav {
 nav aside {
   display: flex;
 }
+
+nav aside button {
+  width: 144px !important;
+  margin-left: 50px;
+}
+
+nav aside button:first-of-type {
+  border: 1px solid #007EA7;
+  color: #007EA7;
+}
+
+nav aside button:first-of-type:hover {
+  border: 1px solid #007EA7;
+  color: #007EA7;
+}
