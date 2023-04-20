@@ -8,3 +8,62 @@ nav {
 nav aside {
   display: flex;
 }
+
+nav aside button {
+  width: 144px !important;
+  margin-left: 50px;
+}
+
+nav aside button:first-of-type {
+  border: 1px solid #007EA7;
+  color: #007EA7;
+}
+
+nav aside button:first-of-type:hover {
+  border: 1px solid #007EA7;
+  color: #007EA7;
+}
+
+h2, h4 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h4 {
+  color: #828282;
+}
+
+h4, span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.userInfo {
+  display: flex;
+  justify-content: center;
+}
+
+.userAvatar {
+  width: 300px;
+  min-width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  margin-right: 70px;
+  box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.25);
+}
+
+.line {
+  width: calc(100% - 400px);
+  height: 2px;
+  margin-left: 200px;
+  margin-right: 200px;
+  background-color: #007EA7;
+}
+
+.tableProfile {
+  margin: 40px 20px;
+}
