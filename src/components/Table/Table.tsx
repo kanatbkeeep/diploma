@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Delete from "../../assets/icon/delete.svg";
 import Checkbox from "../Checkbox/Checkbox";
 import login from "../../pages/authorization/Login";
+import Search from "../../assets/icon/search.svg"
 
 
 interface Props {
@@ -231,8 +232,10 @@ const Table = ({
     return (
         <div className="container-table">
             {
-                search ? <>
+                search ? <div className="searching-container">
+                    <img src={Search}/>
                     <input
+                        placeholder="Search"
                         onChange={(e: any) => {
                             setNameSearch(e.target.value);
                             for(let i = 0; i <= checked.length -1; i++){
@@ -242,7 +245,7 @@ const Table = ({
                          }
                         }
                     />
-                </> : null
+                </div> : null
             }
             <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
