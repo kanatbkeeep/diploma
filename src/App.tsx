@@ -9,6 +9,7 @@ import Login from "./pages/authorization/Login";
 import Input from "./components/Input/Input";
 import Checkbox from "./components/Checkbox/Checkbox";
 import Profile from "./pages/profile/Profile";
+import CreationPlan from "./pages/creation_plan/CreationPlan";
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
     ];
     return (
         <>
-           <Profile/>
+           <CreationPlan/>
         </>
     )
 }

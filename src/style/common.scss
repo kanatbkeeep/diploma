@@ -192,6 +192,12 @@ body {
   @extend %button;
 }
 
+.secondaryLightButton{
+  background-color: unset;
+  border: 1px solid white;
+  @extend %button;
+}
+
 .smallBlue {
   background-color: $primary-color-dark-blue;
   @extend %smallButton;
