@@ -107,7 +107,7 @@ function Profile() {
                                 </div>
                             );
                         }}
-                    />
+                     search={true}/>
                 </section>
             </main>
 
