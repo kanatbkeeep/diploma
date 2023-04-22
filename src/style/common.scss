@@ -382,6 +382,51 @@ body {
   border-radius: 4px;
   margin-right: 10px;
   transition: background-color 0.3s;
+
+}
+
+.checkbox-group input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-group input:checked ~ .checkmark:after {
+  display: block;
+  left: 7px;
+  top: 2px;
+  width: 5px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+// input
+
+.forms-group{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.forms-group label{
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.forms-group input{
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 13px 13px 13px 20px;
+  outline: unset;
+}
+
 }
 
 .checkbox-group input:checked ~ .checkmark {
@@ -536,6 +581,7 @@ body {
   color: #808B8F;
   cursor: pointer;
 }
+
 
 @font-face {
   font-family: 'Poppins';

@@ -6,19 +6,29 @@ import {Provider} from 'react-redux'
 import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
 import Dropdown from "./components/Dropdown/Dropdown";
+import Login from "./pages/authorization/Login";
+import Input from "./components/Input/Input";
+import Checkbox from "./components/Checkbox/Checkbox";
+
 
 function App() {
-    const arr = Array.from({ length: 40 }, (_, i) => ({
-        id:i,
-        firstname: `Firstname${i}`,
-        lastname: "Myrzasary",
-        middlename: "Timurylu",
-        age: 20,
-    }));
+    // const arr = Array.from({ length: 40 }, (_, i) => ({
+    //     id:i,
+    //     firstname: i,
+    //     lastname: "Myrzasary"+i,
+    //     middlename: "Timurylu",
+    //     age: 20,
+    // }));
 
-
+    const arr = [
+        { id: 1, firstname: "Alice", lastname: "Smith", middlename: "Marie", age: 25 },
+        { id: 2, firstname: "Bob", lastname: "Johnson", middlename: "William", age: 30 },
+        { id: 3, firstname: "Charlie", lastname: "Brown", middlename: "Thomas", age: 40 },
+        { id: 4, firstname: "David", lastname: "Lee", middlename: "Joseph", age: 20 },
+        { id: 5, firstname: "Emma", lastname: "Lee", middlename: "Sophia", age: 35 },
+    ];
     return (
-        <Provider store={store}>
+           <>
 
             <Dropdown/>
             <Button
@@ -58,7 +68,10 @@ function App() {
             />
             <br/>
             <br/>
+            <div style={{marginBottom: 16}}/>
+
             <Table
+                search={true}
                 array={arr}
                 rowsPerPage={4}
                 maxWidthTable={800}
@@ -88,17 +101,13 @@ function App() {
                     );
                 }}
             />
-
-            <br/>
-
-            <div style={{backgroundColor:"black"}}>
-                <svg width="14" height="11" viewBox="0 0 14 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.5537 7.55928L12.005 0.804521C12.3928 0.398493 13.0216 0.398493 13.4094 0.804521C13.7971 1.21055 13.7971 1.86885 13.4094 2.27488L5.5537 10.5L0.991038 5.72275C0.603248 5.31672 0.603248 4.65842 0.991038 4.25239C1.37883 3.84636 2.00756 3.84636 2.39535 4.25239L5.5537 7.55928Z" fill="white"/>
-                </svg>
-            </div>
-
-        </Provider>
-    );
+            <div style={{marginBottom: 16}}/>
+            <Checkbox
+                id="name"
+            label="Daniyar"
+            />
+        </>
+    )
 }
 
 export default App;
