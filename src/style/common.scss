@@ -194,12 +194,14 @@ body {
 }
 
 //таблица
+.container-table{
 
+}
 .table-main{
   box-shadow: 0px 5px 11px 4px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
   font-size: 12px;
-  
+  margin: 0;
 }
 
 .table-header{
@@ -281,6 +283,7 @@ body {
   color: #007EA7;
   font-weight: bold;
   margin-left: 6px;
+  transition: color 1s;
 }
 .active-pagination-btn{
   font-weight: lighter;
@@ -308,6 +311,7 @@ body {
   flex-direction: row;
   align-items: center;
   border-radius: 10px;
+  transition: background-color 0.5s;
 }
 
 .delete-btn button:disabled{
@@ -320,18 +324,87 @@ body {
   margin-left: 22px;
   margin-right: 12px;
 }
+.searching-container{
+  display: flex;
+  flex-direction: row;
+  width: 370px;
+  height: 42px;
+  align-items: center;
+  border: 2px solid #747474;
+  border-radius: 10px;
+  margin-bottom: 13px;
+}
+
+.searching-container img{
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  margin-left: 12px;
+}
+.searching-container input{
+  font-size: 14px;
+  border: unset;
+  outline: unset;
+  width: 85%;
+}
 
 
 // checkbox
 
-.checkbox-group{
-  display: block;
+//.checkbox-group{
+//  display: block;
+//}
+//
+//.checkbox-group input[type=checkbox]{
+//  width: 20px;
+//  height: 20px;
+//}
+
+.checkbox-group {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-size: 16px;
+  color: #333;
 }
 
-.checkbox-group input[type=checkbox]{
+.checkbox-group input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkmark {
+  position: relative;
+  display: inline-block;
   width: 20px;
   height: 20px;
+  background-color: #eee;
+  border-radius: 4px;
+  margin-right: 10px;
+  transition: background-color 0.3s;
 }
+
+.checkbox-group input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-group input:checked ~ .checkmark:after {
+  display: block;
+  left: 7px;
+  top: 2px;
+  width: 5px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
 
 // input
 
