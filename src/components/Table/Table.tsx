@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import Delete from "../../assets/icon/delete.svg";
 import Checkbox from "../Checkbox/Checkbox";
-import login from "../../pages/authorization/Login";
 import Search from "../../assets/icon/search.svg"
 
 
@@ -247,7 +246,7 @@ const Table = ({
                     />
                 </div> : null
             }
-            <div className="table-main" style={{maxWidth: maxWidthTable, marginLeft: 10}}>
+            <div className="table-main" style={{maxWidth: maxWidthTable}}>
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
                 <div className="table-body">
                     {data.length > 0 ? showData() : <div>Данных нет</div>}
