@@ -1,7 +1,11 @@
 import React from 'react';
 import './App.css';
 import './style/common.scss';
-import {Provider} from 'react-redux'
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route
+} from "react-router-dom";
 import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
 import Dropdown from "./components/Dropdown/Dropdown";
@@ -14,7 +18,12 @@ import Profile from "./pages/profile/Profile";
 function App() {
     return (
         <>
-            <Profile/>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Profile />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </Router>
         </>
     )
 }
