@@ -11,9 +11,12 @@ const Dropdown = (props: any) => {
                 {props.value}
                 <img src={arrow} style={{transform: isActive ? "rotate(180deg)" : ""}}/>
             </div>
-            {isActive && (
-                props.children
-            )}
+
+                {isActive && (
+                    props.children
+                )}
+
+
         </div>
     )
 }
