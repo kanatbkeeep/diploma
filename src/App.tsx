@@ -29,8 +29,19 @@ function App() {
     ];
     return (
            <>
-
-            <Dropdown/>
+            <Dropdown
+            maxWidth={300}
+            value='Select'
+            >
+                <ul>
+                    <li>React</li>
+                    <li>React</li>
+                    <li>React</li><li>React</li>
+                    <li>React</li>
+                    <li>React</li>
+                    <li>React</li>
+                </ul>
+            </Dropdown>
             <Button
                 type={'primaryButton'}
                 label={'Button'}
