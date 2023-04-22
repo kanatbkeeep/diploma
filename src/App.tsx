@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import './style/common.scss';
-import {store} from './store/store'
 import {Provider} from 'react-redux'
 import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
@@ -28,13 +27,8 @@ function App() {
         { id: 5, firstname: "Emma", lastname: "Lee", middlename: "Sophia", age: 35 },
     ];
     return (
-
-        // <Login/>
-
         <>
             <div style={{marginBottom: 16}}/>
-
-           <>
             <Dropdown
             maxWidth={300}
             value='Select'
