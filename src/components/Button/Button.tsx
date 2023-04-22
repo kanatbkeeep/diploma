@@ -12,8 +12,10 @@ const Button = (props: any) => {
                     onClick={props.onClick}
                     disabled={props.disabled}>
                 {classname === 'primaryButtonAdd' || classname === 'secondaryButtonAdd' ||
-                classname === 'smallBlue' || classname === 'smallRed' || classname === 'smallDark' ? <>
-                <img src={Plus} alt={'icon'}/> {props.label}</> : props.label}
+                classname === 'smallBlue' || classname === 'smallRed' || classname === 'smallDark' ?
+                    <><img src={Plus} alt={'icon'}/> {props.label}</> : props.icon ?
+                    <><img src={props.icon} alt={'icon'} className='icon'/> {props.label}</> : props.label
+                }
             </button>
         </>
     )

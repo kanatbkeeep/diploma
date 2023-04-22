@@ -1,5 +1,4 @@
 import React from 'react';
-import {store} from '../../store/store'
 import Logo from '../../assets/icon/logo.svg'
 import '../../style/loginPage.scss';
 import Input from "../../components/Input/Input";
