@@ -246,7 +246,7 @@ const Table = ({
                     />
                 </div> : null
             }
-            <div className="table-main" >
+            <div className="table-main">
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
                 <div className="table-body">
                     {data.length > 0 ? showData() : <div>Данных нет</div>}
