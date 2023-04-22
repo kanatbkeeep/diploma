@@ -5,6 +5,7 @@ import {store} from './store/store'
 import {Provider} from 'react-redux'
 import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
+import Dropdown from "./components/Dropdown/Dropdown";
 
 function App() {
     const arr = Array.from({ length: 40 }, (_, i) => ({
@@ -18,6 +19,8 @@ function App() {
 
     return (
         <Provider store={store}>
+
+            <Dropdown/>
             <Button
                 type={'primaryButton'}
                 label={'Button'}
