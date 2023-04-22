@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const Checkbox = (props:any) =>{
+
     return(
         <label className="checkbox-group">
             <input type="checkbox"
