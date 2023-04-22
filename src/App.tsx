@@ -5,9 +5,11 @@ import {store} from './store/store'
 import {Provider} from 'react-redux'
 import Button from './components/Button/Button'
 import Table from "./components/Table/Table";
+import Dropdown from "./components/Dropdown/Dropdown";
 import Login from "./pages/authorization/Login";
 import Input from "./components/Input/Input";
 import Checkbox from "./components/Checkbox/Checkbox";
+
 
 function App() {
     // const arr = Array.from({ length: 40 }, (_, i) => ({
@@ -26,10 +28,48 @@ function App() {
         { id: 5, firstname: "Emma", lastname: "Lee", middlename: "Sophia", age: 35 },
     ];
     return (
-        // <Login/>
+           <>
 
-        <>
+            <Dropdown/>
+            <Button
+                type={'primaryButton'}
+                label={'Button'}
+            />
+            <br/>
+            <br/>
+            <Button
+                type={'secondaryButton'}
+                label={'Button'}
+            />
+            <br/>
+            <br/>
+            <Button
+                type={'primaryButtonAdd'}
+                label={'Button'}
+            />
+            <br/>
+            <Button
+                type={'secondaryButtonAdd'}
+                label={'Button'}
+            />
+            <br/>
+            <Button
+                type={'smallBlue'}
+            />
+            <br/>
+            <br/>
+            <Button
+                type={'smallRed'}
+            />
+            <br/>
+            <br/>
+            <Button
+                type={'smallDark'}
+            />
+            <br/>
+            <br/>
             <div style={{marginBottom: 16}}/>
+
             <Table
                 search={true}
                 array={arr}

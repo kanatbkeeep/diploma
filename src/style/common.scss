@@ -382,6 +382,51 @@ body {
   border-radius: 4px;
   margin-right: 10px;
   transition: background-color 0.3s;
+
+}
+
+.checkbox-group input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-group input:checked ~ .checkmark:after {
+  display: block;
+  left: 7px;
+  top: 2px;
+  width: 5px;
+  height: 11px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+
+// input
+
+.forms-group{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.forms-group label{
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.forms-group input{
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 13px 13px 13px 20px;
+  outline: unset;
+}
+
 }
 
 .checkbox-group input:checked ~ .checkmark {
@@ -453,6 +498,90 @@ body {
   height: 16px;
   margin-right: 13px;
 }
+
+// dropdown
+
+.dropdown{
+  width: 100%;
+  position: relative;
+}
+
+.dropdown .dropdown-btn{
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #808B8F;
+}
+
+.dropdown .dropdown-btn-active{
+  border-bottom: unset;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.dropdown .dropdown-btn img{
+  width: 20px;
+  height: 10px;
+}
+
+.dropdown ul {
+  z-index: 1001;
+  position: absolute;
+  top: 56%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid black;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  max-height: 240px;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}
+
+.dropdown ul::-webkit-scrollbar{
+  width: 3px;
+  display: none;
+}
+
+.dropdown ul::-webkit-scrollbar-thumb{
+  background-color: #00A8E8;
+  border-radius: 10px;
+}
+.dropdown ul::-webkit-scrollbar-track{
+  scroll-padding-block-end: 10px;
+}
+
+.dropdown ul li{
+  list-style-type: none;
+  transition: color 0.3s;
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.dropdown ul li:last-child{
+  border: unset;
+}
+
+.dropdown ul li:hover{
+  color: #808B8F;
+  cursor: pointer;
+}
+
 
 @font-face {
   font-family: 'Poppins';
