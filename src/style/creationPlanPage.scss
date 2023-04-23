@@ -1,6 +1,5 @@
 .main-container{
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: row;
   padding: 0;
@@ -11,7 +10,6 @@
 .main-container aside{
   background: #00171F;
   width: 250px;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,7 +32,6 @@
 
 .main-container section{
   width: calc(100% - 250px);
-  height: 100vh;
   margin: 0;
 }
 
