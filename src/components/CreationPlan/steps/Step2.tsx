@@ -12,25 +12,10 @@ const Step2 = () => {
     const arr = Array.from({length: 40}, (_, i) => ({
         id: i,
         discipline: "Java" + i,
-        course: 3,
-        trimester: 1,
-        group: "SE-2014",
-        lectures: {
-            plan: 20,
-            fact: i === 2 ? 25 : 20,
-        },
-        practices: {
-            plan: 30,
-            fact: 30,
-        },
-        officeHours: {
-            plan: 10,
-            fact: 10,
-        },
-        total: {
-            plan: 60,
-            fact: 60,
-        }
+        nameOfWork:"Syllabus",
+        deadline:"01.01.2003",
+        infoOnImplementation:"Executed",
+        comment:"salam"
     }));
     return (
         <div className="step-component">
@@ -81,7 +66,7 @@ const Step2 = () => {
                     array={arr}
                     rowsPerPage={4}
                     maxWidthTable={1083}
-                    maxWidthColumns={[250, 55, 100, 100, 100, 100, 100, 100, 128]}
+                    maxWidthColumns={[250, 250, 100, 150, 150, 140]}
                     haveDelete={true}
                     onDelete={() => {
                         console.log("deleted");
@@ -90,14 +75,11 @@ const Step2 = () => {
                         return <div>
                             <div style={{maxWidth: 50}}></div>
                             <div style={{maxWidth: maxWidthColumns[0]}}>Discipline</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>Course</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>Trimester</div>
-                            <div style={{maxWidth: maxWidthColumns[3]}}>Group</div>
-                            <div style={{maxWidth: maxWidthColumns[4]}}>Lectures</div>
-                            <div style={{maxWidth: maxWidthColumns[5]}}>Practices</div>
-                            <div style={{maxWidth: maxWidthColumns[6]}}>Office Hours</div>
-                            <div style={{maxWidth: maxWidthColumns[7]}}>Total</div>
-                            <div style={{maxWidth: maxWidthColumns[8]}}></div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>Name of work</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>Deadlines</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>Information on implementation</div>
+                            <div style={{maxWidth: maxWidthColumns[4]}}>Comment</div>
+                            <div style={{maxWidth: maxWidthColumns[5]}}></div>
                         </div>
                     }}
                     renderBody={(item, index, maxWidthColumns, checkbox) => {
@@ -105,34 +87,11 @@ const Step2 = () => {
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.course}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.trimester}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.group}</div>
-                                <div style={{maxWidth: maxWidthColumns[4]}}>
-                                    <p style={{width: "100%", maxWidth: 50, color: "#003459"}}>{item.lectures.plan}</p>
-                                    <p style={{width: "100%", maxWidth: 50, color: "#007EA7"}}>{item.lectures.fact}</p>
-                                </div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameOfWork}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadline}</div>
+                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoOnImplementation}</div>
+                                <div style={{maxWidth: maxWidthColumns[4]}}>{item.comment}</div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>
-                                    <p style={{width: "100%", maxWidth: 50, color: "#003459"}}>{item.practices.plan}</p>
-                                    <p style={{width: "100%", maxWidth: 50, color: "#007EA7"}}>{item.practices.fact}</p>
-                                </div>
-                                <div style={{maxWidth: maxWidthColumns[6]}}>
-                                    <p style={{
-                                        width: "100%",
-                                        maxWidth: 50,
-                                        color: "#003459"
-                                    }}>{item.officeHours.plan}</p>
-                                    <p style={{
-                                        width: "100%",
-                                        maxWidth: 50,
-                                        color: "#007EA7"
-                                    }}>{item.officeHours.fact}</p>
-                                </div>
-                                <div style={{maxWidth: maxWidthColumns[7]}}>
-                                    <p style={{width: "100%", maxWidth: 50, color: "#003459"}}>{item.total.plan}</p>
-                                    <p style={{width: "100%", maxWidth: 50, color: "#007EA7"}}>{item.total.fact}</p>
-                                </div>
-                                <div style={{maxWidth: maxWidthColumns[8]}}>
                                     <div style={{width: 54, marginRight: 10}}><Button className="secondaryButton"
                                                                                       icon={Edit}/></div>
                                     <div style={{width: 54}}><Button icon={Copy}/></div>
