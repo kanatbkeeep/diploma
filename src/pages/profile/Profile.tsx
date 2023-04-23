@@ -1,4 +1,5 @@
-import React, {useCallback, useState} from 'react';
+import {observer} from 'mobx-react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Logo from '../../assets/icon/logoSmall.svg'
 import '../../style/profilePage.scss';
 import iconHouse from '../../assets/icon/house.svg'
@@ -7,12 +8,30 @@ import iconLogout from '../../assets/icon/logout.svg'
 import Button from "../../components/Button/Button";
 import Table from "../../components/Table/Table";
 import Navigation from "../../components/Notification/Notification";
+import AppStore from "../../store/AppStore";
 
 function Profile() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
     }, []);
+
+    useEffect(() => {
+        AppStore.getUser().then(() => {
+            if (!AppStore.currentUser) {
+                window.location.replace('/login')
+            }
+
+            if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
+                AppStore.getDepartmentByTeacher();
+            }
+
+        }).catch(() => {
+            if (!AppStore.currentUser) {
+                window.location.replace('/login')
+            }
+        });
+    }, [])
 
     const arr = Array.from({ length: 40 }, (_, i) => ({
         id:i,
@@ -57,20 +76,20 @@ function Profile() {
                 <section className={'userInfo mt-38'}>
                     <aside className={'userAvatar'}></aside>
                     <aside className={'userData'}>
-                        <h2>{'Berkinbayev Kanat Galymuly'}</h2>
+                        <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
                         <div className="column">
                             <h4 className="mt-24">{'Position'}</h4>
-                            <span>{'Associate Professor'}</span>
+                            <span>{AppStore.currentUser?.position}</span>
                             <h4 className="mt-24">{'Degree'}</h4>
-                            <span>{'Research'}</span>
+                            <span>{AppStore.currentUser?.degree}</span>
                             <div className="row mt-24">
                                 <div  className="column mr-58">
                                     <h4>{'Department'}</h4>
-                                    <span>{'Computer Engineering'}</span>
+                                    <span>{AppStore.department?.name}</span>
                                 </div>
                                 <div  className="column">
                                     <h4>{'Director of the Department'}</h4>
-                                    <span>{'Assel Smayil'}</span>
+                                    <span>{AppStore.department?.director.firstName + ' ' + AppStore.department?.director.lastName}</span>
                                 </div>
                             </div>
                         </div>
@@ -116,4 +135,4 @@ function Profile() {
     )
 }
 
-export default Profile;
+export default observer(Profile);
