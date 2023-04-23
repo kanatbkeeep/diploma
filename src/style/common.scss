@@ -458,7 +458,8 @@ body {
 
 .forms-group label{
   margin-left: 20px;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .forms-group input{
@@ -605,10 +606,17 @@ body {
 
 
 // dropdown
-
+.dropdown-container{
+width: 100%;
+}
 .dropdown{
   width: 100%;
   position: relative;
+}
+
+.dropdown-label{
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .dropdown .dropdown-btn{
@@ -620,6 +628,8 @@ body {
   align-items: center;
   justify-content: space-between;
   color: #808B8F;
+  height: 45px;
+  box-sizing: border-box;
 }
 
 .dropdown .dropdown-btn-active{
