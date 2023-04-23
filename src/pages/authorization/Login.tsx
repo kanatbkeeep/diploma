@@ -13,8 +13,8 @@ function Login() {
 
                     <aside>
                         <h2>{'Log in'}</h2>
-                        <Input label={'Email'}/>
-                        <Input label={'Password'} type={'password'}/>
+                        <Input label={'Email'} login={true}/>
+                        <Input label={'Password'} type={'password'} login={true}/>
                         <Button label={'Log in'}/>
                         <a>{'Forgot password?'}</a>
                     </aside>

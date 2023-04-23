@@ -448,6 +448,8 @@ body {
 }
 
 
+
+
 // input
 
 .forms-group{
@@ -457,60 +459,25 @@ body {
 }
 
 .forms-group label{
-  margin-left: 20px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 
 .forms-group input{
   border-radius: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 13px 13px 13px 20px;
   outline: unset;
 }
 
-
-.checkbox-group input:checked ~ .checkmark {
-  background-color: #2196f3;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.checkbox-group input:checked ~ .checkmark:after {
-  display: block;
-  left: 7px;
-  top: 2px;
-  width: 5px;
-  height: 11px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-
-// input
-
-.forms-group{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.forms-group label{
-  margin-left: 20px;
-  font-size: 16px;
-}
-
-.forms-group input{
+.forms-group textarea{
   border-radius: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 13px 13px 13px 20px;
   outline: unset;
+  resize: none;
 }
+
 
 .forms-group .container-password{
   border: 2px solid black;
