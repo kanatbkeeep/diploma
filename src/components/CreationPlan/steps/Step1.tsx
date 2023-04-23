@@ -2,10 +2,10 @@ import React from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
-import Plus from "E:\\frontend-diplomka\\src\\assets\\icon\\plus.svg";
-import Delete from "E:\\frontend-diplomka\\src\\assets\\icon\\delete.svg";
-import Edit from "E:\\frontend-diplomka\\src\\assets\\icon\\edit.svg";
-import Copy from "E:\\frontend-diplomka\\src\\assets\\icon\\copy.svg";
+import Plus from "../../../assets/icon/plus.svg";
+import Delete from "../../../assets/icon/delete.svg";
+import Edit from "../../../assets/icon/edit.svg";
+import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 
 const Step1 = () =>{
