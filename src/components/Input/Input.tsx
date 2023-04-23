@@ -5,7 +5,6 @@ import hiddenPass from "../../assets/icon/hidden_pass.svg";
 const Input = (props:any) => {
     const [visible,setVisible] = useState(false);
 
-
     if (props.type === "area") {
         return (
             <div className="forms-group" style={{maxWidth: props.maxWidth}}>
