@@ -1,5 +1,7 @@
 const ru = {
-    loginTitle: 'Вход'
+    loginTitle: 'Вход',
+    password: 'Пароль',
+    forgotPassword: 'Забыли пароль?',
 }
 
 export default ru;

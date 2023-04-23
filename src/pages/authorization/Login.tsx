@@ -4,6 +4,7 @@ import '../../style/loginPage.scss';
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import AppStore from "../../store/AppStore";
+import t from "../../utils/Lang";
 
 function Login() {
     return (
@@ -13,17 +14,17 @@ function Login() {
                     <img className={'logo'} src={Logo} alt={'logo'}/>
 
                     <aside>
-                        <h2>{'Log in'}</h2>
+                        <h2>{t('loginTitle')}</h2>
                         <Input label={'Email'} login onChange={(e: any) => {
                             AppStore.editModel({email: e.target.value});
                         }}/>
-                        <Input label={'Password'} type={'password'} login onChange={(e: any) => {
+                        <Input label={t('password')} type={'password'} login onChange={(e: any) => {
                             AppStore.editModel({password: e.target.value})
                         }}/>
-                        <Button label={'Log in'} onClick={() => {
+                        <Button label={t('loginTitle')} onClick={() => {
                             AppStore.loadLogin()
                         }}/>
-                        <a>{'Forgot password?'}</a>
+                        <a>{t('forgotPassword')}</a>
                     </aside>
                 </section>
             </main>
