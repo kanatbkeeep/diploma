@@ -166,6 +166,27 @@ body {
   @extend %button;
 }
 
+.secondaryButtonBlack {
+  background-color: #00171F;
+  @extend %button;
+  @extend %centralized;
+}
+
+.secondaryButtonBlack:hover {
+  background-color: #405157;
+  @extend %button;
+}
+
+.secondaryButtonBlack:active {
+  background-color: #808B8F;
+  @extend %button;
+}
+
+.secondaryButtonBlack:disabled {
+  background-color: #BFC5C7;
+  @extend %button;
+}
+
 .secondaryButtonAdd {
   background-color: #00171F;
   @extend %button;
@@ -178,11 +199,6 @@ body {
 }
 
 .secondaryButtonAdd:active {
-  background-color: #808B8F;
-  @extend %button;
-}
-
-.secondaryButtonAdd:focus {
   background-color: #808B8F;
   @extend %button;
 }
