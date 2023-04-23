@@ -19,14 +19,13 @@ import CreationPlan from "./pages/creation_plan/CreationPlan";
 function App() {
     return (
         <>
-            {/*<Router>*/}
-            {/*    <Routes>*/}
-            {/*        <Route path="/" element={<Profile />} />*/}
-            {/*        <Route path="/login" element={<Login />} />*/}
-            {/*        <Route path="/creation-plan" element={<CreationPlan/>}/>*/}
-            {/*    </Routes>*/}
-            {/*</Router>*/}
-            <CreationPlan/>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Profile />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/creation-plan" element={<CreationPlan/>}/>
+                </Routes>
+            </Router>
         </>
     )
 }

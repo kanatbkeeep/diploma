@@ -33,7 +33,7 @@ const CreationPlan = (props: any) => {
 
     return (
         <>
-        <main className={modalOpen ? "main-container darker" : "main-container"}>
+        <div className={modalOpen ? "main-container darker" : "main-container"}>
 
             <aside>
                 <img className="logo" src={Logo}/>
@@ -109,7 +109,7 @@ const CreationPlan = (props: any) => {
                     }
                 </div>
             </section>
-        </main>
+        </div>
             <Navigation open={modalOpen} onModalStateChanged={handleModalStateChanged}/>
             </>
     )
