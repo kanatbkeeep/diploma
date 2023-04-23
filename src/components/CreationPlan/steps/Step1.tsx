@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -10,6 +10,8 @@ import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 
 const Step1 = (props:any) =>{
+    const [open, setOpen] = useState("")
+
     const {planStore} = props;
 
     const arr = Array.from({ length: 40 }, (_, i) => ({
@@ -52,13 +54,23 @@ const Step1 = (props:any) =>{
                     />
                     <div style={{width:50}}/>
                     <Dropdown
+                        onClick={() => {
+                            if (open === "") {
+                                setOpen("course");
+                            } else {
+                                setOpen("")
+                            }
+                        }}
+                        open={open === "course"}
                         label="Course"
                         maxWidth={90}
                         value={planStore.step1.course ? planStore.step1.course.name: "Select"}
                     >
                         <ul>
                             {planStore.courses.map((item:any)=>{
-                                return <li onClick={()=>{planStore.editStep1Modal({course: item})}}>
+                                return <li onClick={()=>{
+                                    planStore.editStep1Modal({course: item});
+                                }}>
                                     {item.name}
                                 </li>
                             })}
