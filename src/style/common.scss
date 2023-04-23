@@ -208,6 +208,12 @@ body {
   @extend %button;
 }
 
+.secondaryLightButton{
+  background-color: unset;
+  border: 1px solid white;
+  @extend %button;
+}
+
 .smallBlue {
   background-color: $primary-color-dark-blue;
   @extend %smallButton;
@@ -312,7 +318,6 @@ body {
 .count-of-elements{
   font-size: 14px;
   font-weight: lighter;
-  
   color: #747474;
   width: 90px;
 }
@@ -326,7 +331,6 @@ body {
 }
 
 .ellipsis{
-  
   color: #007EA7;
   font-weight: bold;
 }
@@ -336,7 +340,6 @@ body {
   background-color: unset;
   color: #007EA7;
   font-weight: bold;
-  margin-left: 6px;
   transition: color 1s;
 }
 .active-pagination-btn{
@@ -461,47 +464,6 @@ body {
 }
 
 
-// input
-
-.forms-group{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.forms-group label{
-  margin-left: 20px;
-  font-size: 16px;
-}
-
-.forms-group input{
-  border-radius: 10px;
-  border: 2px solid black;
-  padding: 13px 13px 13px 20px;
-  outline: unset;
-}
-
-
-.checkbox-group input:checked ~ .checkmark {
-  background-color: #2196f3;
-}
-
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-.checkbox-group input:checked ~ .checkmark:after {
-  display: block;
-  left: 7px;
-  top: 2px;
-  width: 5px;
-  height: 11px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
 
 
 // input
@@ -513,16 +475,25 @@ body {
 }
 
 .forms-group label{
-  margin-left: 20px;
   font-size: 16px;
+  font-weight: 500;
 }
 
 .forms-group input{
   border-radius: 10px;
-  border: 2px solid black;
+  border: 1px solid black;
   padding: 13px 13px 13px 20px;
   outline: unset;
 }
+
+.forms-group textarea{
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 13px 13px 13px 20px;
+  outline: unset;
+  resize: none;
+}
+
 
 .forms-group .container-password{
   border: 2px solid black;
@@ -618,10 +589,17 @@ body {
 
 
 // dropdown
-
+.dropdown-container{
+width: 100%;
+}
 .dropdown{
   width: 100%;
   position: relative;
+}
+
+.dropdown-label{
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .dropdown .dropdown-btn{
@@ -633,6 +611,8 @@ body {
   align-items: center;
   justify-content: space-between;
   color: #808B8F;
+  height: 45px;
+  box-sizing: border-box;
 }
 
 .dropdown .dropdown-btn-active{

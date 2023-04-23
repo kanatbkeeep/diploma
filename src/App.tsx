@@ -13,6 +13,7 @@ import Login from "./pages/authorization/Login";
 import Input from "./components/Input/Input";
 import Checkbox from "./components/Checkbox/Checkbox";
 import Profile from "./pages/profile/Profile";
+import CreationPlan from "./pages/creation_plan/CreationPlan";
 import Test from "./pages/test/Test";
 
 
@@ -21,8 +22,9 @@ function App() {
         <>
             <Router>
                 <Routes>
-                    <Route path="/" element={<Profile/>} />
-                    <Route path="/login" element={<Login/>} />
+                    <Route path="/" element={<Profile />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/creation-plan" element={<CreationPlan/>}/>
                     <Route path="/test" element={<Test/>} />
                 </Routes>
             </Router>
