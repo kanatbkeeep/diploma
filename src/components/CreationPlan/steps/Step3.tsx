@@ -7,60 +7,97 @@ import Delete from "../../../assets/icon/delete.svg";
 import Edit from "../../../assets/icon/edit.svg";
 import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
+import {observer} from "mobx-react";
 
-const Step3 = () => {
+const Step3 = (props: any) => {
+    const {planStore} = props;
+
     const arr = Array.from({length: 40}, (_, i) => ({
         id: i,
         discipline: "Java" + i,
-        nameOfWork:"Syllabus",
-        deadline:"01.01.2003",
-        infoOnImplementation:"Executed",
-        comment:"salam"
+        nameOfWork: "Syllabus",
+        deadline: "01.01.2003",
+        infoOnImplementation: "Executed",
+        comment: "salam"
     }));
     return (
         <div className="step-component">
             <div className="years">2022-2023</div>
             <div className="inputs-step">
 
-                <div style={{marginBottom:20, display:"flex"}}>
+                <div style={{marginBottom: 20, display: "flex"}}>
                     <Dropdown
                         label="Type of the Work"
-                        value="Select"
+                        value={planStore.step3.typeWork ? planStore.step3.typeWork.name: "Select"}
                         maxWidth={300}
                     >
                         <ul>
-                            <li>No data</li>
+                            {
+                                planStore.typeWork.map((item: any) => {
+                                    return <li
+                                        onClick={() => planStore.editStep3Modal({typeWork: item})}>{item.name}</li>
+                                })
+                            }
                         </ul>
                     </Dropdown>
-                    <div style={{marginRight:55}}/>
+
+                    <div style={{marginRight: 55}}/>
                     <Input maxWidth={400}
-                           label="Name of the Journal"/>
-                    <div style={{marginRight:55}}/>
+                           label="Name of the Journal"
+                           value={planStore.step3.journal}
+                           onChange={(e: any) => {
+                               planStore.editStep3Modal({journal: e.target.value});
+                           }
+                           }
+                    />
+                    <div style={{marginRight: 55}}/>
                     <Input maxWidth={140}
                            label="Deadlines"
-                           placeholder="End"/>
+                           placeholder="End"
+                           value={planStore.step3.deadline}
+                           onChange={(e: any) => {
+                               planStore.editStep3Modal({deadline: e.target.value});
+                           }
+                           }
+                    />
                 </div>
 
-                <div style={{marginBottom:20,display:"flex"}}>
+                <div style={{marginBottom: 20, display: "flex"}}>
                     <Input maxWidth={560}
-                           label="Name of the Article"/>
-                    <div style={{marginRight:55}}/>
+                           label="Name of the Article"
+                           value={planStore.step3.article}
+                           onChange={(e: any) => {
+                               planStore.editStep3Modal({article: e.target.value});
+                           }
+                           }
+                    />
+                    <div style={{marginRight: 55}}/>
                     <Dropdown
                         label="Information on implementation"
-                        value="Select"
+                        value={planStore.step3.infoImplementation ? planStore.step3.infoImplementation.name: "Select"}
                         maxWidth={300}
                     >
                         <ul>
-                            <li>No data</li>
+                            {
+                                planStore.infoImplementation.map((item: any) => {
+                                    return <li
+                                        onClick={() => planStore.editStep3Modal({infoImplementation: item})}>{item.name}</li>
+                                })
+                            }
                         </ul>
                     </Dropdown>
                 </div>
 
-                <div style={{marginBottom:20}}>
+                <div style={{marginBottom: 20}}>
                     <Input
                         label="Comments"
                         type="area"
                         maxWidth={500}
+                        value={planStore.step3.comment}
+                        onChange={(e: any) => {
+                            planStore.editStep3Modal({comment: e.target.value});
+                        }
+                        }
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "flex-end"}}>
@@ -113,4 +150,4 @@ const Step3 = () => {
     )
 }
 
-export default Step3;
+export default observer(Step3);

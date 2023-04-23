@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -7,8 +7,11 @@ import Delete from "../../../assets/icon/delete.svg";
 import Edit from "../../../assets/icon/edit.svg";
 import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
+import {observer} from "mobx-react";
 
-const Step1 = () =>{
+const Step1 = (props:any) =>{
+    const {planStore} = props;
+
     const arr = Array.from({ length: 40 }, (_, i) => ({
         id:i,
         discipline: "Java"+i,
@@ -32,6 +35,7 @@ const Step1 = () =>{
             fact:60,
         }
     }));
+
     return(
         <div className="step-component">
             <div className="years">2022-2023</div>
@@ -40,89 +44,135 @@ const Step1 = () =>{
                     <Input
                      maxWidth={500}
                      label="Name of the Discipline"
+                     value={planStore.step1.nameDiscipline}
+                     onChange={(e:any)=>{
+                         planStore.editStep1Modal({nameDiscipline:e.target.value});
+                     }
+                    }
                     />
                     <div style={{width:50}}/>
                     <Dropdown
                         label="Course"
                         maxWidth={90}
-                        value="Select"
+                        value={planStore.step1.course ? planStore.step1.course.name: "Select"}
                     >
                         <ul>
-                            <li>Not found</li>
+                            {planStore.courses.map((item:any)=>{
+                                return <li onClick={()=>{planStore.editStep1Modal({course: item})}}>
+                                    {item.name}
+                                </li>
+                            })}
                         </ul>
                     </Dropdown>
                     <div style={{width:50}}/>
                     <Dropdown
                         label="Trimester"
                         maxWidth={90}
-                        value="Select"
+                        value={planStore.step1.trimester ? planStore.step1.trimester.name: "Select"}
                     >
                         <ul>
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
+                                {planStore.trimesters.map((item:any)=>{
+                                    return <li onClick={()=>{planStore.editStep1Modal({trimester: item})}}>
+                                        {item.name}
+                                    </li>
+                                })}
                         </ul>
                     </Dropdown>
                     <div style={{width:50}}/>
                     <Dropdown
                         label="Group"
                         maxWidth={200}
-                        value="Select"
+                        value={planStore.step1.group ? planStore.step1.group.name: "Select"}
                     >
                         <ul>
-                            <li>SE-2014</li>
-                            <li>SE-2014</li>
-                            <li>SE-2014</li>
+                            {planStore.groups.map((item:any)=>{
+                                return <li onClick={()=>{planStore.editStep1Modal({group: item})}}>
+                                    {item.name}
+                                </li>
+                            })}
                         </ul>
                     </Dropdown>
                 </div>
+
                 <div style={{marginBottom:20, display:"flex"}}>
                     <Input
                         maxWidth={100}
                         label="Lectures"
                         placeholder="Plan"
+                        value={planStore.step1.lecturesPlan}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({lecturesPlan:e.target.value});
+                        }}
                     />
                     <div style={{width:23}}/>
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
                         placeholder="Fact"
+                        value={planStore.step1.lecturesFact}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({lecturesFact:e.target.value});
+                        }}
                     />
                     <div style={{width:50}}/>
                     <Input
                         maxWidth={100}
-                        label="Lectures"
+                        label="Practices"
                         placeholder="Plan"
+                        value={planStore.step1.practicesPlan}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({practicesPlan:e.target.value});
+                        }}
                     />
                     <div style={{width:23}}/>
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
                         placeholder="Fact"
+                        value={planStore.step1.practicesFact}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({practicesFact:e.target.value});
+                        }}
                     />
                     <div style={{width:50}}/>
                     <Input
                         maxWidth={100}
-                        label="Lectures"
+                        label="Office hours"
                         placeholder="Plan"
+                        value={planStore.step1.hoursPlan}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({hoursPlan:e.target.value});
+                        }}
                     />
                     <div style={{width:23}}/>
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
                         placeholder="Fact"
+                        value={planStore.step1.hoursFact}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({hoursFact:e.target.value});
+                        }}
                     />
                     <div style={{width:50}}/>
                     <Input
                         maxWidth={100}
-                        label="Lectures"
+                        label="Total"
                         placeholder="Plan"
+                        value={planStore.step1.totalPlan}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({totalPlan:e.target.value});
+                        }}
                     />
                     <div style={{width:23}}/>
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
                         placeholder="Fact"
+                        value={planStore.step1.totalFact}
+                        onChange={(e:any)=>{
+                            planStore.editStep1Modal({totalFact:e.target.value});
+                        }}
                     />
                 </div>
                 <div style={{display:"flex",justifyContent:"flex-end"}}>
@@ -192,4 +242,4 @@ const Step1 = () =>{
     )
 }
 
-export default Step1;
+export default observer(Step1);
