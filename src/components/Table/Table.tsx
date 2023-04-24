@@ -13,6 +13,7 @@ interface Props {
     haveDelete: boolean;
     onDelete: any;
     search: boolean;
+    array: any[];
 }
 
 const Table = ({
@@ -24,16 +25,17 @@ const Table = ({
                    haveDelete,
                    onDelete,
                    search,
+                   array,
                    ...props
                }: Props & Record<string, unknown>) => {
 
-    const [data, setData]:any = useState(props.array);
+    const [data, setData]:any = useState(array);
     let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
-    let arrChecked = data.length > 0 ?data.map((item: any, ind:any) => {
+    let arrChecked = data.map((item: any, ind:any) => {
         return {id: ind, checked: false}
-    }) : [{id: 0, checked: false}];
+    });
     let keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
     const [checked, setChecked] = useState(arrChecked);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
@@ -47,7 +49,7 @@ const Table = ({
 
 
     useEffect(()=>{
-        setData(props.array);
+        setData(array);
         copyData = data;
         arrChecked = data.map((item: any, ind:any) => {
             return {id: ind, checked: false}
@@ -55,10 +57,7 @@ const Table = ({
         setChecked(arrChecked);
         setItemsChecked([...checked])
         keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
-        console.log("--------")
-        console.log(arrChecked);
-        console.log(props.array)
-    },[props.array])
+    },[array.length, checked.length])
 
 
     const showData = () =>{
@@ -264,7 +263,7 @@ const Table = ({
 
             <div className="table-main">
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
-                <div className="table-body">
+                <div className={"table-body " + (data.length <= 0 ? "centralized" : null)}>
                     {data.length > 0 ? showData() : <div>Данных нет</div>}
                 </div>
                 <div className="pagination">
