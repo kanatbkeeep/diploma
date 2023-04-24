@@ -5,6 +5,7 @@ import Search from "../../assets/icon/search.svg"
 
 
 interface Props {
+    array: any[];
     rowsPerPage: number;
     renderHead: (maxWidthColumns: number[]) => JSX.Element;
     renderBody: (item: any, index: number, maxWidthColumns: number[], checkbox: any) => JSX.Element;
@@ -13,10 +14,10 @@ interface Props {
     haveDelete: boolean;
     onDelete: any;
     search: boolean;
-    array: any[];
 }
 
 const Table = ({
+                   array,
                    rowsPerPage,
                    renderBody,
                    renderHead,
@@ -24,40 +25,25 @@ const Table = ({
                    maxWidthColumns,
                    haveDelete,
                    onDelete,
-                   search,
-                   array,
-                   ...props
-               }: Props & Record<string, unknown>) => {
-
-    const [data, setData]:any = useState(array);
+                   search
+               }: Props) => {
+    const [data, setData] = useState(array);
     let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
-    let arrChecked = data.map((item: any, ind:any) => {
-        return {id: ind, checked: false}
+    const arrChecked = data?.map((item: any) => {
+        return {id: item.id, checked: false}
     });
-    let keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
+    const keysOfData = data?.length > 0 ? Object.keys(data[0]) : null;
     const [checked, setChecked] = useState(arrChecked);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
     let totalPages: any[] = [];
     const copyTotalPages: any[] = [];
-    for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
+    for (let i = 1; i <= Math.ceil(data?.length / 4); i++) {
         totalPages.push(i);
         copyTotalPages.push(i);
     }
-
-
-    useEffect(()=>{
-        setData(array);
-        copyData = data;
-        arrChecked = data.map((item: any, ind:any) => {
-            return {id: ind, checked: false}
-        });
-        setChecked(arrChecked);
-        setItemsChecked([...checked])
-        keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
-    },[array.length, checked.length])
 
 
     const showData = () =>{
@@ -82,7 +68,7 @@ const Table = ({
                 } else{
                     return i
                 };
-            }).length;
+            })?.length;
 
             copyData = data.filter((i: any, ind:any) => {
                 if (nameSearch && nameSearch.trim()) {
@@ -136,13 +122,13 @@ const Table = ({
                     return i
                 };
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
+                ?.map((item: any, index: number) => {
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
                 });
         }else{
             return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
+                ?.map((item: any, index: number) => {
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
                 })
         }
     }
@@ -150,11 +136,11 @@ const Table = ({
 
     const renderCountItems = () => {
         if(search){
-            return copyData.length < rowsPerPage + rowsPerPage * currentPage
-                ? copyData.length
+            return copyData?.length < rowsPerPage + rowsPerPage * currentPage
+                ? copyData?.length
                 : rowsPerPage + rowsPerPage * currentPage;
-        }else return data.length < rowsPerPage + rowsPerPage * currentPage
-            ? data.length
+        }else return data?.length < rowsPerPage + rowsPerPage * currentPage
+            ? data?.length
             : rowsPerPage + rowsPerPage * currentPage;
     };
 
@@ -162,16 +148,16 @@ const Table = ({
         setCurrentPage(pageNumber - 1);
     };
 
-    const getCheckbox = (item: any, index:any) => {
+    const getCheckbox = (item: any) => {
 
-        const obj = itemsChecked.find((i: any) => i.id === index);
+        const obj = itemsChecked.find((i: any) => i.id === item.id);
         const ind = itemsChecked.indexOf(obj);
         return haveDelete ?
             <Checkbox
                 id={data.indexOf(item)}
-                checked={itemsChecked[ind]?.checked}
+                checked={itemsChecked[ind].checked}
                 onChange={(e: any) => {
-                    if (e.target?.checked) {
+                    if (e.target.checked) {
                         let array = itemsToDelete;
                         array.push(item);
                         setItemsToDelete([...array]);
@@ -195,7 +181,7 @@ const Table = ({
     const renderPagination = () => {
         // Определяем начальную и конечную страницу в зависимости от текущей страницы
         let startPage = Math.max(currentPage - 2, 0);
-        let endPage = Math.min(startPage + 4, totalPages.length - 1);
+        let endPage = Math.min(startPage + 4, totalPages?.length - 1);
 
         if (endPage - startPage < 4) {
             startPage = Math.max(endPage - 4, 0);
@@ -226,15 +212,15 @@ const Table = ({
             );
         }
 
-        if (endPage < totalPages.length - 1) {
+        if (endPage < totalPages?.length - 1) {
             pages.push(
                 <span className="ellipsis" key={"ellipsis-end"}>...</span>,
                 <button
                     className={currentPage === 10 ? "pagination-btn active-pagination-btn" : "pagination-btn"}
-                    key={totalPages[totalPages.length - 1]}
-                    onClick={() => handlePageClick(totalPages[totalPages.length - 1])}
+                    key={totalPages[totalPages?.length - 1]}
+                    onClick={() => handlePageClick(totalPages[totalPages?.length - 1])}
                 >
-                    {totalPages[totalPages.length - 1]}
+                    {totalPages[totalPages?.length - 1]}
                 </button>
             );
         }
@@ -251,7 +237,7 @@ const Table = ({
                         placeholder="Search"
                         onChange={(e: any) => {
                             setNameSearch(e.target.value);
-                            for(let i = 0; i <= checked.length -1; i++){
+                            for(let i = 0; i <= checked?.length -1; i++){
                                 checked[i].checked = false;
                             }
                             setItemsToDelete([]);
@@ -263,27 +249,27 @@ const Table = ({
 
             <div className="table-main">
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
-                <div className={"table-body " + (data.length <= 0 ? "centralized" : null)}>
-                    {data.length > 0 ? showData() : <div className="centralized">Данных нет</div>}
+                <div className="table-body">
+                    {data?.length > 0 ? showData() : <div>Данных нет</div>}
                 </div>
                 <div className="pagination">
                     <div className="count-of-elements">
-                        {`${renderCountItems()} of ${search && nameSearch && nameSearch.trim() ? copyData.length : data.length} items`}
+                        {`${renderCountItems()} of ${search && nameSearch && nameSearch.trim() ? copyData?.length : data?.length} items`}
                     </div>
                     <div className="pages">{renderPagination()}</div>
                     <div className="delete-btn">{haveDelete ?
                         <button
-                            disabled={!(itemsToDelete.length !== 0)}
+                            disabled={!(itemsToDelete?.length !== 0)}
                             onClick={() => {
-                                setData(data.filter((item: any) => !(itemsToDelete.includes(item))));
-                                copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
+                                setData(data.filter(item => !(itemsToDelete.includes(item))));
+                                copyData = copyData.filter(item => !(itemsToDelete.includes(item)));
                                 setCurrentPage(0);
                                 setItemsToDelete([]);
-                                onDelete(itemsToDelete);
+                                onDelete();
                             }
                             }>
                             <img src={Delete} alt={'icon'}/>
-                            <div>{`Delete${itemsToDelete.length > 0 ? `(${itemsToDelete.length})` : ""}`}</div>
+                            <div>{`Delete${itemsToDelete?.length > 0 ? `(${itemsToDelete?.length})` : ""}`}</div>
                         </button> : null}</div>
                 </div>
             </div>

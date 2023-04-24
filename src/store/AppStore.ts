@@ -5,6 +5,7 @@ import axios from 'axios'
 class AppStore {
     currentUser: any;
     department: any;
+    myPlans: any;
     model: any;
 
     async loadLogin() {
@@ -45,6 +46,18 @@ class AppStore {
         });
     }
 
+    async getMyPlans() {
+        return await axios.get('http://localhost:8080/plan/get-my-plans', {
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.myPlans = repos.data;
+            }
+        });
+    }
+
     getCookie(name: any) {
         const value = `; ${document.cookie}`;
         const parts: any = value.split(`; ${name}=`);
@@ -70,6 +83,7 @@ class AppStore {
             getUser: action.bound,
             getCookie: action.bound,
             getDepartmentByTeacher: action.bound,
+            getMyPlans: action.bound,
         })
     }
 }
