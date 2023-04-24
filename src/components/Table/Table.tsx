@@ -5,7 +5,6 @@ import Search from "../../assets/icon/search.svg"
 
 
 interface Props {
-    array: any[];
     rowsPerPage: number;
     renderHead: (maxWidthColumns: number[]) => JSX.Element;
     renderBody: (item: any, index: number, maxWidthColumns: number[], checkbox: any) => JSX.Element;
@@ -17,7 +16,6 @@ interface Props {
 }
 
 const Table = ({
-                   array,
                    rowsPerPage,
                    renderBody,
                    renderHead,
@@ -25,16 +23,18 @@ const Table = ({
                    maxWidthColumns,
                    haveDelete,
                    onDelete,
-                   search
-               }: Props) => {
-    const [data, setData] = useState(array);
+                   search,
+                   ...props
+               }: Props & Record<string, unknown>) => {
+
+    const [data, setData]:any = useState(props.array);
     let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
-    const arrChecked = data.map((item: any) => {
-        return {id: item.id, checked: false}
-    });
-    const keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
+    let arrChecked = data.length > 0 ?data.map((item: any, ind:any) => {
+        return {id: ind, checked: false}
+    }) : [{id: 0, checked: false}];
+    let keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
     const [checked, setChecked] = useState(arrChecked);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
@@ -44,6 +44,21 @@ const Table = ({
         totalPages.push(i);
         copyTotalPages.push(i);
     }
+
+
+    useEffect(()=>{
+        setData(props.array);
+        copyData = data;
+        arrChecked = data.map((item: any, ind:any) => {
+            return {id: ind, checked: false}
+        });
+        setChecked(arrChecked);
+        setItemsChecked([...checked])
+        keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
+        console.log("--------")
+        console.log(arrChecked);
+        console.log(props.array)
+    },[props.array])
 
 
     const showData = () =>{
@@ -123,12 +138,12 @@ const Table = ({
                 };
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
                 });
         }else{
             return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
                 })
         }
     }
@@ -148,9 +163,9 @@ const Table = ({
         setCurrentPage(pageNumber - 1);
     };
 
-    const getCheckbox = (item: any) => {
+    const getCheckbox = (item: any, index:any) => {
 
-        const obj = itemsChecked.find((i: any) => i.id === item.id);
+        const obj = itemsChecked.find((i: any) => i.id === index);
         const ind = itemsChecked.indexOf(obj);
         return haveDelete ?
             <Checkbox
@@ -261,8 +276,8 @@ const Table = ({
                         <button
                             disabled={!(itemsToDelete.length !== 0)}
                             onClick={() => {
-                                setData(data.filter(item => !(itemsToDelete.includes(item))));
-                                copyData = copyData.filter(item => !(itemsToDelete.includes(item)));
+                                setData(data.filter((item: any) => !(itemsToDelete.includes(item))));
+                                copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
                                 setCurrentPage(0);
                                 setItemsToDelete([]);
                                 onDelete();

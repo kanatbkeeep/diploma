@@ -50,6 +50,7 @@ function Profile() {
                             label={'Log out'}
                             type={'primaryButton'}
                             icon={iconLogout}
+
                         />
                     </aside>
                 </nav>

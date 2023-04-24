@@ -14,6 +14,7 @@ import Step2 from "../../components/CreationPlan/steps/Step2";
 import Step3 from "../../components/CreationPlan/steps/Step3";
 import { observer } from 'mobx-react';
 import CreationPlanStore from '../../store/CreationPlanStore'
+import {useNavigate} from "react-router-dom";
 
 
 export enum Steps {
@@ -29,11 +30,15 @@ const CreationPlan = (props: any) => {
     const [step, setStep] = useState(Steps.Step1);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const planStore:any = CreationPlanStore;
+    const navigation = useNavigate();
 
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
     }, []);
 
+    function eraseCookie(name: any) {
+        document.cookie = name+'=; Max-Age=-99999999;';
+    }
 
     return (
         <>
@@ -46,6 +51,7 @@ const CreationPlan = (props: any) => {
                         type='secondaryLightButton'
                         icon={Home}
                         label="Home"
+                        onClick={()=> navigation("/")}
                     />
                     <Button
                         onClick={()=>{
@@ -68,7 +74,11 @@ const CreationPlan = (props: any) => {
                     <Button
                         type='primaryButton'
                         icon={Logout}
-                        label="Notification"
+                        label="Log out"
+                        onClick={() => {
+                            eraseCookie('Authorization');
+                            window.location.reload();
+                        }}
                     />
                 </div>
             </aside>

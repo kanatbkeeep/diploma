@@ -6,6 +6,9 @@ class CreationPlanStore {
     step1: any;
     step2: any;
     step3: any;
+    academWorks: any;
+    eduMethWorks: any;
+    researchWorks: any;
 
     editStep1Modal(obj: any) {
         this.step1 = {...this.step1, ...obj};
@@ -93,6 +96,10 @@ class CreationPlanStore {
             infoImplementation:null,
             comment:"",
         }
+
+        this.eduMethWorks = [];
+        this.academWorks = [];
+        this.researchWorks = [];
 
 
         makeAutoObservable(this, {
