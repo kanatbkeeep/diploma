@@ -10,7 +10,8 @@ import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 
 const Step1 = (props: any) => {
-    const [open, setOpen] = useState("")
+    const [open, setOpen] = useState("");
+    const [itemEdit, setItemEdit]:any = useState(null);
 
     const {planStore} = props;
 
@@ -20,30 +21,6 @@ const Step1 = (props: any) => {
         && planStore.step1.lecturesPlan && planStore.step1.lecturesFact && planStore.step1.practicesPlan && planStore.step1.practicesFact
         && planStore.step1.hoursPlan && planStore.step1.hoursFact && planStore.step1.totalPlan && planStore.step1.totalFact);
     }
-
-    // const arr = Array.from({length: 40}, (_, i) => ({
-    //     id: i,
-    //     discipline: "Java" + i,
-    //     course: 3,
-    //     trimester: 1,
-    //     group: "SE-2014",
-    //     lectures: {
-    //         plan: 20,
-    //         fact: i === 2 ? 25 : 20,
-    //     },
-    //     practices: {
-    //         plan: 30,
-    //         fact: 30,
-    //     },
-    //     officeHours: {
-    //         plan: 10,
-    //         fact: 10,
-    //     },
-    //     total: {
-    //         plan: 60,
-    //         fact: 60,
-    //     }
-    // }));
 
     const addObject = () => {
         const obj = {...planStore.step1};
@@ -79,6 +56,30 @@ const Step1 = (props: any) => {
             totalPlan: "",
             totalFact: "",
         })
+    }
+
+    const copy = (item:any)=>{
+        planStore.editStep1Modal({...item});
+    }
+
+    const edit = (item:any)=>{
+        const ind = planStore.academWorks.indexOf(item);
+        planStore.academWorks[ind] = {...planStore.step1}
+        planStore.editStep1Modal({
+            nameDiscipline: "",
+            course: null,
+            trimester: null,
+            group: null,
+            lecturesPlan: "",
+            lecturesFact: "",
+            practicesPlan: "",
+            practicesFact: "",
+            hoursPlan: "",
+            hoursFact: "",
+            totalPlan: "",
+            totalFact: "",
+        })
+        setItemEdit(null);
     }
 
 
@@ -255,9 +256,13 @@ const Step1 = (props: any) => {
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
                                 icon={Plus}
-                                label="Add"
+                                label={itemEdit ? "Edit" : "Add"}
                                 onClick={()=> {
-                                    addObject();
+                                    if(itemEdit){
+                                        edit(itemEdit);
+                                    }else{
+                                        addObject();
+                                    }
                                 }}
                                 disabled={!(validation())}
                         />
@@ -276,12 +281,19 @@ const Step1 = (props: any) => {
             <div>
                 <Table
                     array={planStore.academWorks}
+                    length={planStore.academWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
                     maxWidthColumns={[250, 55, 100, 100, 100, 100, 100, 100, 128]}
                     haveDelete={true}
-                    onDelete={() => {
-                        console.log("deleted");
+                    onDelete={(arr:any[]) => {
+                        console.log("before")
+                        console.log(planStore.academWorks);
+                        planStore.academWorks = planStore.academWorks.filter((item:any)=>{
+                            return !(arr.includes(item));
+                        })
+                        console.log("after");
+                        console.log(planStore.academWorks);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
@@ -332,9 +344,16 @@ const Step1 = (props: any) => {
                                 <div style={{maxWidth: maxWidthColumns[8]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button className="secondaryButton"
-                                                icon={Edit}/>
+                                                icon={Edit}
+                                                onClick={()=>{
+                                                    setItemEdit(item);
+                                                    planStore.editStep1Modal({...item});
+                                                }}
+                                        />
                                     </div>
-                                    <div style={{width: 54}}><Button icon={Copy}/></div>
+                                    <div style={{width: 54}}>
+                                        <Button icon={Copy} onClick={()=>{copy(item)}}/>
+                                    </div>
                                 </div>
                             </div>
                         );

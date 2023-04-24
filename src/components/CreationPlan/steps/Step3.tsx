@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -11,15 +11,56 @@ import {observer} from "mobx-react";
 
 const Step3 = (props: any) => {
     const {planStore} = props;
+    const [open, setOpen] = useState("");
+    const [itemEdit, setItemEdit]: any = useState(null);
 
-    const arr = Array.from({length: 40}, (_, i) => ({
-        id: i,
-        discipline: "Java" + i,
-        nameOfWork: "Syllabus",
-        deadline: "01.01.2003",
-        infoOnImplementation: "Executed",
-        comment: "salam"
-    }));
+    const validation = () => {
+        return (planStore.step3.typeWork && planStore.step3.journal && planStore.step3.deadline && planStore.step3.article
+            && planStore.step3.infoImplementation);
+    }
+
+    const addObject = () => {
+        const obj = {...planStore.step3};
+        planStore.researchWorks.push(obj);
+        planStore.editStep3Modal({
+            typeWork:null,
+            journal:"",
+            deadline:"",
+            article:"",
+            infoImplementation:null,
+            comment:"",
+        })
+    }
+
+    const clear = () => {
+        planStore.editStep3Modal({
+            typeWork:null,
+            journal:"",
+            deadline:"",
+            article:"",
+            infoImplementation:null,
+            comment:"",
+        })
+    }
+
+    const copy = (item: any) => {
+        planStore.editStep3Modal({...item});
+    }
+
+    const edit = (item: any) => {
+        const ind = planStore.researchWorks.indexOf(item);
+        planStore.researchWorks[ind] = {...planStore.step3}
+        planStore.editStep3Modal({
+            typeWork:null,
+            journal:"",
+            deadline:"",
+            article:"",
+            infoImplementation:null,
+            comment:"",
+        })
+        setItemEdit(null);
+    }
+
     return (
         <div className="step-component">
             <div className="years">2022-2023</div>
@@ -27,6 +68,14 @@ const Step3 = (props: any) => {
 
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Dropdown
+                        onClick={() => {
+                            if (open === "") {
+                                setOpen("work");
+                            } else {
+                                setOpen("")
+                            }
+                        }}
+                        open={open === "work"}
                         label="Type of the Work"
                         value={planStore.step3.typeWork ? planStore.step3.typeWork.name: "Select"}
                         maxWidth={300}
@@ -73,6 +122,14 @@ const Step3 = (props: any) => {
                     />
                     <div style={{marginRight: 55}}/>
                     <Dropdown
+                        onClick={() => {
+                            if (open === "") {
+                                setOpen("infoImpl");
+                            } else {
+                                setOpen("")
+                            }
+                        }}
+                        open={open === "infoImpl"}
                         label="Information on implementation"
                         value={planStore.step3.infoImplementation ? planStore.step3.infoImplementation.name: "Select"}
                         maxWidth={300}
@@ -101,45 +158,86 @@ const Step3 = (props: any) => {
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "flex-end"}}>
-                    <div style={{width: 144}}><Button className="'primaryButtonAdd'" icon={Plus} label="Add"/></div>
+                    <div style={{width: 144}}>
+                        <Button className="'primaryButtonAdd'"
+                                icon={Plus}
+                                label={itemEdit ? "Edit" : "Add"}
+                                onClick={() => {
+                                    if (itemEdit) {
+                                        edit(itemEdit);
+                                    } else {
+                                        addObject();
+                                    }
+                                }}
+                                disabled={!(validation())}
+                        />
+                    </div>
                     <div style={{width: 50}}/>
-                    <div style={{width: 144}}><Button icon={Delete} label="Reset"/></div>
+                    <div style={{width: 144}}>
+                        <Button icon={Delete}
+                                label="Reset"
+                                onClick={() => {
+                                    clear()
+                                }}
+                        />
+                    </div>
                 </div>
             </div>
             <div>
                 <Table
-                    array={arr}
+                    array={planStore.researchWorks}
+                    length={planStore.researchWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
-                    maxWidthColumns={[250, 250, 100, 150, 150, 140]}
+                    maxWidthColumns={[250, 250, 100, 100, 100,100,140]}
                     haveDelete={true}
-                    onDelete={() => {
-                        console.log("deleted");
+                    onDelete={(arr:any[]) => {
+                        console.log("before")
+                        console.log(planStore.researchWorks);
+                        planStore.researchWorks = planStore.researchWorks.filter((item:any)=>{
+                            return !(arr.includes(item));
+                        })
+                        console.log("after");
+                        console.log(planStore.researchWorks);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
                             <div style={{maxWidth: 50}}></div>
-                            <div style={{maxWidth: maxWidthColumns[0]}}>Discipline</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>Name of work</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>Deadlines</div>
-                            <div style={{maxWidth: maxWidthColumns[3]}}>Information on implementation</div>
-                            <div style={{maxWidth: maxWidthColumns[4]}}>Comment</div>
-                            <div style={{maxWidth: maxWidthColumns[5]}}></div>
+                            <div style={{maxWidth: maxWidthColumns[0]}}>Type of work</div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>Journal</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>Deadline</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>Article</div>
+                            <div style={{maxWidth: maxWidthColumns[4]}}>Information on implementation</div>
+                            <div style={{maxWidth: maxWidthColumns[5]}}>Comment</div>
+                            <div style={{maxWidth: maxWidthColumns[6]}}></div>
                         </div>
                     }}
                     renderBody={(item, index, maxWidthColumns, checkbox) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameOfWork}</div>
+                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.typeWork.name}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.journal}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadline}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoOnImplementation}</div>
-                                <div style={{maxWidth: maxWidthColumns[4]}}>{item.comment}</div>
-                                <div style={{maxWidth: maxWidthColumns[5]}}>
-                                    <div style={{width: 54, marginRight: 10}}><Button className="secondaryButton"
-                                                                                      icon={Edit}/></div>
-                                    <div style={{width: 54}}><Button icon={Copy}/></div>
+                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.article}</div>
+                                <div style={{maxWidth: maxWidthColumns[4]}}>{item.infoImplementation.name}</div>
+                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[5]}}>{item.comment}</div>
+                                <div style={{maxWidth: maxWidthColumns[6]}}>
+                                    <div style={{width: 54, marginRight: 10}}>
+                                        <Button className="secondaryButton"
+                                                icon={Edit}
+                                                onClick={() => {
+                                                    setItemEdit(item);
+                                                    planStore.editStep3Modal({...item});
+                                                }}
+                                        />
+                                    </div>
+
+                                    <div style={{width: 54}}>
+                                        <Button icon={Copy} onClick={() => {
+                                            copy(item)
+                                        }}/>
+                                    </div>
                                 </div>
                             </div>
                         );

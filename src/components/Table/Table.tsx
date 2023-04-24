@@ -264,7 +264,7 @@ const Table = ({
             <div className="table-main">
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
                 <div className={"table-body " + (data.length <= 0 ? "centralized" : null)}>
-                    {data.length > 0 ? showData() : <div>Данных нет</div>}
+                    {data.length > 0 ? showData() : <div className="centralized">Данных нет</div>}
                 </div>
                 <div className="pagination">
                     <div className="count-of-elements">
@@ -279,7 +279,7 @@ const Table = ({
                                 copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
                                 setCurrentPage(0);
                                 setItemsToDelete([]);
-                                onDelete();
+                                onDelete(itemsToDelete);
                             }
                             }>
                             <img src={Delete} alt={'icon'}/>
