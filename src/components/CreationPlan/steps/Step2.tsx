@@ -7,52 +7,84 @@ import Delete from "../../../assets/icon/delete.svg";
 import Edit from "../../../assets/icon/edit.svg";
 import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
+import {observer} from "mobx-react";
 
-const Step2 = () => {
+const Step2 = (props: any) => {
+    const {planStore} = props;
+
     const arr = Array.from({length: 40}, (_, i) => ({
         id: i,
         discipline: "Java" + i,
-        nameOfWork:"Syllabus",
-        deadline:"01.01.2003",
-        infoOnImplementation:"Executed",
-        comment:"salam"
+        nameOfWork: "Syllabus",
+        deadline: "01.01.2003",
+        infoOnImplementation: "Executed",
+        comment: "salam"
     }));
     return (
         <div className="step-component">
             <div className="years">2022-2023</div>
             <div className="inputs-step">
-                <div style={{marginBottom:20}}>
+                <div style={{marginBottom: 20}}>
                     <Dropdown
                         label="Name of the Discipline"
-                        value="Select"
+                        value={planStore.step2.discipline ? planStore.step2.discipline.name : "Select"}
                         maxWidth={500}
                     >
                         <ul>
-                            <li>No data</li>
+                            {planStore.disciplines.map((item: any) => {
+                                return <li onClick={() => planStore.editStep2Modal({discipline: item})}>
+                                    {item.name}
+                                </li>
+                            })}
                         </ul>
                     </Dropdown>
                 </div>
-                <div style={{marginBottom:20}}>
+                <div style={{marginBottom: 20}}>
                     <Input maxWidth={500}
                            label="Name of the work"
-                           placeholder="Syllabus / Method guidance"/>
+                           placeholder="Syllabus / Method guidance"
+                           value={planStore.step2.nameWork}
+                           onChange={(e: any) => {
+                               planStore.editStep2Modal({nameWork: e.target.value});
+                           }
+                           }
+                    />
                 </div>
-                <div style={{display: "flex", marginBottom:20}}>
-                    <Input maxWidth={180}label="Deadlines" placeholder="End"/>
-                    <div style={{width:20}}/>
+                <div style={{display: "flex", marginBottom: 20}}>
+                    <Input
+                        maxWidth={180}
+                        label="Deadlines"
+                        placeholder="End"
+                        value={planStore.step2.deadlines}
+                        onChange={(e: any) => {
+                            planStore.editStep2Modal({deadlines: e.target.value});
+                        }
+                        }
+                    />
+                    <div style={{width: 20}}/>
                     <Dropdown maxWidth={300}
                               label="Information on implementation"
-                              value="Select">
+                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation.name : "Select"}
+                    >
                         <ul>
-                            <li>No data</li>
+                            {planStore.infoImplementation.map((item: any) => {
+                                return <li onClick={() => planStore.editStep2Modal({infoImplementation: item})}>
+                                    {item.name}
+                                </li>
+                            })}
                         </ul>
                     </Dropdown>
                 </div>
-                <div style={{marginBottom:20}}>
+                <div style={{marginBottom: 20}}>
                     <Input
                         label="Comments"
                         type="area"
                         maxWidth={500}
+                        value={planStore.step2.comment}
+                        onChange={(e: any) => {
+                            planStore.editStep2Modal({comment: e.target.value});
+                        }
+                        }
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "flex-end"}}>
@@ -105,4 +137,4 @@ const Step2 = () => {
     )
 }
 
-export default Step2;
+export default observer(Step2);

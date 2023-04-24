@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Logo from '../../assets/icon/logoWhite.svg'
 import '../../style/creationPlanPage.scss';
 import '../../style/common.scss';
@@ -12,6 +12,8 @@ import Navigation from "../../components/Notification/Notification";
 import Step1 from "../../components/CreationPlan/steps/Step1";
 import Step2 from "../../components/CreationPlan/steps/Step2";
 import Step3 from "../../components/CreationPlan/steps/Step3";
+import { observer } from 'mobx-react';
+import CreationPlanStore from '../../store/CreationPlanStore'
 
 
 export enum Steps {
@@ -26,10 +28,12 @@ export enum Steps {
 const CreationPlan = (props: any) => {
     const [step, setStep] = useState(Steps.Step1);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const planStore:any = CreationPlanStore;
 
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
     }, []);
+
 
     return (
         <>
@@ -99,13 +103,13 @@ const CreationPlan = (props: any) => {
                 </div>
                 <div className="step">
                     {
-                        step === Steps.Step1 ? <Step1/> : null
+                        step === Steps.Step1 ? <Step1 planStore={planStore}/> : null
                     }
                     {
-                        step === Steps.Step2 ? <Step2/> : null
+                        step === Steps.Step2 ? <Step2 planStore={planStore}/> : null
                     }
                     {
-                        step === Steps.Step3 ? <Step3/> : null
+                        step === Steps.Step3 ? <Step3 planStore={planStore}/> : null
                     }
                 </div>
             </section>
@@ -115,4 +119,4 @@ const CreationPlan = (props: any) => {
     )
 }
 
-export default CreationPlan;
+export default observer(CreationPlan);

@@ -54,7 +54,6 @@ const Input = (props:any) => {
                     style={props.login ? {border:"2px solid black"} : {}}
                 />
 
-
             </div>
         )
 
