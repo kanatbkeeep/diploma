@@ -43,7 +43,7 @@ const Table = ({
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
     let totalPages: any[] = [];
     const copyTotalPages: any[] = [];
-    for (let i = 1; i <= Math.ceil(data.length / 4); i++) {
+    for (let i = 1; i <= Math.ceil(data?.length / 4); i++) {
         totalPages.push(i);
         copyTotalPages.push(i);
     }
@@ -83,7 +83,7 @@ const Table = ({
                 } else{
                     return i
                 };
-            }).length;
+            })?.length;
 
             copyData = data.filter((i: any, ind:any) => {
                 if (nameSearch && nameSearch.trim()) {
@@ -151,11 +151,11 @@ const Table = ({
 
     const renderCountItems = () => {
         if(search){
-            return copyData.length < rowsPerPage + rowsPerPage * currentPage
-                ? copyData.length
+            return copyData?.length < rowsPerPage + rowsPerPage * currentPage
+                ? copyData?.length
                 : rowsPerPage + rowsPerPage * currentPage;
-        }else return data.length < rowsPerPage + rowsPerPage * currentPage
-            ? data.length
+        }else return data?.length < rowsPerPage + rowsPerPage * currentPage
+            ? data?.length
             : rowsPerPage + rowsPerPage * currentPage;
     };
 
@@ -196,7 +196,7 @@ const Table = ({
     const renderPagination = () => {
         // Определяем начальную и конечную страницу в зависимости от текущей страницы
         let startPage = Math.max(currentPage - 2, 0);
-        let endPage = Math.min(startPage + 4, totalPages.length - 1);
+        let endPage = Math.min(startPage + 4, totalPages?.length - 1);
 
         if (endPage - startPage < 4) {
             startPage = Math.max(endPage - 4, 0);
@@ -227,15 +227,15 @@ const Table = ({
             );
         }
 
-        if (endPage < totalPages.length - 1) {
+        if (endPage < totalPages?.length - 1) {
             pages.push(
                 <span className="ellipsis" key={"ellipsis-end"}>...</span>,
                 <button
                     className={currentPage === 10 ? "pagination-btn active-pagination-btn" : "pagination-btn"}
-                    key={totalPages[totalPages.length - 1]}
-                    onClick={() => handlePageClick(totalPages[totalPages.length - 1])}
+                    key={totalPages[totalPages?.length - 1]}
+                    onClick={() => handlePageClick(totalPages[totalPages?.length - 1])}
                 >
-                    {totalPages[totalPages.length - 1]}
+                    {totalPages[totalPages?.length - 1]}
                 </button>
             );
         }
@@ -252,7 +252,7 @@ const Table = ({
                         placeholder={t('search')}
                         onChange={(e: any) => {
                             setNameSearch(e.target.value);
-                            for(let i = 0; i <= checked.length -1; i++){
+                            for(let i = 0; i <= checked?.length -1; i++){
                                 checked[i].checked = false;
                             }
                             setItemsToDelete([]);
@@ -269,12 +269,12 @@ const Table = ({
                 </div>
                 <div className="pagination">
                     <div className="count-of-elements">
-                        {`${renderCountItems()} of ${search && nameSearch && nameSearch.trim() ? copyData.length : data.length} items`}
+                        {`${renderCountItems()} of ${search && nameSearch && nameSearch.trim() ? copyData?.length : data?.length} items`}
                     </div>
                     <div className="pages">{renderPagination()}</div>
                     <div className="delete-btn">{haveDelete ?
                         <button
-                            disabled={!(itemsToDelete.length !== 0)}
+                            disabled={!(itemsToDelete?.length !== 0)}
                             onClick={() => {
                                 setData(data.filter((item: any) => !(itemsToDelete.includes(item))));
                                 copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
