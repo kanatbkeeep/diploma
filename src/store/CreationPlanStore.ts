@@ -10,7 +10,6 @@ class CreationPlanStore {
     eduMethWorks: any;
     researchWorks: any;
 
-
     editStep1Modal(obj: any) {
         this.step1 = {...this.step1, ...obj};
     };
