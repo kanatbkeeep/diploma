@@ -2,10 +2,10 @@ import React, {useEffect, useRef, useState} from "react";
 import Delete from "../../assets/icon/delete.svg";
 import Checkbox from "../Checkbox/Checkbox";
 import Search from "../../assets/icon/search.svg"
+import t from "../../utils/Lang";
 
 
 interface Props {
-    array: any[];
     rowsPerPage: number;
     renderHead: (maxWidthColumns: number[]) => JSX.Element;
     renderBody: (item: any, index: number, maxWidthColumns: number[], checkbox: any) => JSX.Element;
@@ -14,10 +14,10 @@ interface Props {
     haveDelete: boolean;
     onDelete: any;
     search: boolean;
+    array: any[];
 }
 
 const Table = ({
-                   array,
                    rowsPerPage,
                    renderBody,
                    renderHead,
@@ -25,16 +25,19 @@ const Table = ({
                    maxWidthColumns,
                    haveDelete,
                    onDelete,
-                   search
-               }: Props) => {
-    const [data, setData] = useState(array);
+                   search,
+                   array,
+                   ...props
+               }: Props & Record<string, unknown>) => {
+
+    const [data, setData]:any = useState(array);
     let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
-    const arrChecked = data?.map((item: any) => {
-        return {id: item.id, checked: false}
+    let arrChecked = data.map((item: any, ind:any) => {
+        return {id: ind, checked: false}
     });
-    const keysOfData = data?.length > 0 ? Object.keys(data[0]) : null;
+    let keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
     const [checked, setChecked] = useState(arrChecked);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
@@ -44,6 +47,18 @@ const Table = ({
         totalPages.push(i);
         copyTotalPages.push(i);
     }
+
+
+    useEffect(()=>{
+        setData(array);
+        copyData = data;
+        arrChecked = data.map((item: any, ind:any) => {
+            return {id: ind, checked: false}
+        });
+        setChecked(arrChecked);
+        setItemsChecked([...checked])
+        keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
+    },[array.length, checked.length])
 
 
     const showData = () =>{
@@ -122,13 +137,13 @@ const Table = ({
                     return i
                 };
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                ?.map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                .map((item: any, index: number) => {
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
                 });
         }else{
             return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-                ?.map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item));
+                .map((item: any, index: number) => {
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
                 })
         }
     }
@@ -148,16 +163,16 @@ const Table = ({
         setCurrentPage(pageNumber - 1);
     };
 
-    const getCheckbox = (item: any) => {
+    const getCheckbox = (item: any, index:any) => {
 
-        const obj = itemsChecked.find((i: any) => i.id === item.id);
+        const obj = itemsChecked.find((i: any) => i.id === index);
         const ind = itemsChecked.indexOf(obj);
         return haveDelete ?
             <Checkbox
                 id={data.indexOf(item)}
-                checked={itemsChecked[ind].checked}
+                checked={itemsChecked[ind]?.checked}
                 onChange={(e: any) => {
-                    if (e.target.checked) {
+                    if (e.target?.checked) {
                         let array = itemsToDelete;
                         array.push(item);
                         setItemsToDelete([...array]);
@@ -234,7 +249,7 @@ const Table = ({
                 search ? <div className="searching-container">
                     <img src={Search}/>
                     <input
-                        placeholder="Search"
+                        placeholder={t('search')}
                         onChange={(e: any) => {
                             setNameSearch(e.target.value);
                             for(let i = 0; i <= checked?.length -1; i++){
@@ -249,8 +264,8 @@ const Table = ({
 
             <div className="table-main">
                 <div className="table-header">{renderHead(maxWidthColumns)}</div>
-                <div className="table-body">
-                    {data?.length > 0 ? showData() : <div>Данных нет</div>}
+                <div className={"table-body " + (data.length <= 0 ? "centralized" : null)}>
+                    {data.length > 0 ? showData() : <div className="centralized">{t('noData')}</div>}
                 </div>
                 <div className="pagination">
                     <div className="count-of-elements">
@@ -261,15 +276,15 @@ const Table = ({
                         <button
                             disabled={!(itemsToDelete?.length !== 0)}
                             onClick={() => {
-                                setData(data.filter(item => !(itemsToDelete.includes(item))));
-                                copyData = copyData.filter(item => !(itemsToDelete.includes(item)));
+                                setData(data.filter((item: any) => !(itemsToDelete.includes(item))));
+                                copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
                                 setCurrentPage(0);
                                 setItemsToDelete([]);
-                                onDelete();
+                                onDelete(itemsToDelete);
                             }
                             }>
                             <img src={Delete} alt={'icon'}/>
-                            <div>{`Delete${itemsToDelete?.length > 0 ? `(${itemsToDelete?.length})` : ""}`}</div>
+                            <div>{`${t('delete')}${itemsToDelete.length > 0 ? `(${itemsToDelete.length})` : ""}`}</div>
                         </button> : null}</div>
                 </div>
             </div>
