@@ -170,9 +170,9 @@ const Table = ({
         return haveDelete ?
             <Checkbox
                 id={data.indexOf(item)}
-                checked={itemsChecked[ind].checked}
+                checked={itemsChecked[ind]?.checked}
                 onChange={(e: any) => {
-                    if (e.target.checked) {
+                    if (e.target?.checked) {
                         let array = itemsToDelete;
                         array.push(item);
                         setItemsToDelete([...array]);
