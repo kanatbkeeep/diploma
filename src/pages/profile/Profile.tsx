@@ -12,12 +12,18 @@ import AppStore from "../../store/AppStore";
 import t from "../../utils/Lang";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
+import {useNavigate} from "react-router-dom";
 
 function Profile() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const navigate = useNavigate();
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
     }, []);
+
+    function eraseCookie(name: any) {
+        document.cookie = name+'=; Max-Age=-99999999;';
+    }
 
     const validation = (item: any) => {
         let obj = {
@@ -94,6 +100,10 @@ function Profile() {
                             label={'Log out'}
                             type={'primaryButton'}
                             icon={iconLogout}
+                            onClick={() => {
+                                eraseCookie('Authorization');
+                                window.location.reload();
+                            }}
                         />
                     </aside>
                 </nav>
@@ -171,6 +181,9 @@ function Profile() {
                     <Button
                         label={t('createPlan')}
                         type={'secondaryButtonAdd'}
+                        onClick={() => {
+                            navigate('/creation-plan');
+                        }}
                     />
                 </section>
             </main>
