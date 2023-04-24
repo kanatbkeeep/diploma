@@ -8,9 +8,11 @@ import Edit from "../../../assets/icon/edit.svg";
 import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
+import t from "../../../utils/Lang";
 
 const Step1 = (props: any) => {
-    const [open, setOpen] = useState("")
+    const [open, setOpen] = useState("");
+    const [itemEdit, setItemEdit]:any = useState(null);
 
     const {planStore} = props;
 
@@ -20,30 +22,6 @@ const Step1 = (props: any) => {
         && planStore.step1.lecturesPlan && planStore.step1.lecturesFact && planStore.step1.practicesPlan && planStore.step1.practicesFact
         && planStore.step1.hoursPlan && planStore.step1.hoursFact && planStore.step1.totalPlan && planStore.step1.totalFact);
     }
-
-    // const arr = Array.from({length: 40}, (_, i) => ({
-    //     id: i,
-    //     discipline: "Java" + i,
-    //     course: 3,
-    //     trimester: 1,
-    //     group: "SE-2014",
-    //     lectures: {
-    //         plan: 20,
-    //         fact: i === 2 ? 25 : 20,
-    //     },
-    //     practices: {
-    //         plan: 30,
-    //         fact: 30,
-    //     },
-    //     officeHours: {
-    //         plan: 10,
-    //         fact: 10,
-    //     },
-    //     total: {
-    //         plan: 60,
-    //         fact: 60,
-    //     }
-    // }));
 
     const addObject = () => {
         const obj = {...planStore.step1};
@@ -81,6 +59,30 @@ const Step1 = (props: any) => {
         })
     }
 
+    const copy = (item:any)=>{
+        planStore.editStep1Modal({...item});
+    }
+
+    const edit = (item:any)=>{
+        const ind = planStore.academWorks.indexOf(item);
+        planStore.academWorks[ind] = {...planStore.step1}
+        planStore.editStep1Modal({
+            nameDiscipline: "",
+            course: null,
+            trimester: null,
+            group: null,
+            lecturesPlan: "",
+            lecturesFact: "",
+            practicesPlan: "",
+            practicesFact: "",
+            hoursPlan: "",
+            hoursFact: "",
+            totalPlan: "",
+            totalFact: "",
+        })
+        setItemEdit(null);
+    }
+
 
     return (
         <div className="step-component">
@@ -89,7 +91,7 @@ const Step1 = (props: any) => {
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
                         maxWidth={500}
-                        label="Name of the Discipline"
+                        label={t('nameDiscipline')}
                         value={planStore.step1.nameDiscipline}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({nameDiscipline: e.target.value});
@@ -106,9 +108,9 @@ const Step1 = (props: any) => {
                             }
                         }}
                         open={open === "course"}
-                        label="Course"
+                        label={t('course')}
                         maxWidth={90}
-                        value={planStore.step1.course ? planStore.step1.course.name : "Select"}
+                        value={planStore.step1.course ? planStore.step1.course.name : t('select')}
                     >
                         <ul>
                             {planStore.courses.map((item: any) => {
@@ -130,9 +132,9 @@ const Step1 = (props: any) => {
                             }
                         }}
                         open={open === "trimester"}
-                        label="Trimester"
+                        label={t('trimester')}
                         maxWidth={90}
-                        value={planStore.step1.trimester ? planStore.step1.trimester.name : "Select"}
+                        value={planStore.step1.trimester ? planStore.step1.trimester.name : t('select')}
                     >
                         <ul>
                             {planStore.trimesters.map((item: any) => {
@@ -154,9 +156,9 @@ const Step1 = (props: any) => {
                             }
                         }}
                         open={open === "group"}
-                        label="Group"
+                        label={t('group')}
                         maxWidth={200}
-                        value={planStore.step1.group ? planStore.step1.group.name : "Select"}
+                        value={planStore.step1.group ? planStore.step1.group.name : t('select')}
                     >
                         <ul>
                             {planStore.groups.map((item: any) => {
@@ -173,8 +175,8 @@ const Step1 = (props: any) => {
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
                         maxWidth={100}
-                        label="Lectures"
-                        placeholder="Plan"
+                        label={t('lectures')}
+                        placeholder={t('plan')}
                         value={planStore.step1.lecturesPlan}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({lecturesPlan: e.target.value});
@@ -184,7 +186,7 @@ const Step1 = (props: any) => {
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
-                        placeholder="Fact"
+                        placeholder={t('fact')}
                         value={planStore.step1.lecturesFact}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({lecturesFact: e.target.value});
@@ -193,8 +195,8 @@ const Step1 = (props: any) => {
                     <div style={{width: 50}}/>
                     <Input
                         maxWidth={100}
-                        label="Practices"
-                        placeholder="Plan"
+                        label={t('practices')}
+                        placeholder={t('plan')}
                         value={planStore.step1.practicesPlan}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({practicesPlan: e.target.value});
@@ -204,7 +206,7 @@ const Step1 = (props: any) => {
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
-                        placeholder="Fact"
+                        placeholder={t('fact')}
                         value={planStore.step1.practicesFact}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({practicesFact: e.target.value});
@@ -213,8 +215,8 @@ const Step1 = (props: any) => {
                     <div style={{width: 50}}/>
                     <Input
                         maxWidth={100}
-                        label="Office hours"
-                        placeholder="Plan"
+                        label={t('officeHours')}
+                        placeholder={t('plan')}
                         value={planStore.step1.hoursPlan}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({hoursPlan: e.target.value});
@@ -224,7 +226,7 @@ const Step1 = (props: any) => {
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
-                        placeholder="Fact"
+                        placeholder={t('fact')}
                         value={planStore.step1.hoursFact}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({hoursFact: e.target.value});
@@ -233,8 +235,8 @@ const Step1 = (props: any) => {
                     <div style={{width: 50}}/>
                     <Input
                         maxWidth={100}
-                        label="Total"
-                        placeholder="Plan"
+                        label={t('total')}
+                        placeholder={t('plan')}
                         value={planStore.step1.totalPlan}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({totalPlan: e.target.value});
@@ -244,7 +246,7 @@ const Step1 = (props: any) => {
                     <Input
                         label="&nbsp;"
                         maxWidth={100}
-                        placeholder="Fact"
+                        placeholder={t('fact')}
                         value={planStore.step1.totalFact}
                         onChange={(e: any) => {
                             planStore.editStep1Modal({totalFact: e.target.value});
@@ -255,9 +257,13 @@ const Step1 = (props: any) => {
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
                                 icon={Plus}
-                                label="Add"
+                                label={itemEdit ? t('edit') : t('add')}
                                 onClick={()=> {
-                                    addObject();
+                                    if(itemEdit){
+                                        edit(itemEdit);
+                                    }else{
+                                        addObject();
+                                    }
                                 }}
                                 disabled={!(validation())}
                         />
@@ -265,7 +271,7 @@ const Step1 = (props: any) => {
                     <div style={{width: 50}}/>
                     <div style={{width: 144}}>
                         <Button icon={Delete}
-                                label="Reset"
+                                label={t('reset')}
                                 onClick={()=>{
                                     clear()
                                 }}
@@ -276,24 +282,31 @@ const Step1 = (props: any) => {
             <div>
                 <Table
                     array={planStore.academWorks}
+                    length={planStore.academWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
                     maxWidthColumns={[250, 55, 100, 100, 100, 100, 100, 100, 128]}
                     haveDelete={true}
-                    onDelete={() => {
-                        console.log("deleted");
+                    onDelete={(arr:any[]) => {
+                        console.log("before")
+                        console.log(planStore.academWorks);
+                        planStore.academWorks = planStore.academWorks.filter((item:any)=>{
+                            return !(arr.includes(item));
+                        })
+                        console.log("after");
+                        console.log(planStore.academWorks);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
                             <div style={{maxWidth: 50}}></div>
-                            <div style={{maxWidth: maxWidthColumns[0]}}>Discipline</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>Course</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>Trimester</div>
-                            <div style={{maxWidth: maxWidthColumns[3]}}>Group</div>
-                            <div style={{maxWidth: maxWidthColumns[4]}}>Lectures</div>
-                            <div style={{maxWidth: maxWidthColumns[5]}}>Practices</div>
-                            <div style={{maxWidth: maxWidthColumns[6]}}>Office Hours</div>
-                            <div style={{maxWidth: maxWidthColumns[7]}}>Total</div>
+                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('nameDiscipline')}</div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('course')}</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('trimester')}</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>{t('group')}</div>
+                            <div style={{maxWidth: maxWidthColumns[4]}}>{t('lectures')}</div>
+                            <div style={{maxWidth: maxWidthColumns[5]}}>{t('practices')}</div>
+                            <div style={{maxWidth: maxWidthColumns[6]}}>{t('officeHours')}</div>
+                            <div style={{maxWidth: maxWidthColumns[7]}}>{t('total')}</div>
                             <div style={{maxWidth: maxWidthColumns[8]}}></div>
                         </div>
                     }}
@@ -332,9 +345,16 @@ const Step1 = (props: any) => {
                                 <div style={{maxWidth: maxWidthColumns[8]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button className="secondaryButton"
-                                                icon={Edit}/>
+                                                icon={Edit}
+                                                onClick={()=>{
+                                                    setItemEdit(item);
+                                                    planStore.editStep1Modal({...item});
+                                                }}
+                                        />
                                     </div>
-                                    <div style={{width: 54}}><Button icon={Copy}/></div>
+                                    <div style={{width: 54}}>
+                                        <Button icon={Copy} onClick={()=>{copy(item)}}/>
+                                    </div>
                                 </div>
                             </div>
                         );

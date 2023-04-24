@@ -15,7 +15,8 @@ import Step3 from "../../components/CreationPlan/steps/Step3";
 import { observer } from 'mobx-react';
 import CreationPlanStore from '../../store/CreationPlanStore'
 import {useNavigate} from "react-router-dom";
-
+import AppStore from "../../store/AppStore";
+import t from "../../utils/Lang";
 
 export enum Steps {
     Step1,
@@ -31,6 +32,24 @@ const CreationPlan = (props: any) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const planStore:any = CreationPlanStore;
     const navigation = useNavigate();
+
+    useEffect(() => {
+        AppStore.getUser().then(() => {
+            if (!AppStore.currentUser) {
+                window.location.replace('/login')
+            }
+
+            if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
+                AppStore.getDepartmentByTeacher();
+                AppStore.getMyPlans();
+            }
+
+        }).catch(() => {
+            if (!AppStore.currentUser) {
+                window.location.replace('/login')
+            }
+        });
+    }, [])
 
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
@@ -50,7 +69,7 @@ const CreationPlan = (props: any) => {
                     <Button
                         type='secondaryLightButton'
                         icon={Home}
-                        label="Home"
+                        label={t('home')}
                         onClick={()=> navigation("/")}
                     />
                     <Button
@@ -59,22 +78,22 @@ const CreationPlan = (props: any) => {
                         }}
                         type='secondaryLightButton'
                         icon={Bell}
-                        label="Notification"
+                        label={t('notifications')}
                     />
                     <Button
                         type='secondaryButton'
                         icon={Send}
-                        label="Send"
+                        label={t('send')}
                     />
                     <Button
                         type='secondaryButton'
                         icon={Download}
-                        label="Get as Excel"
+                        label={t('getExcel')}
                     />
                     <Button
                         type='primaryButton'
                         icon={Logout}
-                        label="Log out"
+                        label={t('logOut')}
                         onClick={() => {
                             eraseCookie('Authorization');
                             window.location.reload();
@@ -87,23 +106,23 @@ const CreationPlan = (props: any) => {
                 <div className="nav-steps mt-42">
                     <div className="nav-step" onClick={()=>{setStep(Steps.Step1)}}>
                         <div style={step === Steps.Step1 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>1</div>
-                         <p style={step === Steps.Step1 ? {color:"#007EA7"} : {}}>Academic work</p>
+                         <p style={step === Steps.Step1 ? {color:"#007EA7"} : {}}>{t('academicWork')}</p>
                     </div>
                     <div className="nav-step" onClick={()=>{setStep(Steps.Step2)}}>
                         <div style={step === Steps.Step2 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>2</div>
-                        <p style={step === Steps.Step2 ? {color:"#007EA7"} : {}}>Educational Methodological work</p>
+                        <p style={step === Steps.Step2 ? {color:"#007EA7"} : {}}>{t('academicMethods')}</p>
                     </div>
                     <div className="nav-step" onClick={()=>{setStep(Steps.Step3)}}>
                         <div style={step === Steps.Step3 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>3</div>
-                        <p style={step === Steps.Step3 ? {color:"#007EA7"} : {}}>Research work</p>
+                        <p style={step === Steps.Step3 ? {color:"#007EA7"} : {}}>{t('academicResearchWork')}</p>
                     </div>
                     <div className="nav-step" onClick={()=>{setStep(Steps.Step4)}}>
                         <div style={step === Steps.Step4 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>4</div>
-                        <p style={step === Steps.Step4 ? {color:"#007EA7"} : {}}>Educational work</p>
+                        <p style={step === Steps.Step4 ? {color:"#007EA7"} : {}}>{t('academicEducationalWork')}</p>
                     </div>
                     <div className="nav-step" onClick={()=>{setStep(Steps.Step5)}}>
                         <div style={step === Steps.Step5 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>5</div>
-                        <p style={step === Steps.Step5 ? {color:"#007EA7"} : {}}>Social work</p>
+                        <p style={step === Steps.Step5 ? {color:"#007EA7"} : {}}>{t('academicSocialWork')}</p>
                     </div>
                     <div className="nav-step" onClick={()=>{setStep(Steps.Step6)}}>
                         <div style={step === Steps.Step6 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>6</div>

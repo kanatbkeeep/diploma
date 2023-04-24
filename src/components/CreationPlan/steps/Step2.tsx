@@ -8,6 +8,7 @@ import Edit from "../../../assets/icon/edit.svg";
 import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
+import t from "../../../utils/Lang";
 
 const Step2 = (props: any) => {
     const {planStore} = props;
@@ -71,8 +72,8 @@ const Step2 = (props: any) => {
                             }
                         }}
                         open={open === "discipline"}
-                        label="Name of the Discipline"
-                        value={planStore.step2.discipline ? planStore.step2.discipline.name : "Select"}
+                        label={t('nameDiscipline')}
+                        value={planStore.step2.discipline ? planStore.step2.discipline.name : t('select')}
                         maxWidth={500}
                     >
                         <ul>
@@ -86,8 +87,8 @@ const Step2 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20}}>
                     <Input maxWidth={500}
-                           label="Name of the work"
-                           placeholder="Syllabus / Method guidance"
+                           label={t('nameWork')}
+                           placeholder={t('syllabusOrMethod')}
                            value={planStore.step2.nameWork}
                            onChange={(e: any) => {
                                planStore.editStep2Modal({nameWork: e.target.value});
@@ -98,8 +99,8 @@ const Step2 = (props: any) => {
                 <div style={{display: "flex", marginBottom: 20}}>
                     <Input
                         maxWidth={180}
-                        label="Deadlines"
-                        placeholder="End"
+                        label={t('deadlines')}
+                        placeholder={t('end')}
                         value={planStore.step2.deadlines}
                         onChange={(e: any) => {
                             planStore.editStep2Modal({deadlines: e.target.value});
@@ -116,8 +117,8 @@ const Step2 = (props: any) => {
                                   }
                               }}
                               open={open === "infoImplementation"}
-                              label="Information on implementation"
-                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation.name : "Select"}
+                              label={t('infoOnImplementation')}
+                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation.name : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
@@ -130,7 +131,7 @@ const Step2 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20}}>
                     <Input
-                        label="Comments"
+                        label={t('comments')}
                         type="area"
                         maxWidth={500}
                         value={planStore.step2.comment}
@@ -144,7 +145,7 @@ const Step2 = (props: any) => {
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
                                 icon={Plus}
-                                label={itemEdit ? "Edit" : "Add"}
+                                label={itemEdit ? t('edit') : t('add')}
                                 onClick={() => {
                                     if (itemEdit) {
                                         edit(itemEdit);
@@ -158,7 +159,7 @@ const Step2 = (props: any) => {
                     <div style={{width: 50}}/>
                     <div style={{width: 144}}>
                         <Button icon={Delete}
-                                label="Reset"
+                                label={t('reset')}
                                 onClick={() => {
                                     clear()
                                 }}
@@ -186,11 +187,11 @@ const Step2 = (props: any) => {
                     renderHead={(maxWidthColumns) => {
                         return <div>
                             <div style={{maxWidth: 50}}></div>
-                            <div style={{maxWidth: maxWidthColumns[0]}}>Discipline</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>Name of work</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>Deadlines</div>
-                            <div style={{maxWidth: maxWidthColumns[3]}}>Information on implementation</div>
-                            <div style={{maxWidth: maxWidthColumns[4]}}>Comment</div>
+                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('nameDiscipline')}</div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('nameWork')}</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('deadlines')}</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>{t('infoOnImplementation')}</div>
+                            <div style={{maxWidth: maxWidthColumns[4]}}>{t('comments')}</div>
                             <div style={{maxWidth: maxWidthColumns[5]}}></div>
                         </div>
                     }}

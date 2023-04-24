@@ -8,6 +8,7 @@ import Edit from "../../../assets/icon/edit.svg";
 import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
+import t from "../../../utils/Lang";
 
 const Step3 = (props: any) => {
     const {planStore} = props;
@@ -76,8 +77,8 @@ const Step3 = (props: any) => {
                             }
                         }}
                         open={open === "work"}
-                        label="Type of the Work"
-                        value={planStore.step3.typeWork ? planStore.step3.typeWork.name: "Select"}
+                        label={t('typeOfWork')}
+                        value={planStore.step3.typeWork ? planStore.step3.typeWork.name: t('select')}
                         maxWidth={300}
                     >
                         <ul>
@@ -92,7 +93,7 @@ const Step3 = (props: any) => {
 
                     <div style={{marginRight: 55}}/>
                     <Input maxWidth={400}
-                           label="Name of the Journal"
+                           label={t('nameJournal')}
                            value={planStore.step3.journal}
                            onChange={(e: any) => {
                                planStore.editStep3Modal({journal: e.target.value});
@@ -101,8 +102,8 @@ const Step3 = (props: any) => {
                     />
                     <div style={{marginRight: 55}}/>
                     <Input maxWidth={140}
-                           label="Deadlines"
-                           placeholder="End"
+                           label={t('deadlines')}
+                           placeholder={t('end')}
                            value={planStore.step3.deadline}
                            onChange={(e: any) => {
                                planStore.editStep3Modal({deadline: e.target.value});
@@ -113,7 +114,7 @@ const Step3 = (props: any) => {
 
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input maxWidth={560}
-                           label="Name of the Article"
+                           label={t('nameArticle')}
                            value={planStore.step3.article}
                            onChange={(e: any) => {
                                planStore.editStep3Modal({article: e.target.value});
@@ -130,8 +131,8 @@ const Step3 = (props: any) => {
                             }
                         }}
                         open={open === "infoImpl"}
-                        label="Information on implementation"
-                        value={planStore.step3.infoImplementation ? planStore.step3.infoImplementation.name: "Select"}
+                        label={t('infoOnImplementation')}
+                        value={planStore.step3.infoImplementation ? planStore.step3.infoImplementation.name: t('select')}
                         maxWidth={300}
                     >
                         <ul>
@@ -161,7 +162,7 @@ const Step3 = (props: any) => {
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
                                 icon={Plus}
-                                label={itemEdit ? "Edit" : "Add"}
+                                label={itemEdit ? t('edit') : t('add')}
                                 onClick={() => {
                                     if (itemEdit) {
                                         edit(itemEdit);
@@ -175,7 +176,7 @@ const Step3 = (props: any) => {
                     <div style={{width: 50}}/>
                     <div style={{width: 144}}>
                         <Button icon={Delete}
-                                label="Reset"
+                                label={t('reset')}
                                 onClick={() => {
                                     clear()
                                 }}
@@ -203,12 +204,12 @@ const Step3 = (props: any) => {
                     renderHead={(maxWidthColumns) => {
                         return <div>
                             <div style={{maxWidth: 50}}></div>
-                            <div style={{maxWidth: maxWidthColumns[0]}}>Type of work</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>Journal</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>Deadline</div>
-                            <div style={{maxWidth: maxWidthColumns[3]}}>Article</div>
-                            <div style={{maxWidth: maxWidthColumns[4]}}>Information on implementation</div>
-                            <div style={{maxWidth: maxWidthColumns[5]}}>Comment</div>
+                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('typeOfWork')}</div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('nameJournal')}</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('deadlines')}</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>{t('nameArticle')}</div>
+                            <div style={{maxWidth: maxWidthColumns[4]}}>{t('infoOnImplementation')}</div>
+                            <div style={{maxWidth: maxWidthColumns[5]}}>{t('comments')}</div>
                             <div style={{maxWidth: maxWidthColumns[6]}}></div>
                         </div>
                     }}
