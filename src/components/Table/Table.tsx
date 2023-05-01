@@ -34,13 +34,12 @@ const Table = ({
     let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
-    let arrChecked = data.map((item: any, ind:any) => {
-        return {id: ind, checked: false}
-    });
     let keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
-    const [checked, setChecked] = useState(arrChecked);
-    const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
+
+    const [checked, setChecked] = useState(Array.from({ length: array.length }, (_, i) => ({ id: i, checked: false })));
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
+    const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
+
     let totalPages: any[] = [];
     const copyTotalPages: any[] = [];
     for (let i = 1; i <= Math.ceil(data?.length / 4); i++) {
@@ -52,10 +51,7 @@ const Table = ({
     useEffect(()=>{
         setData(array);
         copyData = data;
-        arrChecked = data.map((item: any, ind:any) => {
-            return {id: ind, checked: false}
-        });
-        setChecked(arrChecked);
+        setChecked(Array.from({ length: array.length }, (_, i) => ({ id: i, checked: false })));
         setItemsChecked([...checked])
         keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
     },[array.length, checked.length])
@@ -278,6 +274,8 @@ const Table = ({
                             onClick={() => {
                                 setData(data.filter((item: any) => !(itemsToDelete.includes(item))));
                                 copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
+                                setChecked(Array.from({ length: data.length }, (_, i) => ({ id: i, checked: false })));
+                                setItemsChecked([...checked])
                                 setCurrentPage(0);
                                 setItemsToDelete([]);
                                 onDelete(itemsToDelete);
