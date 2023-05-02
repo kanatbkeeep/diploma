@@ -49,7 +49,7 @@ const CreationPlan = (props: any) => {
                 window.location.replace('/login')
             }
         });
-        planStore.getAcademicWorks();
+        // planStore.getAcademicWorks();
     }, [])
 
     const handleModalStateChanged = useCallback((state: boolean) => {
