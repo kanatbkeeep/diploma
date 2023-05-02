@@ -60,9 +60,10 @@ class CreationPlanStore {
     ]
 
     typeWork = [
-        {id:1, name:"Research project"},
-        {id:2, name:"Research"},
-        {id:3, name:"Research article"},
+        {id:1, name:"Preparation of an Article"},
+        {id:2, name:"Participation in a Conference"},
+        {id:3, name:"Scientific guidance"},
+        {id:4, name:"Other"},
     ];
 
     getCookie(name: any) {

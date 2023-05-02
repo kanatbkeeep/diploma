@@ -11,7 +11,7 @@ import Logout from '../../assets/icon/logout.svg';
 import Navigation from "../../components/Notification/Notification";
 import Step1 from "../../components/CreationPlan/steps/Step1";
 import Step2 from "../../components/CreationPlan/steps/Step2";
-import Step3 from "../../components/CreationPlan/steps/Step3";
+import Step3 from "../../components/CreationPlan/steps/step3/Step3";
 import { observer } from 'mobx-react';
 import CreationPlanStore from '../../store/CreationPlanStore'
 import {useNavigate} from "react-router-dom";

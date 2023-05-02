@@ -45,6 +45,13 @@ const kz = {
     syllabusOrMethod:"Оқу бағдарламасы / әдістемелік нұсқаулық",
     end:"Соңы",
     select:"Таңдау",
+    coAuthors:"Бірлескен автор",
+    results:"Нәтижелер",
+    conferenceName:"Конференция атауы",
+    date:"Күні",
+    topicSpeech:"Сөйлеу тақырыбы",
+    event:"Іс-шаралар",
+    students:"Студенттер",
 }
 
 export default kz;
