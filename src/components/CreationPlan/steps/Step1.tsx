@@ -18,19 +18,20 @@ const Step1 = (props: any) => {
 
 
     const validation = () =>{
-        return (planStore.step1.nameDiscipline && planStore.step1.course && planStore.step1.trimester && planStore.step1.group
+        return (planStore.step1.nameOfDiscipline && planStore.step1.course && planStore.step1.trimester && planStore.step1.groups
         && planStore.step1.lecturesPlan && planStore.step1.lecturesFact && planStore.step1.practicesPlan && planStore.step1.practicesFact
         && planStore.step1.hoursPlan && planStore.step1.hoursFact && planStore.step1.totalPlan && planStore.step1.totalFact);
     }
 
     const addObject = () => {
-        const obj = {...planStore.step1};
-        planStore.academWorks.push(obj);
+        // const obj = {...planStore.step1};
+        planStore.addAcademicWork();
+        // planStore.academWorks.push(obj);
         planStore.editStep1Modal({
-            nameDiscipline: "",
-            course: null,
-            trimester: null,
-            group: null,
+            nameOfDiscipline: "",
+            course: "",
+            trimester: "",
+            groups: "",
             lecturesPlan: "",
             lecturesFact: "",
             practicesPlan: "",
@@ -44,10 +45,10 @@ const Step1 = (props: any) => {
 
     const clear = () => {
         planStore.editStep1Modal({
-            nameDiscipline: "",
-            course: null,
-            trimester: null,
-            group: null,
+            nameOfDiscipline: "",
+            course: "",
+            trimester: "",
+            groups: "",
             lecturesPlan: "",
             lecturesFact: "",
             practicesPlan: "",
@@ -64,13 +65,14 @@ const Step1 = (props: any) => {
     }
 
     const edit = (item:any)=>{
-        const ind = planStore.academWorks.indexOf(item);
-        planStore.academWorks[ind] = {...planStore.step1}
+        const toUpdate = {...item, ...planStore.step1}
+        console.log(toUpdate);
+        planStore.updateAcademicWorks(toUpdate);
         planStore.editStep1Modal({
-            nameDiscipline: "",
-            course: null,
-            trimester: null,
-            group: null,
+            nameOfDiscipline: "",
+            course: "",
+            trimester: "",
+            groups: "",
             lecturesPlan: "",
             lecturesFact: "",
             practicesPlan: "",
@@ -92,9 +94,9 @@ const Step1 = (props: any) => {
                     <Input
                         maxWidth={500}
                         label={t('nameDiscipline')}
-                        value={planStore.step1.nameDiscipline}
+                        value={planStore.step1.nameOfDiscipline}
                         onChange={(e: any) => {
-                            planStore.editStep1Modal({nameDiscipline: e.target.value});
+                            planStore.editStep1Modal({nameOfDiscipline: e.target.value});
                         }
                         }
                     />
@@ -110,12 +112,12 @@ const Step1 = (props: any) => {
                         open={open === "course"}
                         label={t('course')}
                         maxWidth={90}
-                        value={planStore.step1.course ? planStore.step1.course.name : t('select')}
+                        value={planStore.step1.course ? planStore.step1.course : t('select')}
                     >
                         <ul>
                             {planStore.courses.map((item: any) => {
                                 return <li onClick={() => {
-                                    planStore.editStep1Modal({course: item});
+                                    planStore.editStep1Modal({course: item.name});
                                 }}>
                                     {item.name}
                                 </li>
@@ -134,12 +136,12 @@ const Step1 = (props: any) => {
                         open={open === "trimester"}
                         label={t('trimester')}
                         maxWidth={90}
-                        value={planStore.step1.trimester ? planStore.step1.trimester.name : t('select')}
+                        value={planStore.step1.trimester ? planStore.step1.trimester : t('select')}
                     >
                         <ul>
                             {planStore.trimesters.map((item: any) => {
                                 return <li onClick={() => {
-                                    planStore.editStep1Modal({trimester: item})
+                                    planStore.editStep1Modal({trimester: item.name})
                                 }}>
                                     {item.name}
                                 </li>
@@ -158,12 +160,12 @@ const Step1 = (props: any) => {
                         open={open === "group"}
                         label={t('group')}
                         maxWidth={200}
-                        value={planStore.step1.group ? planStore.step1.group.name : t('select')}
+                        value={planStore.step1.groups ? planStore.step1.groups : t('select')}
                     >
                         <ul>
                             {planStore.groups.map((item: any) => {
                                 return <li onClick={() => {
-                                    planStore.editStep1Modal({group: item})
+                                    planStore.editStep1Modal({groups: item.name})
                                 }}>
                                     {item.name}
                                 </li>
@@ -288,13 +290,7 @@ const Step1 = (props: any) => {
                     maxWidthColumns={[250, 55, 100, 100, 100, 100, 100, 100, 128]}
                     haveDelete={true}
                     onDelete={(arr:any[]) => {
-                        console.log("before")
-                        console.log(planStore.academWorks);
-                        planStore.academWorks = planStore.academWorks.filter((item:any)=>{
-                            return !(arr.includes(item));
-                        })
-                        console.log("after");
-                        console.log(planStore.academWorks);
+                        planStore.deleteAcademicWorks(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
@@ -314,10 +310,10 @@ const Step1 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.nameDiscipline}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.course.name}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.trimester.name}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.group.name}</div>
+                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfDiscipline}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.course}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.trimester}</div>
+                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.groups}</div>
                                 <div style={{maxWidth: maxWidthColumns[4]}}>
                                     <p style={{width: "100%", maxWidth: 50, color: "#003459"}}>{item.lecturesPlan}</p>
                                     <p style={{width: "100%", maxWidth: 50, color: "#007EA7"}}>{item.lecturesFact}</p>
