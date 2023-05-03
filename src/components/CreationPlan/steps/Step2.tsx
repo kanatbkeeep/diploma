@@ -21,8 +21,7 @@ const Step2 = (props: any) => {
     }
 
     const addObject = () => {
-        const obj = {...planStore.step2};
-        planStore.eduMethWorks.push(obj);
+        planStore.saveAcademicMethod();
         planStore.editStep2Modal({
             discipline: null,
             nameWork: "",
@@ -47,13 +46,13 @@ const Step2 = (props: any) => {
     }
 
     const edit = (item: any) => {
-        const ind = planStore.eduMethWorks.indexOf(item);
-        planStore.eduMethWorks[ind] = {...planStore.step2}
+        const toUpdate = {...item, ...planStore.step2}
+        planStore.updateAcademicMethod(toUpdate);
         planStore.editStep2Modal({
-            discipline: null,
+            discipline: "",
             nameWork: "",
             deadlines: "",
-            infoImplementation: null,
+            infoImplementation: "",
             comment: "",
         })
         setItemEdit(null);
@@ -73,12 +72,12 @@ const Step2 = (props: any) => {
                         }}
                         open={open === "discipline"}
                         label={t('nameDiscipline')}
-                        value={planStore.step2.discipline ? planStore.step2.discipline.name : t('select')}
+                        value={planStore.step2.discipline ? planStore.step2.discipline : t('select')}
                         maxWidth={500}
                     >
                         <ul>
                             {planStore.disciplines.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({discipline: item})}>
+                                return <li onClick={() => planStore.editStep2Modal({discipline: item.name})}>
                                     {item.name}
                                 </li>
                             })}
@@ -118,11 +117,11 @@ const Step2 = (props: any) => {
                               }}
                               open={open === "infoImplementation"}
                               label={t('infoOnImplementation')}
-                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation.name : t('select')}
+                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({infoImplementation: item})}>
+                                return <li onClick={() => planStore.editStep2Modal({infoImplementation: item.name})}>
                                     {item.name}
                                 </li>
                             })}
@@ -176,13 +175,7 @@ const Step2 = (props: any) => {
                     maxWidthColumns={[250, 250, 100, 150, 150, 140]}
                     haveDelete={true}
                     onDelete={(arr:any[]) => {
-                        console.log("before")
-                        console.log(planStore.eduMethWorks);
-                        planStore.eduMethWorks = planStore.eduMethWorks.filter((item:any)=>{
-                            return !(arr.includes(item));
-                        })
-                        console.log("after");
-                        console.log(planStore.eduMethWorks);
+                        planStore.deleteAcademicMethods(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
@@ -199,10 +192,10 @@ const Step2 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline.name}</div>
+                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoImplementation.name}</div>
+                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoImplementation}</div>
                                 <div  className="hidden-scroll" style={{maxWidth: maxWidthColumns[4],
                                     overflowY:"scroll"}}>
                                     {item.comment}

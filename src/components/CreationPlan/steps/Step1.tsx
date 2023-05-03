@@ -24,9 +24,7 @@ const Step1 = (props: any) => {
     }
 
     const addObject = () => {
-        // const obj = {...planStore.step1};
-        planStore.addAcademicWork();
-        // planStore.academWorks.push(obj);
+        planStore.saveAcademicWork();
         planStore.editStep1Modal({
             nameOfDiscipline: "",
             course: "",
@@ -66,8 +64,7 @@ const Step1 = (props: any) => {
 
     const edit = (item:any)=>{
         const toUpdate = {...item, ...planStore.step1}
-        console.log(toUpdate);
-        planStore.updateAcademicWorks(toUpdate);
+        planStore.updateAcademicWork(toUpdate);
         planStore.editStep1Modal({
             nameOfDiscipline: "",
             course: "",
@@ -112,7 +109,7 @@ const Step1 = (props: any) => {
                         open={open === "course"}
                         label={t('course')}
                         maxWidth={90}
-                        value={planStore.step1.course ? planStore.step1.course : t('select')}
+                        value={planStore.step1.course ? planStore.step1.course : "---"}
                     >
                         <ul>
                             {planStore.courses.map((item: any) => {
@@ -136,7 +133,7 @@ const Step1 = (props: any) => {
                         open={open === "trimester"}
                         label={t('trimester')}
                         maxWidth={90}
-                        value={planStore.step1.trimester ? planStore.step1.trimester : t('select')}
+                        value={planStore.step1.trimester ? planStore.step1.trimester : "---"}
                     >
                         <ul>
                             {planStore.trimesters.map((item: any) => {
@@ -149,29 +146,15 @@ const Step1 = (props: any) => {
                         </ul>
                     </Dropdown>
                     <div style={{width: 50}}/>
-                    <Dropdown
-                        onClick={() => {
-                            if (open === "") {
-                                setOpen("group");
-                            } else {
-                                setOpen("")
-                            }
-                        }}
-                        open={open === "group"}
-                        label={t('group')}
+                    <Input
                         maxWidth={200}
-                        value={planStore.step1.groups ? planStore.step1.groups : t('select')}
-                    >
-                        <ul>
-                            {planStore.groups.map((item: any) => {
-                                return <li onClick={() => {
-                                    planStore.editStep1Modal({groups: item.name})
-                                }}>
-                                    {item.name}
-                                </li>
-                            })}
-                        </ul>
-                    </Dropdown>
+                        label={t('group')}
+                        value={planStore.step1.groups}
+                        onChange={(e: any) => {
+                            planStore.editStep1Modal({groups: e.target.value});
+                        }
+                        }
+                    />
                 </div>
 
                 <div style={{marginBottom: 20, display: "flex"}}>

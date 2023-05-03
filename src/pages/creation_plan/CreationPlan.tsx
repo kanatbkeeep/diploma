@@ -40,8 +40,6 @@ const CreationPlan = (props: any) => {
             }
 
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
-                AppStore.getDepartmentByTeacher();
-                AppStore.getMyPlans();
             }
 
         }).catch(() => {
@@ -49,6 +47,7 @@ const CreationPlan = (props: any) => {
                 window.location.replace('/login')
             }
         });
+        planStore.getPlan();
         // planStore.getAcademicWorks();
     }, [])
 
