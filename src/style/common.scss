@@ -690,7 +690,9 @@ width: 100%;
 }
 
 // убрать скролл
-
+.hidden-scroll{
+  overflow-y: scroll;
+}
 .hidden-scroll::-webkit-scrollbar{
   width: 3px;
   display: none;

@@ -17,6 +17,8 @@ import CreationPlanStore from '../../store/CreationPlanStore'
 import {useNavigate} from "react-router-dom";
 import AppStore from "../../store/AppStore";
 import t from "../../utils/Lang";
+import Step4 from "../../components/CreationPlan/steps/Step4";
+import Step5 from "../../components/CreationPlan/steps/Step5";
 
 export enum Steps {
     Step1,
@@ -139,6 +141,12 @@ const CreationPlan = (props: any) => {
                     }
                     {
                         step === Steps.Step3 ? <Step3 planStore={planStore}/> : null
+                    }
+                    {
+                        step === Steps.Step4 ? <Step4 planStore={planStore}/> : null
+                    }
+                    {
+                        step === Steps.Step5 ? <Step5 planStore={planStore}/> : null
                     }
                 </div>
             </section>
