@@ -13,8 +13,10 @@ import t from "../../utils/Lang";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
+import Dropdown from "../../components/Dropdown/Dropdown";
 
 function Profile() {
+    const [open, setOpen] = useState("");
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const navigate = useNavigate();
     const handleModalStateChanged = useCallback((state: boolean) => {
@@ -81,6 +83,24 @@ function Profile() {
                     </aside>
 
                     <aside>
+                        <Dropdown
+                            noIcon
+                            lang
+                            value={AppStore.lang}
+                        >
+                            <ul>
+                                {AppStore.langs.map((item: any) => {
+                                    return <li style={{display: "flex", justifyContent: "center", padding: "0"}}
+                                               onClick={() => {
+                                                   AppStore.lang = item;
+                                                   document.cookie = "lang=" + item;
+                                               }}>
+                                        {item}
+                                    </li>
+                                })}
+                            </ul>
+                        </Dropdown>
+
                         <Button
                             label={'Home'}
                             type={'secondaryButton'}
