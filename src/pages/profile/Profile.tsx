@@ -84,6 +84,14 @@ function Profile() {
 
                     <aside>
                         <Dropdown
+                            onClick={() => {
+                                if (open === "") {
+                                    setOpen("lang");
+                                } else {
+                                    setOpen("")
+                                }
+                            }}
+                            open={open === "lang"}
                             noIcon
                             lang
                             value={AppStore.lang}
