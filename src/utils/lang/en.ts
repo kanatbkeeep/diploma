@@ -44,7 +44,14 @@ const en = {
     getExcel:"Get as Excel",
     syllabusOrMethod:"Syllabus / Method guidance",
     end:"End",
-    select:"Select"
+    select:"Select",
+    coAuthors:"Co-authors",
+    results:"Results",
+    conferenceName:"Conference Name",
+    date:"Date",
+    topicSpeech:"Topic of the speech",
+    event:"Event",
+    students:"Students",
 }
 
 export default en;

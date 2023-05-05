@@ -181,7 +181,8 @@ function Profile() {
                     <Button
                         label={t('createPlan')}
                         type={'secondaryButtonAdd'}
-                        onClick={() => {
+                        onClick={async() => {
+                            await AppStore.createPlan();
                             navigate('/creation-plan');
                         }}
                     />

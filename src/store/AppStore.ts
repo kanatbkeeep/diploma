@@ -29,6 +29,7 @@ class AppStore {
         }).then((repos: any) => {
             if (repos.status === 200) {
                 this.currentUser = repos.data;
+                console.log(this.currentUser);
                 if (window.location.href.includes('/login')) window.location.replace('/');
             }
         });
@@ -58,6 +59,15 @@ class AppStore {
         });
     }
 
+    async createPlan() {
+        return await axios.post('http://localhost:8080/plan/create', {},{
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+        });
+    }
+
     getCookie(name: any) {
         const value = `; ${document.cookie}`;
         const parts: any = value.split(`; ${name}=`);
@@ -84,6 +94,7 @@ class AppStore {
             getCookie: action.bound,
             getDepartmentByTeacher: action.bound,
             getMyPlans: action.bound,
+            createPlan: action.bound,
         })
     }
 }

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -10,103 +10,84 @@ import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 
-const Step2 = (props: any) => {
-    const {planStore} = props;
+const Step5 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
 
+    const {planStore} = props;
+
 
     const validation = () => {
-        return (planStore.step2.discipline && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.infoImplementation);
+        return (planStore.step5.nameOfTheWork && planStore.step5.deadlines && planStore.step5.infoImplementation && planStore.step5.results
+            && planStore.step5.comments);
     }
 
     const addObject = () => {
-        planStore.saveAcademicMethod();
-        planStore.editStep2Modal({
-            discipline: null,
-            nameWork: "",
+        planStore.saveSocialWork();
+        planStore.editStep5Modal({
+            nameOfTheWork: "",
             deadlines: "",
-            infoImplementation: null,
-            comment: "",
+            infoImplementation: "",
+            results: "",
+            comments: "",
         })
     }
 
     const clear = () => {
-        planStore.editStep2Modal({
-            discipline: null,
-            nameWork: "",
+        planStore.editStep5Modal({
+            nameOfTheWork: "",
             deadlines: "",
-            infoImplementation: null,
-            comment: "",
+            infoImplementation: "",
+            results: "",
+            comments: "",
         })
     }
 
     const copy = (item: any) => {
-        planStore.editStep2Modal({...item});
+        planStore.editStep5Modal({...item});
     }
 
     const edit = (item: any) => {
-        const toUpdate = {...item, ...planStore.step2}
-        planStore.updateAcademicMethod(toUpdate);
-        planStore.editStep2Modal({
-            discipline: "",
-            nameWork: "",
+        const toUpdate = {...item, ...planStore.step5}
+        planStore.updateSocialWork(toUpdate);
+        planStore.editStep5Modal({
+            nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
-            comment: "",
+            results: "",
+            comments: "",
         })
         setItemEdit(null);
     }
+
+
     return (
         <div className="step-component">
             <div className="years">2022-2023</div>
             <div className="inputs-step">
-                <div style={{marginBottom: 20}}>
-                    <Dropdown
-                        onClick={() => {
-                            if (open === "") {
-                                setOpen("discipline");
-                            } else {
-                                setOpen("")
-                            }
-                        }}
-                        open={open === "discipline"}
-                        label={t('nameDiscipline')}
-                        value={planStore.step2.discipline ? planStore.step2.discipline : t('select')}
-                        maxWidth={500}
-                    >
-                        <ul>
-                            {planStore.disciplines.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({discipline: item.name})}>
-                                    {item.name}
-                                </li>
-                            })}
-                        </ul>
-                    </Dropdown>
-                </div>
-                <div style={{marginBottom: 20}}>
-                    <Input maxWidth={500}
-                           label={t('nameWork')}
-                           placeholder={t('syllabusOrMethod')}
-                           value={planStore.step2.nameWork}
-                           onChange={(e: any) => {
-                               planStore.editStep2Modal({nameWork: e.target.value});
-                           }
-                           }
-                    />
-                </div>
-                <div style={{display: "flex", marginBottom: 20}}>
+                <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
-                        maxWidth={180}
-                        label={t('deadlines')}
-                        placeholder={t('end')}
-                        value={planStore.step2.deadlines}
+                        maxWidth={500}
+                        type="area"
+                        label={t('nameWork')}
+                        value={planStore.step5.nameOfTheWork}
                         onChange={(e: any) => {
-                            planStore.editStep2Modal({deadlines: e.target.value});
+                            planStore.editStep5Modal({nameOfTheWork: e.target.value});
                         }
                         }
                     />
-                    <div style={{width: 20}}/>
+                </div>
+                <div style={{marginBottom: 20, display: "flex"}}>
+                    <Input
+                        maxWidth={140}
+                        label={t('deadlines')}
+                        value={planStore.step5.deadlines}
+                        onChange={(e: any) => {
+                            planStore.editStep5Modal({deadlines: e.target.value});
+                        }
+                        }
+                    />
+                    <div style={{marginRight: 55}}/>
                     <Dropdown maxWidth={300}
                               onClick={() => {
                                   if (open === "") {
@@ -117,29 +98,45 @@ const Step2 = (props: any) => {
                               }}
                               open={open === "infoImplementation"}
                               label={t('infoOnImplementation')}
-                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation : t('select')}
+                              value={planStore.step5.infoImplementation ? planStore.step5.infoImplementation : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({infoImplementation: item.name})}>
+                                return <li
+                                    onClick={() => planStore.editStep5Modal({infoImplementation: item.name})}>
                                     {item.name}
                                 </li>
                             })}
                         </ul>
                     </Dropdown>
                 </div>
-                <div style={{marginBottom: 20}}>
+
+                <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
-                        label={t('comments')}
-                        type="area"
                         maxWidth={500}
-                        value={planStore.step2.comment}
+                        type="area"
+                        label={t('results')}
+                        value={planStore.step5.results}
                         onChange={(e: any) => {
-                            planStore.editStep2Modal({comment: e.target.value});
+                            planStore.editStep5Modal({results: e.target.value});
                         }
                         }
                     />
                 </div>
+
+                <div style={{marginBottom: 20, display: "flex"}}>
+                    <Input
+                        maxWidth={500}
+                        type="area"
+                        label={t('comments')}
+                        value={planStore.step5.comments}
+                        onChange={(e: any) => {
+                            planStore.editStep5Modal({comments: e.target.value});
+                        }
+                        }
+                    />
+                </div>
+
                 <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
@@ -168,22 +165,22 @@ const Step2 = (props: any) => {
             </div>
             <div>
                 <Table
-                    array={planStore.eduMethWorks}
-                    length={planStore.eduMethWorks.length}
+                    array={planStore.socialWorks}
+                    length={planStore.socialWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
-                    maxWidthColumns={[250, 250, 100, 150, 150, 140]}
+                    maxWidthColumns={[350, 100, 200, 150, 100, 133]}
                     haveDelete={true}
-                    onDelete={(arr:any[]) => {
-                        planStore.deleteAcademicMethods(arr);
+                    onDelete={(arr: any[]) => {
+                        planStore.deleteSocialWorks(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
                             <div style={{maxWidth: 50}}></div>
-                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('nameDiscipline')}</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('nameWork')}</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('deadlines')}</div>
-                            <div style={{maxWidth: maxWidthColumns[3]}}>{t('infoOnImplementation')}</div>
+                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('nameWork')}</div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('deadlines')}</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('infoOnImplementation')}</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>{t('results')}</div>
                             <div style={{maxWidth: maxWidthColumns[4]}}>{t('comments')}</div>
                             <div style={{maxWidth: maxWidthColumns[5]}}></div>
                         </div>
@@ -192,25 +189,21 @@ const Step2 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoImplementation}</div>
-                                <div  className="hidden-scroll" style={{maxWidth: maxWidthColumns[4],
-                                    overflowY:"scroll"}}>
-                                    {item.comment}
-                                </div>
+                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.infoImplementation}</div>
+                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
+                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button className="secondaryButton"
                                                 icon={Edit}
                                                 onClick={() => {
                                                     setItemEdit(item);
-                                                    planStore.editStep2Modal({...item});
+                                                    planStore.editStep5Modal({...item});
                                                 }}
                                         />
                                     </div>
-
                                     <div style={{width: 54}}>
                                         <Button icon={Copy} onClick={() => {
                                             copy(item)
@@ -226,4 +219,4 @@ const Step2 = (props: any) => {
     )
 }
 
-export default observer(Step2);
+export default observer(Step5);

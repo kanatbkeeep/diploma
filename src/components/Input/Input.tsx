@@ -43,7 +43,7 @@ const Input = (props:any) => {
 
     return(
             <div className="forms-group" style={{maxWidth: props.maxWidth}}>
-                <label htmlFor="forInput" style={props.login ? {marginLeft:20} : {}}>{props.label}</label>
+                <label htmlFor="forInput" style={props.login ? {marginLeft:20} : {}}>{props.label ? props.label : "ㅤ"}</label>
                 <input
                     type="text"
                     onChange={props.onChange}

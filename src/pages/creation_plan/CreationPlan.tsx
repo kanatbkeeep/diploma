@@ -11,12 +11,14 @@ import Logout from '../../assets/icon/logout.svg';
 import Navigation from "../../components/Notification/Notification";
 import Step1 from "../../components/CreationPlan/steps/Step1";
 import Step2 from "../../components/CreationPlan/steps/Step2";
-import Step3 from "../../components/CreationPlan/steps/Step3";
+import Step3 from "../../components/CreationPlan/steps/step3/Step3";
 import { observer } from 'mobx-react';
 import CreationPlanStore from '../../store/CreationPlanStore'
 import {useNavigate} from "react-router-dom";
 import AppStore from "../../store/AppStore";
 import t from "../../utils/Lang";
+import Step4 from "../../components/CreationPlan/steps/Step4";
+import Step5 from "../../components/CreationPlan/steps/Step5";
 
 export enum Steps {
     Step1,
@@ -40,8 +42,6 @@ const CreationPlan = (props: any) => {
             }
 
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
-                AppStore.getDepartmentByTeacher();
-                AppStore.getMyPlans();
             }
 
         }).catch(() => {
@@ -49,6 +49,7 @@ const CreationPlan = (props: any) => {
                 window.location.replace('/login')
             }
         });
+        planStore.getPlan();
         // planStore.getAcademicWorks();
     }, [])
 
@@ -140,6 +141,12 @@ const CreationPlan = (props: any) => {
                     }
                     {
                         step === Steps.Step3 ? <Step3 planStore={planStore}/> : null
+                    }
+                    {
+                        step === Steps.Step4 ? <Step4 planStore={planStore}/> : null
+                    }
+                    {
+                        step === Steps.Step5 ? <Step5 planStore={planStore}/> : null
                     }
                 </div>
             </section>

@@ -45,6 +45,13 @@ const ru = {
     syllabusOrMethod:"Учебная программа / Методическое руководство",
     end:"Конец",
     select:"Выбрать",
+    coAuthors:"Cоавтор",
+    results:"Результаты",
+    conferenceName:"Название конференции",
+    date:"Дата",
+    topicSpeech:"Тема выступления",
+    event:"Ивент",
+    students:"Студенты",
 }
 
 export default ru;
