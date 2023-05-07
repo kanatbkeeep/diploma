@@ -168,7 +168,15 @@ function Profile() {
                                         <div style={{maxWidth: maxWidthColumns[6]}}>{'0%'}</div>
                                         <div style={{maxWidth: maxWidthColumns[7]}}>{'Not sent'}</div>
                                         <div style={{maxWidth: maxWidthColumns[8]}}>
-                                            <div style={{width:54, marginRight:10}}><Button className="secondaryButton" icon={Edit}/></div>
+                                            <div style={{width:54, marginRight:10}}>
+                                                <Button
+                                                    className="secondaryButton"
+                                                    icon={Edit}
+                                                    onClick={()=>{
+                                                        navigate(`/plan/${item.id}`);
+                                                    }}
+                                                />
+                                            </div>
                                             <div style={{width:54}}><Button icon={Copy}/></div>
                                         </div>
                                     </div>

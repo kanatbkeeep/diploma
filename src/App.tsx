@@ -25,6 +25,7 @@ function App() {
                     <Route path="/" element={<Profile />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/creation-plan" element={<CreationPlan/>}/>
+                    <Route path="/plan/:id" element={<CreationPlan/>}/>
                     <Route path="/test" element={<Test/>} />
                 </Routes>
             </Router>

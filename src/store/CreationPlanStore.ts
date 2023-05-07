@@ -9,7 +9,7 @@ import {
     DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
     EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_SOCIAL_WORK,
-    GET_LATEST_PLAN
+    GET_LATEST_PLAN, GET_PLAN_BY_ID
 } from "../config/rest/creationPlanRest";
 
 class CreationPlanStore {
@@ -96,20 +96,37 @@ class CreationPlanStore {
     }
 
 
-    async getPlan() {
-        return await axios.get(GET_LATEST_PLAN, {
-            headers: {
-                Authorization: this.getCookie('Authorization')
-            }
-        }).then((repos: any) => {
-            if (repos.status === 200) {
-                this.plan = repos.data;
-                this.academWorks = repos.data.academicWorks;
-                this.eduMethWorks = repos.data.academicMethods;
-                this.eduWorks = repos.data.educationalWorks;
-                this.socialWorks = repos.data.socialWorks;
-            }
-        });
+    async getPlan(id: any = null) {
+        if(id !== null){
+            return await axios.get(GET_PLAN_BY_ID(id), {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+                if (repos.status === 200) {
+                    this.plan = repos.data;
+                    this.academWorks = repos.data.academicWorks;
+                    this.eduMethWorks = repos.data.academicMethods;
+                    this.eduWorks = repos.data.educationalWorks;
+                    this.socialWorks = repos.data.socialWorks;
+                }
+            });
+        }else{
+            return await axios.get(GET_LATEST_PLAN, {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+                if (repos.status === 200) {
+                    this.plan = repos.data;
+                    this.academWorks = repos.data.academicWorks;
+                    this.eduMethWorks = repos.data.academicMethods;
+                    this.eduWorks = repos.data.educationalWorks;
+                    this.socialWorks = repos.data.socialWorks;
+                }
+            });
+        }
+
     }
 
     async saveAcademicWork() {
