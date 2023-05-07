@@ -31,7 +31,6 @@ const Step3 = (props: any) => {
 
     return (
         <div className="step-component">
-            <div className="years">2022-2023</div>
             <div className="inputs-step">
                 <Dropdown
                     onClick={() => {

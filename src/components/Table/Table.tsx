@@ -30,13 +30,13 @@ const Table = ({
                    ...props
                }: Props & Record<string, unknown>) => {
 
-    const [data, setData]:any = useState(array);
+    const [data, setData]: any = useState(array);
     let copyData = data;
     const [currentPage, setCurrentPage] = useState(0);
     const [nameSearch, setNameSearch] = useState("");
     let keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
 
-    const [checked, setChecked] = useState(Array.from({ length: array.length }, (_, i) => ({ id: i, checked: false })));
+    const [checked, setChecked] = useState(Array.from({length: array.length}, (_, i) => ({id: i, checked: false})));
     const [itemsChecked, setItemsChecked]: any[] = useState([...checked]);
     const [itemsToDelete, setItemsToDelete]: any[] = useState([]);
 
@@ -48,109 +48,106 @@ const Table = ({
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
         setData(array);
         copyData = data;
-        setChecked(Array.from({ length: array.length }, (_, i) => ({ id: i, checked: false })));
+        setChecked(Array.from({length: array.length}, (_, i) => ({id: i, checked: false})));
         setItemsChecked([...checked])
         keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
-    },[array.length, checked.length])
+    }, [array.length, checked.length])
 
 
-    const showData = () =>{
-        if(search && nameSearch && nameSearch.trim()){
-            let length = data.filter((i: any, ind:any) => {
+    const showData = () => {
+        if (search && nameSearch && nameSearch.trim()) {
+            let length = data.filter((i: any, ind: any) => {
                 if (nameSearch && nameSearch.trim()) {
-                    let obj:any = null;
-                    keysOfData?.map((key:any,ind:any)=>{
-                        if(typeof i[key] === 'string'){
-                            if(i[key].toLowerCase().includes(nameSearch.toLowerCase())){
-                                console.log("нашел1")
-                                obj = i[key];
+                    let obj: any = "";
+                    keysOfData?.map((key: any) => {
+                        if (typeof i[key] === 'string') {
+                            if (i[key].toLowerCase().includes(nameSearch.toLowerCase())) {
+                                obj = obj + i[key];
                             }
-                        }else if(typeof i[key] === 'number'){
-                            if(i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())){
-                                console.log("нашел2")
-                                obj = i[key].toString();
+                        } else if (typeof i[key] === 'number') {
+                            if (i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())) {
+                                obj = obj + i[key].toString();
                             }
                         }
                     })
                     return obj ? obj.toLowerCase().includes(nameSearch.toLowerCase()) : false;
-                } else{
+                } else {
                     return i
-                };
+                }
+                ;
             })?.length;
 
-            copyData = data.filter((i: any, ind:any) => {
+            copyData = data.filter((i: any, ind: any) => {
                 if (nameSearch && nameSearch.trim()) {
-                    let obj:any = null;
-                    keysOfData?.map((key:any,ind:any)=>{
-                        if(typeof i[key] === 'string'){
-                            if(i[key].toLowerCase().includes(nameSearch.toLowerCase())){
-                                console.log("нашел1")
-                                obj = i[key];
+                    let obj: any = "";
+                    keysOfData?.map((key: any) => {
+                        if (typeof i[key] === 'string') {
+                            if (i[key].toLowerCase().includes(nameSearch.toLowerCase())) {
+                                obj = obj + i[key];
                             }
-                        }else if(typeof i[key] === 'number'){
-                            if(i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())){
-                                console.log("нашел2")
-                                obj = i[key].toString();
+                        } else if (typeof i[key] === 'number') {
+                            if (i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())) {
+                                obj = obj + i[key].toString();
                             }
                         }
                     })
                     return obj ? obj.toLowerCase().includes(nameSearch.toLowerCase()) : false;
-                } else{
+                } else {
                     return i
-                };
+                }
+                ;
             })
 
-            if(length === 0) length++;
+            if (length === 0) length++;
 
             let arr = [];
-            for(let i = 1; i <= Math.ceil(length / 4);i++){
+            for (let i = 1; i <= Math.ceil(length / 4); i++) {
                 arr.push(i);
             }
             totalPages = arr;
 
-            return data.filter((i: any, ind:any) => {
+            return data.filter((i: any, ind: any) => {
                 if (nameSearch && nameSearch.trim()) {
-                    let obj:any = null;
-                    keysOfData?.map((key:any)=>{
-                        if(typeof i[key] === 'string'){
-                            if(i[key].toLowerCase().includes(nameSearch.toLowerCase())){
-                                console.log("нашел1")
-                                obj = i[key];
+                    let obj: any = "";
+                    keysOfData?.map((key: any) => {
+                        if (typeof i[key] === 'string') {
+                            if (i[key].toLowerCase().includes(nameSearch.toLowerCase())) {
+                                obj = obj + i[key];
                             }
-                        }else if(typeof i[key] === 'number'){
-                            if(i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())){
-                                console.log("нашел2")
-                                obj = i[key].toString();
+                        } else if (typeof i[key] === 'number') {
+                            if (i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())) {
+                                obj = obj + i[key].toString();
                             }
                         }
                     })
                     return obj ? obj.toLowerCase().includes(nameSearch.toLowerCase()) : false;
-                } else{
+                } else {
                     totalPages = copyTotalPages;
                     return i
-                };
+                }
+                ;
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, index));
                 });
-        }else{
+        } else {
             return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item,index));
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, index));
                 })
         }
     }
 
 
     const renderCountItems = () => {
-        if(search){
+        if (search) {
             return copyData?.length < rowsPerPage + rowsPerPage * currentPage
                 ? copyData?.length
                 : rowsPerPage + rowsPerPage * currentPage;
-        }else return data?.length < rowsPerPage + rowsPerPage * currentPage
+        } else return data?.length < rowsPerPage + rowsPerPage * currentPage
             ? data?.length
             : rowsPerPage + rowsPerPage * currentPage;
     };
@@ -159,7 +156,7 @@ const Table = ({
         setCurrentPage(pageNumber - 1);
     };
 
-    const getCheckbox = (item: any, index:any) => {
+    const getCheckbox = (item: any, index: any) => {
 
         const obj = itemsChecked.find((i: any) => i.id === index);
         const ind = itemsChecked.indexOf(obj);
@@ -248,11 +245,11 @@ const Table = ({
                         placeholder={t('search')}
                         onChange={(e: any) => {
                             setNameSearch(e.target.value);
-                            for(let i = 0; i <= checked?.length -1; i++){
+                            for (let i = 0; i <= checked?.length - 1; i++) {
                                 checked[i].checked = false;
                             }
                             setItemsToDelete([]);
-                         }
+                        }
                         }
                     />
                 </div> : null
@@ -274,7 +271,7 @@ const Table = ({
                             onClick={() => {
                                 setData(data.filter((item: any) => !(itemsToDelete.includes(item))));
                                 copyData = copyData.filter((item: any) => !(itemsToDelete.includes(item)));
-                                setChecked(Array.from({ length: data.length }, (_, i) => ({ id: i, checked: false })));
+                                setChecked(Array.from({length: data.length}, (_, i) => ({id: i, checked: false})));
                                 setItemsChecked([...checked])
                                 setCurrentPage(0);
                                 setItemsToDelete([]);

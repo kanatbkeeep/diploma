@@ -59,7 +59,16 @@ const Step2 = (props: any) => {
     }
     return (
         <div className="step-component">
-            <div className="years">2022-2023</div>
+            <Input
+                maxWidth={144}
+                placeholder={t('academicYear')}
+                value={planStore.years}
+                onChange={(e: any) => {
+                    planStore.years = e.target.value;
+                }
+                }
+            />
+            <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div style={{marginBottom: 20}}>
                     <Dropdown

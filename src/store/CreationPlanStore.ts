@@ -19,6 +19,7 @@ class CreationPlanStore {
     step3: any;
     step4: any;
     step5: any;
+    years: any;
     academWorks: any;
     eduMethWorks: any;
     researchWorks: any;
@@ -357,6 +358,8 @@ class CreationPlanStore {
             results: "",
             comments: "",
         }
+
+        this.years = "";
 
         this.eduMethWorks = [];
         this.academWorks = [];

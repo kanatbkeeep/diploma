@@ -63,7 +63,6 @@ const Step5 = (props: any) => {
 
     return (
         <div className="step-component">
-            <div className="years">2022-2023</div>
             <div className="inputs-step">
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
