@@ -9,7 +9,7 @@ import Button from "../../components/Button/Button";
 import Table from "../../components/Table/Table";
 import Navigation from "../../components/Notification/Notification";
 import AppStore from "../../store/AppStore";
-import t from "../../utils/Lang";
+import t, {l} from "../../utils/Lang";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
@@ -114,9 +114,9 @@ function Profile() {
                         <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
                         <div className="column">
                             <h4 className="mt-24">{t('position')}</h4>
-                            <span>{AppStore.currentUser?.position}</span>
+                            <span>{AppStore.currentUser?.position[l('name')]}</span>
                             <h4 className="mt-24">{t('degree')}</h4>
-                            <span>{AppStore.currentUser?.degree}</span>
+                            <span>{AppStore.currentUser?.degree[l('name')]}</span>
                             <div className="row mt-24">
                                 <div  className="column mr-58">
                                     <h4>{t('department')}</h4>

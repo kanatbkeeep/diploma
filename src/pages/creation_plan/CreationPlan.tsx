@@ -19,6 +19,8 @@ import AppStore from "../../store/AppStore";
 import t from "../../utils/Lang";
 import Step4 from "../../components/CreationPlan/steps/Step4";
 import Step5 from "../../components/CreationPlan/steps/Step5";
+import Step6 from "../../components/CreationPlan/steps/Step6";
+import KpiStore from "../../store/KpiStore";
 
 export enum Steps {
     Step1,
@@ -33,6 +35,7 @@ const CreationPlan = (props: any) => {
     const [step, setStep] = useState(Steps.Step1);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const planStore:any = CreationPlanStore;
+    const kpiStore:any = KpiStore;
     const navigation = useNavigate();
     const {id} = useParams();
 
@@ -148,6 +151,9 @@ const CreationPlan = (props: any) => {
                     }
                     {
                         step === Steps.Step5 ? <Step5 planStore={planStore}/> : null
+                    }
+                    {
+                        step === Steps.Step6 ? <Step6 planStore={planStore} kpiStore={kpiStore}/> : null
                     }
                 </div>
             </section>
