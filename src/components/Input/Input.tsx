@@ -41,6 +41,24 @@ const Input = (props:any) => {
           </div>
     }
 
+    else if (props.type === "date"){
+        return(
+            <div className="forms-group" style={{maxWidth: props.maxWidth}}>
+                <label htmlFor="forInput" style={props.login ? {marginLeft:20} : {}}>{props.label ? props.label : "ㅤ"}</label>
+                <input
+                    type="date"
+                    onChange={props.onChange}
+                    placeholder={props.placeholder}
+                    id="forInput"
+                    disabled={props.disabled}
+                    value={props.value}
+                    style={props.login ? {border:"2px solid black"} : {}}
+                />
+
+            </div>
+        )
+    }
+
     return(
             <div className="forms-group" style={{maxWidth: props.maxWidth}}>
                 <label htmlFor="forInput" style={props.login ? {marginLeft:20} : {}}>{props.label ? props.label : "ㅤ"}</label>

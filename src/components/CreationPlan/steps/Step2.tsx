@@ -9,6 +9,7 @@ import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
+import moment from "moment/moment";
 
 const Step2 = (props: any) => {
     const {planStore} = props;
@@ -59,7 +60,16 @@ const Step2 = (props: any) => {
     }
     return (
         <div className="step-component">
-            <div className="years">2022-2023</div>
+            <Input
+                maxWidth={144}
+                placeholder={t('academicYear')}
+                value={planStore.years}
+                onChange={(e: any) => {
+                    planStore.years = e.target.value;
+                }
+                }
+            />
+            <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div style={{marginBottom: 20}}>
                     <Dropdown
@@ -97,12 +107,14 @@ const Step2 = (props: any) => {
                 </div>
                 <div style={{display: "flex", marginBottom: 20}}>
                     <Input
+                        type='date'
                         maxWidth={180}
                         label={t('deadlines')}
                         placeholder={t('end')}
                         value={planStore.step2.deadlines}
                         onChange={(e: any) => {
                             planStore.editStep2Modal({deadlines: e.target.value});
+                            console.log(planStore.step2.deadlines);
                         }
                         }
                     />
@@ -194,7 +206,7 @@ const Step2 = (props: any) => {
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadlines}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{moment(new Date(item.deadlines)).format("DD.MM.yyyy")}</div>
                                 <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoImplementation}</div>
                                 <div  className="hidden-scroll" style={{maxWidth: maxWidthColumns[4],
                                     overflowY:"scroll"}}>

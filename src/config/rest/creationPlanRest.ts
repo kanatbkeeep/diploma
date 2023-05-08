@@ -11,4 +11,4 @@ export const ADD_SOCIAL_WORK = `http://localhost:8080/plan/add-social-work`;
 export const EDIT_SOCIAL_WORK = `http://localhost:8080/social-work/update`;
 export const DELETE_SOCIAL_WORK = `http://localhost:8080/social-work/delete`;
 export const GET_LATEST_PLAN = `http://localhost:8080/plan/get-last-plan`;
-
+export const GET_PLAN_BY_ID = (id: any) => `http://localhost:8080/plan/get-by-id?id=${id}`;

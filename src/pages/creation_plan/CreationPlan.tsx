@@ -14,7 +14,7 @@ import Step2 from "../../components/CreationPlan/steps/Step2";
 import Step3 from "../../components/CreationPlan/steps/step3/Step3";
 import { observer } from 'mobx-react';
 import CreationPlanStore from '../../store/CreationPlanStore'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import AppStore from "../../store/AppStore";
 import t from "../../utils/Lang";
 import Step4 from "../../components/CreationPlan/steps/Step4";
@@ -34,6 +34,8 @@ const CreationPlan = (props: any) => {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const planStore:any = CreationPlanStore;
     const navigation = useNavigate();
+    const {id} = useParams();
+
 
     useEffect(() => {
         AppStore.getUser().then(() => {
@@ -49,8 +51,7 @@ const CreationPlan = (props: any) => {
                 window.location.replace('/login')
             }
         });
-        planStore.getPlan();
-        // planStore.getAcademicWorks();
+        planStore.getPlan( id ? id : null);
     }, [])
 
     const handleModalStateChanged = useCallback((state: boolean) => {

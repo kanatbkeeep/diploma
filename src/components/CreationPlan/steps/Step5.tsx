@@ -9,6 +9,7 @@ import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
+import moment from "moment";
 
 const Step5 = (props: any) => {
     const [open, setOpen] = useState("");
@@ -63,7 +64,6 @@ const Step5 = (props: any) => {
 
     return (
         <div className="step-component">
-            <div className="years">2022-2023</div>
             <div className="inputs-step">
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
@@ -79,6 +79,7 @@ const Step5 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
+                        type="date"
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step5.deadlines}
@@ -190,7 +191,7 @@ const Step5 = (props: any) => {
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{moment(new Date(item.deadlines)).format("DD.MM.yyyy")}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.infoImplementation}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>

@@ -9,6 +9,7 @@ import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
+import moment from "moment/moment";
 
 const Step4 = (props: any) => {
     const [open, setOpen] = useState("");
@@ -63,7 +64,6 @@ const Step4 = (props: any) => {
 
     return (
         <div className="step-component">
-            <div className="years">2022-2023</div>
             <div className="inputs-step">
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
@@ -79,6 +79,7 @@ const Step4 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
+                        type='date'
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step4.deadlines}
