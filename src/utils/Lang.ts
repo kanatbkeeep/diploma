@@ -37,7 +37,7 @@ export const l = (fieldName: any) => {
     return lg ? lg === 'ru' ? `${fieldName}Ru` :
             lg === 'kk' ? `${fieldName}Kz` :
             lg === 'kz' ? `${fieldName}Kz` :
-             lg === 'en' ? `${fieldName}Ru` :
+             lg === 'en' ? `${fieldName}En` :
              `${fieldName}Kz` ? `${fieldName}Kz` :
                fieldName : `${fieldName}Kz`;
 }
