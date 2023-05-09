@@ -12,9 +12,9 @@ const Dropdown = (props: any) => {
         <div className="dropdown-container" style={{maxWidth: props.maxWidth}}>
             <div className="dropdown-label">{props.label}</div>
             <div className="dropdown" onClick={props.onClick}>
-                <div className={isActive ? "dropdown-btn dropdown-btn-active" : "dropdown-btn"} onClick={()=>{setIsActive(!isActive)}}>
+                <div style={props?.lang ? {display: "flex", justifyContent: "center", padding: "0"} : {}} className={isActive ? "dropdown-btn dropdown-btn-active" : "dropdown-btn"} onClick={()=>{setIsActive(!isActive)}}>
                     {props.value}
-                    <img src={arrow} style={{transform: isActive ? "rotate(180deg)" : ""}}/>
+                    {!props?.noIcon ? <img src={arrow} style={{transform: isActive ? "rotate(180deg)" : ""}}/>: null}
                 </div>
 
                 {isActive && (

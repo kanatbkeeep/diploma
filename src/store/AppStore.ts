@@ -2,11 +2,21 @@ import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios from 'axios'
 
+function getCookie(name: any) {
+    const value = `; ${document.cookie}`;
+    const parts: any = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+let lg = getCookie('lang')?getCookie('lang'):getCookie('locale');
+
 class AppStore {
     currentUser: any;
     department: any;
     myPlans: any;
     model: any;
+    lang: any = lg ? lg: "ru";
+    langs: any = ["ru", "kz", "en"];
 
     async loadLogin() {
         return await axios.post('http://localhost:8080/user/loginUser', {
