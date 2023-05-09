@@ -45,17 +45,36 @@ const Step6 = (props: any) => {
     const clear = () => {
         kpiStore.clean();
         kpiStore.resetChecked();
+        setItemEdit(null);
     }
 
     const copy = (item: any) => {
-        planStore.editStep4Modal({...item});
+        kpiStore.resetChecked();
+        kpiStore.clean();
+        kpiStore.editModel({
+            deadlines:item.deadlines,
+            infoImplementation:(item.informationOnImplementation === "Online" || item.informationOnImplementation === "Offline") ? item.informationOnImplementation : "Other",
+            results:item.results,
+            comments:item.comments,
+            otherInfoImpl: (item.informationOnImplementation !== "Online" || item.informationOnImplementation !== "Offline") ? item.informationOnImplementation : "",
+            numberAuthor: item.authorsNumber,
+            chosenOption: item.nameOfTheWork,
+            fileName:item.pdfFileName,
+            fileBase64:item.pdfFile,
+            currentIndSection: item.kpiSection.sectionNumber-1,
+        });
+        kpiStore.currentSection = item.kpiSection;
+        if(item.kpiSection.options.length > 0){
+            const ind:any = kpiStore.checked.findIndex((i:any)=>{
+                return (i.id === item.nameOfTheWork && i.checked === false);
+            });
+            kpiStore.checked[ind].checked = true;
+        }
     }
 
-    const edit = (item: any) => {
-        const toUpdate = {...item, ...planStore.step4}
-        planStore.updateEduWork(toUpdate);
-        kpiStore.clean();
-        setItemEdit(null);
+    const edit = () => {
+        kpiStore.updateKpi(itemEdit.id);
+        clear();
     }
 
 
@@ -93,8 +112,7 @@ const Step6 = (props: any) => {
                              onClick={() => {
                                  kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection - 1});
                                  kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
-                                 kpiStore.clean();
-                                 kpiStore.resetChecked();
+                                 clear();
                              }}
                              className="back"
                              src={NavMark}/> : null}
@@ -103,8 +121,7 @@ const Step6 = (props: any) => {
                              onClick={() => {
                                  kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection + 1});
                                  kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
-                                 kpiStore.clean();
-                                 kpiStore.resetChecked();
+                                 clear();
                              }}
                              className="next"
                              src={NavMark}/> : null}
@@ -352,9 +369,9 @@ const Step6 = (props: any) => {
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
                                 icon={Plus}
-                                label={t('add')}
+                                label={itemEdit ?t('edit') : t('add')}
                                 onClick={() => {
-                                    addObject();
+                                    itemEdit ? edit() :addObject();
                                 }}
                                 disabled={!(validation())}
                         />
@@ -385,7 +402,7 @@ const Step6 = (props: any) => {
                     maxWidthColumns={[250, 100, 100, 150, 100, 200, 133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
-                        planStore.deleteEduWorks(arr);
+                        kpiStore.deleteKpis(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
@@ -422,8 +439,8 @@ const Step6 = (props: any) => {
                                         <Button className="secondaryButton"
                                                 icon={Edit}
                                                 onClick={() => {
+                                                    copy(item);
                                                     setItemEdit(item);
-                                                    planStore.editStep4Modal({...item});
                                                 }}
                                         />
                                     </div>

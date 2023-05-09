@@ -1,7 +1,7 @@
 import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios from 'axios'
-import {ADD_KPI, GET_KPI_SECTIONS} from "../config/rest/creationPlanRest";
+import {ADD_KPI, DELETE_KPI, EDIT_KPI, GET_KPI_SECTIONS} from "../config/rest/creationPlanRest";
 
 
 class KpiStore {
@@ -99,6 +99,45 @@ class KpiStore {
         });
     }
 
+    async updateKpi(id:any){
+        return await axios.post(EDIT_KPI,
+            {
+                id:id,
+                nameOfTheWork:this.model.chosenOption ? this.model.chosenOption : this.currentSection.name,
+                deadlines:this.model.deadlines,
+                informationOnImplementation: this.model.infoImplementation !== "Other" ? this.model.infoImplementation: this.model.otherInfoImpl,
+                results:this.model.results,
+                comments:this.model.comments,
+                percentage:2.2,
+                authorsNumber:this.model.numberAuthor,
+                pdfFile: this.model.fileBase64,
+                pdfFileName: this.model.fileName,
+            },{
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if(repos.status === 200){
+                window.location.reload();
+            }
+        });
+    }
+
+    async deleteKpis(items:any[]){
+        return await axios.post(DELETE_KPI,
+            {
+                items:items
+            },{
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if(repos.status === 200){
+                window.location.reload();
+            }
+        });
+    }
+
 
 
 
@@ -109,7 +148,6 @@ class KpiStore {
             currentIndSection: 0,
             chosenOption: "",
             isAnotherSection: false,
-            chosenNumAuth:null,
             deadlines:"",
             infoImplementation:"",
             results:"",
@@ -127,6 +165,7 @@ class KpiStore {
             saveKpi: action.bound,
             clean: action.bound,
             resetChecked: action.bound,
+            updateKpi:action.bound,
         })
     }
 }
