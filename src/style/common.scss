@@ -37,6 +37,10 @@ $primary-color-darker-blue: #00171F;
   flex-direction: column;
 }
 
+a{
+  text-decoration: none;
+}
+
 .bg_darker_blue {
   background-color: $primary-color-darker-blue;
 }

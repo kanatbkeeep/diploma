@@ -34,13 +34,3 @@ const FilePicker = (props:any) =>{
 }
 
 export default FilePicker;
-
-// const file = e.target.files[0];
-// const reader: any = new FileReader();
-//
-// reader.onload = () => {
-//     const bytes = new Uint8Array(reader.result);
-//     console.log('Bytes:', bytes);
-// };
-//
-// reader.readAsArrayBuffer(file);

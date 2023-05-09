@@ -47,6 +47,7 @@ const CreationPlan = (props: any) => {
             }
 
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
+                kpiStore.getKpiSections(AppStore.currentUser.position.nameRu,AppStore.currentUser.degree.nameRu);
             }
 
         }).catch(() => {
@@ -153,7 +154,7 @@ const CreationPlan = (props: any) => {
                         step === Steps.Step5 ? <Step5 planStore={planStore}/> : null
                     }
                     {
-                        step === Steps.Step6 ? <Step6 planStore={planStore} kpiStore={kpiStore}/> : null
+                        step === Steps.Step6 ? <Step6 planStore={planStore} kpiStore={kpiStore} AppStore={AppStore}/> : null
                     }
                 </div>
             </section>

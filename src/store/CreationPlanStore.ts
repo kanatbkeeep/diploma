@@ -23,6 +23,7 @@ class CreationPlanStore {
     academWorks: any;
     eduMethWorks: any;
     researchWorks: any;
+    kpiWorks: any;
     eduWorks: any;
     socialWorks: any;
     plan: any;
@@ -109,6 +110,7 @@ class CreationPlanStore {
                     this.eduMethWorks = repos.data.academicMethods;
                     this.eduWorks = repos.data.educationalWorks;
                     this.socialWorks = repos.data.socialWorks;
+                    this.kpiWorks = repos.data.kpis;
                 }
             });
         }else{
@@ -123,6 +125,7 @@ class CreationPlanStore {
                     this.eduMethWorks = repos.data.academicMethods;
                     this.eduWorks = repos.data.educationalWorks;
                     this.socialWorks = repos.data.socialWorks;
+                    this.kpiWorks = repos.data.kpis;
                 }
             });
         }
@@ -383,6 +386,7 @@ class CreationPlanStore {
         this.researchWorks = [];
         this.eduWorks = [];
         this.socialWorks = [];
+        this.kpiWorks = [];
         this.plan = null;
 
 

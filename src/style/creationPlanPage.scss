@@ -223,4 +223,15 @@
   margin-bottom: 50px;
 }
 
+.download-file{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.download-file img{
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+}
+
 

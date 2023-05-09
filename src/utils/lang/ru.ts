@@ -60,6 +60,7 @@ const ru = {
     commentPlaceholder:"Название статьи, журнала, фамилии авторов",
     uploadPdf:"Загрузить pdf",
     supportingDoc:"Подтверждающий документ",
+
 }
 
 export default ru;
