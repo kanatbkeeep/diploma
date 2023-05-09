@@ -11,6 +11,7 @@ const kz = {
     status: 'Мәртебесі',
     createPlan: 'Жоспар құру',
     position: 'Лауазым',
+    rate: 'Ставка',
     degree: 'Ғылыми дәреже',
     department: 'Департамент',
     departmentDirector: 'Департамент директоры',

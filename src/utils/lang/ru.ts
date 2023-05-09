@@ -11,6 +11,7 @@ const ru = {
     status: 'Статус',
     createPlan: 'Создать план',
     position: 'Должность',
+    rate: 'Ставка',
     degree: 'Степень',
     department: 'Департамент',
     departmentDirector: 'Директор департамента',

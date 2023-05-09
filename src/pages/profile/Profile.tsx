@@ -11,6 +11,7 @@ import Navigation from "../../components/Notification/Notification";
 import AppStore from "../../store/AppStore";
 import t, {l} from "../../utils/Lang";
 import Edit from "../../assets/icon/edit.svg";
+import EditWhite from "../../assets/icon/editWhtie.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -36,14 +37,20 @@ function Profile() {
             step5: 'Not filled',
             step6: 'Not filled',
         };
-        if (item.nameDiscipline && item.course && item.trimester && item.groups && item.lecturesPlan && item.lecturesFact && item.practicesFact && item.hoursPlan && item.hoursFact && item.totalPlan && item.totalFact) {
+        if (item?.academicWorks?.length > 0) {
             obj.step1 = 'Filled';
         }
-        if (item.discipline && item.nameWork && item.deadlines && item.infoImplementation1 && item.comment1) {
+        if (item?.academicMethods?.length > 0) {
             obj.step2 = 'Filled';
         }
-        if (item.typeWork && item.journal && item.deadline && item.article && item.infoImplementation2 && item.comment2) {
+        if (item?.researchWorks?.length > 0) {
             obj.step3 = 'Filled';
+        }
+        if (item?.educationalWorks?.length > 0) {
+            obj.step4 = 'Filled';
+        }
+        if (item?.socialWorks?.length > 0) {
+            obj.step5 = 'Filled';
         }
         return obj;
     }
@@ -66,15 +73,7 @@ function Profile() {
         });
     }, [])
 
-    const arr = Array.from({ length: 40 }, (_, i) => ({
-        id:i,
-        firstname: `Firstname${i}`,
-        lastname: "Myrzasary",
-        middlename: "Timurylu",
-        age: 20,
-    }));
-
-    return (
+    return ( AppStore.currentUser &&
         <>
             <main className={modalOpen ? 'darker': ''}>
                 <nav>
@@ -140,20 +139,26 @@ function Profile() {
                     <aside className={'userAvatar'}></aside>
                     <aside className={'userData'}>
                         <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
-                        <div className="column">
-                            <h4 className="mt-24">{t('position')}</h4>
-                            <span>{AppStore.currentUser?.position[l('name')]}</span>
-                            <h4 className="mt-24">{t('degree')}</h4>
-                            <span>{AppStore.currentUser?.degree[l('name')]}</span>
-                            <div className="row mt-24">
-                                <div  className="column mr-58">
-                                    <h4>{t('department')}</h4>
-                                    <span>{AppStore.department?.name}</span>
-                                </div>
-                                <div  className="column">
-                                    <h4>{t('departmentDirector')}</h4>
-                                    <span>{AppStore.department?.director.firstName + ' ' + AppStore.department?.director.lastName}</span>
-                                </div>
+                        <div className="row">
+                            <div className="column mr-58">
+                                <h4 className="mt-24">{t('position')}</h4>
+                                <span>{AppStore.currentUser?.position[l('name')]}</span>
+                                <h4 className="mt-24">{t('degree')}</h4>
+                                <span>{AppStore.currentUser?.degree[l('name')]}</span>
+                                <h4 className="mt-24">{t('department')}</h4>
+                                <span>{AppStore.department?.name}</span>
+                            </div>
+                            <div className="column mr-58">
+                                <h4 className="mt-24">{t('rate')}</h4>
+                                <span>{AppStore.currentUser?.rate}</span>
+                                <h4 className="mt-96">{t('departmentDirector')}</h4>
+                                <span>{AppStore.department?.director.firstName + ' ' + AppStore.department?.director.lastName}</span>
+                            </div>
+                            <div className="column profileEditBtnParent">
+                                <Button
+                                    className={'profileEditBtn'}
+                                    icon={EditWhite}
+                                />
                             </div>
                         </div>
                     </aside>
