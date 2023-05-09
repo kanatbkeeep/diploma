@@ -12,3 +12,9 @@ export const EDIT_SOCIAL_WORK = `http://localhost:8080/social-work/update`;
 export const DELETE_SOCIAL_WORK = `http://localhost:8080/social-work/delete`;
 export const GET_LATEST_PLAN = `http://localhost:8080/plan/get-last-plan`;
 export const GET_PLAN_BY_ID = (id: any) => `http://localhost:8080/plan/get-by-id?id=${id}`;
+
+export const ADD_KPI = (idPlan:any,id:any) => `http://localhost:8080/plan/add-kpi?id=${idPlan}&idSection=${id}`;
+export const EDIT_KPI = `http://localhost:8080/kpi/update`;
+export const DELETE_KPI = `http://localhost:8080/kpi/delete`;
+export const UPLOAD_FILE_KPI = `http://localhost:8080/kpi/upload-supporting-document`;
+export const GET_KPI_SECTIONS = (degree:any,position:any) => `http://localhost:8080/kpi-section/get-all?positionName=${position}&degreeName=${degree}`;

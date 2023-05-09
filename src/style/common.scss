@@ -37,6 +37,10 @@ $primary-color-darker-blue: #00171F;
   flex-direction: column;
 }
 
+a{
+  text-decoration: none;
+}
+
 .bg_darker_blue {
   background-color: $primary-color-darker-blue;
 }
@@ -257,6 +261,13 @@ body {
   background-color: #02667a;
 }
 
+.line-blue{
+  border-radius: 10px;
+  width:100%;
+  height: 4px;
+  background: #007EA7;
+}
+
 //таблица
 .container-table{
   margin: auto;
@@ -471,8 +482,6 @@ body {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-
-
 
 
 // input
@@ -696,6 +705,94 @@ width: 100%;
 .hidden-scroll::-webkit-scrollbar{
   width: 3px;
   display: none;
+}
+
+// radio button
+
+.radio-group {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-size: 16px;
+  color: #333;
+}
+
+.radio-group {
+   font-size: 14px;
+}
+
+.radio-group input {
+  position: absolute;
+  opacity: 0;
+}
+
+.radio-group .checkmark {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.radio-group input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+.radio-group .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.radio-group input:checked ~ .checkmark:after {
+  display: block;
+  top:5px;
+  left: 5px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+}
+
+// file picker
+
+.file-group{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: max-content;
+}
+
+.file-group input{
+  position: absolute;
+  opacity: 0;
+}
+
+.file-group .file-label{
+  font-size: 18px;
+}
+
+.file-group .file-input{
+  width: 203px;
+  height: 48px;
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+}
+
+.file-group .file-input img{
+  margin-left: 15px;
+  margin-right: 20px;
+}
+
+.file-group .value{
+  margin-left: 20px;
+  font-size: 18px;
+  color: #007EA7;
 }
 
 @font-face {

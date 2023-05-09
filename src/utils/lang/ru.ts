@@ -52,6 +52,15 @@ const ru = {
     topicSpeech:"Тема выступления",
     event:"Ивент",
     students:"Студенты",
+    testText:"Монография опубликованная издательством Elsevier, Brill, CRC Press, DeGruvter, Edward Elgar Publishing, John Wiley & Sons, McGraw Hill, Palgrave Macmillan, Peter Lang, Prentice Hall Routledge, Sage Publications, Springer Nature, Taylor and Francis, Wolters Kluwer, Cambridge University Press, Columbia University Press, Cornell University Press, Harvard University Press, MIT Press, Oxford University Press, Princeton University Press, Stanford University Press, University of California Press, University of Chicago Press, University of Michigan Press, Yale University Press, ВУЗа входящего в топ-100 международного рейтинга Academic Ranking of World Universities, Times Higher Education World University Rankings или US News Best Global Universities Rankings",
+    submissionClosing:"Подача заявки на закрытие другого раздела?",
+    sectionNumber:"Номер секции",
+    copyExisting:"Копия из существующих исследовательских работ",
+    numberAuthors:"Количество авторов",
+    commentPlaceholder:"Название статьи, журнала, фамилии авторов",
+    uploadPdf:"Загрузить pdf",
+    supportingDoc:"Подтверждающий документ",
+
 }
 
 export default ru;

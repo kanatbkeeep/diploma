@@ -1,4 +1,4 @@
-.main-container{
+.main-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -8,7 +8,7 @@
   background-color: white;
 }
 
-.main-container aside{
+.main-container aside {
   background: #00171F;
   width: 250px;
   display: flex;
@@ -16,27 +16,28 @@
   align-items: center;
 }
 
-.main-container aside .logo{
+.main-container aside .logo {
   width: 150px;
   height: 170px;
   margin-top: 50px;
   margin-bottom: 100px;
 }
 
-.main-container aside .list-btn button{
+.main-container aside .list-btn button {
   width: 144px !important;
   margin-bottom: 50px;
 }
-.main-container aside .list-btn button:last-child{
+
+.main-container aside .list-btn button:last-child {
   margin: 0;
 }
 
-.main-container section{
+.main-container section {
   width: calc(100% - 250px);
   margin: 0;
 }
 
-.nav-steps{
+.nav-steps {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -47,11 +48,13 @@
   box-sizing: border-box;
   margin-bottom: 12px;
 }
-.nav-steps .nav-step{
+
+.nav-steps .nav-step {
   display: flex;
   flex-direction: column;
 }
-.nav-steps .nav-step div{
+
+.nav-steps .nav-step div {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -66,7 +69,7 @@
 }
 
 
-.nav-steps .nav-step p{
+.nav-steps .nav-step p {
   max-width: 100px;
   word-wrap: anywhere;
   padding: 0;
@@ -77,10 +80,11 @@
 }
 
 // steps
-.step{
+.step {
   width: 100%;
 }
-.step-component{
+
+.step-component {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -88,7 +92,8 @@
   max-width: 1083px;
   box-sizing: border-box;
 }
-.years{
+
+.years {
   width: 144px;
   height: 42px;
   border-radius: 10px;
@@ -98,10 +103,135 @@
   align-items: center;
   margin-bottom: 13px;
 }
-.inputs-step{
+
+.inputs-step {
   box-sizing: border-box;
   box-shadow: 0px 8px 14px 0px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 15px 15px 28px 15px;
   margin-bottom: 33px;
 }
+
+// kpi
+
+.degree-position-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.degree-position-container div {
+  height: 41px;
+  border-radius: 15px;
+  color: white;
+  font-size: 14px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-weight: 500;
+}
+
+.degree-position-container div:first-child {
+  background: #007EA7;
+  margin-right: 10px;
+}
+
+.degree-position-container div:last-child {
+  background: black;
+}
+
+.navigation-marks {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.navigation-marks .back {
+  transform: rotate(180deg);
+  margin-right: 16px;
+}
+
+.section {
+  font-weight: bold;
+  color: black;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.node {
+  color: #007EA7;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+}
+
+.options label {
+  margin-bottom: 10px;
+}
+
+.percentages-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.percentages {
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.percentages .per-1 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.percentages .per-2 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.percentages .per-3 {
+  font-size: 14px;
+  font-weight: bold;
+  color: #007EA7;
+}
+
+.kpi-percentage{
+  width: 150px;
+  height: 42px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #007EA7;
+  font-size: 14px;
+  font-weight: bold;
+  border: 2px solid #007EA7;
+  margin-bottom: 50px;
+}
+
+.download-file{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.download-file img{
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+}
+
+
