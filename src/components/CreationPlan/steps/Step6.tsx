@@ -24,37 +24,27 @@ const Step6 = (props: any) => {
     const [section, setSection] = useState(0);
 
     const validation = () => {
-        if(kpiStore.currentSection.options?.length > 0){
+        if (kpiStore.currentSection.options?.length > 0) {
             return (kpiStore.model.chosenOption && kpiStore.model.results && kpiStore.model.comments && kpiStore.model.deadlines
                 && kpiStore.model.fileName && kpiStore.model.fileBase64
-                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation: kpiStore.model.otherInfoImpl))
-        }else{
+                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
+        } else {
             return (kpiStore.model.results && kpiStore.model.comments && kpiStore.model.deadlines
                 && kpiStore.model.fileName && kpiStore.model.fileBase64
-                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation: kpiStore.model.otherInfoImpl))
+                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
         }
 
     }
 
     const addObject = () => {
-        planStore.saveEduWork();
-        planStore.editStep4Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
+        kpiStore.saveKpi(planStore.plan.id);
+        kpiStore.clean();
+        kpiStore.resetChecked();
     }
 
     const clear = () => {
-        planStore.editStep4Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
+        kpiStore.clean();
+        kpiStore.resetChecked();
     }
 
     const copy = (item: any) => {
@@ -64,23 +54,30 @@ const Step6 = (props: any) => {
     const edit = (item: any) => {
         const toUpdate = {...item, ...planStore.step4}
         planStore.updateEduWork(toUpdate);
-        planStore.editStep4Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
+        kpiStore.clean();
         setItemEdit(null);
     }
 
 
-    const textFile = (text:String) => {
-        if(text?.length > 23){
-            return text.substring(0,20)+ "...";
-        }else{
+    const textFile = (text: String) => {
+        if (text?.length > 23) {
+            return text.substring(0, 20) + "...";
+        } else {
             return text;
         }
+    }
+
+    const isChecked = (id:any) =>{
+        const arr:any = kpiStore.checked.filter((i:any)=> i.id === id);
+        return arr[0].checked;
+    }
+
+    const check = (id:any)=>{
+        kpiStore.resetChecked()
+        const ind:any = kpiStore.checked.findIndex((i:any)=>{
+            return (i.id === id && i.checked === false);
+        });
+        kpiStore.checked[ind].checked = true;
     }
 
     return (
@@ -96,7 +93,8 @@ const Step6 = (props: any) => {
                              onClick={() => {
                                  kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection - 1});
                                  kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
-                                 console.log(kpiStore.currentSection);
+                                 kpiStore.clean();
+                                 kpiStore.resetChecked();
                              }}
                              className="back"
                              src={NavMark}/> : null}
@@ -105,7 +103,8 @@ const Step6 = (props: any) => {
                              onClick={() => {
                                  kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection + 1});
                                  kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
-                                 console.log(kpiStore.currentSection);
+                                 kpiStore.clean();
+                                 kpiStore.resetChecked();
                              }}
                              className="next"
                              src={NavMark}/> : null}
@@ -120,12 +119,15 @@ const Step6 = (props: any) => {
                         return (
                             <RadioButton
                                 label={item}
-                                id={`option${ind}`}
-                                name="options"
+                                checked={isChecked(item)}
+                                id={`option${ind}${kpiStore.currentSection.id}`}
+                                name={`options${kpiStore.currentSection.id}`}
                                 value={item}
                                 onChange={(e: any) => {
                                     if (e.target.checked) {
                                         kpiStore.editModel({chosenOption: e.target.value});
+                                        check(item);
+                                        console.log(kpiStore.checked)
                                     }
                                 }}
                             />
@@ -318,7 +320,7 @@ const Step6 = (props: any) => {
 
                 <FilePicker
                     label={t('supportingDoc')}
-                    value={kpiStore.model.fileName ? kpiStore.model.fileName?.length > 50 ? kpiStore.model.fileName.substring(0,45)+ "..." : kpiStore.model.fileName : ""}
+                    value={kpiStore.model.fileName ? kpiStore.model.fileName?.length > 50 ? kpiStore.model.fileName.substring(0, 45) + "..." : kpiStore.model.fileName : ""}
                     onChange={async (e: any) => {
                         kpiStore.editModel({
                             fileName: e.target.files[0].name,
@@ -352,7 +354,7 @@ const Step6 = (props: any) => {
                                 icon={Plus}
                                 label={t('add')}
                                 onClick={() => {
-                                    kpiStore.saveKpi(planStore.plan.id);
+                                    addObject();
                                 }}
                                 disabled={!(validation())}
                         />
@@ -362,6 +364,7 @@ const Step6 = (props: any) => {
                         <Button icon={Delete}
                                 label={t('reset')}
                                 onClick={() => {
+                                    clear()
                                 }}
                         />
                     </div>
@@ -379,7 +382,7 @@ const Step6 = (props: any) => {
                     length={planStore.kpiWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
-                    maxWidthColumns={[250, 100, 100, 150, 100,200,133]}
+                    maxWidthColumns={[250, 100, 100, 150, 100, 200, 133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
                         planStore.deleteEduWorks(arr);
@@ -400,11 +403,14 @@ const Step6 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.informationOnImplementation}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[5]}}>
                                     <a className="download-file" href={item.pdfFile} download={item.pdfFileName}>
                                         <img src={File}/>

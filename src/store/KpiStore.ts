@@ -8,6 +8,7 @@ class KpiStore {
     model: any;
     kpiSections:any;
     currentSection:any;
+    checked:any;
 
     numberAuthors = [1,2,3,4,5,6,7,8,9,10];
 
@@ -26,6 +27,33 @@ class KpiStore {
         if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
+    clean(){
+        this.model = {
+            fileName:"",
+            fileBase64:"",
+            currentIndSection: this.model.currentIndSection,
+            chosenOption: "",
+            isAnotherSection: false,
+            chosenNumAuth:null,
+            deadlines:"",
+            infoImplementation:"",
+            results:"",
+            comments:"",
+            otherInfoImpl:"",
+            numberAuthor: 1,
+        }
+    }
+
+    resetChecked(){
+        let arr:any = [];
+        this.kpiSections.map((item:any,ind:any)=>{
+            item.options.map((item:any,ind:any)=>{
+                arr.push({id:item, checked:false});
+            })
+        })
+        this.checked = arr;
+    }
+
 
     async getKpiSections(namePosition:any, nameDegree:any) {
         return await axios.get(GET_KPI_SECTIONS(nameDegree,namePosition),
@@ -37,6 +65,13 @@ class KpiStore {
             if (repos.status === 200) {
                 this.kpiSections = repos.data;
                 this.currentSection = this.kpiSections[this.model.currentIndSection];
+                let arr:any = [];
+                this.kpiSections.map((item:any,ind:any)=>{
+                    item.options.map((item:any,ind:any)=>{
+                        arr.push({id:item, checked:false});
+                    })
+                })
+                this.checked = arr;
             }
         });
     }
@@ -84,12 +119,14 @@ class KpiStore {
         }
         this.kpiSections = [];
         this.currentSection = null;
+        this.checked = [];
 
         makeAutoObservable(this, {
             editModel: action.bound,
             getKpiSections:action.bound,
             saveKpi: action.bound,
-
+            clean: action.bound,
+            resetChecked: action.bound,
         })
     }
 }
