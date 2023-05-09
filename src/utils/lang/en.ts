@@ -11,6 +11,7 @@ const en = {
     status: 'Status',
     createPlan: 'Create Plan',
     position: 'Position',
+    rate: 'Rate',
     degree: 'Degree',
     department: 'Department',
     departmentDirector: 'Director of the Department',
