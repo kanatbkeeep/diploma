@@ -346,6 +346,20 @@ class CreationPlanStore {
         });
     }
 
+    getKPIPercentage = () => {
+        if(this.kpiWorks.length > 0){
+            let per:any= 0.0;
+
+            this.kpiWorks.map((item:any)=>{
+                per = per + item.percentage;
+            })
+
+            return per;
+        }else{
+            return 0
+        }
+    }
+
 
     constructor() {
 
@@ -428,6 +442,7 @@ class CreationPlanStore {
             updateSocialWork: action.bound,
             deleteSocialWorks: action.bound,
             changeYear: action.bound,
+            getKPIPercentage: action.bound,
         },)
     }
 

@@ -90,7 +90,6 @@ const Step5 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
-                        type="date"
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step5.deadlines}
@@ -202,7 +201,7 @@ const Step5 = (props: any) => {
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{moment(new Date(item.deadlines)).format("DD.MM.yyyy")}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.infoImplementation}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>

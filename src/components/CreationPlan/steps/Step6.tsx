@@ -29,11 +29,46 @@ const Step6 = (props: any) => {
                 && kpiStore.model.fileName && kpiStore.model.fileBase64
                 && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
         } else {
-            return (kpiStore.model.results && kpiStore.model.comments && kpiStore.model.deadlines
+            return ((isAveragePercentage() ? kpiStore.model.averagePer:kpiStore.model.results) && kpiStore.model.comments && kpiStore.model.deadlines
                 && kpiStore.model.fileName && kpiStore.model.fileBase64
                 && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
         }
 
+    }
+
+    useEffect(()=>{
+
+        let section:any = anotherSection();
+
+
+        let rate:any = currentUser.rate === "1" ? section.rate_full : currentUser.rate === "0.5" ? section.rate_half : section.rate_quarter;
+
+        if(kpiStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""){
+          if(kpiStore.model.averagePer >= 80){
+              kpiStore.editModel({currentPercentage: kpiStore.currentSection.percentage});
+          }else{
+              kpiStore.editModel({currentPercentage: 0});
+          }
+        }else{
+            if(kpiStore.currentSection.authorsByParts){
+                kpiStore.editModel({currentPercentage: section.percentage / rate / kpiStore.model.numberAuthor});
+            }else{
+                kpiStore.editModel({currentPercentage: kpiStore.currentSection.percentage / rate});
+            }
+        }
+    },[kpiStore.currentSection,kpiStore.model.numberAuthor, kpiStore.model.averagePer, kpiStore.model.anotherSectionNumber])
+
+
+    const anotherSection = () =>{
+        let section:any;
+        if(kpiStore.model.anotherSectionNumber){
+            const ind = kpiStore.kpiSections.findIndex((item:any)=>{
+                return item.sectionNumber === kpiStore.model.anotherSectionNumber;
+            });
+            return section = kpiStore.kpiSections[ind];
+        }else{
+            return section = kpiStore.currentSection;
+        }
     }
 
     const addObject = () => {
@@ -63,6 +98,8 @@ const Step6 = (props: any) => {
             currentIndSection: item.kpiSection.sectionNumber-1,
         });
         kpiStore.currentSection = item.kpiSection;
+        isAveragePercentage() && kpiStore.editModel({averagePer:parseInt(item.result)});
+        item.anotherSectionNumber !== 0 && kpiStore.editModel({isAnotherSection:true, anotherSectionNumber: item.anotherSectionNumber});
         if(item.kpiSection.options.length > 0){
             const ind:any = kpiStore.checked.findIndex((i:any)=>{
                 return (i.id === item.nameOfTheWork && i.checked === false);
@@ -96,6 +133,10 @@ const Step6 = (props: any) => {
             return (i.id === id && i.checked === false);
         });
         kpiStore.checked[ind].checked = true;
+    }
+
+    const isAveragePercentage = ()=>{
+        return  kpiStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
     }
 
     return (
@@ -164,9 +205,9 @@ const Step6 = (props: any) => {
                 <div className="percentages-container">
                     <div className="percentages">
                         <div
-                            className="per-1">{`Необходимое количество для выполнения: ${currentUser.rate === "1" ? kpiStore.currentSection.rate_full : currentUser.rate === "0.5" ? kpiStore.currentSection.rate_half : kpiStore.currentSection.rate_quarter}`}</div>
-                        <div className="per-2">{`Доля, %: ${kpiStore.currentSection.percentage}`}</div>
-                        <div className="per-3">Нынешняя доля, %: 20</div>
+                            className="per-1">{`Необходимое количество для выполнения: ${currentUser.rate === "1" ? anotherSection().rate_full : currentUser.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
+                        <div className="per-2">{`Доля, %: ${anotherSection().percentage}`}</div>
+                        <div className="per-3">{`Нынешняя доля, %: ${kpiStore.model.currentPercentage}`}</div>
                     </div>
                 </div>
 
@@ -177,8 +218,9 @@ const Step6 = (props: any) => {
                         ? <>
                             <Checkbox
                                 label={t('submissionClosing')}
+                                checked={kpiStore.model.isAnotherSection}
                                 onChange={(e: any) => {
-                                    kpiStore.editModel({isAnotherSection: e.target.checked});
+                                    kpiStore.editModel({isAnotherSection: e.target.checked, anotherSectionNumber: null});
                                 }}
                             />
                             <div style={{marginBottom: 20}}/>
@@ -195,13 +237,23 @@ const Step6 = (props: any) => {
                                         }}
                                         open={open === "sectionNumber"}
                                         label={t('sectionNumber')}
-                                        value={planStore.step4.infoImplementation ? planStore.step4.infoImplementation : t('select')}
+                                        value={kpiStore.model.anotherSectionNumber ? kpiStore.model.anotherSectionNumber : t('select')}
                                     >
                                         <ul>
-                                            {planStore.infoImplementation.map((item: any) => {
+                                            {kpiStore.kpiSections.filter((item:any)=>{
+                                                let count = 0;
+                                                if(item.notes){
+                                                   for(let i = 0; i <= 3; i++){
+                                                       if(item.notes[i] === "*"){
+                                                           count = count +1;
+                                                       }
+                                                   }
+                                                }
+                                                return item.sectionNumber !== kpiStore.currentSection.sectionNumber && count >= 2;
+                                            }).map((item: any,ind:any) => {
                                                 return <li
-                                                    onClick={() => planStore.editStep4Modal({infoImplementation: item.name})}>
-                                                    {item.name}
+                                                    onClick={() => kpiStore.editModel({anotherSectionNumber: item.sectionNumber})}>
+                                                    {item.sectionNumber}
                                                 </li>
                                             })}
                                         </ul>
@@ -210,6 +262,7 @@ const Step6 = (props: any) => {
                             }
                         </> : null
                 }
+
 
 
                 <div style={{marginBottom: 20}}/>
@@ -320,11 +373,12 @@ const Step6 = (props: any) => {
 
                 <Input
                     maxWidth={500}
-                    type="area"
+                    type={isAveragePercentage() ? "number" : "area"}
                     label={t('results')}
-                    value={kpiStore.model.results}
+                    value={isAveragePercentage()? kpiStore.model.averagePer:kpiStore.model.results}
+                    placeholder={isAveragePercentage() ? "Введите средний процент" : ""}
                     onChange={(e: any) => {
-                        kpiStore.editModel({results: e.target.value});
+                        kpiStore.editModel(isAveragePercentage() ? {averagePer: e.target.value}:{results: e.target.value});
                     }
                     }
                 />
@@ -400,7 +454,7 @@ const Step6 = (props: any) => {
             </div>
 
             <div className="kpi-percentage">
-                KPI, %: 88
+                {`KPI, %: ${planStore.getKPIPercentage()}`}
             </div>
 
             <div>

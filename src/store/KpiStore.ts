@@ -41,6 +41,8 @@ class KpiStore {
             comments:"",
             otherInfoImpl:"",
             numberAuthor: 1,
+            currentPercentage: 0.0,
+            averagePer:0,
         }
     }
 
@@ -77,17 +79,19 @@ class KpiStore {
     }
 
     async saveKpi(idPlan:any){
+        const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
         return await axios.post(ADD_KPI(idPlan,this.currentSection.id),
             {
                 nameOfTheWork:this.model.chosenOption ? this.model.chosenOption : this.currentSection.name,
                 deadlines:this.model.deadlines,
                 informationOnImplementation: this.model.infoImplementation !== "Other" ? this.model.infoImplementation: this.model.otherInfoImpl,
-                results:this.model.results,
+                results: !isAverPer ? this.model.results : this.model.averagePer,
                 comments:this.model.comments,
-                percentage:2.2,
+                percentage:this.model.currentPercentage,
                 authorsNumber:this.model.numberAuthor,
                 pdfFile: this.model.fileBase64,
                 pdfFileName: this.model.fileName,
+                anotherSectionNumber: this.model.isAnotherSection ? this.model.anotherSectionNumber : null,
             },{
                 headers: {
                     Authorization: this.getCookie('Authorization')
@@ -100,18 +104,20 @@ class KpiStore {
     }
 
     async updateKpi(id:any){
+        const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
         return await axios.post(EDIT_KPI,
             {
                 id:id,
                 nameOfTheWork:this.model.chosenOption ? this.model.chosenOption : this.currentSection.name,
                 deadlines:this.model.deadlines,
                 informationOnImplementation: this.model.infoImplementation !== "Other" ? this.model.infoImplementation: this.model.otherInfoImpl,
-                results:this.model.results,
+                results: !isAverPer ? this.model.results : this.model.averagePer,
                 comments:this.model.comments,
-                percentage:2.2,
+                percentage:this.model.currentPercentage,
                 authorsNumber:this.model.numberAuthor,
                 pdfFile: this.model.fileBase64,
                 pdfFileName: this.model.fileName,
+                anotherSectionNumber: this.model.isAnotherSection ? this.model.anotherSectionNumber : null,
             },{
                 headers: {
                     Authorization: this.getCookie('Authorization')
@@ -148,12 +154,15 @@ class KpiStore {
             currentIndSection: 0,
             chosenOption: "",
             isAnotherSection: false,
+            anotherSectionNumber: null,
             deadlines:"",
             infoImplementation:"",
             results:"",
             comments:"",
             otherInfoImpl:"",
             numberAuthor: 1,
+            currentPercentage: 0.0,
+            averagePer:0,
         }
         this.kpiSections = [];
         this.currentSection = null;
