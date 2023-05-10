@@ -151,7 +151,9 @@ function Profile() {
                 </nav>
 
                 <section className={'userInfo mt-38'}>
-                    <aside className={'userAvatar'}></aside>
+                    <aside className={'userAvatar'}>
+                        <img src={AppStore.currentUser?.photo}/>
+                    </aside>
                     <aside className={'userData'}>
                         <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
                         <div className="row">

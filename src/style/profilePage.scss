@@ -68,6 +68,13 @@ h4, span {
   box-shadow: 0px 4px 10px 5px rgba(0, 0, 0, 0.25);
 }
 
+.userAvatar img {
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 .tableProfile {
   margin: 40px 0;
   width: 100%;
@@ -150,4 +157,9 @@ h4, span {
 
 .editProfileData section {
   margin-top: 15px;
+}
+
+.editButtons {
+  display: flex;
+  justify-content: center;
 }
