@@ -17,6 +17,7 @@ import {useNavigate} from "react-router-dom";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditProfileStore from "../../store/EditProfileStore";
+import Plus from '../../assets/icon/plus.svg'
 
 function Profile() {
     const [open, setOpen] = useState("");
@@ -243,6 +244,7 @@ function Profile() {
                 </section>
                 <section className={'createPlan'}>
                     <Button
+                        icon={Plus}
                         label={t('createPlan')}
                         type={'secondaryButtonAdd'}
                         onClick={async() => {
