@@ -10,19 +10,9 @@ function getCookie(name: any) {
 
 class EditProfileStore {
     model: any;
-    positionList: any = [
-        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-    ];
+    positionList: any = [];
     rateList: any = ['1', '0.5', '0.25'];
-    degreeList: any = [
-        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-    ];
+    degreeList: any = [];
     departmentList: any = [
         {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
         {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
@@ -48,6 +38,30 @@ class EditProfileStore {
         });
     }
 
+    async getPositions() {
+        return await axios.get('http://localhost:8080/user/getPositions',{
+            headers: {
+                Authorization: getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.positionList = repos.data;
+            }
+        });
+    }
+
+    async getDegrees() {
+        return await axios.get('http://localhost:8080/user/getDegrees',{
+            headers: {
+                Authorization: getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.degreeList = repos.data;
+            }
+        });
+    }
+
     editModel(obj: any) {
         this.model = {...this.model, ...obj};
     };
@@ -68,6 +82,8 @@ class EditProfileStore {
         makeAutoObservable(this, {
             editModel: action.bound,
             updateUser: action.bound,
+            getPositions: action.bound,
+            getDegrees: action.bound,
         })
     }
 }

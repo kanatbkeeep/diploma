@@ -77,7 +77,9 @@ function Profile() {
                     position: AppStore.currentUser.position,
                     degree: AppStore.currentUser.degree,
                     rate: AppStore.currentUser.rate,
-                })
+                });
+                EditProfileStore.getPositions();
+                EditProfileStore.getDegrees();
             }
 
         }).catch(() => {
