@@ -11,7 +11,7 @@ const FilePicker = (props:any) =>{
                 <div className="file-label">{props.label}</div>
                 <div className="file-input">
                     <img src={Plus}/>
-                    {t('uploadPdf')}
+                    {props?.sublabel ? props.sublabel : t('uploadPdf')}
                 </div>
             </div>
 
@@ -27,7 +27,7 @@ const FilePicker = (props:any) =>{
                 onChange={props.onChange}
                 id="forInput"
                 multiple={false}
-                accept=".pdf"
+                accept={props?.accept ? props.accept : ".pdf"}
             />
         </label>
     )

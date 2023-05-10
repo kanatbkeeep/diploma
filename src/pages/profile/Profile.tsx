@@ -15,6 +15,8 @@ import EditWhite from "../../assets/icon/editWhtie.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
 import Dropdown from "../../components/Dropdown/Dropdown";
+import EditProfile from "../../components/EditProfile/EditProfile";
+import EditProfileStore from "../../store/EditProfileStore";
 
 function Profile() {
     const [open, setOpen] = useState("");
@@ -75,6 +77,7 @@ function Profile() {
 
     return ( AppStore.currentUser &&
         <>
+            <EditProfile store={EditProfileStore}/>
             <main className={modalOpen ? 'darker': ''}>
                 <nav>
                     <aside>

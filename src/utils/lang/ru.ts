@@ -60,6 +60,7 @@ const ru = {
     numberAuthors:"Количество авторов",
     commentPlaceholder:"Название статьи, журнала, фамилии авторов",
     uploadPdf:"Загрузить pdf",
+    uploadPhoto:"Загрузить фото",
     supportingDoc:"Подтверждающий документ",
 
 }
