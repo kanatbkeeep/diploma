@@ -17,13 +17,18 @@ import {useNavigate} from "react-router-dom";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditProfileStore from "../../store/EditProfileStore";
+import Plus from '../../assets/icon/plus.svg'
 
 function Profile() {
     const [open, setOpen] = useState("");
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalOpen2, setModalOpen2] = useState<boolean>(false);
     const navigate = useNavigate();
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
+    }, []);
+    const handleModalStateChanged2 = useCallback((state: boolean) => {
+        setModalOpen2(state);
     }, []);
 
     function eraseCookie(name: any) {
@@ -66,6 +71,17 @@ function Profile() {
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
                 AppStore.getDepartmentByTeacher();
                 AppStore.getMyPlans();
+                EditProfileStore.editModel({
+                    firstName: AppStore.currentUser.firstName,
+                    lastName: AppStore.currentUser.lastName,
+                    middleName: AppStore.currentUser.middleName,
+                    position: AppStore.currentUser.position,
+                    degree: AppStore.currentUser.degree,
+                    rate: AppStore.currentUser.rate,
+                    fileBase64: AppStore.currentUser.photo,
+                });
+                EditProfileStore.getPositions();
+                EditProfileStore.getDegrees();
             }
 
         }).catch(() => {
@@ -77,8 +93,8 @@ function Profile() {
 
     return ( AppStore.currentUser &&
         <>
-            <EditProfile store={EditProfileStore}/>
-            <main className={modalOpen ? 'darker': ''}>
+            <EditProfile store={EditProfileStore} open={modalOpen2} handleChange={handleModalStateChanged2}/>
+            <main className={modalOpen || modalOpen2 ? 'darker': ''}>
                 <nav>
                     <aside>
                         <img alt={'logo'} src={Logo}/>
@@ -139,7 +155,9 @@ function Profile() {
                 </nav>
 
                 <section className={'userInfo mt-38'}>
-                    <aside className={'userAvatar'}></aside>
+                    <aside className={'userAvatar'}>
+                        <img src={AppStore.currentUser?.photo}/>
+                    </aside>
                     <aside className={'userData'}>
                         <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
                         <div className="row">
@@ -161,6 +179,9 @@ function Profile() {
                                 <Button
                                     className={'profileEditBtn'}
                                     icon={EditWhite}
+                                    onClick={() => {
+                                        setModalOpen2(true);
+                                    }}
                                 />
                             </div>
                         </div>
@@ -223,6 +244,7 @@ function Profile() {
                 </section>
                 <section className={'createPlan'}>
                     <Button
+                        icon={Plus}
                         label={t('createPlan')}
                         type={'secondaryButtonAdd'}
                         onClick={async() => {
