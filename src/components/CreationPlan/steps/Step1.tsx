@@ -91,6 +91,7 @@ const Step1 = (props: any) => {
                 value={planStore.years}
                 onChange={(e: any) => {
                     planStore.years = e.target.value;
+                    planStore.changeYear();
                 }
                 }
             />

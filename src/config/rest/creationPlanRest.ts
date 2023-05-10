@@ -18,3 +18,4 @@ export const EDIT_KPI = `http://localhost:8080/kpi/update`;
 export const DELETE_KPI = `http://localhost:8080/kpi/delete`;
 export const UPLOAD_FILE_KPI = `http://localhost:8080/kpi/upload-supporting-document`;
 export const GET_KPI_SECTIONS = (degree:any,position:any) => `http://localhost:8080/kpi-section/get-all?positionName=${position}&degreeName=${degree}`;
+export const CHANGE_YEAR_PLAN = `http://localhost:8080/plan/change-year`;

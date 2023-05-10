@@ -49,8 +49,7 @@ const Step6 = (props: any) => {
     }
 
     const copy = (item: any) => {
-        kpiStore.resetChecked();
-        kpiStore.clean();
+        clear();
         kpiStore.editModel({
             deadlines:item.deadlines,
             infoImplementation:(item.informationOnImplementation === "Online" || item.informationOnImplementation === "Offline") ? item.informationOnImplementation : "Other",
@@ -101,6 +100,17 @@ const Step6 = (props: any) => {
 
     return (
         <div className="step-component">
+            <Input
+                maxWidth={144}
+                placeholder={t('academicYear')}
+                value={planStore.years}
+                onChange={(e: any) => {
+                    planStore.years = e.target.value;
+                    planStore.changeYear();
+                }
+                }
+            />
+            <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div className="degree-position-container">
                     <div>{currentUser.degree[l('name')]}</div>

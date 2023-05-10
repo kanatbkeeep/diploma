@@ -4,7 +4,7 @@ import axios from "axios";
 import {
     ADD_ACADEMIC_METHOD,
     ADD_ACADEMIC_WORK,
-    ADD_EDUCATION_WORK, ADD_SOCIAL_WORK,
+    ADD_EDUCATION_WORK, ADD_SOCIAL_WORK, CHANGE_YEAR_PLAN,
     DELETE_ACADEMIC_METHOD,
     DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
@@ -98,6 +98,7 @@ class CreationPlanStore {
 
 
     async getPlan(id: any = null) {
+        this.years = "";
         if(id !== null){
             return await axios.get(GET_PLAN_BY_ID(id), {
                 headers: {
@@ -111,6 +112,7 @@ class CreationPlanStore {
                     this.eduWorks = repos.data.educationalWorks;
                     this.socialWorks = repos.data.socialWorks;
                     this.kpiWorks = repos.data.kpis;
+                    this.years = this.plan.year;
                 }
             });
         }else{
@@ -126,6 +128,7 @@ class CreationPlanStore {
                     this.eduWorks = repos.data.educationalWorks;
                     this.socialWorks = repos.data.socialWorks;
                     this.kpiWorks = repos.data.kpis;
+                    this.years = this.plan.year;
                 }
             });
         }
@@ -328,6 +331,21 @@ class CreationPlanStore {
         });
     }
 
+    async changeYear() {
+        return await axios.post(CHANGE_YEAR_PLAN,
+            {
+                plan: this.plan,
+                year: this.years
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+
+        });
+    }
+
 
     constructor() {
 
@@ -409,6 +427,7 @@ class CreationPlanStore {
             saveSocialWork: action.bound,
             updateSocialWork: action.bound,
             deleteSocialWorks: action.bound,
+            changeYear: action.bound,
         },)
     }
 

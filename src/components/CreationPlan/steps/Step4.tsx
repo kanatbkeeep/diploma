@@ -64,6 +64,17 @@ const Step4 = (props: any) => {
 
     return (
         <div className="step-component">
+            <Input
+                maxWidth={144}
+                placeholder={t('academicYear')}
+                value={planStore.years}
+                onChange={(e: any) => {
+                    planStore.years = e.target.value;
+                    planStore.changeYear();
+                }
+                }
+            />
+            <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
