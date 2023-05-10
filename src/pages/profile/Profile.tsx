@@ -77,6 +77,7 @@ function Profile() {
                     position: AppStore.currentUser.position,
                     degree: AppStore.currentUser.degree,
                     rate: AppStore.currentUser.rate,
+                    fileBase64: AppStore.currentUser.photo,
                 });
                 EditProfileStore.getPositions();
                 EditProfileStore.getDegrees();

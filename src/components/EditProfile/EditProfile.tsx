@@ -22,9 +22,7 @@ const EditProfile = (props: any) => {
             <div className={"editProfileBox"}>
                 <div className='editProfileData'>
                     <div className='editProfileHeader'>
-                        <div><img src={Cross} alt={'cross'}/></div>
                         <h1>Edit</h1>
-                        <div onClick={() => props.handleChange(false)}><img src={Cross} alt={'cross'}/></div>
                     </div>
                     <section>
                         <FilePicker
@@ -179,7 +177,7 @@ const EditProfile = (props: any) => {
                                     EditProfileStore.updateUser();
                                 }}
                         />
-                        <Button icon={CrossWhite} type={'smallRed'}/>
+                        <Button icon={CrossWhite} type={'smallRed'} onClick={() => props.handleChange(false)}/>
                     </section>
                 </div>
             </div>
