@@ -38,8 +38,8 @@ export const l = (fieldName: any) => {
             lg === 'kk' ? `${fieldName}Kz` :
             lg === 'kz' ? `${fieldName}Kz` :
              lg === 'en' ? `${fieldName}En` :
-             `${fieldName}Kz` ? `${fieldName}Kz` :
-               fieldName : `${fieldName}Kz`;
+             `${fieldName}Ru` ? `${fieldName}Ru` :
+               fieldName : `${fieldName}Ru`;
 }
 
 export const lnorukk = (fieldName: any) => {
