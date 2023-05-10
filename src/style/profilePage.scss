@@ -27,6 +27,7 @@ nav aside button:first-of-type:hover {
 
 main {
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,11 +100,54 @@ h4, span {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1001;
 }
 
 .editProfileData {
-  width: 670px;
   background-color: white;
   border-radius: 15px;
   padding: 26px 20px;
+}
+
+.editProfileData section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.displayNone {
+  display: none;
+}
+
+.editProfileHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.editProfileHeader h1 {
+  font-size: 32px;
+  color: #007EA7;
+  margin: 0;
+}
+
+.editProfileHeader div:first-of-type {
+  visibility: hidden;
+}
+
+.editProfileData .forms-group {
+  margin-right: 45px;
+}
+
+.editProfileData .dropdown-container {
+  margin-right: 34px;
+}
+
+.editProfileData .forms-group:last-of-type {
+  margin-right: 0;
+}
+
+.editProfileData section {
+  margin-top: 15px;
 }

@@ -21,9 +21,13 @@ import EditProfileStore from "../../store/EditProfileStore";
 function Profile() {
     const [open, setOpen] = useState("");
     const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [modalOpen2, setModalOpen2] = useState<boolean>(false);
     const navigate = useNavigate();
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
+    }, []);
+    const handleModalStateChanged2 = useCallback((state: boolean) => {
+        setModalOpen2(state);
     }, []);
 
     function eraseCookie(name: any) {
@@ -77,8 +81,8 @@ function Profile() {
 
     return ( AppStore.currentUser &&
         <>
-            <EditProfile store={EditProfileStore}/>
-            <main className={modalOpen ? 'darker': ''}>
+            <EditProfile store={EditProfileStore} open={modalOpen2} handleChange={handleModalStateChanged2}/>
+            <main className={modalOpen || modalOpen2 ? 'darker': ''}>
                 <nav>
                     <aside>
                         <img alt={'logo'} src={Logo}/>
@@ -161,6 +165,9 @@ function Profile() {
                                 <Button
                                     className={'profileEditBtn'}
                                     icon={EditWhite}
+                                    onClick={() => {
+                                        setModalOpen2(true);
+                                    }}
                                 />
                             </div>
                         </div>

@@ -4,6 +4,27 @@ import axios from 'axios'
 
 class EditProfileStore {
     model: any;
+    positionList: any = [
+        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+    ];
+    rateList: any = [
+        {rate: '1'},
+        {rate: '0.5'},
+        {rate: '0.25'},
+    ];
+    degreeList: any = [
+        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+    ];
+    departmentList: any = [
+        {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
+        {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
+    ]
 
     editModel(obj: any) {
         this.model = {...this.model, ...obj};
@@ -13,7 +34,10 @@ class EditProfileStore {
         this.model = {
             fileBase64: null,
             fileName: null,
-
+            position: null,
+            rate: null,
+            degree: null,
+            department: null,
         }
 
         makeAutoObservable(this, {
