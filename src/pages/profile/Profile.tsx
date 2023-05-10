@@ -32,7 +32,7 @@ function Profile() {
     }, []);
 
     function eraseCookie(name: any) {
-        document.cookie = name+'=; Max-Age=-99999999;';
+        document.cookie = name + '=; Max-Age=-99999999;';
     }
 
     const validation = (item: any) => {
@@ -69,19 +69,22 @@ function Profile() {
             }
 
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
-                AppStore.getDepartmentByTeacher();
-                AppStore.getMyPlans();
-                EditProfileStore.editModel({
-                    firstName: AppStore.currentUser.firstName,
-                    lastName: AppStore.currentUser.lastName,
-                    middleName: AppStore.currentUser.middleName,
-                    position: AppStore.currentUser.position,
-                    degree: AppStore.currentUser.degree,
-                    rate: AppStore.currentUser.rate,
-                    fileBase64: AppStore.currentUser.photo,
+                AppStore.getDepartmentByTeacher().then(() => {
+                    EditProfileStore.editModel({
+                        firstName: AppStore.currentUser.firstName,
+                        lastName: AppStore.currentUser.lastName,
+                        middleName: AppStore.currentUser.middleName,
+                        position: AppStore.currentUser.position,
+                        degree: AppStore.currentUser.degree,
+                        rate: AppStore.currentUser.rate,
+                        fileBase64: AppStore.currentUser.photo,
+                        department: AppStore.department,
+                    })
                 });
+                AppStore.getMyPlans();
                 EditProfileStore.getPositions();
                 EditProfileStore.getDegrees();
+                EditProfileStore.getDepartmentList();
             }
 
         }).catch(() => {
@@ -91,10 +94,10 @@ function Profile() {
         });
     }, [])
 
-    return ( AppStore.currentUser &&
+    return (AppStore.currentUser &&
         <>
             <EditProfile store={EditProfileStore} open={modalOpen2} handleChange={handleModalStateChanged2}/>
-            <main className={modalOpen || modalOpen2 ? 'darker': ''}>
+            <main className={modalOpen || modalOpen2 ? 'darker' : ''}>
                 <nav>
                     <aside>
                         <img alt={'logo'} src={Logo}/>
@@ -196,12 +199,12 @@ function Profile() {
                             maxWidthTable={1150}
                             maxWidthColumns={[120, 120, 150, 120, 130, 100, 100, 120, 140]}
                             haveDelete={true}
-                            onDelete={()=>{
+                            onDelete={() => {
                                 console.log("deleted");
                             }}
                             renderHead={(maxWidthColumns) => {
                                 return <div>
-                                    <div style={{maxWidth:50}}></div>
+                                    <div style={{maxWidth: 50}}></div>
                                     <div style={{maxWidth: maxWidthColumns[0]}}>{t('academicYear')}</div>
                                     <div style={{maxWidth: maxWidthColumns[1]}}>{t('academicWork')}</div>
                                     <div style={{maxWidth: maxWidthColumns[2]}}>{t('academicMethods')}</div>
@@ -215,7 +218,7 @@ function Profile() {
                             renderBody={(item, index, maxWidthColumns, checkbox) => {
                                 return (
                                     <div key={index}>
-                                        <div style={checkbox ? {maxWidth:50} : {}}>{checkbox}</div>
+                                        <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                         <div style={{maxWidth: maxWidthColumns[0]}}>{validation(item).step1}</div>
                                         <div style={{maxWidth: maxWidthColumns[1]}}>{validation(item).step2}</div>
                                         <div style={{maxWidth: maxWidthColumns[2]}}>{validation(item).step3}</div>
@@ -225,16 +228,16 @@ function Profile() {
                                         <div style={{maxWidth: maxWidthColumns[6]}}>{'0%'}</div>
                                         <div style={{maxWidth: maxWidthColumns[7]}}>{'Not sent'}</div>
                                         <div style={{maxWidth: maxWidthColumns[8]}}>
-                                            <div style={{width:54, marginRight:10}}>
+                                            <div style={{width: 54, marginRight: 10}}>
                                                 <Button
                                                     className="secondaryButton"
                                                     icon={Edit}
-                                                    onClick={()=>{
+                                                    onClick={() => {
                                                         navigate(`/plan/${item.id}`);
                                                     }}
                                                 />
                                             </div>
-                                            <div style={{width:54}}><Button icon={Copy}/></div>
+                                            <div style={{width: 54}}><Button icon={Copy}/></div>
                                         </div>
                                     </div>
                                 );
@@ -247,7 +250,7 @@ function Profile() {
                         icon={Plus}
                         label={t('createPlan')}
                         type={'secondaryButtonAdd'}
-                        onClick={async() => {
+                        onClick={async () => {
                             await AppStore.createPlan();
                             navigate('/creation-plan');
                         }}
