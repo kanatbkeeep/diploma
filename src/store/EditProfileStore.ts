@@ -1,6 +1,7 @@
 import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios from 'axios'
+import AppStore from "./AppStore";
 
 function getCookie(name: any) {
     const value = `; ${document.cookie}`;
@@ -13,10 +14,7 @@ class EditProfileStore {
     positionList: any = [];
     rateList: any = ['1', '0.5', '0.25'];
     degreeList: any = [];
-    departmentList: any = [
-        {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
-        {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
-    ]
+    departmentList: any = [];
 
     async updateUser() {
         return await axios.post('http://localhost:8080/user/update', {
@@ -33,7 +31,31 @@ class EditProfileStore {
             }
         }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                AppStore.getUser();
+            }
+        });
+    }
+
+    async updateUserDepartment() {
+        return await axios.post('http://localhost:8080/department/transfer-teacher', this.model.department,{
+            headers: {
+                Authorization: getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                AppStore.getDepartmentByTeacher();
+            }
+        });
+    }
+
+    async getDepartmentList() {
+        return await axios.get('http://localhost:8080/department/get-all',{
+            headers: {
+                Authorization: getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.departmentList = repos.data;
             }
         });
     }
@@ -84,6 +106,7 @@ class EditProfileStore {
             updateUser: action.bound,
             getPositions: action.bound,
             getDegrees: action.bound,
+            updateUserDepartment: action.bound,
         })
     }
 }

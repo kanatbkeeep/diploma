@@ -9,6 +9,8 @@ import Input from "../Input/Input";
 import EditProfileStore from "../../store/EditProfileStore";
 import Dropdown from "../Dropdown/Dropdown";
 import Button from "../Button/Button";
+import Profile from "../../pages/profile/Profile";
+import AppStore from "../../store/AppStore";
 
 const EditProfile = (props: any) => {
     const [open, setOpen] = useState("");
@@ -158,14 +160,14 @@ const EditProfile = (props: any) => {
                             open={open === "department"}
                             label={t('department')}
                             maxWidth={300}
-                            value={EditProfileStore.model.department ? EditProfileStore.model.department[l('name')] : "---"}
+                            value={EditProfileStore.model.department ? EditProfileStore.model.department.name : "---"}
                         >
                             <ul>
                                 {EditProfileStore.departmentList.map((item: any) => {
                                     return <li onClick={() => {
                                         EditProfileStore.editModel({department: item});
                                     }}>
-                                        {item[l('name')]}
+                                        {item.name}
                                     </li>
                                 })}
                             </ul>
@@ -175,6 +177,8 @@ const EditProfile = (props: any) => {
                         <Button icon={TickWhite} type={'smallBlue'} className={'mr-34'}
                                 onClick={() => {
                                     EditProfileStore.updateUser();
+                                    if (EditProfileStore.model.department.name !== AppStore.department.name) EditProfileStore.updateUserDepartment();
+                                    props.handleChange(false);
                                 }}
                         />
                         <Button icon={CrossWhite} type={'smallRed'} onClick={() => props.handleChange(false)}/>
