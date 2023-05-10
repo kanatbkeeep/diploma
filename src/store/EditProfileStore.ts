@@ -5,21 +5,17 @@ import axios from 'axios'
 class EditProfileStore {
     model: any;
     positionList: any = [
-        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
-        {nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
+        {id: 2, nameRu: "asdasd", nameKz: "asdasda", nameEn: "Associate Professor"},
     ];
-    rateList: any = [
-        {rate: '1'},
-        {rate: '0.5'},
-        {rate: '0.25'},
-    ];
+    rateList: any = ['1', '0.5', '0.25'];
     degreeList: any = [
-        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
-        {nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
+        {"id": 7, nameRu: "Research", nameKz: "Research", nameEn: "Research"},
     ];
     departmentList: any = [
         {nameRu: "Computer Engineering", nameKz: "Computer Engineering", nameEn: "Computer Engineering"},
@@ -38,6 +34,9 @@ class EditProfileStore {
             rate: null,
             degree: null,
             department: null,
+            lastName: null,
+            firstName: null,
+            middleName: null,
         }
 
         makeAutoObservable(this, {

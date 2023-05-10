@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {observer} from 'mobx-react';
 import t, {l} from "../../utils/Lang";
 import FilePicker from "../FilePicker/FilePicker";
 import Cross from "../../assets/icon/cross.svg";
@@ -49,12 +50,24 @@ const EditProfile = (props: any) => {
                     <section>
                         <Input
                             label={'Last Name'}
+                            value={EditProfileStore.model.lastName}
+                            onChange={(e: any) => {
+                                EditProfileStore.editModel({lastName: e.target.value})
+                            }}
                         />
                         <Input
                             label={'First Name'}
+                            value={EditProfileStore.model.firstName}
+                            onChange={(e: any) => {
+                                EditProfileStore.editModel({firstName: e.target.value})
+                            }}
                         />
                         <Input
                             label={'Middle Name'}
+                            value={EditProfileStore.model.middleName}
+                            onChange={(e: any) => {
+                                EditProfileStore.editModel({middleName: e.target.value})
+                            }}
                         />
                     </section>
                     <section>
@@ -93,14 +106,14 @@ const EditProfile = (props: any) => {
                             open={open === "rate"}
                             label={t('rate')}
                             maxWidth={100}
-                            value={EditProfileStore.model.rate ? EditProfileStore.model.rate.rate : "---"}
+                            value={EditProfileStore.model.rate ? EditProfileStore.model.rate : "---"}
                         >
                             <ul>
                                 {EditProfileStore.rateList.map((item: any) => {
                                     return <li onClick={() => {
                                         EditProfileStore.editModel({rate: item});
                                     }}>
-                                        {item.rate}
+                                        {item}
                                     </li>
                                 })}
                             </ul>
@@ -163,4 +176,4 @@ const EditProfile = (props: any) => {
     )
 }
 
-export default EditProfile;
+export default observer(EditProfile);

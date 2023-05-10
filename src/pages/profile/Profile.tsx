@@ -70,6 +70,14 @@ function Profile() {
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
                 AppStore.getDepartmentByTeacher();
                 AppStore.getMyPlans();
+                EditProfileStore.editModel({
+                    firstName: AppStore.currentUser.firstName,
+                    lastName: AppStore.currentUser.lastName,
+                    middleName: AppStore.currentUser.middleName,
+                    position: AppStore.currentUser.position,
+                    degree: AppStore.currentUser.degree,
+                    rate: AppStore.currentUser.rate,
+                })
             }
 
         }).catch(() => {
