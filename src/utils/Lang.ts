@@ -27,9 +27,9 @@ const t = (txt: string) => {
       return text["ru"][txt];
     }
     else
-        return text["kz"][txt] ? text["kz"][txt] :
-                text["ru"][txt] ? text["ru"][txt] :
-                 text["en"][txt] ? text["en"][txt] : '-';
+        return text["ru"][txt] ? text["ru"][txt] :
+                text["en"][txt] ? text["en"][txt] :
+                 text["kz"][txt] ? text["kz"][txt] : '-';
 }
 
 export const l = (fieldName: any) => {
@@ -37,7 +37,7 @@ export const l = (fieldName: any) => {
     return lg ? lg === 'ru' ? `${fieldName}Ru` :
             lg === 'kk' ? `${fieldName}Kz` :
             lg === 'kz' ? `${fieldName}Kz` :
-             lg === 'en' ? `${fieldName}Ru` :
+             lg === 'en' ? `${fieldName}En` :
              `${fieldName}Kz` ? `${fieldName}Kz` :
                fieldName : `${fieldName}Kz`;
 }
