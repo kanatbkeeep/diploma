@@ -98,6 +98,13 @@ function Profile() {
                         department: AppStore.department,
                     })
                 });
+                AppStore.getMyPlans();
+                AppStore.getMyPlansToApproveAwaiting().then(() => {
+                    AppStore.getMyPlansToApproveApproved();
+                });
+                EditProfileStore.getPositions();
+                EditProfileStore.getDegrees();
+                EditProfileStore.getDepartmentList();
             }
 
         }).catch(() => {

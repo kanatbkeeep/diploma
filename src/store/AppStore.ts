@@ -14,6 +14,7 @@ class AppStore {
     currentUser: any;
     department: any;
     myPlans: any;
+    myPlansToApprove: any;
     model: any;
     lang: any = lg ? lg: "ru";
     langs: any = ["ru", "kz", "en"];
@@ -87,6 +88,32 @@ class AppStore {
         });
     }
 
+    async getMyPlansToApproveAwaiting() {
+        return await axios.get('http://localhost:8080/plan/get-plans-to-me-by-status', {
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            },
+            params: { status: 'AWAITING' }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.myPlansToApprove = repos.data;
+            }
+        });
+    }
+
+    async getMyPlansToApproveApproved() {
+        return await axios.get('http://localhost:8080/plan/get-plans-to-me-by-status', {
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            },
+            params: { status: 'APPROVED' }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.myPlansToApprove.concat(repos.data);
+            }
+        });
+    }
+
     async createPlan() {
         return await axios.post('http://localhost:8080/plan/create', {},{
             headers: {
@@ -124,6 +151,8 @@ class AppStore {
             getMyPlans: action.bound,
             createPlan: action.bound,
             isTeacher: action,
+            getMyPlansToApproveAwaiting: action,
+            getMyPlansToApproveApproved: action,
         })
     }
 }
