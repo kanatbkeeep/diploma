@@ -24,67 +24,143 @@ const Step6 = (props: any) => {
     const [section, setSection] = useState(0);
 
     const validation = () => {
-        if(kpiStore.currentSection.options?.length > 0){
+        if (kpiStore.currentSection.options?.length > 0) {
             return (kpiStore.model.chosenOption && kpiStore.model.results && kpiStore.model.comments && kpiStore.model.deadlines
                 && kpiStore.model.fileName && kpiStore.model.fileBase64
-                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation: kpiStore.model.otherInfoImpl))
-        }else{
-            return (kpiStore.model.results && kpiStore.model.comments && kpiStore.model.deadlines
+                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
+        } else {
+            return ((isAveragePercentage() ? kpiStore.model.averagePer:kpiStore.model.results) && kpiStore.model.comments && kpiStore.model.deadlines
                 && kpiStore.model.fileName && kpiStore.model.fileBase64
-                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation: kpiStore.model.otherInfoImpl))
+                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
         }
 
     }
 
+    useEffect(()=>{
+        console.log("isFinance:"+isFinance());
+        let section:any = anotherSection();
+
+        let rate:any = currentUser.rate === "1" ? section.rate_full : currentUser.rate === "0.5" ? section.rate_half : section.rate_quarter;
+
+        if(isAveragePercentage()){
+          if(kpiStore.model.averagePer >= 80){
+              kpiStore.editModel({currentPercentage: anotherSection().percentage});
+          }else{
+              kpiStore.editModel({currentPercentage: 0});
+          }
+        }else if(isFinance()){
+            if(kpiStore.model.results){
+                kpiStore.editModel({currentPercentage: anotherSection().percentage});
+            }else{
+                kpiStore.editModel({currentPercentage: 0});
+            }
+        }else{
+            if(kpiStore.currentSection.authorsByParts){
+                kpiStore.editModel({currentPercentage: section.percentage / rate / kpiStore.model.numberAuthor});
+            }else{
+                kpiStore.editModel({currentPercentage: kpiStore.currentSection.percentage / rate});
+            }
+        }
+    },[kpiStore.currentSection,kpiStore.model.numberAuthor, kpiStore.model.averagePer, kpiStore.model.anotherSectionNumber, kpiStore.model.results])
+
+
+    const anotherSection = () =>{
+        let section:any;
+        if(kpiStore.model.anotherSectionNumber){
+            const ind = kpiStore.kpiSections.findIndex((item:any)=>{
+                return item.sectionNumber === kpiStore.model.anotherSectionNumber;
+            });
+            return section = kpiStore.kpiSections[ind];
+        }else{
+            return section = kpiStore.currentSection;
+        }
+    }
+
     const addObject = () => {
-        planStore.saveEduWork();
-        planStore.editStep4Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
+        kpiStore.saveKpi(planStore.plan.id);
+        kpiStore.clean();
+        kpiStore.resetChecked();
     }
 
     const clear = () => {
-        planStore.editStep4Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
-    }
-
-    const copy = (item: any) => {
-        planStore.editStep4Modal({...item});
-    }
-
-    const edit = (item: any) => {
-        const toUpdate = {...item, ...planStore.step4}
-        planStore.updateEduWork(toUpdate);
-        planStore.editStep4Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
+        kpiStore.clean();
+        kpiStore.resetChecked();
         setItemEdit(null);
     }
 
+    const copy = (item: any) => {
+        clear();
+        kpiStore.editModel({
+            deadlines:item.deadlines,
+            infoImplementation:(item.informationOnImplementation === "Online" || item.informationOnImplementation === "Offline") ? item.informationOnImplementation : "Other",
+            results:item.results,
+            comments:item.comments,
+            otherInfoImpl: (item.informationOnImplementation !== "Online" || item.informationOnImplementation !== "Offline") ? item.informationOnImplementation : "",
+            numberAuthor: item.authorsNumber,
+            chosenOption: item.nameOfTheWork,
+            fileName:item.pdfFileName,
+            fileBase64:item.pdfFile,
+            currentIndSection: item.kpiSection.sectionNumber-1,
+        });
+        kpiStore.currentSection = item.kpiSection;
+        isAveragePercentage() && kpiStore.editModel({averagePer:parseInt(item.result)});
+        item.anotherSectionNumber !== 0 && kpiStore.editModel({isAnotherSection:true, anotherSectionNumber: item.anotherSectionNumber});
+        if(item.kpiSection.options.length > 0){
+            const ind:any = kpiStore.checked.findIndex((i:any)=>{
+                return (i.id === item.nameOfTheWork && i.checked === false);
+            });
+            kpiStore.checked[ind].checked = true;
+        }
+    }
 
-    const textFile = (text:String) => {
-        if(text?.length > 23){
-            return text.substring(0,20)+ "...";
-        }else{
+    const edit = () => {
+        kpiStore.updateKpi(itemEdit.id);
+        clear();
+    }
+
+
+    const textFile = (text: String) => {
+        if (text?.length > 23) {
+            return text.substring(0, 20) + "...";
+        } else {
             return text;
         }
     }
 
+    const isChecked = (id:any) =>{
+        const arr:any = kpiStore.checked.filter((i:any)=> i.id === id);
+        return arr[0].checked;
+    }
+
+    const check = (id:any)=>{
+        kpiStore.resetChecked()
+        const ind:any = kpiStore.checked.findIndex((i:any)=>{
+            return (i.id === id && i.checked === false);
+        });
+        kpiStore.checked[ind].checked = true;
+    }
+
+    const isAveragePercentage = ()=>{
+        return  kpiStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
+    }
+
+    const isFinance = () =>{
+        return kpiStore.currentSection.name === "Привлечение финансирования" || anotherSection().name === "Привлечение финансирования";
+    }
+
     return (
         <div className="step-component">
+            <Input
+                maxWidth={144}
+                placeholder={t('academicYear')}
+                value={planStore.years}
+                onChange={(e: any) => {
+                    planStore.years = e.target.value;
+                    planStore.changeYear();
+                }
+                }
+            />
+            <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div className="degree-position-container">
                     <div>{currentUser.degree[l('name')]}</div>
@@ -96,7 +172,7 @@ const Step6 = (props: any) => {
                              onClick={() => {
                                  kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection - 1});
                                  kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
-                                 console.log(kpiStore.currentSection);
+                                 clear();
                              }}
                              className="back"
                              src={NavMark}/> : null}
@@ -105,7 +181,7 @@ const Step6 = (props: any) => {
                              onClick={() => {
                                  kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection + 1});
                                  kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
-                                 console.log(kpiStore.currentSection);
+                                 clear();
                              }}
                              className="next"
                              src={NavMark}/> : null}
@@ -120,12 +196,15 @@ const Step6 = (props: any) => {
                         return (
                             <RadioButton
                                 label={item}
-                                id={`option${ind}`}
-                                name="options"
+                                checked={isChecked(item)}
+                                id={`option${ind}${kpiStore.currentSection.id}`}
+                                name={`options${kpiStore.currentSection.id}`}
                                 value={item}
                                 onChange={(e: any) => {
                                     if (e.target.checked) {
                                         kpiStore.editModel({chosenOption: e.target.value});
+                                        check(item);
+                                        console.log(kpiStore.checked)
                                     }
                                 }}
                             />
@@ -135,9 +214,9 @@ const Step6 = (props: any) => {
                 <div className="percentages-container">
                     <div className="percentages">
                         <div
-                            className="per-1">{`Необходимое количество для выполнения: ${currentUser.rate === "1" ? kpiStore.currentSection.rate_full : currentUser.rate === "0.5" ? kpiStore.currentSection.rate_half : kpiStore.currentSection.rate_quarter}`}</div>
-                        <div className="per-2">{`Доля, %: ${kpiStore.currentSection.percentage}`}</div>
-                        <div className="per-3">Нынешняя доля, %: 20</div>
+                            className="per-1">{`Необходимое количество для выполнения: ${currentUser.rate === "1" ? anotherSection().rate_full : currentUser.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
+                        <div className="per-2">{`Доля, %: ${anotherSection().percentage}`}</div>
+                        <div className="per-3">{`Нынешняя доля, %: ${kpiStore.model.currentPercentage}`}</div>
                     </div>
                 </div>
 
@@ -148,8 +227,9 @@ const Step6 = (props: any) => {
                         ? <>
                             <Checkbox
                                 label={t('submissionClosing')}
+                                checked={kpiStore.model.isAnotherSection}
                                 onChange={(e: any) => {
-                                    kpiStore.editModel({isAnotherSection: e.target.checked});
+                                    kpiStore.editModel({isAnotherSection: e.target.checked, anotherSectionNumber: null});
                                 }}
                             />
                             <div style={{marginBottom: 20}}/>
@@ -166,13 +246,23 @@ const Step6 = (props: any) => {
                                         }}
                                         open={open === "sectionNumber"}
                                         label={t('sectionNumber')}
-                                        value={planStore.step4.infoImplementation ? planStore.step4.infoImplementation : t('select')}
+                                        value={kpiStore.model.anotherSectionNumber ? kpiStore.model.anotherSectionNumber : t('select')}
                                     >
                                         <ul>
-                                            {planStore.infoImplementation.map((item: any) => {
+                                            {kpiStore.kpiSections.filter((item:any)=>{
+                                                let count = 0;
+                                                if(item.notes){
+                                                   for(let i = 0; i <= 3; i++){
+                                                       if(item.notes[i] === "*"){
+                                                           count = count +1;
+                                                       }
+                                                   }
+                                                }
+                                                return item.sectionNumber !== kpiStore.currentSection.sectionNumber && count >= 2;
+                                            }).map((item: any,ind:any) => {
                                                 return <li
-                                                    onClick={() => planStore.editStep4Modal({infoImplementation: item.name})}>
-                                                    {item.name}
+                                                    onClick={() => kpiStore.editModel({anotherSectionNumber: item.sectionNumber})}>
+                                                    {item.sectionNumber}
                                                 </li>
                                             })}
                                         </ul>
@@ -183,29 +273,6 @@ const Step6 = (props: any) => {
                 }
 
 
-                <div style={{marginBottom: 20}}/>
-                <Dropdown
-                    maxWidth={1045}
-                    onClick={() => {
-                        if (open === "") {
-                            setOpen("copyExisting");
-                        } else {
-                            setOpen("")
-                        }
-                    }}
-                    open={open === "copyExisting"}
-                    label={t('copyExisting')}
-                    value={planStore.step4.infoImplementation ? planStore.step4.infoImplementation : t('select')}
-                >
-                    <ul>
-                        {planStore.infoImplementation.map((item: any) => {
-                            return <li
-                                onClick={() => planStore.editStep4Modal({infoImplementation: item.name})}>
-                                {item.name}
-                            </li>
-                        })}
-                    </ul>
-                </Dropdown>
 
                 <div style={{marginBottom: 20}}/>
                 {
@@ -236,6 +303,116 @@ const Step6 = (props: any) => {
 
                             <div style={{marginBottom: 20}}/>
                         </> : null
+                }
+
+                {
+                    kpiStore.currentSection.name !== "Средний процент независимого анкетирования \"Преподаватель глазами студентов\"" ?
+                        <>
+                            <div style={{marginBottom: 20}}/>
+                            <Dropdown
+                                maxWidth={1045}
+                                onClick={() => {
+                                    if (open !== "copyExisting1") {
+                                        setOpen("copyExisting1");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "copyExisting1"}
+                                label={t('copyExisting1')}
+                                value={kpiStore.model.anotherWork?.id === 1 ? kpiStore.model.anotherWork?.name?.length > 80
+                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                            >
+                                <ul>
+                                    {planStore.researchWorks.length > 0 ? planStore.researchWorks.map((item: any) => {
+                                        return <li
+                                            onClick={() => kpiStore.editModel({
+                                                anotherWork:{
+                                                    id:1,
+                                                    name:item.nameOfTheWork
+                                                },
+                                                deadlines:item.deadlines,
+                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                results:item.results,
+                                                comments:item.comments,
+                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                            })}>
+                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                        </li>
+                                    }): <li>{t('noData')}</li>}
+                                </ul>
+                            </Dropdown>
+                            <div style={{marginBottom: 20}}/>
+                            <Dropdown
+                                maxWidth={1045}
+                                onClick={() => {
+                                    if (open !== "copyExisting2") {
+                                        setOpen("copyExisting2");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "copyExisting2"}
+                                label={t('copyExisting2')}
+                                value={kpiStore.model.anotherWork?.id === 2 ? kpiStore.model.anotherWork?.name?.length > 80
+                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                            >
+                                <ul>
+                                    {planStore.eduWorks.length > 0 ? planStore.eduWorks.map((item: any) => {
+                                        return <li
+                                            onClick={() => kpiStore.editModel({
+                                                anotherWork:{
+                                                    id:2,
+                                                    name:item.nameOfTheWork
+                                                },
+                                                deadlines:item.deadlines,
+                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                results:item.results,
+                                                comments:item.comments,
+                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                            })}>
+                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                        </li>
+                                    }): <li>{t('noData')}</li>}
+                                </ul>
+                            </Dropdown>
+                            <div style={{marginBottom: 20}}/>
+                            <Dropdown
+                                maxWidth={1045}
+                                onClick={() => {
+                                    if (open !== "copyExisting3") {
+                                        setOpen("copyExisting3");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "copyExisting3"}
+                                label={t('copyExisting3')}
+                                value={kpiStore.model.anotherWork?.id === 3 ? kpiStore.model.anotherWork?.name?.length > 80
+                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                            >
+                                <ul>
+                                    {planStore.socialWorks.length > 0 ? planStore.socialWorks.map((item: any) => {
+                                        return <li
+                                            onClick={() => kpiStore.editModel({
+                                                anotherWork:{
+                                                    id:3,
+                                                    name:item.nameOfTheWork
+                                                },
+                                                deadlines:item.deadlines,
+                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                results:item.results,
+                                                comments:item.comments,
+                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                            })}>
+                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                        </li>
+                                    }): <li>{t('noData')}</li>}
+                                </ul>
+                            </Dropdown>
+                            <div style={{marginBottom: 20}}/>
+                        </>
+                        : null
                 }
 
                 <div style={{display: "flex", flexDirection: "row"}}>
@@ -291,11 +468,12 @@ const Step6 = (props: any) => {
 
                 <Input
                     maxWidth={500}
-                    type="area"
+                    type={isAveragePercentage() ? "number" : "area"}
                     label={t('results')}
-                    value={kpiStore.model.results}
+                    value={isAveragePercentage()? kpiStore.model.averagePer:kpiStore.model.results}
+                    placeholder={isAveragePercentage() ? "Введите средний процент" : ""}
                     onChange={(e: any) => {
-                        kpiStore.editModel({results: e.target.value});
+                        kpiStore.editModel(isAveragePercentage() ? {averagePer: e.target.value}:{results: e.target.value});
                     }
                     }
                 />
@@ -318,7 +496,7 @@ const Step6 = (props: any) => {
 
                 <FilePicker
                     label={t('supportingDoc')}
-                    value={kpiStore.model.fileName ? kpiStore.model.fileName?.length > 50 ? kpiStore.model.fileName.substring(0,45)+ "..." : kpiStore.model.fileName : ""}
+                    value={kpiStore.model.fileName ? kpiStore.model.fileName?.length > 50 ? kpiStore.model.fileName.substring(0, 45) + "..." : kpiStore.model.fileName : ""}
                     onChange={async (e: any) => {
                         kpiStore.editModel({
                             fileName: e.target.files[0].name,
@@ -350,9 +528,9 @@ const Step6 = (props: any) => {
                     <div style={{width: 144}}>
                         <Button className="'primaryButtonAdd'"
                                 icon={Plus}
-                                label={t('add')}
+                                label={itemEdit ?t('edit') : t('add')}
                                 onClick={() => {
-                                    kpiStore.saveKpi(planStore.plan.id);
+                                    itemEdit ? edit() :addObject();
                                 }}
                                 disabled={!(validation())}
                         />
@@ -362,6 +540,7 @@ const Step6 = (props: any) => {
                         <Button icon={Delete}
                                 label={t('reset')}
                                 onClick={() => {
+                                    clear()
                                 }}
                         />
                     </div>
@@ -370,7 +549,7 @@ const Step6 = (props: any) => {
             </div>
 
             <div className="kpi-percentage">
-                KPI, %: 88
+                {`KPI, %: ${planStore.getKPIPercentage()}`}
             </div>
 
             <div>
@@ -379,10 +558,10 @@ const Step6 = (props: any) => {
                     length={planStore.kpiWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
-                    maxWidthColumns={[250, 100, 100, 150, 100,200,133]}
+                    maxWidthColumns={[250, 100, 100, 150, 100, 200, 133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
-                        planStore.deleteEduWorks(arr);
+                        kpiStore.deleteKpis(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
@@ -400,11 +579,14 @@ const Step6 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.informationOnImplementation}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[5]}}>
                                     <a className="download-file" href={item.pdfFile} download={item.pdfFileName}>
                                         <img src={File}/>
@@ -416,8 +598,8 @@ const Step6 = (props: any) => {
                                         <Button className="secondaryButton"
                                                 icon={Edit}
                                                 onClick={() => {
+                                                    copy(item);
                                                     setItemEdit(item);
-                                                    planStore.editStep4Modal({...item});
                                                 }}
                                         />
                                     </div>

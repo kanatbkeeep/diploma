@@ -4,12 +4,12 @@ import axios from "axios";
 import {
     ADD_ACADEMIC_METHOD,
     ADD_ACADEMIC_WORK,
-    ADD_EDUCATION_WORK, ADD_SOCIAL_WORK,
+    ADD_EDUCATION_WORK, ADD_RESEARCH_WORK, ADD_SOCIAL_WORK, CHANGE_YEAR_PLAN,
     DELETE_ACADEMIC_METHOD,
-    DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_SOCIAL_WORK,
+    DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
-    EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_SOCIAL_WORK,
-    GET_LATEST_PLAN, GET_PLAN_BY_ID
+    EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK,
+    GET_LATEST_PLAN, GET_PLAN_BY_ID, SEND_PLAN
 } from "../config/rest/creationPlanRest";
 
 class CreationPlanStore {
@@ -80,7 +80,8 @@ class CreationPlanStore {
 
     infoImplementation = [
         {id: 1, name: "Online"},
-        {id: 2, name: "Offline"}
+        {id: 2, name: "Offline"},
+        {id: 2, name: "Other"},
     ]
 
     typeWork = [
@@ -98,7 +99,8 @@ class CreationPlanStore {
 
 
     async getPlan(id: any = null) {
-        if(id !== null){
+        this.years = "";
+        if (id !== null) {
             return await axios.get(GET_PLAN_BY_ID(id), {
                 headers: {
                     Authorization: this.getCookie('Authorization')
@@ -111,9 +113,11 @@ class CreationPlanStore {
                     this.eduWorks = repos.data.educationalWorks;
                     this.socialWorks = repos.data.socialWorks;
                     this.kpiWorks = repos.data.kpis;
+                    this.years = this.plan.year;
+                    this.researchWorks = repos.data.researchWorks;
                 }
             });
-        }else{
+        } else {
             return await axios.get(GET_LATEST_PLAN, {
                 headers: {
                     Authorization: this.getCookie('Authorization')
@@ -126,10 +130,25 @@ class CreationPlanStore {
                     this.eduWorks = repos.data.educationalWorks;
                     this.socialWorks = repos.data.socialWorks;
                     this.kpiWorks = repos.data.kpis;
+                    this.years = this.plan.year;
+                    this.researchWorks = repos.data.researchWorks;
                 }
             });
         }
 
+    }
+
+    async sendPlan() {
+        return await axios.post(SEND_PLAN(this.plan.id), {},
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 201) {
+                window.location.reload();
+            }
+        });
     }
 
     async saveAcademicWork() {
@@ -166,11 +185,36 @@ class CreationPlanStore {
         });
     }
 
+    async saveResearchWork() {
+        return await axios.post(ADD_RESEARCH_WORK,
+            {
+                idPlan: this.plan.id,
+                nameOfTheWork: this.step3.nameOfTheWork,
+                deadlines: this.step3.deadlines,
+                infoImplementation: this.step3.infoImplementation !== "Other" ? this.step3.infoImplementation : this.step3.anotherInfoImpl,
+                results: this.step3.results,
+                comments: this.step3.comments,
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 201) {
+                window.location.reload();
+            }
+        });
+    }
+
     async saveEduWork() {
         return await axios.post(ADD_EDUCATION_WORK,
             {
                 idPlan: this.plan.id,
-                ...this.step4
+                nameOfTheWork: this.step4.nameOfTheWork,
+                deadlines: this.step4.deadlines,
+                infoImplementation: this.step4.infoImplementation !== "Other" ? this.step4.infoImplementation : this.step4.anotherInfoImpl,
+                results: this.step4.results,
+                comments: this.step4.comments,
             },
             {
                 headers: {
@@ -187,7 +231,11 @@ class CreationPlanStore {
         return await axios.post(ADD_SOCIAL_WORK,
             {
                 idPlan: this.plan.id,
-                ...this.step5
+                nameOfTheWork: this.step5.nameOfTheWork,
+                deadlines: this.step5.deadlines,
+                infoImplementation: this.step5.infoImplementation !== "Other" ? this.step5.infoImplementation : this.step5.anotherInfoImpl,
+                results: this.step5.results,
+                comments: this.step5.comments,
             },
             {
                 headers: {
@@ -200,7 +248,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateAcademicWork(item:any) {
+    async updateAcademicWork(item: any) {
         return await axios.post(EDIT_ACADEMIC_WORK,
             {
                 ...item,
@@ -216,7 +264,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateAcademicMethod(item:any) {
+    async updateAcademicMethod(item: any) {
         return await axios.post(EDIT_ACADEMIC_METHOD,
             {
                 ...item,
@@ -232,7 +280,23 @@ class CreationPlanStore {
         });
     }
 
-    async updateEduWork(item:any) {
+    async updateSearchWork(item: any) {
+        return await axios.post(EDIT_RESEARCH_WORK,
+            {
+                ...item,
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 200) {
+                window.location.reload();
+            }
+        });
+    }
+
+    async updateEduWork(item: any) {
         return await axios.post(EDIT_EDUCATION_WORK,
             {
                 ...item,
@@ -248,7 +312,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateSocialWork(item:any) {
+    async updateSocialWork(item: any) {
         return await axios.post(EDIT_SOCIAL_WORK,
             {
                 ...item,
@@ -264,7 +328,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteAcademicWorks(itemsToDelete:any[]) {
+    async deleteAcademicWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_ACADEMIC_WORK,
             {
                 items: itemsToDelete
@@ -280,7 +344,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteAcademicMethods(itemsToDelete:any[]) {
+    async deleteAcademicMethods(itemsToDelete: any[]) {
         return await axios.post(DELETE_ACADEMIC_METHOD,
             {
                 items: itemsToDelete
@@ -296,7 +360,23 @@ class CreationPlanStore {
         });
     }
 
-    async deleteEduWorks(itemsToDelete:any[]) {
+    async deleteResearchWorks(itemsToDelete: any[]) {
+        return await axios.post(DELETE_RESEARCH_WORK,
+            {
+                items: itemsToDelete
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 200) {
+                window.location.reload();
+            }
+        });
+    }
+
+    async deleteEduWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_EDUCATION_WORK,
             {
                 items: itemsToDelete
@@ -312,7 +392,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteSocialWorks(itemsToDelete:any[]) {
+    async deleteSocialWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_SOCIAL_WORK,
             {
                 items: itemsToDelete
@@ -326,6 +406,35 @@ class CreationPlanStore {
                 window.location.reload();
             }
         });
+    }
+
+    async changeYear() {
+        return await axios.post(CHANGE_YEAR_PLAN,
+            {
+                plan: this.plan,
+                year: this.years
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+
+        });
+    }
+
+    getKPIPercentage = () => {
+        if (this.kpiWorks.length > 0) {
+            let per: any = 0.0;
+
+            this.kpiWorks.map((item: any) => {
+                per = per + item.percentage;
+            })
+
+            return per;
+        } else {
+            return 0
+        }
     }
 
 
@@ -355,18 +464,19 @@ class CreationPlanStore {
         }
 
         this.step3 = {
-            typeWork: null,
-            journal: "",
-            deadline: "",
-            article: "",
-            infoImplementation: null,
-            comment: "",
+            nameOfTheWork: "",
+            deadlines: "",
+            infoImplementation: "",
+            anotherInfoImpl: "",
+            results: "",
+            comments: "",
         }
 
         this.step4 = {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl: "",
             results: "",
             comments: "",
         }
@@ -375,6 +485,7 @@ class CreationPlanStore {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl: "",
             results: "",
             comments: "",
         }
@@ -409,6 +520,11 @@ class CreationPlanStore {
             saveSocialWork: action.bound,
             updateSocialWork: action.bound,
             deleteSocialWorks: action.bound,
+            changeYear: action.bound,
+            getKPIPercentage: action.bound,
+            saveResearchWork: action.bound,
+            updateSearchWork: action.bound,
+            deleteResearchWorks: action.bound,
         },)
     }
 

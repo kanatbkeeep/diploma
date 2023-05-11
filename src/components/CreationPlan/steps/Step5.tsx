@@ -9,7 +9,7 @@ import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
-import moment from "moment";
+import moment from "moment/moment";
 
 const Step5 = (props: any) => {
     const [open, setOpen] = useState("");
@@ -19,19 +19,13 @@ const Step5 = (props: any) => {
 
 
     const validation = () => {
-        return (planStore.step5.nameOfTheWork && planStore.step5.deadlines && planStore.step5.infoImplementation && planStore.step5.results
-            && planStore.step5.comments);
+        return (planStore.step5.nameOfTheWork && planStore.step5.deadlines&& planStore.step5.results
+            && planStore.step5.comments  && ((planStore.step5.infoImplementation !== "Other" && planStore.step5.infoImplementation) ? planStore.step5.infoImplementation : planStore.step5.anotherInfoImpl ) );
     }
 
     const addObject = () => {
         planStore.saveSocialWork();
-        planStore.editStep5Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            results: "",
-            comments: "",
-        })
+        clear();
     }
 
     const clear = () => {
@@ -39,31 +33,50 @@ const Step5 = (props: any) => {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
-            results: "",
-            comments: "",
-        })
-    }
-
-    const copy = (item: any) => {
-        planStore.editStep5Modal({...item});
-    }
-
-    const edit = (item: any) => {
-        const toUpdate = {...item, ...planStore.step5}
-        planStore.updateSocialWork(toUpdate);
-        planStore.editStep5Modal({
-            nameOfTheWork: "",
-            deadlines: "",
-            infoImplementation: "",
+            anotherInfoImpl: "",
             results: "",
             comments: "",
         })
         setItemEdit(null);
     }
 
+    const copy = (item: any) => {
+        planStore.editStep5Modal({...item});
+        if(item.infoImplementation !== "Online" && item.infoImplementation !== "Offline"){
+            planStore.editStep5Modal({
+                infoImplementation:"Other",
+                anotherInfoImpl:item.infoImplementation,
+            });
+        }
+    }
+
+    const edit = (item: any) => {
+        const toUpdate = {
+            id: item.id,
+            nameOfTheWork: planStore.step5.nameOfTheWork,
+            deadlines: planStore.step5.deadlines,
+            infoImplementation: planStore.step5.infoImplementation !== "Other" ? planStore.step5.infoImplementation : planStore.step5.anotherInfoImpl,
+            results: planStore.step5.results,
+            comments: planStore.step5.comments,
+        }
+        planStore.updateSocialWork(toUpdate);
+        clear();
+    }
+
 
     return (
         <div className="step-component">
+            <Input
+                maxWidth={144}
+                placeholder={t('academicYear')}
+                value={planStore.years}
+                onChange={(e: any) => {
+                    planStore.years = e.target.value;
+                    planStore.changeYear();
+                }
+                }
+            />
+            <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
@@ -79,7 +92,6 @@ const Step5 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
-                        type="date"
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step5.deadlines}
@@ -110,7 +122,23 @@ const Step5 = (props: any) => {
                             })}
                         </ul>
                     </Dropdown>
+
                 </div>
+
+                {
+                    planStore.step5.infoImplementation === "Other" ?
+                        <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
+                            <Input
+                                maxWidth={500}
+                                label={t('infoOnImplementation')}
+                                value={planStore.step5.anotherInfoImpl}
+                                onChange={(e: any) => {
+                                    planStore.editStep5Modal({anotherInfoImpl: e.target.value});
+                                }
+                                }
+                            />
+                        </div> : null
+                }
 
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
@@ -190,18 +218,21 @@ const Step5 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{moment(new Date(item.deadlines)).format("DD.MM.yyyy")}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.infoImplementation}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
+                                <div className="hidden-scroll"
+                                     style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button className="secondaryButton"
                                                 icon={Edit}
                                                 onClick={() => {
                                                     setItemEdit(item);
-                                                    planStore.editStep5Modal({...item});
+                                                    copy(item);
                                                 }}
                                         />
                                     </div>

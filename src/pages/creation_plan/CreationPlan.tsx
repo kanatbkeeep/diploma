@@ -11,7 +11,7 @@ import Logout from '../../assets/icon/logout.svg';
 import Navigation from "../../components/Notification/Notification";
 import Step1 from "../../components/CreationPlan/steps/Step1";
 import Step2 from "../../components/CreationPlan/steps/Step2";
-import Step3 from "../../components/CreationPlan/steps/step3/Step3";
+import Step3 from "../../components/CreationPlan/steps/Step3";
 import { observer } from 'mobx-react';
 import CreationPlanStore from '../../store/CreationPlanStore'
 import {useNavigate, useParams} from "react-router-dom";
@@ -91,6 +91,10 @@ const CreationPlan = (props: any) => {
                         type='secondaryButton'
                         icon={Send}
                         label={t('send')}
+                        disabled={planStore.plan?.status}
+                        onClick={()=>{
+                            planStore.sendPlan();
+                        }}
                     />
                     <Button
                         type='secondaryButton'
@@ -111,27 +115,27 @@ const CreationPlan = (props: any) => {
 
             <section>
                 <div className="nav-steps mt-42">
-                    <div className="nav-step" onClick={()=>{setStep(Steps.Step1)}}>
+                    <div className="nav-step" onClick={()=>{setStep(Steps.Step1); kpiStore.clean(); kpiStore.resetChecked();}}>
                         <div style={step === Steps.Step1 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>1</div>
                          <p style={step === Steps.Step1 ? {color:"#007EA7"} : {}}>{t('academicWork')}</p>
                     </div>
-                    <div className="nav-step" onClick={()=>{setStep(Steps.Step2)}}>
+                    <div className="nav-step" onClick={()=>{setStep(Steps.Step2); kpiStore.clean(); kpiStore.resetChecked();}}>
                         <div style={step === Steps.Step2 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>2</div>
                         <p style={step === Steps.Step2 ? {color:"#007EA7"} : {}}>{t('academicMethods')}</p>
                     </div>
-                    <div className="nav-step" onClick={()=>{setStep(Steps.Step3)}}>
+                    <div className="nav-step" onClick={()=>{setStep(Steps.Step3); kpiStore.clean(); kpiStore.resetChecked();}}>
                         <div style={step === Steps.Step3 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>3</div>
                         <p style={step === Steps.Step3 ? {color:"#007EA7"} : {}}>{t('academicResearchWork')}</p>
                     </div>
-                    <div className="nav-step" onClick={()=>{setStep(Steps.Step4)}}>
+                    <div className="nav-step" onClick={()=>{setStep(Steps.Step4); kpiStore.clean(); kpiStore.resetChecked();}}>
                         <div style={step === Steps.Step4 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>4</div>
                         <p style={step === Steps.Step4 ? {color:"#007EA7"} : {}}>{t('academicEducationalWork')}</p>
                     </div>
-                    <div className="nav-step" onClick={()=>{setStep(Steps.Step5)}}>
+                    <div className="nav-step" onClick={()=>{setStep(Steps.Step5); kpiStore.clean(); kpiStore.resetChecked();}}>
                         <div style={step === Steps.Step5 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>5</div>
                         <p style={step === Steps.Step5 ? {color:"#007EA7"} : {}}>{t('academicSocialWork')}</p>
                     </div>
-                    <div className="nav-step" onClick={()=>{setStep(Steps.Step6)}}>
+                    <div className="nav-step" onClick={()=>{setStep(Steps.Step6); kpiStore.clean(); kpiStore.resetChecked();}}>
                         <div style={step === Steps.Step6 ? {boxShadow:"0px 5px 6px -3px #007EA7",color:"#007EA7"} : {}}>6</div>
                         <p style={step === Steps.Step6 ? {color:"#007EA7"} : {}}>KPI</p>
                     </div>

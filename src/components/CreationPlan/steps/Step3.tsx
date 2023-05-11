@@ -11,7 +11,7 @@ import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 import moment from "moment/moment";
 
-const Step4 = (props: any) => {
+const Step3 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
 
@@ -19,17 +19,17 @@ const Step4 = (props: any) => {
 
 
     const validation = () => {
-        return (planStore.step4.nameOfTheWork && planStore.step4.deadlines&& planStore.step4.results
-            && planStore.step4.comments  && ((planStore.step4.infoImplementation !== "Other" && planStore.step4.infoImplementation) ? planStore.step4.infoImplementation : planStore.step4.anotherInfoImpl ) );
+        return (planStore.step3.nameOfTheWork && planStore.step3.deadlines&& planStore.step3.results
+            && planStore.step3.comments  && ((planStore.step3.infoImplementation !== "Other" && planStore.step3.infoImplementation) ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl ) );
     }
 
     const addObject = () => {
-        planStore.saveEduWork();
+        planStore.saveResearchWork();
         clear();
     }
 
     const clear = () => {
-        planStore.editStep4Modal({
+        planStore.editStep3Modal({
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
@@ -41,9 +41,9 @@ const Step4 = (props: any) => {
     }
 
     const copy = (item: any) => {
-        planStore.editStep4Modal({...item});
+        planStore.editStep3Modal({...item});
         if(item.infoImplementation !== "Online" && item.infoImplementation !== "Offline"){
-            planStore.editStep4Modal({
+            planStore.editStep3Modal({
                 infoImplementation:"Other",
                 anotherInfoImpl:item.infoImplementation,
             });
@@ -53,13 +53,13 @@ const Step4 = (props: any) => {
     const edit = (item: any) => {
         const toUpdate = {
             id: item.id,
-            nameOfTheWork: planStore.step4.nameOfTheWork,
-            deadlines: planStore.step4.deadlines,
-            infoImplementation: planStore.step4.infoImplementation !== "Other" ? planStore.step4.infoImplementation : planStore.step4.anotherInfoImpl,
-            results: planStore.step4.results,
-            comments: planStore.step4.comments,
+            nameOfTheWork: planStore.step3.nameOfTheWork,
+            deadlines: planStore.step3.deadlines,
+            infoImplementation: planStore.step3.infoImplementation !== "Other" ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl,
+            results: planStore.step3.results,
+            comments: planStore.step3.comments,
         }
-        planStore.updateEduWork(toUpdate);
+        planStore.updateSearchWork(toUpdate);
         clear();
     }
 
@@ -83,9 +83,9 @@ const Step4 = (props: any) => {
                         maxWidth={500}
                         type="area"
                         label={t('nameWork')}
-                        value={planStore.step4.nameOfTheWork}
+                        value={planStore.step3.nameOfTheWork}
                         onChange={(e: any) => {
-                            planStore.editStep4Modal({nameOfTheWork: e.target.value});
+                            planStore.editStep3Modal({nameOfTheWork: e.target.value});
                         }
                         }
                     />
@@ -94,9 +94,9 @@ const Step4 = (props: any) => {
                     <Input
                         maxWidth={140}
                         label={t('deadlines')}
-                        value={planStore.step4.deadlines}
+                        value={planStore.step3.deadlines}
                         onChange={(e: any) => {
-                            planStore.editStep4Modal({deadlines: e.target.value});
+                            planStore.editStep3Modal({deadlines: e.target.value});
                         }
                         }
                     />
@@ -111,12 +111,12 @@ const Step4 = (props: any) => {
                               }}
                               open={open === "infoImplementation"}
                               label={t('infoOnImplementation')}
-                              value={planStore.step4.infoImplementation ? planStore.step4.infoImplementation : t('select')}
+                              value={planStore.step3.infoImplementation ? planStore.step3.infoImplementation : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
                                 return <li
-                                    onClick={() => planStore.editStep4Modal({infoImplementation: item.name})}>
+                                    onClick={() => planStore.editStep3Modal({infoImplementation: item.name})}>
                                     {item.name}
                                 </li>
                             })}
@@ -126,14 +126,14 @@ const Step4 = (props: any) => {
                 </div>
 
                 {
-                    planStore.step4.infoImplementation === "Other" ?
+                    planStore.step3.infoImplementation === "Other" ?
                         <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
                             <Input
                                 maxWidth={500}
                                 label={t('infoOnImplementation')}
-                                value={planStore.step4.anotherInfoImpl}
+                                value={planStore.step3.anotherInfoImpl}
                                 onChange={(e: any) => {
-                                    planStore.editStep4Modal({anotherInfoImpl: e.target.value});
+                                    planStore.editStep3Modal({anotherInfoImpl: e.target.value});
                                 }
                                 }
                             />
@@ -145,9 +145,9 @@ const Step4 = (props: any) => {
                         maxWidth={500}
                         type="area"
                         label={t('results')}
-                        value={planStore.step4.results}
+                        value={planStore.step3.results}
                         onChange={(e: any) => {
-                            planStore.editStep4Modal({results: e.target.value});
+                            planStore.editStep3Modal({results: e.target.value});
                         }
                         }
                     />
@@ -158,9 +158,9 @@ const Step4 = (props: any) => {
                         maxWidth={500}
                         type="area"
                         label={t('comments')}
-                        value={planStore.step4.comments}
+                        value={planStore.step3.comments}
                         onChange={(e: any) => {
-                            planStore.editStep4Modal({comments: e.target.value});
+                            planStore.editStep3Modal({comments: e.target.value});
                         }
                         }
                     />
@@ -194,14 +194,14 @@ const Step4 = (props: any) => {
             </div>
             <div>
                 <Table
-                    array={planStore.eduWorks}
-                    length={planStore.eduWorks.length}
+                    array={planStore.researchWorks}
+                    length={planStore.researchWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
                     maxWidthColumns={[350, 100, 200, 150, 100, 133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
-                        planStore.deleteEduWorks(arr);
+                        planStore.deleteResearchWorks(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
@@ -251,4 +251,4 @@ const Step4 = (props: any) => {
     )
 }
 
-export default observer(Step4);
+export default observer(Step3);
