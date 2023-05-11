@@ -63,6 +63,18 @@ class AppStore {
         });
     }
 
+    async getDepartmentByDirector() {
+        return await axios.get('http://localhost:8080/department/get-by-director', {
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.department = repos.data;
+            }
+        });
+    }
+
     async getMyPlans() {
         return await axios.get('http://localhost:8080/plan/get-my-plans', {
             headers: {

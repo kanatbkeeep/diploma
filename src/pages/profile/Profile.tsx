@@ -68,22 +68,37 @@ function Profile() {
                 window.location.replace('/login')
             }
 
-            AppStore.getDepartmentByTeacher().then(() => {
-                EditProfileStore.editModel({
-                    firstName: AppStore.currentUser.firstName,
-                    lastName: AppStore.currentUser.lastName,
-                    middleName: AppStore.currentUser.middleName,
-                    position: AppStore.currentUser.position,
-                    degree: AppStore.currentUser.degree,
-                    rate: AppStore.currentUser.rate,
-                    fileBase64: AppStore.currentUser.photo,
-                    department: AppStore.department,
-                })
-            });
-            AppStore.getMyPlans();
-            EditProfileStore.getPositions();
-            EditProfileStore.getDegrees();
-            EditProfileStore.getDepartmentList();
+            if (AppStore.isTeacher()) {
+                AppStore.getDepartmentByTeacher().then(() => {
+                    EditProfileStore.editModel({
+                        firstName: AppStore.currentUser.firstName,
+                        lastName: AppStore.currentUser.lastName,
+                        middleName: AppStore.currentUser.middleName,
+                        position: AppStore.currentUser.position,
+                        degree: AppStore.currentUser.degree,
+                        rate: AppStore.currentUser.rate,
+                        fileBase64: AppStore.currentUser.photo,
+                        department: AppStore.department,
+                    })
+                });
+                AppStore.getMyPlans();
+                EditProfileStore.getPositions();
+                EditProfileStore.getDegrees();
+                EditProfileStore.getDepartmentList();
+            } else {
+                AppStore.getDepartmentByDirector().then(() => {
+                    EditProfileStore.editModel({
+                        firstName: AppStore.currentUser.firstName,
+                        lastName: AppStore.currentUser.lastName,
+                        middleName: AppStore.currentUser.middleName,
+                        position: AppStore.currentUser.position,
+                        degree: AppStore.currentUser.degree,
+                        rate: AppStore.currentUser.rate,
+                        fileBase64: AppStore.currentUser.photo,
+                        department: AppStore.department,
+                    })
+                });
+            }
 
         }).catch(() => {
             if (!AppStore.currentUser) {
@@ -174,7 +189,7 @@ function Profile() {
                                     </div>
                                 </div> : null}
                                 <div>
-                                    <h4 className="mt-24">{t('department')}</h4>
+                                    <h4 className={AppStore.isTeacher() ? "mt-24" : "mt-96"}>{t('department')}</h4>
                                     <span>{AppStore.department?.name}</span>
                                 </div>
                             </div>
