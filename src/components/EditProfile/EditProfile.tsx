@@ -98,81 +98,86 @@ const EditProfile = (props: any) => {
                             </ul>
                         </Dropdown>
 
-                        <Dropdown
-                            onClick={() => {
-                                if (open !== "rate") {
-                                    setOpen("rate");
-                                } else {
-                                    setOpen("")
-                                }
-                            }}
-                            open={open === "rate"}
-                            label={t('rate')}
-                            maxWidth={100}
-                            value={EditProfileStore.model.rate ? EditProfileStore.model.rate : "---"}
-                        >
-                            <ul>
-                                {EditProfileStore.rateList.map((item: any) => {
-                                    return <li onClick={() => {
-                                        EditProfileStore.editModel({rate: item});
-                                    }}>
-                                        {item}
-                                    </li>
-                                })}
-                            </ul>
-                        </Dropdown>
+                        {AppStore.isTeacher() ? <>
+                            <Dropdown
+                                onClick={() => {
+                                    if (open !== "rate") {
+                                        setOpen("rate");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "rate"}
+                                label={t('rate')}
+                                maxWidth={100}
+                                value={EditProfileStore.model.rate ? EditProfileStore.model.rate : "---"}
+                            >
+                                <ul>
+                                    {EditProfileStore.rateList.map((item: any) => {
+                                        return <li onClick={() => {
+                                            EditProfileStore.editModel({rate: item});
+                                        }}>
+                                            {item}
+                                        </li>
+                                    })}
+                                </ul>
+                            </Dropdown>
+                        </> : null}
                     </section>
 
-                    <section>
-                        <Dropdown
-                            onClick={() => {
-                                if (open !== "degree") {
-                                    setOpen("degree");
-                                } else {
-                                    setOpen("")
-                                }
-                            }}
-                            open={open === "degree"}
-                            label={t('degree')}
-                            maxWidth={300}
-                            value={EditProfileStore.model.degree ? EditProfileStore.model.degree[l('name')] : "---"}
-                        >
-                            <ul>
-                                {EditProfileStore.degreeList.map((item: any) => {
-                                    return <li onClick={() => {
-                                        EditProfileStore.editModel({degree: item});
-                                    }}>
-                                        {item[l('name')]}
-                                    </li>
-                                })}
-                            </ul>
-                        </Dropdown>
-                    </section>
-                    <section>
-                        <Dropdown
-                            onClick={() => {
-                                if (open !== "department") {
-                                    setOpen("department");
-                                } else {
-                                    setOpen("")
-                                }
-                            }}
-                            open={open === "department"}
-                            label={t('department')}
-                            maxWidth={300}
-                            value={EditProfileStore.model.department ? EditProfileStore.model.department.name : "---"}
-                        >
-                            <ul>
-                                {EditProfileStore.departmentList.map((item: any) => {
-                                    return <li onClick={() => {
-                                        EditProfileStore.editModel({department: item});
-                                    }}>
-                                        {item.name}
-                                    </li>
-                                })}
-                            </ul>
-                        </Dropdown>
-                    </section>
+                    {AppStore.isTeacher() ? <>
+                        <section>
+                            <Dropdown
+                                onClick={() => {
+                                    if (open !== "degree") {
+                                        setOpen("degree");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "degree"}
+                                label={t('degree')}
+                                maxWidth={300}
+                                value={EditProfileStore.model.degree ? EditProfileStore.model.degree[l('name')] : "---"}
+                            >
+                                <ul>
+                                    {EditProfileStore.degreeList.map((item: any) => {
+                                        return <li onClick={() => {
+                                            EditProfileStore.editModel({degree: item});
+                                        }}>
+                                            {item[l('name')]}
+                                        </li>
+                                    })}
+                                </ul>
+                            </Dropdown>
+                        </section>
+                        <section>
+                            <Dropdown
+                                onClick={() => {
+                                    if (open !== "department") {
+                                        setOpen("department");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "department"}
+                                label={t('department')}
+                                maxWidth={300}
+                                value={EditProfileStore.model.department ? EditProfileStore.model.department.name : "---"}
+                            >
+                                <ul>
+                                    {EditProfileStore.departmentList.map((item: any) => {
+                                        return <li onClick={() => {
+                                            EditProfileStore.editModel({department: item});
+                                        }}>
+                                            {item.name}
+                                        </li>
+                                    })}
+                                </ul>
+                            </Dropdown>
+                        </section>
+                    </> : null}
+
                     <section className="editButtons">
                         <Button icon={TickWhite} type={'smallBlue'} className={'mr-34'}
                                 onClick={() => {
