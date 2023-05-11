@@ -43,6 +43,7 @@ class KpiStore {
             numberAuthor: 1,
             currentPercentage: 0.0,
             averagePer:0,
+            anotherWork: null,
         }
     }
 
@@ -163,6 +164,7 @@ class KpiStore {
             numberAuthor: 1,
             currentPercentage: 0.0,
             averagePer:0,
+            anotherWork: null,
         }
         this.kpiSections = [];
         this.currentSection = null;

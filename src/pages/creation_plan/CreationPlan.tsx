@@ -91,6 +91,10 @@ const CreationPlan = (props: any) => {
                         type='secondaryButton'
                         icon={Send}
                         label={t('send')}
+                        disabled={planStore.plan?.status}
+                        onClick={()=>{
+                            planStore.sendPlan();
+                        }}
                     />
                     <Button
                         type='secondaryButton'

@@ -9,7 +9,7 @@ import {
     DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
     EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK,
-    GET_LATEST_PLAN, GET_PLAN_BY_ID
+    GET_LATEST_PLAN, GET_PLAN_BY_ID, SEND_PLAN
 } from "../config/rest/creationPlanRest";
 
 class CreationPlanStore {
@@ -100,7 +100,7 @@ class CreationPlanStore {
 
     async getPlan(id: any = null) {
         this.years = "";
-        if(id !== null){
+        if (id !== null) {
             return await axios.get(GET_PLAN_BY_ID(id), {
                 headers: {
                     Authorization: this.getCookie('Authorization')
@@ -117,7 +117,7 @@ class CreationPlanStore {
                     this.researchWorks = repos.data.researchWorks;
                 }
             });
-        }else{
+        } else {
             return await axios.get(GET_LATEST_PLAN, {
                 headers: {
                     Authorization: this.getCookie('Authorization')
@@ -136,6 +136,19 @@ class CreationPlanStore {
             });
         }
 
+    }
+
+    async sendPlan() {
+        return await axios.post(SEND_PLAN(this.plan.id), {},
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 201) {
+                window.location.reload();
+            }
+        });
     }
 
     async saveAcademicWork() {
@@ -235,7 +248,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateAcademicWork(item:any) {
+    async updateAcademicWork(item: any) {
         return await axios.post(EDIT_ACADEMIC_WORK,
             {
                 ...item,
@@ -251,7 +264,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateAcademicMethod(item:any) {
+    async updateAcademicMethod(item: any) {
         return await axios.post(EDIT_ACADEMIC_METHOD,
             {
                 ...item,
@@ -267,7 +280,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateSearchWork(item:any) {
+    async updateSearchWork(item: any) {
         return await axios.post(EDIT_RESEARCH_WORK,
             {
                 ...item,
@@ -283,7 +296,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateEduWork(item:any) {
+    async updateEduWork(item: any) {
         return await axios.post(EDIT_EDUCATION_WORK,
             {
                 ...item,
@@ -299,7 +312,7 @@ class CreationPlanStore {
         });
     }
 
-    async updateSocialWork(item:any) {
+    async updateSocialWork(item: any) {
         return await axios.post(EDIT_SOCIAL_WORK,
             {
                 ...item,
@@ -315,7 +328,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteAcademicWorks(itemsToDelete:any[]) {
+    async deleteAcademicWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_ACADEMIC_WORK,
             {
                 items: itemsToDelete
@@ -331,7 +344,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteAcademicMethods(itemsToDelete:any[]) {
+    async deleteAcademicMethods(itemsToDelete: any[]) {
         return await axios.post(DELETE_ACADEMIC_METHOD,
             {
                 items: itemsToDelete
@@ -347,7 +360,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteResearchWorks(itemsToDelete:any[]) {
+    async deleteResearchWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_RESEARCH_WORK,
             {
                 items: itemsToDelete
@@ -363,7 +376,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteEduWorks(itemsToDelete:any[]) {
+    async deleteEduWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_EDUCATION_WORK,
             {
                 items: itemsToDelete
@@ -379,7 +392,7 @@ class CreationPlanStore {
         });
     }
 
-    async deleteSocialWorks(itemsToDelete:any[]) {
+    async deleteSocialWorks(itemsToDelete: any[]) {
         return await axios.post(DELETE_SOCIAL_WORK,
             {
                 items: itemsToDelete
@@ -411,15 +424,15 @@ class CreationPlanStore {
     }
 
     getKPIPercentage = () => {
-        if(this.kpiWorks.length > 0){
-            let per:any= 0.0;
+        if (this.kpiWorks.length > 0) {
+            let per: any = 0.0;
 
-            this.kpiWorks.map((item:any)=>{
+            this.kpiWorks.map((item: any) => {
                 per = per + item.percentage;
             })
 
             return per;
-        }else{
+        } else {
             return 0
         }
     }
@@ -454,7 +467,7 @@ class CreationPlanStore {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
-            anotherInfoImpl:"",
+            anotherInfoImpl: "",
             results: "",
             comments: "",
         }
@@ -463,7 +476,7 @@ class CreationPlanStore {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
-            anotherInfoImpl:"",
+            anotherInfoImpl: "",
             results: "",
             comments: "",
         }
@@ -472,7 +485,7 @@ class CreationPlanStore {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
-            anotherInfoImpl:"",
+            anotherInfoImpl: "",
             results: "",
             comments: "",
         }

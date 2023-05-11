@@ -23,3 +23,5 @@ export const CHANGE_YEAR_PLAN = `http://localhost:8080/plan/change-year`;
 export const ADD_RESEARCH_WORK = `http://localhost:8080/plan/add-research-work`;
 export const EDIT_RESEARCH_WORK = `http://localhost:8080/research-work/update`;
 export const DELETE_RESEARCH_WORK = `http://localhost:8080/research-work/delete`;
+
+export const SEND_PLAN = (id:any) => `http://localhost:8080/plan/send?id=${id}`;

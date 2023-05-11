@@ -37,18 +37,23 @@ const Step6 = (props: any) => {
     }
 
     useEffect(()=>{
-
+        console.log("isFinance:"+isFinance());
         let section:any = anotherSection();
-
 
         let rate:any = currentUser.rate === "1" ? section.rate_full : currentUser.rate === "0.5" ? section.rate_half : section.rate_quarter;
 
-        if(kpiStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""){
+        if(isAveragePercentage()){
           if(kpiStore.model.averagePer >= 80){
-              kpiStore.editModel({currentPercentage: kpiStore.currentSection.percentage});
+              kpiStore.editModel({currentPercentage: anotherSection().percentage});
           }else{
               kpiStore.editModel({currentPercentage: 0});
           }
+        }else if(isFinance()){
+            if(kpiStore.model.results){
+                kpiStore.editModel({currentPercentage: anotherSection().percentage});
+            }else{
+                kpiStore.editModel({currentPercentage: 0});
+            }
         }else{
             if(kpiStore.currentSection.authorsByParts){
                 kpiStore.editModel({currentPercentage: section.percentage / rate / kpiStore.model.numberAuthor});
@@ -56,7 +61,7 @@ const Step6 = (props: any) => {
                 kpiStore.editModel({currentPercentage: kpiStore.currentSection.percentage / rate});
             }
         }
-    },[kpiStore.currentSection,kpiStore.model.numberAuthor, kpiStore.model.averagePer, kpiStore.model.anotherSectionNumber])
+    },[kpiStore.currentSection,kpiStore.model.numberAuthor, kpiStore.model.averagePer, kpiStore.model.anotherSectionNumber, kpiStore.model.results])
 
 
     const anotherSection = () =>{
@@ -137,6 +142,10 @@ const Step6 = (props: any) => {
 
     const isAveragePercentage = ()=>{
         return  kpiStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
+    }
+
+    const isFinance = () =>{
+        return kpiStore.currentSection.name === "Привлечение финансирования" || anotherSection().name === "Привлечение финансирования";
     }
 
     return (
@@ -266,30 +275,6 @@ const Step6 = (props: any) => {
 
 
                 <div style={{marginBottom: 20}}/>
-                <Dropdown
-                    maxWidth={1045}
-                    onClick={() => {
-                        if (open === "") {
-                            setOpen("copyExisting");
-                        } else {
-                            setOpen("")
-                        }
-                    }}
-                    open={open === "copyExisting"}
-                    label={t('copyExisting')}
-                    value={planStore.step4.infoImplementation ? planStore.step4.infoImplementation : t('select')}
-                >
-                    <ul>
-                        {planStore.infoImplementation.map((item: any) => {
-                            return <li
-                                onClick={() => planStore.editStep4Modal({infoImplementation: item.name})}>
-                                {item.name}
-                            </li>
-                        })}
-                    </ul>
-                </Dropdown>
-
-                <div style={{marginBottom: 20}}/>
                 {
                     kpiStore.currentSection.authorsByParts ?
                         <>
@@ -318,6 +303,116 @@ const Step6 = (props: any) => {
 
                             <div style={{marginBottom: 20}}/>
                         </> : null
+                }
+
+                {
+                    kpiStore.currentSection.name !== "Средний процент независимого анкетирования \"Преподаватель глазами студентов\"" ?
+                        <>
+                            <div style={{marginBottom: 20}}/>
+                            <Dropdown
+                                maxWidth={1045}
+                                onClick={() => {
+                                    if (open !== "copyExisting1") {
+                                        setOpen("copyExisting1");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "copyExisting1"}
+                                label={t('copyExisting1')}
+                                value={kpiStore.model.anotherWork?.id === 1 ? kpiStore.model.anotherWork?.name?.length > 80
+                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                            >
+                                <ul>
+                                    {planStore.researchWorks.length > 0 ? planStore.researchWorks.map((item: any) => {
+                                        return <li
+                                            onClick={() => kpiStore.editModel({
+                                                anotherWork:{
+                                                    id:1,
+                                                    name:item.nameOfTheWork
+                                                },
+                                                deadlines:item.deadlines,
+                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                results:item.results,
+                                                comments:item.comments,
+                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                            })}>
+                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                        </li>
+                                    }): <li>{t('noData')}</li>}
+                                </ul>
+                            </Dropdown>
+                            <div style={{marginBottom: 20}}/>
+                            <Dropdown
+                                maxWidth={1045}
+                                onClick={() => {
+                                    if (open !== "copyExisting2") {
+                                        setOpen("copyExisting2");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "copyExisting2"}
+                                label={t('copyExisting2')}
+                                value={kpiStore.model.anotherWork?.id === 2 ? kpiStore.model.anotherWork?.name?.length > 80
+                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                            >
+                                <ul>
+                                    {planStore.eduWorks.length > 0 ? planStore.eduWorks.map((item: any) => {
+                                        return <li
+                                            onClick={() => kpiStore.editModel({
+                                                anotherWork:{
+                                                    id:2,
+                                                    name:item.nameOfTheWork
+                                                },
+                                                deadlines:item.deadlines,
+                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                results:item.results,
+                                                comments:item.comments,
+                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                            })}>
+                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                        </li>
+                                    }): <li>{t('noData')}</li>}
+                                </ul>
+                            </Dropdown>
+                            <div style={{marginBottom: 20}}/>
+                            <Dropdown
+                                maxWidth={1045}
+                                onClick={() => {
+                                    if (open !== "copyExisting3") {
+                                        setOpen("copyExisting3");
+                                    } else {
+                                        setOpen("")
+                                    }
+                                }}
+                                open={open === "copyExisting3"}
+                                label={t('copyExisting3')}
+                                value={kpiStore.model.anotherWork?.id === 3 ? kpiStore.model.anotherWork?.name?.length > 80
+                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                            >
+                                <ul>
+                                    {planStore.socialWorks.length > 0 ? planStore.socialWorks.map((item: any) => {
+                                        return <li
+                                            onClick={() => kpiStore.editModel({
+                                                anotherWork:{
+                                                    id:3,
+                                                    name:item.nameOfTheWork
+                                                },
+                                                deadlines:item.deadlines,
+                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                results:item.results,
+                                                comments:item.comments,
+                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                            })}>
+                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                        </li>
+                                    }): <li>{t('noData')}</li>}
+                                </ul>
+                            </Dropdown>
+                            <div style={{marginBottom: 20}}/>
+                        </>
+                        : null
                 }
 
                 <div style={{display: "flex", flexDirection: "row"}}>

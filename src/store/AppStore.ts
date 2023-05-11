@@ -70,7 +70,7 @@ class AppStore {
     }
 
     async createPlan() {
-        return await axios.post('http://localhost:8080/plan/create', {},{
+        return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, {},{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
