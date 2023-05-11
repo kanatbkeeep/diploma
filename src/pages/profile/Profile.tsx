@@ -68,24 +68,22 @@ function Profile() {
                 window.location.replace('/login')
             }
 
-            if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
-                AppStore.getDepartmentByTeacher().then(() => {
-                    EditProfileStore.editModel({
-                        firstName: AppStore.currentUser.firstName,
-                        lastName: AppStore.currentUser.lastName,
-                        middleName: AppStore.currentUser.middleName,
-                        position: AppStore.currentUser.position,
-                        degree: AppStore.currentUser.degree,
-                        rate: AppStore.currentUser.rate,
-                        fileBase64: AppStore.currentUser.photo,
-                        department: AppStore.department,
-                    })
-                });
-                AppStore.getMyPlans();
-                EditProfileStore.getPositions();
-                EditProfileStore.getDegrees();
-                EditProfileStore.getDepartmentList();
-            }
+            AppStore.getDepartmentByTeacher().then(() => {
+                EditProfileStore.editModel({
+                    firstName: AppStore.currentUser.firstName,
+                    lastName: AppStore.currentUser.lastName,
+                    middleName: AppStore.currentUser.middleName,
+                    position: AppStore.currentUser.position,
+                    degree: AppStore.currentUser.degree,
+                    rate: AppStore.currentUser.rate,
+                    fileBase64: AppStore.currentUser.photo,
+                    department: AppStore.department,
+                })
+            });
+            AppStore.getMyPlans();
+            EditProfileStore.getPositions();
+            EditProfileStore.getDegrees();
+            EditProfileStore.getDepartmentList();
 
         }).catch(() => {
             if (!AppStore.currentUser) {
@@ -164,19 +162,31 @@ function Profile() {
                     <aside className={'userData'}>
                         <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
                         <div className="row">
-                            <div className="column mr-58">
-                                <h4 className="mt-24">{t('position')}</h4>
-                                <span>{AppStore.currentUser?.position[l('name')]}</span>
-                                <h4 className="mt-24">{t('degree')}</h4>
-                                <span>{AppStore.currentUser?.degree[l('name')]}</span>
-                                <h4 className="mt-24">{t('department')}</h4>
-                                <span>{AppStore.department?.name}</span>
+                            <div className="column mr-58 space-between">
+                                <div>
+                                    <h4 className="mt-24">{t('position')}</h4>
+                                    <span>{AppStore.currentUser?.position[l('name')]}</span>
+                                </div>
+                                {AppStore.isTeacher() ? <div>
+                                    <div>
+                                        <h4 className="mt-24">{t('degree')}</h4>
+                                        <span>{AppStore.currentUser?.degree[l('name')]}</span>
+                                    </div>
+                                </div> : null}
+                                <div>
+                                    <h4 className="mt-24">{t('department')}</h4>
+                                    <span>{AppStore.department?.name}</span>
+                                </div>
                             </div>
-                            <div className="column mr-58">
-                                <h4 className="mt-24">{t('rate')}</h4>
-                                <span>{AppStore.currentUser?.rate}</span>
-                                <h4 className="mt-96">{t('departmentDirector')}</h4>
-                                <span>{AppStore.department?.director.firstName + ' ' + AppStore.department?.director.lastName}</span>
+                            <div className="column mr-58 space-between">
+                                {AppStore.isTeacher() ? <div>
+                                    <h4 className="mt-24">{t('rate')}</h4>
+                                    <span>{AppStore.currentUser?.rate}</span>
+                                </div> : null}
+                                {AppStore.isTeacher() ? <div>
+                                    <h4 className="mt-24">{t('departmentDirector')}</h4>
+                                    <span>{AppStore.department?.director.firstName + ' ' + AppStore.department?.director.lastName}</span>
+                                </div> : null}
                             </div>
                             <div className="column profileEditBtnParent">
                                 <Button
