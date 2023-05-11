@@ -19,3 +19,7 @@ export const DELETE_KPI = `http://localhost:8080/kpi/delete`;
 export const UPLOAD_FILE_KPI = `http://localhost:8080/kpi/upload-supporting-document`;
 export const GET_KPI_SECTIONS = (degree:any,position:any) => `http://localhost:8080/kpi-section/get-all?positionName=${position}&degreeName=${degree}`;
 export const CHANGE_YEAR_PLAN = `http://localhost:8080/plan/change-year`;
+
+export const ADD_RESEARCH_WORK = `http://localhost:8080/plan/add-research-work`;
+export const EDIT_RESEARCH_WORK = `http://localhost:8080/research-work/update`;
+export const DELETE_RESEARCH_WORK = `http://localhost:8080/research-work/delete`;

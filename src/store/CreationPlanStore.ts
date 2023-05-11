@@ -4,11 +4,11 @@ import axios from "axios";
 import {
     ADD_ACADEMIC_METHOD,
     ADD_ACADEMIC_WORK,
-    ADD_EDUCATION_WORK, ADD_SOCIAL_WORK, CHANGE_YEAR_PLAN,
+    ADD_EDUCATION_WORK, ADD_RESEARCH_WORK, ADD_SOCIAL_WORK, CHANGE_YEAR_PLAN,
     DELETE_ACADEMIC_METHOD,
-    DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_SOCIAL_WORK,
+    DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
-    EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_SOCIAL_WORK,
+    EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK,
     GET_LATEST_PLAN, GET_PLAN_BY_ID
 } from "../config/rest/creationPlanRest";
 
@@ -80,7 +80,8 @@ class CreationPlanStore {
 
     infoImplementation = [
         {id: 1, name: "Online"},
-        {id: 2, name: "Offline"}
+        {id: 2, name: "Offline"},
+        {id: 2, name: "Other"},
     ]
 
     typeWork = [
@@ -113,6 +114,7 @@ class CreationPlanStore {
                     this.socialWorks = repos.data.socialWorks;
                     this.kpiWorks = repos.data.kpis;
                     this.years = this.plan.year;
+                    this.researchWorks = repos.data.researchWorks;
                 }
             });
         }else{
@@ -129,6 +131,7 @@ class CreationPlanStore {
                     this.socialWorks = repos.data.socialWorks;
                     this.kpiWorks = repos.data.kpis;
                     this.years = this.plan.year;
+                    this.researchWorks = repos.data.researchWorks;
                 }
             });
         }
@@ -169,11 +172,36 @@ class CreationPlanStore {
         });
     }
 
+    async saveResearchWork() {
+        return await axios.post(ADD_RESEARCH_WORK,
+            {
+                idPlan: this.plan.id,
+                nameOfTheWork: this.step3.nameOfTheWork,
+                deadlines: this.step3.deadlines,
+                infoImplementation: this.step3.infoImplementation !== "Other" ? this.step3.infoImplementation : this.step3.anotherInfoImpl,
+                results: this.step3.results,
+                comments: this.step3.comments,
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 201) {
+                window.location.reload();
+            }
+        });
+    }
+
     async saveEduWork() {
         return await axios.post(ADD_EDUCATION_WORK,
             {
                 idPlan: this.plan.id,
-                ...this.step4
+                nameOfTheWork: this.step4.nameOfTheWork,
+                deadlines: this.step4.deadlines,
+                infoImplementation: this.step4.infoImplementation !== "Other" ? this.step4.infoImplementation : this.step4.anotherInfoImpl,
+                results: this.step4.results,
+                comments: this.step4.comments,
             },
             {
                 headers: {
@@ -190,7 +218,11 @@ class CreationPlanStore {
         return await axios.post(ADD_SOCIAL_WORK,
             {
                 idPlan: this.plan.id,
-                ...this.step5
+                nameOfTheWork: this.step5.nameOfTheWork,
+                deadlines: this.step5.deadlines,
+                infoImplementation: this.step5.infoImplementation !== "Other" ? this.step5.infoImplementation : this.step5.anotherInfoImpl,
+                results: this.step5.results,
+                comments: this.step5.comments,
             },
             {
                 headers: {
@@ -221,6 +253,22 @@ class CreationPlanStore {
 
     async updateAcademicMethod(item:any) {
         return await axios.post(EDIT_ACADEMIC_METHOD,
+            {
+                ...item,
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 200) {
+                window.location.reload();
+            }
+        });
+    }
+
+    async updateSearchWork(item:any) {
+        return await axios.post(EDIT_RESEARCH_WORK,
             {
                 ...item,
             },
@@ -285,6 +333,22 @@ class CreationPlanStore {
 
     async deleteAcademicMethods(itemsToDelete:any[]) {
         return await axios.post(DELETE_ACADEMIC_METHOD,
+            {
+                items: itemsToDelete
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 200) {
+                window.location.reload();
+            }
+        });
+    }
+
+    async deleteResearchWorks(itemsToDelete:any[]) {
+        return await axios.post(DELETE_RESEARCH_WORK,
             {
                 items: itemsToDelete
             },
@@ -387,18 +451,19 @@ class CreationPlanStore {
         }
 
         this.step3 = {
-            typeWork: null,
-            journal: "",
-            deadline: "",
-            article: "",
-            infoImplementation: null,
-            comment: "",
+            nameOfTheWork: "",
+            deadlines: "",
+            infoImplementation: "",
+            anotherInfoImpl:"",
+            results: "",
+            comments: "",
         }
 
         this.step4 = {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl:"",
             results: "",
             comments: "",
         }
@@ -407,6 +472,7 @@ class CreationPlanStore {
             nameOfTheWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl:"",
             results: "",
             comments: "",
         }
@@ -443,6 +509,9 @@ class CreationPlanStore {
             deleteSocialWorks: action.bound,
             changeYear: action.bound,
             getKPIPercentage: action.bound,
+            saveResearchWork: action.bound,
+            updateSearchWork: action.bound,
+            deleteResearchWorks: action.bound,
         },)
     }
 
