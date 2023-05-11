@@ -44,21 +44,21 @@ const Step6 = (props: any) => {
 
         if(isAveragePercentage()){
           if(kpiStore.model.averagePer >= 80){
-              kpiStore.editModel({currentPercentage: anotherSection().percentage});
+              kpiStore.editModel({currentPercentage: section.percentage});
           }else{
               kpiStore.editModel({currentPercentage: 0});
           }
         }else if(isFinance()){
             if(kpiStore.model.results){
-                kpiStore.editModel({currentPercentage: anotherSection().percentage});
+                kpiStore.editModel({currentPercentage: section.percentage});
             }else{
                 kpiStore.editModel({currentPercentage: 0});
             }
         }else{
-            if(kpiStore.currentSection.authorsByParts){
+            if(section.authorsByParts){
                 kpiStore.editModel({currentPercentage: section.percentage / rate / kpiStore.model.numberAuthor});
             }else{
-                kpiStore.editModel({currentPercentage: kpiStore.currentSection.percentage / rate});
+                kpiStore.editModel({currentPercentage: section.percentage / rate});
             }
         }
     },[kpiStore.currentSection,kpiStore.model.numberAuthor, kpiStore.model.averagePer, kpiStore.model.anotherSectionNumber, kpiStore.model.results])
