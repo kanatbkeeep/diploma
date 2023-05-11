@@ -18,6 +18,13 @@ class AppStore {
     lang: any = lg ? lg: "ru";
     langs: any = ["ru", "kz", "en"];
 
+    isTeacher() {
+        for (let i = 0; i < this.currentUser.roles.length; i++) {
+            if (this.currentUser.roles[i].roleName === "TEACHER") return true;
+        }
+        return false;
+    }
+
     async loadLogin() {
         return await axios.post('http://localhost:8080/user/loginUser', {
             email: this.model.email,
@@ -39,7 +46,6 @@ class AppStore {
         }).then((repos: any) => {
             if (repos.status === 200) {
                 this.currentUser = repos.data;
-                console.log(this.currentUser);
                 if (window.location.href.includes('/login')) window.location.replace('/');
             }
         });
@@ -47,6 +53,18 @@ class AppStore {
 
     async getDepartmentByTeacher() {
         return await axios.get('http://localhost:8080/department/getByTeacher', {
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.department = repos.data;
+            }
+        });
+    }
+
+    async getDepartmentByDirector() {
+        return await axios.get('http://localhost:8080/department/get-by-director', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -105,6 +123,7 @@ class AppStore {
             getDepartmentByTeacher: action.bound,
             getMyPlans: action.bound,
             createPlan: action.bound,
+            isTeacher: action,
         })
     }
 }
