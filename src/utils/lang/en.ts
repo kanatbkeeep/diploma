@@ -53,6 +53,11 @@ const en = {
     topicSpeech:"Topic of the speech",
     event:"Event",
     students:"Students",
+    professor:"Professor",
+    uploadPhoto:"Upload photo",
+    lastName:"Last name",
+    middleName:"Middle name",
+    firstName:"First name",
 }
 
 export default en;

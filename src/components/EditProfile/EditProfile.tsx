@@ -52,21 +52,21 @@ const EditProfile = (props: any) => {
                     </section>
                     <section>
                         <Input
-                            label={'Last Name'}
+                            label={t('lastName')}
                             value={EditProfileStore.model.lastName}
                             onChange={(e: any) => {
                                 EditProfileStore.editModel({lastName: e.target.value})
                             }}
                         />
                         <Input
-                            label={'First Name'}
+                            label={t('firstName')}
                             value={EditProfileStore.model.firstName}
                             onChange={(e: any) => {
                                 EditProfileStore.editModel({firstName: e.target.value})
                             }}
                         />
                         <Input
-                            label={'Middle Name'}
+                            label={t('middleName')}
                             value={EditProfileStore.model.middleName}
                             onChange={(e: any) => {
                                 EditProfileStore.editModel({middleName: e.target.value})
