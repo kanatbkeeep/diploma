@@ -62,6 +62,7 @@ const ru = {
     uploadPdf:"Загрузить pdf",
     uploadPhoto:"Загрузить фото",
     supportingDoc:"Подтверждающий документ",
+    professor:"Профессор",
 
 }
 

@@ -26,6 +26,13 @@ class AppStore {
         return false;
     }
 
+    isDirector() {
+        for (let i = 0; i < this.currentUser.roles.length; i++) {
+            if (this.currentUser.roles[i].roleName === "DIRECTOR") return true;
+        }
+        return false;
+    }
+
     async loadLogin() {
         return await axios.post('http://localhost:8080/user/loginUser', {
             email: this.model.email,
@@ -97,6 +104,7 @@ class AppStore {
         }).then((repos: any) => {
             if (repos.status === 200) {
                 this.myPlansToApprove = repos.data;
+                this.getMyPlansToApproveApproved();
             }
         });
     }
@@ -109,7 +117,7 @@ class AppStore {
             params: { status: 'APPROVED' }
         }).then((repos: any) => {
             if (repos.status === 200) {
-                this.myPlansToApprove.concat(repos.data);
+                this.myPlansToApprove = this.myPlansToApprove.concat(repos.data);
             }
         });
     }
@@ -153,6 +161,7 @@ class AppStore {
             isTeacher: action,
             getMyPlansToApproveAwaiting: action,
             getMyPlansToApproveApproved: action,
+            isDirector: action,
         })
     }
 }
