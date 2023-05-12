@@ -4,7 +4,7 @@ import Plus from '../../assets/icon/plus.svg'
 const Button = (props: any) => {
     //типы которые возможны primaryButton, secondaryButton, secondaryButtonBlack
     //типы с плюсом primaryButtonAdd, secondaryButtonAdd
-    //типы small smallBlue, smallRed, smallDark
+    //типы small smallBlue, smallRed, smallDark, whiteDark
     let classname: string = props.type;
     return (
         <>

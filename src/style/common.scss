@@ -230,6 +230,28 @@ body {
   @extend %button;
 }
 
+.smallWhite {
+  background-color: white;
+  border: solid 1px #000000;
+  color: #000000;
+  @extend %smallButton;
+}
+
+.smallWhite:hover {
+  background-color: white;
+  border: solid 1px #808B8F;
+  color: #808B8F;
+  @extend %smallButton;
+}
+
+.smallWhite:active {
+  background-color: #ffffff;
+  border: solid 1px #BFC5C7;
+  color: #BFC5C7;
+  @extend %smallButton;
+}
+
+
 .smallBlue {
   background-color: $primary-color-dark-blue;
   @extend %smallButton;
@@ -237,10 +259,17 @@ body {
 
 .smallBlue:hover {
   background-color: #406782;
+  @extend %smallButton;
 }
 
 .smallBlue:active {
   background-color: $primary-color-blue;
+  @extend %smallButton;
+}
+
+.smallBlue:disabled {
+  background-color: #BFCCD6;
+  @extend %smallButton;
 }
 
 .smallRed {
@@ -254,6 +283,10 @@ body {
 
 .smallRed:active {
   background-color: #ab0032;
+}
+
+.smallRed:disabled {
+  background-color: #D6BFCB;
 }
 
 .smallDark {
