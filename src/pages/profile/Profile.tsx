@@ -22,17 +22,23 @@ import TickWhite from "../../assets/icon/tickWhite.svg";
 import CrossWhite from "../../assets/icon/crossWhite.svg";
 import EyeBlack from "../../assets/icon/eyeBlack.svg";
 import DownloadWhite from "../../assets/icon/downloadWhite.svg";
+import Approve from "../../components/Approve/Approve";
+import ApproveStore from "../../store/ApproveStore";
 
 function Profile() {
     const [open, setOpen] = useState("");
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [modalOpen2, setModalOpen2] = useState<boolean>(false);
+    const [approveOpen, setApproveOpen] = useState<boolean>(false);
     const navigate = useNavigate();
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
     }, []);
     const handleModalStateChanged2 = useCallback((state: boolean) => {
         setModalOpen2(state);
+    }, []);
+    const handleApproveOpenChanged = useCallback((state: boolean) => {
+        setApproveOpen(state)
     }, []);
 
     function eraseCookie(name: any) {
@@ -106,7 +112,7 @@ function Profile() {
     return (AppStore.currentUser &&
         <>
             <EditProfile store={EditProfileStore} open={modalOpen2} handleChange={handleModalStateChanged2}/>
-            <main className={modalOpen || modalOpen2 ? 'darker' : ''}>
+            <main className={modalOpen || modalOpen2 || approveOpen ? 'darker' : ''}>
                 <nav>
                     <aside>
                         <img alt={'logo'} src={Logo}/>
@@ -326,6 +332,10 @@ function Profile() {
                                                         icon={TickWhite}
                                                         type={'smallBlue'}
                                                         disabled={item.status === 'APPROVED'}
+                                                        onClick={() => {
+                                                            setApproveOpen(true);
+                                                            ApproveStore.editModel({selectedPlan: item});
+                                                        }}
                                                     />
                                                 </div>
                                                 <div>
@@ -347,6 +357,7 @@ function Profile() {
             </main>
 
             <Navigation open={modalOpen} onModalStateChanged={handleModalStateChanged}/>
+            <Approve open={approveOpen} onModalStateChanged={handleApproveOpenChanged}/>
         </>
     )
 }
