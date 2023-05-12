@@ -445,14 +445,14 @@ class CreationPlanStore {
             course: "",
             trimester: "",
             groups: "",
-            lecturesPlan: "",
-            lecturesFact: "",
-            practicesPlan: "",
-            practicesFact: "",
-            hoursPlan: "",
-            hoursFact: "",
-            totalPlan: "",
-            totalFact: "",
+            lecturesPlan: 0,
+            lecturesFact: 0,
+            practicesPlan: 0,
+            practicesFact: 0,
+            hoursPlan: 0,
+            hoursFact: 0,
+            totalPlan: 0,
+            totalFact: 0,
         }
 
         this.step2 = {

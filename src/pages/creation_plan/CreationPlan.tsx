@@ -100,6 +100,9 @@ const CreationPlan = (props: any) => {
                         type='secondaryButton'
                         icon={Download}
                         label={t('getExcel')}
+                        onClick={()=>{
+                            window.location.href = `http://localhost:8080/plan/create-excel?planId=${planStore.plan.id}`
+                        }}
                     />
                     <Button
                         type='primaryButton'
