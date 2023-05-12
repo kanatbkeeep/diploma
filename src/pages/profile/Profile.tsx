@@ -289,7 +289,7 @@ function Profile() {
                                 rowsPerPage={4}
                                 maxWidthTable={1000}
                                 maxWidthColumns={[400, 120, 120, 310]}
-                                haveDelete={true}
+                                haveDelete={false}
                                 onDelete={() => {
                                     console.log("deleted");
                                 }}
