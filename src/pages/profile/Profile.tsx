@@ -4,7 +4,7 @@ import '../../style/profilePage.scss';
 import Button from "../../components/Button/Button";
 import Navigation from "../../components/Navigation/Navigation";
 import AppStore from "../../store/AppStore";
-import t, {l} from "../../utils/Lang";
+import t from "../../utils/Lang";
 import {useNavigate} from "react-router-dom";
 import EditProfile from "../../components/EditProfile/EditProfile";
 import EditProfileStore from "../../store/EditProfileStore";
