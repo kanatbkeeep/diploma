@@ -90,7 +90,7 @@ class AppStore {
             }
         }).then((repos: any) => {
             if (repos.status === 200) {
-                this.myPlans = repos.data;
+                this.myPlans = repos.data.reverse();
             }
         });
     }
@@ -103,7 +103,7 @@ class AppStore {
             params: { status: 'AWAITING' }
         }).then((repos: any) => {
             if (repos.status === 200) {
-                this.myPlansToApprove = repos.data;
+                this.myPlansToApprove = repos.data.reverse();
                 this.getMyPlansToApproveApproved();
             }
         });
@@ -117,13 +117,22 @@ class AppStore {
             params: { status: 'APPROVED' }
         }).then((repos: any) => {
             if (repos.status === 200) {
-                this.myPlansToApprove = this.myPlansToApprove.concat(repos.data);
+                this.myPlansToApprove = this.myPlansToApprove.concat(repos.data.reverse());
             }
         });
     }
 
     async createPlan() {
         return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, {},{
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+        });
+    }
+
+    async copyPlan() {
+        return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -145,6 +154,8 @@ class AppStore {
         this.model = {
             email: null,
             password: null,
+            selectedPlan: null,
+            showMyPlans: false,
         }
 
         this.currentUser = null;

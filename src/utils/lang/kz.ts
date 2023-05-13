@@ -61,6 +61,14 @@ const kz = {
     firstName:"Аты",
     addComment:"Сипаттама қосу:",
     typeHere:"Мұнда жазыңыз..",
+    approvedNotificationPart1:"",
+    revisionNotificationPart1:"",
+    sentNotificationPart1:"",
+    approvedNotificationPart2:" оқу жылына арналған жоспар бекітілді",
+    revisionNotificationPart2:" оқу жылына арналған жоспар пысықтауға қайтарылды",
+    sentNotificationPart2:" оқу жылына арналған жоспар бағытталды",
+    partToImprove:"Жақсартуға арналған бөлім:",
+    noMoreNotifications:"Енді хабарландырулар жоқ",
 }
 
 export default kz;

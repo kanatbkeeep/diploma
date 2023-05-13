@@ -71,6 +71,14 @@ const ru = {
     firstName:"Отчество",
     addComment:"Добавить комментарий:",
     typeHere:"Пишите тут...",
+    approvedNotificationPart1:"Утвержден план на  ",
+    revisionNotificationPart1:"План на ",
+    sentNotificationPart1:"План на ",
+    approvedNotificationPart2:" учебный год",
+    revisionNotificationPart2:" учебный год возвращен на доработку",
+    sentNotificationPart2:" учебный год был направлен ",
+    partToImprove:"Часть для улучшения:",
+    noMoreNotifications:"Больше никаких уведомлений",
 }
 
 export default ru;

@@ -11,6 +11,11 @@ import {useNavigate} from "react-router-dom";
 const TeacherPlanList = (props: any) => {
     const navigate = useNavigate();
     const validation = (item: any) => {
+        let percentage = 0;
+        item.kpis.map((item: any) => {
+            percentage += item.percentage;
+        })
+
         return {
             step1: item.year ? item.year : 'Not filled',
             step2: item?.academicWorks?.length > 0 ? 'Filled' : 'Not filled',
@@ -18,6 +23,7 @@ const TeacherPlanList = (props: any) => {
             step4: item?.researchWorks?.length > 0 ? 'Filled' : 'Not filled',
             step5: item?.educationalWorks?.length > 0 ? 'Filled' : 'Not filled',
             step6: item?.socialWorks?.length > 0 ? 'Filled' : 'Not filled',
+            step7: percentage + '%',
             step8: item.status ? item.status : 'Not sent',
         };
     }
@@ -57,7 +63,7 @@ const TeacherPlanList = (props: any) => {
                                 <div style={{maxWidth: maxWidthColumns[3]}}>{validation(item).step4}</div>
                                 <div style={{maxWidth: maxWidthColumns[4]}}>{validation(item).step5}</div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>{validation(item).step6}</div>
-                                <div style={{maxWidth: maxWidthColumns[6]}}>{'0%'}</div>
+                                <div style={{maxWidth: maxWidthColumns[6]}}>{validation(item).step7}</div>
                                 <div style={{maxWidth: maxWidthColumns[7]}}>{validation(item).step8}</div>
                                 <div style={{maxWidth: maxWidthColumns[8]}}>
                                     <div style={{width: 54, marginRight: 10}}>
@@ -69,7 +75,18 @@ const TeacherPlanList = (props: any) => {
                                             }}
                                         />
                                     </div>
-                                    <div style={{width: 54}}><Button icon={Copy}/></div>
+                                    <div style={{width: 54}}>
+                                        <Button
+                                            icon={Copy}
+                                            onClick={() => {
+                                                AppStore.editModel({selectedPlan: item});
+                                                delete AppStore.model.selectedPlan.id;
+                                                AppStore.model.selectedPlan.status = null;
+                                                AppStore.copyPlan().then(() => AppStore.editModel({selectedPlan: null}));
+                                                window.location.reload();
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         );
