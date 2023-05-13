@@ -77,7 +77,7 @@ const Step6 = (props: any) => {
     }
 
     const addObject = () => {
-        kpiStore.saveKpi(planStore.plan.id);
+        kpiStore.saveKpi(planStore.plan.id, planStore);
         kpiStore.clean();
         kpiStore.resetChecked();
     }
@@ -561,7 +561,7 @@ const Step6 = (props: any) => {
                     maxWidthColumns={[250, 100, 100, 150, 100, 200, 133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
-                        kpiStore.deleteKpis(arr);
+                        kpiStore.deleteKpis(arr,planStore);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>

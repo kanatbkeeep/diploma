@@ -138,15 +138,18 @@ class CreationPlanStore {
 
     }
 
-    async sendPlan() {
-        return await axios.post(SEND_PLAN(this.plan.id), {},
+    async sendPlan(byTeacher: boolean) {
+        return await axios.post('http://localhost:8080/notification/send?planId=' + this.plan.id + '&byTeacher=' + byTeacher,
+            {
+                status: 'AWAITING'
+            },
             {
                 headers: {
                     Authorization: this.getCookie('Authorization')
-                }
+                },
             }).then((repos: any) => {
             if (repos.status === 201) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -163,7 +166,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 201) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -180,7 +183,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 201) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -201,7 +204,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 201) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -222,7 +225,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 201) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -243,7 +246,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 201) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -259,7 +262,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -275,7 +278,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -291,7 +294,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -307,7 +310,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -323,7 +326,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -339,7 +342,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -355,7 +358,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -371,7 +374,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -387,7 +390,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }
@@ -403,7 +406,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if (repos.status === 200) {
-                window.location.reload();
+                this.getPlan(this.plan.id);
             }
         });
     }

@@ -68,7 +68,7 @@ const CreationPlan = (props: any) => {
 
     const validationSend = () =>{
         return(
-            planStore.plan?.status && planStore.plan.academicWorks.length > 0 && planStore.plan.academicMethods.length > 0 &&
+            planStore.plan?.status === null && planStore.plan.academicWorks.length > 0 && planStore.plan.academicMethods.length > 0 &&
             planStore.plan.educationalWorks.length > 0 && planStore.plan.kpis.length > 0 && planStore.plan.researchWorks.length > 0
             && planStore.plan.socialWorks.length > 0 && planStore.plan.year
         )
@@ -101,7 +101,7 @@ const CreationPlan = (props: any) => {
                         label={t('send')}
                         disabled={!(validationSend())}
                         onClick={()=>{
-                            planStore.sendPlan();
+                            planStore.sendPlan(true);
                         }}
                     />
                     <Button
