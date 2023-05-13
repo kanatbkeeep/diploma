@@ -88,8 +88,16 @@ const Revision = (props: any) => {
                     </div>
                 </section>
 
-                <section>
-
+                <section className="selectPartRevision">
+                    <p>{t('addComment')}</p>
+                    <Input
+                        type='area'
+                        placeholder={t('typeHere')}
+                        onChange={(e: any) => {
+                            ApproveStore.editModel({description: e.target.value})
+                        }}
+                        value={ApproveStore.model.description}
+                    />
                 </section>
 
                 <div>
@@ -97,8 +105,8 @@ const Revision = (props: any) => {
                         icon={TickWhite}
                         type={'smallBlue'}
                         onClick={() => {
-                            ApproveStore.sendApprove(false).then(() => {
-                                ApproveStore.editModel({selectedPlan: null});
+                            ApproveStore.sendDenied(false).then(() => {
+                                ApproveStore.nullifyModel();
                                 AppStore.getMyPlansToApproveAwaiting();
                                 props.onModalStateChanged(false);
                             });
@@ -109,7 +117,7 @@ const Revision = (props: any) => {
                         type={'smallRed'}
                         onClick={() => {
                             props.onModalStateChanged(false);
-                            ApproveStore.editModel({selectedPlan: null});
+                            ApproveStore.nullifyModel();
                         }}
                     />
                 </div>

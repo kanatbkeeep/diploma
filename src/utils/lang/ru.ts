@@ -70,6 +70,7 @@ const ru = {
     middleName:"Имя",
     firstName:"Отчество",
     addComment:"Добавить комментарий:",
+    typeHere:"Пишите тут...",
 }
 
 export default ru;

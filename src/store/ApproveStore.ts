@@ -16,6 +16,14 @@ class ApproveStore {
         this.model = {...this.model, ...obj};
     };
 
+    nullifyModel() {
+        this.model = {
+            selectedPlan: null,
+            parts: [],
+            description: "",
+        }
+    };
+
     async sendApprove(isTeacher: boolean) {
         return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&isTeacher=' + isTeacher,
             {
@@ -32,6 +40,24 @@ class ApproveStore {
         });
     }
 
+    async sendDenied(isTeacher: boolean) {
+        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&isTeacher=' + isTeacher,
+            {
+                status: 'DENIED',
+                parts: this.model.parts,
+                description: this.model.description,
+            },
+            {
+                headers: {
+                    Authorization: getCookie('Authorization')
+                },
+            }).then((repos: any) => {
+            if (repos.status === 200) {
+
+            }
+        });
+    }
+
     constructor() {
         this.model = {
             selectedPlan: null,
@@ -42,6 +68,7 @@ class ApproveStore {
         makeAutoObservable(this, {
             editModel: action.bound,
             sendApprove: action.bound,
+            nullifyModel: action.bound,
         })
     }
 }

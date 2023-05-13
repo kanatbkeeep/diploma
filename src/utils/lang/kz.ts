@@ -60,6 +60,7 @@ const kz = {
     middleName:"Әкесінің аты",
     firstName:"Аты",
     addComment:"Сипаттама қосу:",
+    typeHere:"Мұнда жазыңыз..",
 }
 
 export default kz;
