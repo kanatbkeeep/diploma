@@ -53,6 +53,18 @@ const en = {
     topicSpeech:"Topic of the speech",
     event:"Event",
     students:"Students",
+    professor:"Professor",
+    revisionPart:"Select the part(s) to improve:",
+    uploadPhoto:"Upload photo",
+    lastName:"Last name",
+    middleName:"Middle name",
+    firstName:"First name",
+    addComment:"Add a comment:",
+    typeHere:"Type here..",
+    notificationPart1:"The plan of ",
+    approvedNotificationPart2:" academic year has been approved",
+    revisionNotificationPart2:" academic year has been returned for revision",
+    sentNotificationPart2:" academic year has been sent to ",
 }
 
 export default en;

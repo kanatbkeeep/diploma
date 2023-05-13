@@ -53,6 +53,14 @@ const kz = {
     topicSpeech:"Сөйлеу тақырыбы",
     event:"Іс-шаралар",
     students:"Студенттер",
+    professor:"Профессор",
+    revisionPart:"Жақсарту үшін бөлікті (мәліметтерді) таңдаңыз:",
+    uploadPhoto:"фотосуретті жүктеу",
+    lastName:"Тегі",
+    middleName:"Әкесінің аты",
+    firstName:"Аты",
+    addComment:"Сипаттама қосу:",
+    typeHere:"Мұнда жазыңыз..",
 }
 
 export default kz;
