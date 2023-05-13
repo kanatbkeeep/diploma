@@ -82,7 +82,18 @@ const TeacherPlanList = (props: any) => {
                                             }}
                                         />
                                     </div>
-                                    <div style={{width: 54}}><Button icon={Copy}/></div>
+                                    <div style={{width: 54}}>
+                                        <Button
+                                            icon={Copy}
+                                            onClick={() => {
+                                                AppStore.editModel({selectedPlan: item});
+                                                delete AppStore.model.selectedPlan.id;
+                                                AppStore.model.selectedPlan.status = null;
+                                                AppStore.copyPlan().then(() => AppStore.editModel({selectedPlan: null}));
+                                                window.location.reload();
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         );
