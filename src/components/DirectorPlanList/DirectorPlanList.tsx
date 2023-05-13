@@ -54,6 +54,9 @@ const DirectorPlanList = (props: any) => {
                                         <Button
                                             icon={DownloadWhite}
                                             type={'smallDark'}
+                                            onClick={()=>{
+                                                window.location.href = `http://localhost:8080/plan/create-excel?planId=${item.id}`
+                                            }}
                                         />
                                     </div>
                                     <div>
