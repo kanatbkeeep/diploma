@@ -1,20 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {observer} from 'mobx-react';
-import t, {l} from "../../utils/Lang";
-import FilePicker from "../FilePicker/FilePicker";
-import Cross from "../../assets/icon/cross.svg";
-import CrossWhite from "../../assets/icon/crossWhite.svg";
-import TickWhite from "../../assets/icon/tickWhite.svg";
-import Input from "../Input/Input";
-import EditProfileStore from "../../store/EditProfileStore";
-import Dropdown from "../Dropdown/Dropdown";
+import t from "../../utils/Lang";
 import Button from "../Button/Button";
-import Profile from "../../pages/profile/Profile";
 import AppStore from "../../store/AppStore";
-import ApproveStore from "../../store/ApproveStore";
 import Table from "../Table/Table";
-import EyeBlack from "../../assets/icon/eyeBlack.svg";
-import DownloadWhite from "../../assets/icon/downloadWhite.svg";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
@@ -22,7 +11,7 @@ import {useNavigate} from "react-router-dom";
 const TeacherPlanList = (props: any) => {
     const navigate = useNavigate();
     const validation = (item: any) => {
-        let obj = {
+        return {
             step1: item.year ? item.year : 'Not filled',
             step2: item?.academicWorks?.length > 0 ? 'Filled' : 'Not filled',
             step3: item?.academicMethods?.length > 0 ? 'Filled' : 'Not filled',
@@ -30,9 +19,7 @@ const TeacherPlanList = (props: any) => {
             step5: item?.educationalWorks?.length > 0 ? 'Filled' : 'Not filled',
             step6: item?.socialWorks?.length > 0 ? 'Filled' : 'Not filled',
             step8: item.status ? item.status : 'Not sent',
-        }
-
-        return obj;
+        };
     }
 
     return (
