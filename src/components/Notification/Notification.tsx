@@ -36,20 +36,21 @@ const Notification: FC<Props> = ({open, onModalStateChanged}) => {
                                     : notification.status === 'AWAITING' ?
                                         <img src={SendIcon} alt={'send'}/> : null}
                             <div className='notificationData'>
-                                {notification.status === 'APPROVED' ? <h5>{t('notificationPart1') + notification.planName + t('approvedNotificationPart2')}</h5>
+                                {notification.status === 'APPROVED' ?
+                                    <h5>{t('approvedNotificationPart1') + notification.planName + t('approvedNotificationPart2')}</h5>
                                     : notification.status === 'DENIED' ?
-                                        <h5>{t('notificationPart1') + notification.planName + t('revisionNotificationPart2')}</h5>
+                                        <h5>{t('revisionNotificationPart1') + notification.planName + t('revisionNotificationPart2')}</h5>
                                         : notification.status === 'AWAITING' ?
-                                            <h5>{t('notificationPart1') + notification.planName + t('sentNotificationPart2') + notification.sendTo.firstName + ' ' + notification.sendTo.lastName + ' ' + notification.sendTo.middleName}</h5> : null}
+                                            <h5>{t('sentNotificationPart1') + notification.planName + t('sentNotificationPart2') + notification.sendTo.firstName + ' ' + notification.sendTo.lastName + ' ' + notification.sendTo.middleName}</h5> : null}
                                 <span>{notification.sendBy.firstName + ' ' + notification.sendBy.lastName + ' ' + notification.sendBy.middleName}</span>
                                 {notification?.parts.length > 0 ? <>
-                                    <p>{'Part to improve:\n'}</p>
+                                    <p>{t('partToImprove')+'\n'}</p>
                                     {notification.parts.map((part: string) => {
                                         return <>
                                             <p className='redText'>{'• ' + part}</p>
                                         </>
                                     })}
-                                    <p>{'Comment:\n'}</p>
+                                    <p>{t('comments') +':\n'}</p>
                                     <p className='commentData'>
                                         {notification.description}
                                     </p>

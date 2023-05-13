@@ -61,10 +61,13 @@ const en = {
     firstName:"First name",
     addComment:"Add a comment:",
     typeHere:"Type here..",
-    notificationPart1:"The plan of ",
+    approvedNotificationPart1:"The plan of ",
+    revisionNotificationPart1:"The plan of ",
+    sentNotificationPart1:"The plan of ",
     approvedNotificationPart2:" academic year has been approved",
     revisionNotificationPart2:" academic year has been returned for revision",
     sentNotificationPart2:" academic year has been sent to ",
+    partToImprove:"Part to improve:",
 }
 
 export default en;
