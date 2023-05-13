@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -15,6 +15,18 @@ const Step2 = (props: any) => {
     const {planStore} = props;
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
+    const [uniqNames, setUniqNames]: any = useState([]);
+
+    useEffect(()=>{
+        let arr:any[] = [];
+        planStore.academWorks.map((item:any)=>{
+            if(!arr.includes(item.nameOfDiscipline)){
+                console.log("added");
+                arr.push(item.nameOfDiscipline);
+            }
+        })
+        setUniqNames(arr);
+    },[])
 
 
     const validation = () => {
@@ -75,7 +87,7 @@ const Step2 = (props: any) => {
                 <div style={{marginBottom: 20}}>
                     <Dropdown
                         onClick={() => {
-                            if (open === "") {
+                            if (open !== "discipline") {
                                 setOpen("discipline");
                             } else {
                                 setOpen("")
@@ -87,13 +99,14 @@ const Step2 = (props: any) => {
                         maxWidth={500}
                     >
                         <ul>
-                            {planStore.disciplines.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({discipline: item.name})}>
-                                    {item.name}
+                            {uniqNames.length > 0  ? uniqNames.map((item: any) => {
+                                return <li onClick={() => planStore.editStep2Modal({discipline: item})}>
+                                    {item}
                                 </li>
-                            })}
+                            }) : <li>{t('noData')}</li> }
                         </ul>
                     </Dropdown>
+
                 </div>
                 <div style={{marginBottom: 20}}>
                     <Input maxWidth={500}
@@ -120,7 +133,7 @@ const Step2 = (props: any) => {
                     <div style={{width: 20}}/>
                     <Dropdown maxWidth={300}
                               onClick={() => {
-                                  if (open === "") {
+                                  if (open !== "infoImplementation") {
                                       setOpen("infoImplementation");
                                   } else {
                                       setOpen("")
@@ -207,8 +220,7 @@ const Step2 = (props: any) => {
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoImplementation}</div>
-                                <div  className="hidden-scroll" style={{maxWidth: maxWidthColumns[4],
-                                    overflowY:"scroll"}}>
+                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>
                                     {item.comment}
                                 </div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>

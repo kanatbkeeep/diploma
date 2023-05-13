@@ -79,7 +79,7 @@ class KpiStore {
         });
     }
 
-    async saveKpi(idPlan:any){
+    async saveKpi(idPlan:any, planStore:any){
         const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
         return await axios.post(ADD_KPI(idPlan,this.currentSection.id),
             {
@@ -99,12 +99,12 @@ class KpiStore {
                 }
             }).then((repos: any) => {
                 if(repos.status === 201){
-                    window.location.reload();
+                    planStore.getPlan(idPlan);
                 }
         });
     }
 
-    async updateKpi(id:any){
+    async updateKpi(id:any, planStore:any){
         const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
         return await axios.post(EDIT_KPI,
             {
@@ -125,12 +125,12 @@ class KpiStore {
                 }
             }).then((repos: any) => {
             if(repos.status === 200){
-                window.location.reload();
+                planStore.getPlan(id);
             }
         });
     }
 
-    async deleteKpis(items:any[]){
+    async deleteKpis(items:any[], planStore:any){
         return await axios.post(DELETE_KPI,
             {
                 items:items
@@ -140,7 +140,7 @@ class KpiStore {
                 }
             }).then((repos: any) => {
             if(repos.status === 200){
-                window.location.reload();
+                planStore.getPlan(planStore.plan.id);
             }
         });
     }
