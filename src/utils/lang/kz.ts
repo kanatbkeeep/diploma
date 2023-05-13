@@ -68,6 +68,7 @@ const kz = {
     revisionNotificationPart2:" оқу жылына арналған жоспар пысықтауға қайтарылды",
     sentNotificationPart2:" оқу жылына арналған жоспар бағытталды",
     partToImprove:"Жақсартуға арналған бөлім:",
+    noMoreNotifications:"Енді хабарландырулар жоқ",
 }
 
 export default kz;

@@ -68,6 +68,7 @@ const en = {
     revisionNotificationPart2:" academic year has been returned for revision",
     sentNotificationPart2:" academic year has been sent to ",
     partToImprove:"Part to improve:",
+    noMoreNotifications:"No more notifications",
 }
 
 export default en;

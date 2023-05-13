@@ -78,6 +78,7 @@ const ru = {
     revisionNotificationPart2:" учебный год возвращен на доработку",
     sentNotificationPart2:" учебный год был направлен ",
     partToImprove:"Часть для улучшения:",
+    noMoreNotifications:"Больше никаких уведомлений",
 }
 
 export default ru;

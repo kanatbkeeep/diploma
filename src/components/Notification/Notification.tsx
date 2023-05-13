@@ -59,6 +59,9 @@ const Notification: FC<Props> = ({open, onModalStateChanged}) => {
                         </div>
                     </>
                 })}
+                <div style={{marginTop: '20px'}}>
+                    <p className='noMoreNotifications'>{t('noMoreNotifications')}</p>
+                </div>
             </div>
         </>
     )

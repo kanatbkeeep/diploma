@@ -1,20 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {observer} from 'mobx-react';
-import t, {l} from "../../utils/Lang";
-import FilePicker from "../FilePicker/FilePicker";
-import Cross from "../../assets/icon/cross.svg";
-import CrossWhite from "../../assets/icon/crossWhite.svg";
-import TickWhite from "../../assets/icon/tickWhite.svg";
-import Input from "../Input/Input";
-import EditProfileStore from "../../store/EditProfileStore";
-import Dropdown from "../Dropdown/Dropdown";
+import t from "../../utils/Lang";
 import Button from "../Button/Button";
-import Profile from "../../pages/profile/Profile";
 import AppStore from "../../store/AppStore";
-import ApproveStore from "../../store/ApproveStore";
 import Table from "../Table/Table";
-import EyeBlack from "../../assets/icon/eyeBlack.svg";
-import DownloadWhite from "../../assets/icon/downloadWhite.svg";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
@@ -22,17 +11,21 @@ import {useNavigate} from "react-router-dom";
 const TeacherPlanList = (props: any) => {
     const navigate = useNavigate();
     const validation = (item: any) => {
-        let obj = {
+        let percentage = 0;
+        item.kpis.map((item: any) => {
+            percentage += item.percentage;
+        })
+
+        return {
             step1: item.year ? item.year : 'Not filled',
             step2: item?.academicWorks?.length > 0 ? 'Filled' : 'Not filled',
             step3: item?.academicMethods?.length > 0 ? 'Filled' : 'Not filled',
             step4: item?.researchWorks?.length > 0 ? 'Filled' : 'Not filled',
             step5: item?.educationalWorks?.length > 0 ? 'Filled' : 'Not filled',
             step6: item?.socialWorks?.length > 0 ? 'Filled' : 'Not filled',
+            step7: percentage + '%',
             step8: item.status ? item.status : 'Not sent',
-        }
-
-        return obj;
+        };
     }
 
     return (
@@ -70,7 +63,7 @@ const TeacherPlanList = (props: any) => {
                                 <div style={{maxWidth: maxWidthColumns[3]}}>{validation(item).step4}</div>
                                 <div style={{maxWidth: maxWidthColumns[4]}}>{validation(item).step5}</div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>{validation(item).step6}</div>
-                                <div style={{maxWidth: maxWidthColumns[6]}}>{'0%'}</div>
+                                <div style={{maxWidth: maxWidthColumns[6]}}>{validation(item).step7}</div>
                                 <div style={{maxWidth: maxWidthColumns[7]}}>{validation(item).step8}</div>
                                 <div style={{maxWidth: maxWidthColumns[8]}}>
                                     <div style={{width: 54, marginRight: 10}}>
