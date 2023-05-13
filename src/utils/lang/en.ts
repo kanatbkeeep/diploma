@@ -61,6 +61,10 @@ const en = {
     firstName:"First name",
     addComment:"Add a comment:",
     typeHere:"Type here..",
+    notificationPart1:"The plan of ",
+    approvedNotificationPart2:" academic year has been approved",
+    revisionNotificationPart2:" academic year has been returned for revision",
+    sentNotificationPart2:" academic year has been sent to ",
 }
 
 export default en;

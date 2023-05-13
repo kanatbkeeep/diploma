@@ -24,8 +24,8 @@ class ApproveStore {
         }
     };
 
-    async sendApprove(isTeacher: boolean) {
-        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&isTeacher=' + isTeacher,
+    async sendApprove(byTeacher: boolean) {
+        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&byTeacher=' + byTeacher,
             {
                 status: 'APPROVED'
             },
@@ -40,8 +40,8 @@ class ApproveStore {
         });
     }
 
-    async sendDenied(isTeacher: boolean) {
-        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&isTeacher=' + isTeacher,
+    async sendDenied(byTeacher: boolean) {
+        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&byTeacher=' + byTeacher,
             {
                 status: 'DENIED',
                 parts: this.model.parts,
