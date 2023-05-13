@@ -155,6 +155,7 @@ class AppStore {
             email: null,
             password: null,
             selectedPlan: null,
+            showMyPlans: false,
         }
 
         this.currentUser = null;

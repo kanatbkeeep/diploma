@@ -16,6 +16,7 @@ import TeacherPlanList from "../../components/TeacherPlanList/TeacherPlanList";
 import UserData from "../../components/UserData/UserData";
 import Revision from "../../components/Revision/Revision";
 import NotificationStore from "../../store/NotificationStore";
+import ToggleSwitch from "../../components/ToggleSwitch/ToggleSwitch";
 
 function Profile() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -70,7 +71,15 @@ function Profile() {
             <main className={modalOpen || modalOpen2 || approveOpen || revisionOpen ? 'darker' : ''}>
                 <Navigation onModalStateChanged={handleModalStateChanged}/>
                 <UserData onModalStateChanged={handleModalStateChanged2}/>
-                {AppStore.isTeacher() ? <>
+                {AppStore.isTeacher() && AppStore.isDirector() ? <>
+                    <ToggleSwitch
+                        onChange={(e: any) => {
+                            AppStore.editModel({showMyPlans: e.target.checked});
+                        }}
+                    />
+                </> :null}
+
+                {AppStore.isTeacher() || (AppStore.isTeacher() && AppStore.isDirector() && AppStore.model.showMyPlans) ? <>
                     <TeacherPlanList/>
 
                     <section className={'createPlan'}>
@@ -85,7 +94,7 @@ function Profile() {
                         />
                     </section>
                 </> : null}
-                {AppStore.isDirector() ? <>
+                {AppStore.isDirector() && !AppStore.model.showMyPlans ? <>
                     <DirectorPlanList onModalStateChangedApprove={handleApproveOpenChanged} onModalStateChangedRevision={handleRevisionOpenChanged}/>
                 </> : null}
             </main>
