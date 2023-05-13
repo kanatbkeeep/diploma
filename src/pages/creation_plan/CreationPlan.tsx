@@ -66,6 +66,14 @@ const CreationPlan = (props: any) => {
         document.cookie = name+'=; Max-Age=-99999999;';
     }
 
+    const validationSend = () =>{
+        return(
+            planStore.plan?.status && planStore.plan.academicWorks.length > 0 && planStore.plan.academicMethods.length > 0 &&
+            planStore.plan.educationalWorks.length > 0 && planStore.plan.kpis.length > 0 && planStore.plan.researchWorks.length > 0
+            && planStore.plan.socialWorks.length > 0 && planStore.plan.year
+        )
+    }
+
     return (
         <>
         <div className={modalOpen ? "main-container darker" : "main-container"}>
@@ -91,7 +99,7 @@ const CreationPlan = (props: any) => {
                         type='secondaryButton'
                         icon={Send}
                         label={t('send')}
-                        disabled={planStore.plan?.status}
+                        disabled={!(validationSend())}
                         onClick={()=>{
                             planStore.sendPlan();
                         }}
