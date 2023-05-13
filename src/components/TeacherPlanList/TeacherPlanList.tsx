@@ -37,8 +37,8 @@ const TeacherPlanList = (props: any) => {
                     maxWidthTable={1150}
                     maxWidthColumns={[120, 120, 150, 120, 130, 100, 100, 120, 140]}
                     haveDelete={true}
-                    onDelete={() => {
-                        console.log("deleted");
+                    onDelete={(es: any) => {
+                        AppStore.deletePlan(es);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>

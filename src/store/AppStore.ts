@@ -140,6 +140,15 @@ class AppStore {
         });
     }
 
+    async deletePlan(items: any) {
+        return await axios.post(`http://localhost:8080/plan/delete`, {items: items},{
+            headers: {
+                Authorization: this.getCookie('Authorization')
+            }
+        }).then((repos: any) => {
+        });
+    }
+
     getCookie(name: any) {
         const value = `; ${document.cookie}`;
         const parts: any = value.split(`; ${name}=`);
@@ -169,6 +178,7 @@ class AppStore {
             getDepartmentByTeacher: action.bound,
             getMyPlans: action.bound,
             createPlan: action.bound,
+            deletePlan: action.bound,
             isTeacher: action,
             getMyPlansToApproveAwaiting: action,
             getMyPlansToApproveApproved: action,
