@@ -15,6 +15,7 @@ import Notification from "../../components/Notification/Notification";
 import TeacherPlanList from "../../components/TeacherPlanList/TeacherPlanList";
 import UserData from "../../components/UserData/UserData";
 import Revision from "../../components/Revision/Revision";
+import NotificationStore from "../../store/NotificationStore";
 
 function Profile() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -55,7 +56,7 @@ function Profile() {
             EditProfileStore.getPositions();
             EditProfileStore.getDegrees();
             EditProfileStore.getDepartmentList();
-
+            NotificationStore.getNotification();
         }).catch(() => {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')
