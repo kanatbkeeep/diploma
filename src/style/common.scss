@@ -244,6 +244,10 @@ body {
   @extend %smallButton;
 }
 
+.smallWhite:hover img {
+  filter: invert(1) brightness(0.6) grayscale(1);
+}
+
 .smallWhite:active {
   background-color: #ffffff;
   border: solid 1px #BFC5C7;

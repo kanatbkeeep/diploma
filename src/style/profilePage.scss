@@ -169,3 +169,60 @@ h4, span {
   flex-direction: column;
   justify-content: center;
 }
+
+.approve {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.approveBlock {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.approveBlock div {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.approveBlock div button {
+  margin-bottom: 25px;
+  margin-top: 23px;
+}
+
+.approveBlock div button:first-of-type {
+  margin-right: 34px;
+}
+
+.approveBlock p {
+  text-align: center;
+  margin: 15px 100px 23px 100px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.selectPartRevision p {
+  font-weight: normal;
+  margin: 0;
+  text-align: start;
+}
+
+.selectPartRevision .checkbox-group:first-of-type {
+  margin: 15px 30px 20px 10px;
+  white-space: nowrap;
+}
+
+.selectPartRevision .checkbox-group:last-of-type {
+  margin: 0 30px 20px 10px;
+  white-space: nowrap;
+}

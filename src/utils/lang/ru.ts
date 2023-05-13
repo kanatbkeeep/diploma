@@ -65,7 +65,12 @@ const ru = {
     uploadPhoto:"Загрузить фото",
     supportingDoc:"Подтверждающий документ",
     professor:"Профессор",
-
+    revisionPart:"Выберите часть (части) для улучшения:",
+    lastName:"Фамилия",
+    middleName:"Имя",
+    firstName:"Отчество",
+    addComment:"Добавить комментарий:",
+    typeHere:"Пишите тут...",
 }
 
 export default ru;
