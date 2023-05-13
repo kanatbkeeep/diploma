@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -15,6 +15,18 @@ const Step2 = (props: any) => {
     const {planStore} = props;
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
+    const [uniqNames, setUniqNames]: any = useState([]);
+
+    useEffect(()=>{
+        let arr:any[] = [];
+        planStore.academWorks.map((item:any)=>{
+            if(!arr.includes(item.nameOfDiscipline)){
+                console.log("added");
+                arr.push(item.nameOfDiscipline);
+            }
+        })
+        setUniqNames(arr);
+    },[])
 
 
     const validation = () => {
@@ -87,9 +99,9 @@ const Step2 = (props: any) => {
                         maxWidth={500}
                     >
                         <ul>
-                            {planStore.academWorks.length > 0  ? planStore.academWorks.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({discipline: item.nameOfDiscipline})}>
-                                    {item.nameOfDiscipline}
+                            {uniqNames.length > 0  ? uniqNames.map((item: any) => {
+                                return <li onClick={() => planStore.editStep2Modal({discipline: item})}>
+                                    {item}
                                 </li>
                             }) : <li>{t('noData')}</li> }
                         </ul>
