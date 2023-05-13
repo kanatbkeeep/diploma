@@ -209,3 +209,19 @@ h4, span {
   font-size: 18px;
   font-weight: bold;
 }
+
+.selectPartRevision p {
+  font-weight: normal;
+  margin: 0;
+  text-align: start;
+}
+
+.selectPartRevision .checkbox-group:first-of-type {
+  margin: 15px 30px 20px 10px;
+  white-space: nowrap;
+}
+
+.selectPartRevision .checkbox-group:last-of-type {
+  margin: 0 30px 20px 10px;
+  white-space: nowrap;
+}

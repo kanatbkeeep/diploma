@@ -58,6 +58,7 @@ const en = {
     lastName:"Last name",
     middleName:"Middle name",
     firstName:"First name",
+    addComment:"Add a comment:",
 }
 
 export default en;

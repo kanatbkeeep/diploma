@@ -35,6 +35,8 @@ class ApproveStore {
     constructor() {
         this.model = {
             selectedPlan: null,
+            parts: [],
+            description: "",
         }
 
         makeAutoObservable(this, {

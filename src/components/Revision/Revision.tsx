@@ -12,6 +12,7 @@ import Button from "../Button/Button";
 import Profile from "../../pages/profile/Profile";
 import AppStore from "../../store/AppStore";
 import ApproveStore from "../../store/ApproveStore";
+import Checkbox from "../Checkbox/Checkbox";
 
 const Revision = (props: any) => {
     useEffect(() => {
@@ -22,9 +23,75 @@ const Revision = (props: any) => {
         <div className={'approve'}>
             <div className="approveBlock">
                 <p>Do you want to <span style={{color: "#590030"}}>return</span> <br/> <span style={{color: "#007EA7"}}>Berkinbayev Kanat Galymuly <br/> </span>for revision?</p>
-                <div className="selectPartRevision">
+                <section className="selectPartRevision">
                     <p>{t('revisionPart')}</p>
-                </div>
+
+                    <div className='row'>
+                        <div className='column'>
+                            <Checkbox
+                                label={t('academicWork')}
+                                onChange={(e: any) => {
+                                    if (e.target.checked) ApproveStore.model.parts.push("Academic Works");
+                                    else ApproveStore.model.parts.remove("Academic Works");
+                                }}
+                                checked={ApproveStore.model.parts.includes("Academic Works")}
+                            />
+
+                            <Checkbox
+                                label={t('academicEducationalWork')}
+                                onChange={(e: any) => {
+                                    if (e.target.checked) ApproveStore.model.parts.push("Educational work");
+                                    else ApproveStore.model.parts.remove("Educational work");
+                                }}
+                                checked={ApproveStore.model.parts.includes("Educational work")}
+                            />
+                        </div>
+
+                        <div className='column'>
+                            <Checkbox
+                                label={t('academicMethods')}
+                                onChange={(e: any) => {
+                                    if (e.target.checked) ApproveStore.model.parts.push("Ed. & Method. work");
+                                    else ApproveStore.model.parts.remove("Ed. & Method. work");
+                                }}
+                                checked={ApproveStore.model.parts.includes("Ed. & Method. work")}
+                            />
+
+                            <Checkbox
+                                label={t('academicSocialWork')}
+                                onChange={(e: any) => {
+                                    if (e.target.checked) ApproveStore.model.parts.push("Social work");
+                                    else ApproveStore.model.parts.remove("Social work");
+                                }}
+                                checked={ApproveStore.model.parts.includes("Social work")}
+                            />
+                        </div>
+                        <div className='column'>
+                            <Checkbox
+                                label={t('academicResearchWork')}
+                                onChange={(e: any) => {
+                                    if (e.target.checked) ApproveStore.model.parts.push("Research work");
+                                    else ApproveStore.model.parts.remove("Research work");
+                                }}
+                                checked={ApproveStore.model.parts.includes("Research work")}
+                            />
+
+                            <Checkbox
+                                label={'KPI'}
+                                onChange={(e: any) => {
+                                    if (e.target.checked) ApproveStore.model.parts.push("KPI");
+                                    else ApproveStore.model.parts.remove("KPI");
+                                }}
+                                checked={ApproveStore.model.parts.includes("KPI")}
+                            />
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+
+                </section>
+
                 <div>
                     <Button
                         icon={TickWhite}

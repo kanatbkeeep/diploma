@@ -69,7 +69,7 @@ const ru = {
     lastName:"Фамилия",
     middleName:"Имя",
     firstName:"Отчество",
-
+    addComment:"Добавить комментарий:",
 }
 
 export default ru;

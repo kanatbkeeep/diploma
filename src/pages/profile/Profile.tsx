@@ -14,21 +14,18 @@ import DirectorPlanList from "../../components/DirectorPlanList/DirectorPlanList
 import Notification from "../../components/Notification/Notification";
 import TeacherPlanList from "../../components/TeacherPlanList/TeacherPlanList";
 import UserData from "../../components/UserData/UserData";
+import Revision from "../../components/Revision/Revision";
 
 function Profile() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [modalOpen2, setModalOpen2] = useState<boolean>(false);
     const [approveOpen, setApproveOpen] = useState<boolean>(false);
+    const [revisionOpen, setRevisionOpen] = useState<boolean>(false);
     const navigate = useNavigate();
-    const handleModalStateChanged = useCallback((state: boolean) => {
-        setModalOpen(state);
-    }, []);
-    const handleModalStateChanged2 = useCallback((state: boolean) => {
-        setModalOpen2(state);
-    }, []);
-    const handleApproveOpenChanged = useCallback((state: boolean) => {
-        setApproveOpen(state)
-    }, []);
+    const handleModalStateChanged = useCallback((state: boolean) => {setModalOpen(state);}, []);
+    const handleModalStateChanged2 = useCallback((state: boolean) => {setModalOpen2(state);}, []);
+    const handleApproveOpenChanged = useCallback((state: boolean) => {setApproveOpen(state)}, []);
+    const handleRevisionOpenChanged = useCallback((state: boolean) => {setRevisionOpen(state)}, []);
 
     const setDataForUpdate = () => {
         EditProfileStore.editModel({
@@ -48,7 +45,6 @@ function Profile() {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')
             }
-
             if (AppStore.isTeacher()) {
                 AppStore.getDepartmentByTeacher().then(() => {setDataForUpdate();});
             } else {
@@ -70,10 +66,9 @@ function Profile() {
     return (AppStore.currentUser &&
         <>
             <EditProfile store={EditProfileStore} open={modalOpen2} handleChange={handleModalStateChanged2}/>
-            <main className={modalOpen || modalOpen2 || approveOpen ? 'darker' : ''}>
+            <main className={modalOpen || modalOpen2 || approveOpen || revisionOpen ? 'darker' : ''}>
                 <Navigation onModalStateChanged={handleModalStateChanged}/>
                 <UserData onModalStateChanged={handleModalStateChanged2}/>
-
                 {AppStore.isTeacher() ? <>
                     <TeacherPlanList/>
 
@@ -89,15 +84,14 @@ function Profile() {
                         />
                     </section>
                 </> : null}
-
                 {AppStore.isDirector() ? <>
-                    <DirectorPlanList onModalStateChanged={handleApproveOpenChanged}/>
+                    <DirectorPlanList onModalStateChangedApprove={handleApproveOpenChanged} onModalStateChangedRevision={handleRevisionOpenChanged}/>
                 </> : null}
-
             </main>
 
             <Notification open={modalOpen} onModalStateChanged={handleModalStateChanged}/>
             <Approve open={approveOpen} onModalStateChanged={handleApproveOpenChanged}/>
+            <Revision open={revisionOpen} onModalStateChanged={handleRevisionOpenChanged}/>
         </>
     )
 }

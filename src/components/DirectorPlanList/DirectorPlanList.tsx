@@ -63,7 +63,7 @@ const DirectorPlanList = (props: any) => {
                                             type={'smallBlue'}
                                             disabled={item.status === 'APPROVED'}
                                             onClick={() => {
-                                                props.onModalStateChanged(true);
+                                                props.onModalStateChangedApprove(true);
                                                 ApproveStore.editModel({selectedPlan: item});
                                             }}
                                         />
@@ -73,6 +73,10 @@ const DirectorPlanList = (props: any) => {
                                             icon={CrossWhite}
                                             type={'smallRed'}
                                             disabled={item.status === 'APPROVED'}
+                                            onClick={() => {
+                                                props.onModalStateChangedRevision(true);
+                                                ApproveStore.editModel({selectedPlan: item});
+                                            }}
                                         />
                                     </div>
                                 </div>

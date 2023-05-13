@@ -59,6 +59,7 @@ const kz = {
     lastName:"Тегі",
     middleName:"Әкесінің аты",
     firstName:"Аты",
+    addComment:"Сипаттама қосу:",
 }
 
 export default kz;
