@@ -7,6 +7,9 @@ import Table from "../Table/Table";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
+import {Simulate} from "react-dom/test-utils";
+import select = Simulate.select;
+import CreationPlanStore from "../../store/CreationPlanStore";
 
 const TeacherPlanList = (props: any) => {
     const navigate = useNavigate();
@@ -79,11 +82,59 @@ const TeacherPlanList = (props: any) => {
                                         <Button
                                             icon={Copy}
                                             onClick={() => {
-                                                AppStore.editModel({selectedPlan: item});
-                                                delete AppStore.model.selectedPlan.id;
+                                                AppStore.model.selectedPlan = Object.assign({},item);
+                                                let planCopy = Object.assign({},item);
+                                                console.log(planCopy);
+                                                console.log(AppStore.model.selectedPlan);
+                                                console.log(item);
+                                                AppStore.model.selectedPlan.id = null;
                                                 AppStore.model.selectedPlan.status = null;
-                                                AppStore.copyPlan().then(() => AppStore.editModel({selectedPlan: null}));
-                                                window.location.reload();
+                                                AppStore.model.selectedPlan.academicWorks = [];
+                                                AppStore.model.selectedPlan.academicMethods = [];
+                                                AppStore.model.selectedPlan.educationalWorks = [];
+                                                AppStore.model.selectedPlan.kpis = [];
+                                                AppStore.model.selectedPlan.researchWorks = [];
+                                                AppStore.model.selectedPlan.socialWorks = [];
+
+                                                AppStore.copyPlan().then(() => {
+                                                    CreationPlanStore.getPlan().then(() => {
+                                                        planCopy.academicWorks.map((i: any) => {
+                                                            console.log(123123123)
+                                                            delete i.id;
+                                                            CreationPlanStore.step1 = i;
+                                                            CreationPlanStore.saveAcademicWork();
+                                                        })
+
+                                                        planCopy.academicMethods.map((i: any) => {
+                                                            delete i.id;
+                                                            CreationPlanStore.step2 = i;
+                                                            CreationPlanStore.saveAcademicMethod();
+                                                        })
+
+                                                        planCopy.researchWorks.map((i: any) => {
+                                                            delete i.id;
+                                                            CreationPlanStore.step3 = i;
+                                                            CreationPlanStore.saveResearchWork();
+                                                        })
+
+                                                        planCopy.educationalWorks.map((i: any) => {
+                                                            delete i.id;
+                                                            CreationPlanStore.step4 = i;
+                                                            CreationPlanStore.saveEduWork();
+                                                        })
+
+                                                        planCopy.socialWorks.map((i: any) => {
+                                                            delete i.id;
+                                                            CreationPlanStore.step5 = i;
+                                                            CreationPlanStore.saveSocialWork();
+                                                        })
+
+                                                        planCopy.kpis.map((i: any) => {
+                                                            delete i.id;
+
+                                                        })
+                                                    });
+                                                });
                                             }}
                                         />
                                     </div>
