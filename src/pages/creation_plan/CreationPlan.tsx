@@ -47,7 +47,7 @@ const CreationPlan = (props: any) => {
             }
 
             if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
-                kpiStore.getKpiSections(AppStore.currentUser.position.nameRu,AppStore.currentUser.degree.nameRu);
+                planStore.getKpiSections(AppStore.currentUser.position.nameRu,AppStore.currentUser.degree.nameRu);
             }
 
         }).catch(() => {

@@ -4,11 +4,11 @@ import axios from "axios";
 import {
     ADD_ACADEMIC_METHOD,
     ADD_ACADEMIC_WORK,
-    ADD_EDUCATION_WORK, ADD_RESEARCH_WORK, ADD_SOCIAL_WORK, CHANGE_YEAR_PLAN,
+    ADD_EDUCATION_WORK, ADD_KPI, ADD_RESEARCH_WORK, ADD_SOCIAL_WORK, CHANGE_YEAR_PLAN,
     DELETE_ACADEMIC_METHOD,
-    DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
+    DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_KPI, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
-    EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK,
+    EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_KPI, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK, GET_KPI_SECTIONS,
     GET_LATEST_PLAN, GET_PLAN_BY_ID, SEND_PLAN
 } from "../config/rest/creationPlanRest";
 
@@ -19,6 +19,7 @@ class CreationPlanStore {
     step3: any;
     step4: any;
     step5: any;
+    step6: any;
     years: any;
     academWorks: any;
     eduMethWorks: any;
@@ -27,6 +28,9 @@ class CreationPlanStore {
     eduWorks: any;
     socialWorks: any;
     plan: any;
+    currentSection:any;
+    checked: any;
+    kpiSections: any;
 
     editStep1Modal(obj: any) {
         this.step1 = {...this.step1, ...obj};
@@ -46,6 +50,10 @@ class CreationPlanStore {
 
     editStep5Modal(obj: any) {
         this.step5 = {...this.step5, ...obj};
+    };
+
+    editStep6Modal(obj: any) {
+        this.step6 = {...this.step6, ...obj};
     };
 
     courses = [
@@ -175,7 +183,11 @@ class CreationPlanStore {
         return await axios.post(ADD_ACADEMIC_METHOD,
             {
                 idPlan: this.plan.id,
-                ...this.step2
+                discipline: this.step2.discipline,
+                nameWork: this.step2.nameWork,
+                deadlines: this.step2.deadlines,
+                infoImplementation: this.step2.infoImplementation !== "Other" ? this.step2.infoImplementation : this.step2.anotherInfoImpl,
+                comment: this.step2.comment,
             },
             {
                 headers: {
@@ -440,6 +452,128 @@ class CreationPlanStore {
         }
     }
 
+    // KPI PART
+
+    numberAuthors = [1,2,3,4,5,6,7,8,9,10];
+
+    clean(){
+        this.step6 = {
+            fileName:"",
+            fileBase64:"",
+            currentIndSection: this.step6.currentIndSection,
+            chosenOption: "",
+            isAnotherSection: false,
+            chosenNumAuth:null,
+            deadlines:"",
+            infoImplementation:"",
+            results:"",
+            comments:"",
+            otherInfoImpl:"",
+            numberAuthor: 1,
+            currentPercentage: 0.0,
+            averagePer:0,
+            anotherWork: null,
+        }
+    }
+
+    resetChecked(){
+        let arr:any = [];
+        this.kpiSections.map((item:any,ind:any)=>{
+            item.options.map((item:any,ind:any)=>{
+                arr.push({id:item, checked:false});
+            })
+        })
+        this.checked = arr;
+    }
+
+
+    async getKpiSections(namePosition:any, nameDegree:any) {
+        return await axios.get(GET_KPI_SECTIONS(nameDegree,namePosition),
+            {
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if (repos.status === 200) {
+                this.kpiSections = repos.data;
+                this.currentSection = this.kpiSections[this.step6.currentIndSection];
+                let arr:any = [];
+                this.kpiSections.map((item:any,ind:any)=>{
+                    item.options.map((item:any,ind:any)=>{
+                        arr.push({id:item, checked:false});
+                    })
+                })
+                this.checked = arr;
+            }
+        });
+    }
+
+    async saveKpi(){
+        const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
+        return await axios.post(ADD_KPI(this.plan.id,this.currentSection.id),
+            {
+                nameOfTheWork:this.step6.chosenOption ? this.step6.chosenOption : this.currentSection.name,
+                deadlines:this.step6.deadlines,
+                informationOnImplementation: this.step6.infoImplementation !== "Other" ? this.step6.infoImplementation: this.step6.otherInfoImpl,
+                results: !isAverPer ? this.step6.results : this.step6.averagePer,
+                comments:this.step6.comments,
+                percentage:this.step6.currentPercentage,
+                authorsNumber:this.step6.numberAuthor,
+                pdfFile: this.step6.fileBase64,
+                pdfFileName: this.step6.fileName,
+                anotherSectionNumber: this.step6.isAnotherSection ? this.step6.anotherSectionNumber : null,
+            },{
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if(repos.status === 201){
+                this.getPlan(this.plan.id);
+            }
+        });
+    }
+
+    async updateKpi(id:any){
+        const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
+        return await axios.post(EDIT_KPI,
+            {
+                id:id,
+                nameOfTheWork:this.step6.chosenOption ? this.step6.chosenOption : this.currentSection.name,
+                deadlines:this.step6.deadlines,
+                informationOnImplementation: this.step6.infoImplementation !== "Other" ? this.step6.infoImplementation: this.step6.otherInfoImpl,
+                results: !isAverPer ? this.step6.results : this.step6.averagePer,
+                comments:this.step6.comments,
+                percentage:this.step6.currentPercentage,
+                authorsNumber:this.step6.numberAuthor,
+                pdfFile: this.step6.fileBase64,
+                pdfFileName: this.step6.fileName,
+                anotherSectionNumber: this.step6.isAnotherSection ? this.step6.anotherSectionNumber : null,
+            },{
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if(repos.status === 200){
+                this.getPlan(this.plan.id);
+            }
+        });
+    }
+
+    async deleteKpis(items:any[]){
+        return await axios.post(DELETE_KPI,
+            {
+                items:items
+            },{
+                headers: {
+                    Authorization: this.getCookie('Authorization')
+                }
+            }).then((repos: any) => {
+            if(repos.status === 200){
+                this.getPlan(this.plan.id);
+            }
+        });
+    }
+
 
     constructor() {
 
@@ -463,6 +597,7 @@ class CreationPlanStore {
             nameWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl:"",
             comment: "",
         }
 
@@ -492,6 +627,27 @@ class CreationPlanStore {
             results: "",
             comments: "",
         }
+
+        this.step6 = {
+            fileName:"",
+            fileBase64:"",
+            currentIndSection: 0,
+            chosenOption: "",
+            isAnotherSection: false,
+            anotherSectionNumber: null,
+            deadlines:"",
+            infoImplementation:"",
+            results:"",
+            comments:"",
+            otherInfoImpl:"",
+            numberAuthor: 1,
+            currentPercentage: 0.0,
+            averagePer:0,
+            anotherWork: null,
+        }
+        this.kpiSections = [];
+        this.currentSection = null;
+        this.checked = [];
 
         this.years = "";
 
@@ -528,6 +684,7 @@ class CreationPlanStore {
             saveResearchWork: action.bound,
             updateSearchWork: action.bound,
             deleteResearchWorks: action.bound,
+            editStep6Modal: action.bound,
         },)
     }
 
