@@ -19,19 +19,19 @@ import FilePicker from "../../FilePicker/FilePicker";
 const Step6 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
-    const {planStore, kpiStore, AppStore} = props;
+    const {planStore,AppStore} = props;
     const {currentUser} = AppStore;
     const [section, setSection] = useState(0);
 
     const validation = () => {
-        if (kpiStore.currentSection.options?.length > 0) {
-            return (kpiStore.model.chosenOption && kpiStore.model.results && kpiStore.model.comments && kpiStore.model.deadlines
-                && kpiStore.model.fileName && kpiStore.model.fileBase64
-                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
+        if (planStore.currentSection.options?.length > 0) {
+            return (planStore.step6.chosenOption && planStore.step6.results && planStore.step6.comments && planStore.step6.deadlines
+                && planStore.step6.fileName && planStore.step6.fileBase64
+                && (planStore.step6.infoImplementation !== "Other" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
         } else {
-            return ((isAveragePercentage() ? kpiStore.model.averagePer:kpiStore.model.results) && kpiStore.model.comments && kpiStore.model.deadlines
-                && kpiStore.model.fileName && kpiStore.model.fileBase64
-                && (kpiStore.model.infoImplementation !== "Other" ? kpiStore.model.infoImplementation : kpiStore.model.otherInfoImpl))
+            return ((isAveragePercentage() ? planStore.step6.averagePer:planStore.step6.results) && planStore.step6.comments && planStore.step6.deadlines
+                && planStore.step6.fileName && planStore.step6.fileBase64
+                && (planStore.step6.infoImplementation !== "Other" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
         }
 
     }
@@ -43,54 +43,54 @@ const Step6 = (props: any) => {
         let rate:any = currentUser.rate === "1" ? section.rate_full : currentUser.rate === "0.5" ? section.rate_half : section.rate_quarter;
 
         if(isAveragePercentage()){
-          if(kpiStore.model.averagePer >= 80){
-              kpiStore.editModel({currentPercentage: section.percentage});
+          if(planStore.step6.averagePer >= 80){
+              planStore.editStep6Modal({currentPercentage: section.percentage});
           }else{
-              kpiStore.editModel({currentPercentage: 0});
+              planStore.editStep6Modal({currentPercentage: 0});
           }
         }else if(isFinance()){
-            if(kpiStore.model.results){
-                kpiStore.editModel({currentPercentage: section.percentage});
+            if(planStore.step6.results){
+                planStore.editStep6Modal({currentPercentage: section.percentage});
             }else{
-                kpiStore.editModel({currentPercentage: 0});
+                planStore.editStep6Modal({currentPercentage: 0});
             }
         }else{
             if(section.authorsByParts){
-                kpiStore.editModel({currentPercentage: section.percentage / rate / kpiStore.model.numberAuthor});
+                planStore.editStep6Modal({currentPercentage: section.percentage / rate / planStore.step6.numberAuthor});
             }else{
-                kpiStore.editModel({currentPercentage: section.percentage / rate});
+                planStore.editStep6Modal({currentPercentage: section.percentage / rate});
             }
         }
-    },[kpiStore.currentSection,kpiStore.model.numberAuthor, kpiStore.model.averagePer, kpiStore.model.anotherSectionNumber, kpiStore.model.results])
+    },[planStore.currentSection,planStore.step6.numberAuthor, planStore.step6.averagePer, planStore.step6.anotherSectionNumber, planStore.step6.results])
 
 
     const anotherSection = () =>{
         let section:any;
-        if(kpiStore.model.anotherSectionNumber){
-            const ind = kpiStore.kpiSections.findIndex((item:any)=>{
-                return item.sectionNumber === kpiStore.model.anotherSectionNumber;
+        if(planStore.step6.anotherSectionNumber){
+            const ind = planStore.kpiSections.findIndex((item:any)=>{
+                return item.sectionNumber === planStore.step6.anotherSectionNumber;
             });
-            return section = kpiStore.kpiSections[ind];
+            return section = planStore.kpiSections[ind];
         }else{
-            return section = kpiStore.currentSection;
+            return section = planStore.currentSection;
         }
     }
 
     const addObject = () => {
-        kpiStore.saveKpi(planStore.plan.id, planStore);
-        kpiStore.clean();
-        kpiStore.resetChecked();
+        planStore.saveKpi();
+        planStore.clean();
+        planStore.resetChecked();
     }
 
     const clear = () => {
-        kpiStore.clean();
-        kpiStore.resetChecked();
+        planStore.clean();
+        planStore.resetChecked();
         setItemEdit(null);
     }
 
     const copy = (item: any) => {
         clear();
-        kpiStore.editModel({
+        planStore.editStep6Modal({
             deadlines:item.deadlines,
             infoImplementation:(item.informationOnImplementation === "Online" || item.informationOnImplementation === "Offline") ? item.informationOnImplementation : "Other",
             results:item.results,
@@ -102,19 +102,19 @@ const Step6 = (props: any) => {
             fileBase64:item.pdfFile,
             currentIndSection: item.kpiSection.sectionNumber-1,
         });
-        kpiStore.currentSection = item.kpiSection;
-        isAveragePercentage() && kpiStore.editModel({averagePer:parseInt(item.result)});
-        item.anotherSectionNumber !== 0 && kpiStore.editModel({isAnotherSection:true, anotherSectionNumber: item.anotherSectionNumber});
+        planStore.currentSection = item.kpiSection;
+        isAveragePercentage() && planStore.editStep6Modal({averagePer:parseInt(item.result)});
+        item.anotherSectionNumber !== 0 && planStore.editStep6Modal({isAnotherSection:true, anotherSectionNumber: item.anotherSectionNumber});
         if(item.kpiSection.options.length > 0){
-            const ind:any = kpiStore.checked.findIndex((i:any)=>{
+            const ind:any = planStore.checked.findIndex((i:any)=>{
                 return (i.id === item.nameOfTheWork && i.checked === false);
             });
-            kpiStore.checked[ind].checked = true;
+            planStore.checked[ind].checked = true;
         }
     }
 
     const edit = () => {
-        kpiStore.updateKpi(itemEdit.id);
+        planStore.updateKpi(itemEdit.id);
         clear();
     }
 
@@ -128,24 +128,24 @@ const Step6 = (props: any) => {
     }
 
     const isChecked = (id:any) =>{
-        const arr:any = kpiStore.checked.filter((i:any)=> i.id === id);
+        const arr:any = planStore.checked.filter((i:any)=> i.id === id);
         return arr[0].checked;
     }
 
     const check = (id:any)=>{
-        kpiStore.resetChecked()
-        const ind:any = kpiStore.checked.findIndex((i:any)=>{
+        planStore.resetChecked()
+        const ind:any = planStore.checked.findIndex((i:any)=>{
             return (i.id === id && i.checked === false);
         });
-        kpiStore.checked[ind].checked = true;
+        planStore.checked[ind].checked = true;
     }
 
     const isAveragePercentage = ()=>{
-        return  kpiStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
+        return  planStore.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
     }
 
     const isFinance = () =>{
-        return kpiStore.currentSection.name === "Привлечение финансирования" || anotherSection().name === "Привлечение финансирования";
+        return planStore.currentSection.name === "Привлечение финансирования" || anotherSection().name === "Привлечение финансирования";
     }
 
     return (
@@ -167,44 +167,44 @@ const Step6 = (props: any) => {
                     <div>{currentUser.position[l('name')]}</div>
                 </div>
                 <div className="navigation-marks">
-                    {kpiStore.model.currentIndSection !== 0 ?
+                    {planStore.step6.currentIndSection !== 0 ?
                         <img role="button"
                              onClick={() => {
-                                 kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection - 1});
-                                 kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
+                                 planStore.editStep6Modal({currentIndSection: planStore.step6.currentIndSection - 1});
+                                 planStore.currentSection = planStore.kpiSections[planStore.step6.currentIndSection];
                                  clear();
                              }}
                              className="back"
                              src={NavMark}/> : null}
-                    {kpiStore.model.currentIndSection !== kpiStore.kpiSections.length - 1 ?
+                    {planStore.step6.currentIndSection !== planStore.kpiSections.length - 1 ?
                         <img role="button"
                              onClick={() => {
-                                 kpiStore.editModel({currentIndSection: kpiStore.model.currentIndSection + 1});
-                                 kpiStore.currentSection = kpiStore.kpiSections[kpiStore.model.currentIndSection];
+                                 planStore.editStep6Modal({currentIndSection: planStore.step6.currentIndSection + 1});
+                                 planStore.currentSection = planStore.kpiSections[planStore.step6.currentIndSection];
                                  clear();
                              }}
                              className="next"
                              src={NavMark}/> : null}
                 </div>
                 <div
-                    className="section">{`${kpiStore.currentSection.sectionNumber}. ${kpiStore.currentSection.name}`}</div>
+                    className="section">{`${planStore.currentSection.sectionNumber}. ${planStore.currentSection.name}`}</div>
                 {
-                    kpiStore.currentSection.notes ? <div className="node">{kpiStore.currentSection.notes}</div> : null
+                    planStore.currentSection.notes ? <div className="node">{planStore.currentSection.notes}</div> : null
                 }
                 <div className="options">
-                    {kpiStore.currentSection.options ? kpiStore.currentSection.options.map((item: any, ind: any) => {
+                    {planStore.currentSection.options ? planStore.currentSection.options.map((item: any, ind: any) => {
                         return (
                             <RadioButton
                                 label={item}
                                 checked={isChecked(item)}
-                                id={`option${ind}${kpiStore.currentSection.id}`}
-                                name={`options${kpiStore.currentSection.id}`}
+                                id={`option${ind}${planStore.currentSection.id}`}
+                                name={`options${planStore.currentSection.id}`}
                                 value={item}
                                 onChange={(e: any) => {
                                     if (e.target.checked) {
-                                        kpiStore.editModel({chosenOption: e.target.value});
+                                        planStore.editStep6Modal({chosenOption: e.target.value});
                                         check(item);
-                                        console.log(kpiStore.checked)
+                                        console.log(planStore.checked)
                                     }
                                 }}
                             />
@@ -216,25 +216,25 @@ const Step6 = (props: any) => {
                         <div
                             className="per-1">{`Необходимое количество для выполнения: ${currentUser.rate === "1" ? anotherSection().rate_full : currentUser.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
                         <div className="per-2">{`Доля, %: ${anotherSection().percentage}`}</div>
-                        <div className="per-3">{`Нынешняя доля, %: ${kpiStore.model.currentPercentage}`}</div>
+                        <div className="per-3">{`Нынешняя доля, %: ${planStore.step6.currentPercentage}`}</div>
                     </div>
                 </div>
 
                 <div style={{marginBottom: 20}} className="line-blue"/>
 
                 {
-                    kpiStore.currentSection.anotherSection
+                    planStore.currentSection.anotherSection
                         ? <>
                             <Checkbox
                                 label={t('submissionClosing')}
-                                checked={kpiStore.model.isAnotherSection}
+                                checked={planStore.step6.isAnotherSection}
                                 onChange={(e: any) => {
-                                    kpiStore.editModel({isAnotherSection: e.target.checked, anotherSectionNumber: null});
+                                    planStore.editStep6Modal({isAnotherSection: e.target.checked, anotherSectionNumber: null});
                                 }}
                             />
                             <div style={{marginBottom: 20}}/>
                             {
-                                kpiStore.model.isAnotherSection ?
+                                planStore.step6.isAnotherSection ?
                                     <Dropdown
                                         maxWidth={160}
                                         onClick={() => {
@@ -246,10 +246,10 @@ const Step6 = (props: any) => {
                                         }}
                                         open={open === "sectionNumber"}
                                         label={t('sectionNumber')}
-                                        value={kpiStore.model.anotherSectionNumber ? kpiStore.model.anotherSectionNumber : t('select')}
+                                        value={planStore.step6.anotherSectionNumber ? planStore.step6.anotherSectionNumber : t('select')}
                                     >
                                         <ul>
-                                            {kpiStore.kpiSections.filter((item:any)=>{
+                                            {planStore.kpiSections.filter((item:any)=>{
                                                 let count = 0;
                                                 if(item.notes){
                                                    for(let i = 0; i <= 3; i++){
@@ -258,10 +258,10 @@ const Step6 = (props: any) => {
                                                        }
                                                    }
                                                 }
-                                                return item.sectionNumber !== kpiStore.currentSection.sectionNumber && count >= 2;
+                                                return item.sectionNumber !== planStore.currentSection.sectionNumber && count >= 2;
                                             }).map((item: any,ind:any) => {
                                                 return <li
-                                                    onClick={() => kpiStore.editModel({anotherSectionNumber: item.sectionNumber})}>
+                                                    onClick={() => planStore.editStep6Modal({anotherSectionNumber: item.sectionNumber})}>
                                                     {item.sectionNumber}
                                                 </li>
                                             })}
@@ -276,7 +276,7 @@ const Step6 = (props: any) => {
 
                 <div style={{marginBottom: 20}}/>
                 {
-                    kpiStore.currentSection.authorsByParts ?
+                    planStore.currentSection.authorsByParts ?
                         <>
                             <Dropdown
                                 maxWidth={160}
@@ -289,12 +289,12 @@ const Step6 = (props: any) => {
                                 }}
                                 open={open === "numberAuthors"}
                                 label={t('numberAuthors')}
-                                value={kpiStore.model.numberAuthor ? kpiStore.model.numberAuthor : t('select')}
+                                value={planStore.step6.numberAuthor ? planStore.step6.numberAuthor : t('select')}
                             >
                                 <ul>
-                                    {kpiStore.numberAuthors.map((item: any) => {
+                                    {planStore.numberAuthors.map((item: any) => {
                                         return <li
-                                            onClick={() => kpiStore.editModel({numberAuthor: item})}>
+                                            onClick={() => planStore.editStep6Modal({numberAuthor: item})}>
                                             {item}
                                         </li>
                                     })}
@@ -306,7 +306,7 @@ const Step6 = (props: any) => {
                 }
 
                 {
-                    kpiStore.currentSection.name !== "Средний процент независимого анкетирования \"Преподаватель глазами студентов\"" ?
+                    planStore.currentSection.name !== "Средний процент независимого анкетирования \"Преподаватель глазами студентов\"" ?
                         <>
                             <div style={{marginBottom: 20}}/>
                             <Dropdown
@@ -320,13 +320,13 @@ const Step6 = (props: any) => {
                                 }}
                                 open={open === "copyExisting1"}
                                 label={t('copyExisting1')}
-                                value={kpiStore.model.anotherWork?.id === 1 ? kpiStore.model.anotherWork?.name?.length > 80
-                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                                value={planStore.step6.anotherWork?.id === 1 ? planStore.step6.anotherWork?.name?.length > 80
+                                    ? planStore.step6.anotherWork.name.substring(0,80)+"..." : planStore.step6.anotherWork.name: t('select')}
                             >
                                 <ul>
                                     {planStore.researchWorks.length > 0 ? planStore.researchWorks.map((item: any) => {
                                         return <li
-                                            onClick={() => kpiStore.editModel({
+                                            onClick={() => planStore.editStep6Modal({
                                                 anotherWork:{
                                                     id:1,
                                                     name:item.nameOfTheWork
@@ -354,13 +354,13 @@ const Step6 = (props: any) => {
                                 }}
                                 open={open === "copyExisting2"}
                                 label={t('copyExisting2')}
-                                value={kpiStore.model.anotherWork?.id === 2 ? kpiStore.model.anotherWork?.name?.length > 80
-                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                                value={planStore.step6.anotherWork?.id === 2 ? planStore.step6.anotherWork?.name?.length > 80
+                                    ? planStore.step6.anotherWork.name.substring(0,80)+"..." : planStore.step6.anotherWork.name: t('select')}
                             >
                                 <ul>
                                     {planStore.eduWorks.length > 0 ? planStore.eduWorks.map((item: any) => {
                                         return <li
-                                            onClick={() => kpiStore.editModel({
+                                            onClick={() => planStore.editStep6Modal({
                                                 anotherWork:{
                                                     id:2,
                                                     name:item.nameOfTheWork
@@ -388,13 +388,13 @@ const Step6 = (props: any) => {
                                 }}
                                 open={open === "copyExisting3"}
                                 label={t('copyExisting3')}
-                                value={kpiStore.model.anotherWork?.id === 3 ? kpiStore.model.anotherWork?.name?.length > 80
-                                    ? kpiStore.model.anotherWork.name.substring(0,80)+"..." : kpiStore.model.anotherWork.name: t('select')}
+                                value={planStore.step6.anotherWork?.id === 3 ? planStore.step6.anotherWork?.name?.length > 80
+                                    ? planStore.step6.anotherWork.name.substring(0,80)+"..." : planStore.step6.anotherWork.name: t('select')}
                             >
                                 <ul>
                                     {planStore.socialWorks.length > 0 ? planStore.socialWorks.map((item: any) => {
                                         return <li
-                                            onClick={() => kpiStore.editModel({
+                                            onClick={() => planStore.editStep6Modal({
                                                 anotherWork:{
                                                     id:3,
                                                     name:item.nameOfTheWork
@@ -419,9 +419,9 @@ const Step6 = (props: any) => {
                     <Input
                         maxWidth={140}
                         label={t('deadlines')}
-                        value={kpiStore.model.deadlines}
+                        value={planStore.step6.deadlines}
                         onChange={(e: any) => {
-                            kpiStore.editModel({deadlines: e.target.value})
+                            planStore.editStep6Modal({deadlines: e.target.value})
                         }}
                     />
                     <div style={{marginRight: 20}}/>
@@ -436,12 +436,12 @@ const Step6 = (props: any) => {
                         }}
                         open={open === "infoImplementation"}
                         label={t('infoOnImplementation')}
-                        value={kpiStore.model.infoImplementation ? kpiStore.model.infoImplementation : t('select')}
+                        value={planStore.step6.infoImplementation ? planStore.step6.infoImplementation : t('select')}
                     >
                         <ul>
-                            {kpiStore.infoImplementation.map((item: any) => {
+                            {planStore.infoImplementation.map((item: any) => {
                                 return <li
-                                    onClick={() => kpiStore.editModel({
+                                    onClick={() => planStore.editStep6Modal({
                                         infoImplementation: item.name,
                                         otherInfoImpl: ""
                                     })}>
@@ -453,13 +453,13 @@ const Step6 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20}}/>
 
-                {kpiStore.model.infoImplementation === "Other" ?
+                {planStore.step6.infoImplementation === "Other" ?
                     <Input
                         maxWidth={500}
                         label={t('infoOnImplementation')}
-                        value={kpiStore.model.otherInfoImpl}
+                        value={planStore.step6.otherInfoImpl}
                         onChange={(e: any) => {
-                            kpiStore.editModel({otherInfoImpl: e.target.value})
+                            planStore.editStep6Modal({otherInfoImpl: e.target.value})
                         }}
                     />
                     : null}
@@ -470,10 +470,10 @@ const Step6 = (props: any) => {
                     maxWidth={500}
                     type={isAveragePercentage() ? "number" : "area"}
                     label={t('results')}
-                    value={isAveragePercentage()? kpiStore.model.averagePer:kpiStore.model.results}
+                    value={isAveragePercentage()? planStore.step6.averagePer:planStore.step6.results}
                     placeholder={isAveragePercentage() ? "Введите средний процент" : ""}
                     onChange={(e: any) => {
-                        kpiStore.editModel(isAveragePercentage() ? {averagePer: e.target.value}:{results: e.target.value});
+                        planStore.editStep6Modal(isAveragePercentage() ? {averagePer: e.target.value}:{results: e.target.value});
                     }
                     }
                 />
@@ -485,9 +485,9 @@ const Step6 = (props: any) => {
                     type="area"
                     label={t('comments')}
                     placeholder={t('commentPlaceholder')}
-                    value={kpiStore.model.comments}
+                    value={planStore.step6.comments}
                     onChange={(e: any) => {
-                        kpiStore.editModel({comments: e.target.value});
+                        planStore.editStep6Modal({comments: e.target.value});
                     }
                     }
                 />
@@ -496,9 +496,9 @@ const Step6 = (props: any) => {
 
                 <FilePicker
                     label={t('supportingDoc')}
-                    value={kpiStore.model.fileName ? kpiStore.model.fileName?.length > 50 ? kpiStore.model.fileName.substring(0, 45) + "..." : kpiStore.model.fileName : ""}
+                    value={planStore.step6.fileName ? planStore.step6.fileName?.length > 50 ? planStore.step6.fileName.substring(0, 45) + "..." : planStore.step6.fileName : ""}
                     onChange={async (e: any) => {
-                        kpiStore.editModel({
+                        planStore.editStep6Modal({
                             fileName: e.target.files[0].name,
                         })
                         var selectedFile = e.target.files;
@@ -511,10 +511,10 @@ const Step6 = (props: any) => {
 
                             fileReader.onload = function (fileLoadedEvent: any) {
                                 base64 = fileLoadedEvent.target.result;
-                                // kpiStore.editModel({fileBase64:base64.substring(28,base64.length-1)});
-                                kpiStore.editModel({fileBase64: base64});
-                                console.log(kpiStore.model.fileName);
-                                console.log(kpiStore.model.fileBase64);
+                                // planStore.editStep6Modal({fileBase64:base64.substring(28,base64.length-1)});
+                                planStore.editStep6Modal({fileBase64: base64});
+                                console.log(planStore.step6.fileName);
+                                console.log(planStore.step6.fileBase64);
                             };
                             fileReader.readAsDataURL(fileToLoad);
                         }
@@ -561,7 +561,7 @@ const Step6 = (props: any) => {
                     maxWidthColumns={[200, 100, 100, 150, 100, 200, 50 ,133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
-                        kpiStore.deleteKpis(arr,planStore);
+                        planStore.deleteKpis(arr,planStore);
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
