@@ -685,6 +685,12 @@ class CreationPlanStore {
             updateSearchWork: action.bound,
             deleteResearchWorks: action.bound,
             editStep6Modal: action.bound,
+            saveKpi: action.bound,
+            updateKpi: action.bound,
+            deleteKpis: action.bound,
+            resetChecked: action.bound,
+            getKpiSections: action.bound,
+            clean: action.bound,
         },)
     }
 
