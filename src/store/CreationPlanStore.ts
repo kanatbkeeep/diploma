@@ -554,7 +554,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
             if(repos.status === 200){
-                this.getPlan(id);
+                this.getPlan(this.plan.id);
             }
         });
     }
