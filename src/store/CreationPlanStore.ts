@@ -175,7 +175,11 @@ class CreationPlanStore {
         return await axios.post(ADD_ACADEMIC_METHOD,
             {
                 idPlan: this.plan.id,
-                ...this.step2
+                discipline: this.step2.discipline,
+                nameWork: this.step2.nameWork,
+                deadlines: this.step2.deadlines,
+                infoImplementation: this.step2.infoImplementation !== "Other" ? this.step2.infoImplementation : this.step2.anotherInfoImpl,
+                comment: this.step2.comment,
             },
             {
                 headers: {
@@ -463,6 +467,7 @@ class CreationPlanStore {
             nameWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl:"",
             comment: "",
         }
 

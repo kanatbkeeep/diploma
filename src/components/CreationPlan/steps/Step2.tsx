@@ -30,45 +30,55 @@ const Step2 = (props: any) => {
 
 
     const validation = () => {
-        return (planStore.step2.discipline && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.infoImplementation);
+        return (planStore.step2.discipline && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.comment
+            && (planStore.step2.infoImplementation === "Other" ? planStore.step2.anotherInfoImpl : planStore.step2.infoImplementation ));
     }
 
     const addObject = () => {
         planStore.saveAcademicMethod();
         planStore.editStep2Modal({
-            discipline: null,
+            discipline: "",
             nameWork: "",
             deadlines: "",
-            infoImplementation: null,
+            infoImplementation: "",
+            anotherInfoImpl: "",
             comment: "",
         })
     }
 
     const clear = () => {
         planStore.editStep2Modal({
-            discipline: null,
-            nameWork: "",
-            deadlines: "",
-            infoImplementation: null,
-            comment: "",
-        })
-    }
-
-    const copy = (item: any) => {
-        planStore.editStep2Modal({...item});
-    }
-
-    const edit = (item: any) => {
-        const toUpdate = {...item, ...planStore.step2}
-        planStore.updateAcademicMethod(toUpdate);
-        planStore.editStep2Modal({
             discipline: "",
             nameWork: "",
             deadlines: "",
             infoImplementation: "",
+            anotherInfoImpl: "",
             comment: "",
         })
         setItemEdit(null);
+    }
+
+    const copy = (item: any) => {
+        planStore.editStep2Modal({...item});
+        if(item.infoImplementation !== "Online" && item.infoImplementation !== "Offline"){
+            planStore.editStep2Modal({
+                infoImplementation:"Other",
+                anotherInfoImpl:item.infoImplementation,
+            });
+        }
+    }
+
+    const edit = (item: any) => {
+        const toUpdate = {
+            id: item.id,
+            discipline: planStore.step2.discipline,
+            nameWork: planStore.step2.nameWork,
+            deadlines: planStore.step2.deadlines,
+            infoImplementation: planStore.step2.infoImplementation !== "Other" ? planStore.step2.infoImplementation : planStore.step2.anotherInfoImpl,
+            comment: planStore.step2.comment,
+        }
+        planStore.updateAcademicMethod(toUpdate);
+        clear();
     }
     return (
         <div className="step-component">
@@ -152,6 +162,22 @@ const Step2 = (props: any) => {
                         </ul>
                     </Dropdown>
                 </div>
+
+                {
+                    planStore.step2.infoImplementation === "Other" ?
+                        <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
+                            <Input
+                                maxWidth={500}
+                                label={t('infoOnImplementation')}
+                                value={planStore.step2.anotherInfoImpl}
+                                onChange={(e: any) => {
+                                    planStore.editStep2Modal({anotherInfoImpl: e.target.value});
+                                }
+                                }
+                            />
+                        </div> : null
+                }
+
                 <div style={{marginBottom: 20}}>
                     <Input
                         label={t('comments')}
@@ -229,7 +255,7 @@ const Step2 = (props: any) => {
                                                 icon={Edit}
                                                 onClick={() => {
                                                     setItemEdit(item);
-                                                    planStore.editStep2Modal({...item});
+                                                    copy(item);
                                                 }}
                                         />
                                     </div>

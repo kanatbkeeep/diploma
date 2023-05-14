@@ -558,7 +558,7 @@ const Step6 = (props: any) => {
                     length={planStore.kpiWorks.length}
                     rowsPerPage={4}
                     maxWidthTable={1083}
-                    maxWidthColumns={[250, 100, 100, 150, 100, 200, 133]}
+                    maxWidthColumns={[200, 100, 100, 150, 100, 200, 50 ,133]}
                     haveDelete={true}
                     onDelete={(arr: any[]) => {
                         kpiStore.deleteKpis(arr,planStore);
@@ -572,7 +572,8 @@ const Step6 = (props: any) => {
                             <div style={{maxWidth: maxWidthColumns[3]}}>{t('results')}</div>
                             <div style={{maxWidth: maxWidthColumns[4]}}>{t('comments')}</div>
                             <div style={{maxWidth: maxWidthColumns[5]}}>{t('supportingDoc')}</div>
-                            <div style={{maxWidth: maxWidthColumns[6]}}></div>
+                            <div style={{maxWidth: maxWidthColumns[6]}}>%</div>
+                            <div style={{maxWidth: maxWidthColumns[7]}}></div>
                         </div>
                     }}
                     renderBody={(item, index, maxWidthColumns, checkbox) => {
@@ -580,7 +581,7 @@ const Step6 = (props: any) => {
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div className="hidden-scroll"
-                                     style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
+                                     style={{maxWidth: maxWidthColumns[0], paddingRight:16}}>{item.nameOfTheWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.informationOnImplementation}</div>
                                 <div className="hidden-scroll"
@@ -593,7 +594,8 @@ const Step6 = (props: any) => {
                                         {textFile(item.pdfFileName)}
                                     </a>
                                 </div>
-                                <div style={{maxWidth: maxWidthColumns[6]}}>
+                                <div style={{maxWidth: maxWidthColumns[6]}}>{`${item.percentage}%`}</div>
+                                <div style={{maxWidth: maxWidthColumns[7]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button className="secondaryButton"
                                                 icon={Edit}
