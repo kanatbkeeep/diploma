@@ -130,9 +130,27 @@ const TeacherPlanList = (props: any) => {
                                                         })
 
                                                         planCopy.kpis.map((i: any) => {
-                                                            delete i.id;
-
+                                                            CreationPlanStore.currentSection = i.kpiSection;
+                                                            CreationPlanStore.step6 = {
+                                                                fileName:i.pdfFileName,
+                                                                fileBase64:i.pdfFile,
+                                                                chosenOption: i.nameOfTheWork,
+                                                                isAnotherSection: false,
+                                                                anotherSectionNumber: i.anotherSectionNumber,
+                                                                deadlines:i.deadlines,
+                                                                infoImplementation:i.informationOnImplementation,
+                                                                results:i.results,
+                                                                comments:i.comments,
+                                                                otherInfoImpl:i.informationOnImplementation,
+                                                                numberAuthor: i.authorsNumber,
+                                                                currentPercentage: i.percentage,
+                                                                averagePer:i.results,
+                                                                anotherWork: null,
+                                                            };
+                                                            CreationPlanStore.saveKpi();
                                                         })
+                                                    }).then(() => {
+                                                        AppStore.getMyPlans();
                                                     });
                                                 });
                                             }}
