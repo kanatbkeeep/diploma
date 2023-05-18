@@ -87,8 +87,8 @@ class CreationPlanStore {
     ];
 
     infoImplementation = [
-        {id: 1, name: "Online"},
-        {id: 2, name: "Offline"},
+        {id: 1, name: "Executed"},
+        {id: 2, name: "In process"},
         {id: 2, name: "Other"},
     ]
 
