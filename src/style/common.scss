@@ -683,7 +683,8 @@ body {
   align-items: center;
   justify-content: space-between;
   color: #808B8F;
-  height: 45px;
+  min-height: 45px;
+  height: max-content;
   box-sizing: border-box;
 }
 

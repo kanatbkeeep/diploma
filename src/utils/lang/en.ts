@@ -69,6 +69,15 @@ const en = {
     sentNotificationPart2:" academic year has been sent to ",
     partToImprove:"Part to improve:",
     noMoreNotifications:"No more notifications",
+    uploadPdf: "Upload the pdf",
+    submissionClosing: "Submitting an application to close another section?",
+    supportingDoc: "Supporting document",
+    sectionNumber: "Section number",
+    copyExisting1: "Copy from existing research papers",
+    copyExisting2: "Copy from existing educational works",
+    copyExisting3: "Copy from existing social works",
+    commentPlaceholder: "Title of the article, journal, authors' surnames",
+    numberAuthors: "Number of authors",
 }
 
 export default en;

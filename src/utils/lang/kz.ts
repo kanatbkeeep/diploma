@@ -64,11 +64,20 @@ const kz = {
     approvedNotificationPart1:"",
     revisionNotificationPart1:"",
     sentNotificationPart1:"",
-    approvedNotificationPart2:" оқу жылына арналған жоспар бекітілді",
-    revisionNotificationPart2:" оқу жылына арналған жоспар пысықтауға қайтарылды",
-    sentNotificationPart2:" оқу жылына арналған жоспар бағытталды",
+    approvedNotificationPart2:" Оқу жылына арналған жоспар бекітілді",
+    revisionNotificationPart2:" Оқу жылына арналған жоспар пысықтауға қайтарылды",
+    sentNotificationPart2:" Оқу жылына арналған жоспар бағытталды",
     partToImprove:"Жақсартуға арналған бөлім:",
     noMoreNotifications:"Енді хабарландырулар жоқ",
+    commentPlaceholder: "Мақаланың, журналдың атауы, Авторлардың тегі",
+    copyExisting1: "Бар зерттеу жұмыстарының көшірмесі",
+    copyExisting2: "Қолданыстағы білім беру жұмыстарының көшірмесі",
+    copyExisting3: "Қолданыстағы әлеуметтік жұмыстардың көшірмесі",
+    numberAuthors:"Авторлар саны",
+    sectionNumber:"Бөлім нөмірі",
+    submissionClosing: "Басқа бөлімді жабуға өтініш беру?",
+    supportingDoc:"Растайтын құжат",
+    uploadPdf:"Pdf жүктеу",
 }
 
 export default kz;
