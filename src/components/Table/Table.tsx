@@ -63,11 +63,11 @@ const Table = ({
                 if (nameSearch && nameSearch.trim()) {
                     let obj: any = "";
                     keysOfData?.map((key: any) => {
-                        if (typeof i[key] === 'string') {
+                        if (typeof i[key] === 'string' && key !== "id" && key !== "pdfFile") {
                             if (i[key].toLowerCase().includes(nameSearch.toLowerCase())) {
                                 obj = obj + i[key];
                             }
-                        } else if (typeof i[key] === 'number') {
+                        } else if (typeof i[key] === 'number' && key !== "id" && key !== "pdfFile") {
                             if (i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())) {
                                 obj = obj + i[key].toString();
                             }
@@ -84,11 +84,11 @@ const Table = ({
                 if (nameSearch && nameSearch.trim()) {
                     let obj: any = "";
                     keysOfData?.map((key: any) => {
-                        if (typeof i[key] === 'string') {
+                        if (typeof i[key] === 'string' && key !== "id" && key !== "pdfFile") {
                             if (i[key].toLowerCase().includes(nameSearch.toLowerCase())) {
                                 obj = obj + i[key];
                             }
-                        } else if (typeof i[key] === 'number') {
+                        } else if (typeof i[key] === 'number' && key !== "id" && key !== "pdfFile") {
                             if (i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())) {
                                 obj = obj + i[key].toString();
                             }
@@ -113,11 +113,11 @@ const Table = ({
                 if (nameSearch && nameSearch.trim()) {
                     let obj: any = "";
                     keysOfData?.map((key: any) => {
-                        if (typeof i[key] === 'string') {
+                        if (typeof i[key] === 'string' && key !== "id" && key !== "pdfFile") {
                             if (i[key].toLowerCase().includes(nameSearch.toLowerCase())) {
                                 obj = obj + i[key];
                             }
-                        } else if (typeof i[key] === 'number') {
+                        } else if (typeof i[key] === 'number' && key !== "id" && key !== "pdfFile" ) {
                             if (i[key].toString().toLowerCase().includes(nameSearch.toLowerCase())) {
                                 obj = obj + i[key].toString();
                             }

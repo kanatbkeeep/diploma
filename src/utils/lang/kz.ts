@@ -42,7 +42,7 @@ const kz = {
     notifications:"Хабарламалар",
     logOut:"Шығу",
     send:"Жіберу",
-    getExcel:"Excel ретінде алыңыз",
+    getExcel:"Excel жүктеу",
     syllabusOrMethod:"Оқу бағдарламасы / әдістемелік нұсқаулық",
     end:"Соңы",
     select:"Таңдау",

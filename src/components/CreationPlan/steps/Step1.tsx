@@ -13,9 +13,29 @@ import t from "../../../utils/Lang";
 const Step1 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
-
+    const [arraySearch, setArraySerch]:any[] = useState([]);
     const {planStore} = props;
 
+    // useEffect(()=>{
+    //     let arr:any[] = [];
+    //   planStore.academWorks.map((item:any,ind:any)=>{
+    //       arr.push({
+    //           id:ind,
+    //           nameDiscipline: item.nameOfDiscipline,
+    //           course:,
+    //           trimester:,
+    //           group:,
+    //           lecturesPlan:,
+    //           lecturesFact:,
+    //           practicesPlan:,
+    //           practicesFact:,
+    //           officeHoursPlan:,
+    //           officeHoursFact:,
+    //           totalPlan:,
+    //           totalFact,
+    //       })
+    //   })
+    // },[planStore.academWorks])
 
     const validation = () => {
         return (planStore.step1.nameOfDiscipline && planStore.step1.course && planStore.step1.trimester && planStore.step1.groups

@@ -581,7 +581,9 @@ const Step6 = (props: any) => {
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div className="hidden-scroll"
-                                     style={{maxWidth: maxWidthColumns[0], paddingRight:16}}>{item.nameOfTheWork}</div>
+                                     style={{maxWidth: maxWidthColumns[0], paddingRight:16, display:"flex", flexDirection:"column"}}>
+                                    {item.nameOfTheWork}
+                                </div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.informationOnImplementation}</div>
                                 <div className="hidden-scroll"
