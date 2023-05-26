@@ -11,6 +11,7 @@ import {
     EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_KPI, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK, GET_KPI_SECTIONS,
     GET_LATEST_PLAN, GET_PLAN_BY_ID, SEND_PLAN
 } from "../config/rest/creationPlanRest";
+import AppStore from "./AppStore";
 
 class CreationPlanStore {
 
@@ -108,12 +109,14 @@ class CreationPlanStore {
 
     async getPlan(id: any = null) {
         this.years = "";
+        AppStore.isLoading = true;
         if (id !== null) {
             return await axios.get(GET_PLAN_BY_ID(id), {
                 headers: {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+                AppStore.isLoading = false;
                 if (repos.status === 200) {
                     this.plan = repos.data;
                     this.academWorks = repos.data.academicWorks;
@@ -131,6 +134,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+                AppStore.isLoading = false;
                 if (repos.status === 200) {
                     this.plan = repos.data;
                     this.academWorks = repos.data.academicWorks;
@@ -147,6 +151,7 @@ class CreationPlanStore {
     }
 
     async sendPlan(byTeacher: boolean) {
+        AppStore.isLoading = true;
         return await axios.post('http://localhost:8080/notification/send?planId=' + this.plan.id + '&byTeacher=' + byTeacher,
             {
                 status: 'AWAITING'
@@ -156,6 +161,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 },
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
@@ -163,6 +169,7 @@ class CreationPlanStore {
     }
 
     async saveAcademicWork() {
+        AppStore.isLoading = true;
         return await axios.post(ADD_ACADEMIC_WORK,
             {
                 idPlan: this.plan.id,
@@ -173,6 +180,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
@@ -180,6 +188,7 @@ class CreationPlanStore {
     }
 
     async saveAcademicMethod() {
+        AppStore.isLoading = true;
         return await axios.post(ADD_ACADEMIC_METHOD,
             {
                 idPlan: this.plan.id,
@@ -194,6 +203,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
@@ -201,6 +211,7 @@ class CreationPlanStore {
     }
 
     async saveResearchWork() {
+        AppStore.isLoading = true;
         return await axios.post(ADD_RESEARCH_WORK,
             {
                 idPlan: this.plan.id,
@@ -215,6 +226,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
@@ -222,6 +234,7 @@ class CreationPlanStore {
     }
 
     async saveEduWork() {
+        AppStore.isLoading = true;
         return await axios.post(ADD_EDUCATION_WORK,
             {
                 idPlan: this.plan.id,
@@ -236,6 +249,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
@@ -243,6 +257,7 @@ class CreationPlanStore {
     }
 
     async saveSocialWork() {
+        AppStore.isLoading = true;
         return await axios.post(ADD_SOCIAL_WORK,
             {
                 idPlan: this.plan.id,
@@ -257,6 +272,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
@@ -264,6 +280,7 @@ class CreationPlanStore {
     }
 
     async updateAcademicWork(item: any) {
+        AppStore.isLoading = true;
         return await axios.post(EDIT_ACADEMIC_WORK,
             {
                 ...item,
@@ -273,6 +290,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -280,6 +298,7 @@ class CreationPlanStore {
     }
 
     async updateAcademicMethod(item: any) {
+        AppStore.isLoading = true;
         return await axios.post(EDIT_ACADEMIC_METHOD,
             {
                 ...item,
@@ -289,6 +308,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -296,6 +316,7 @@ class CreationPlanStore {
     }
 
     async updateSearchWork(item: any) {
+        AppStore.isLoading = true;
         return await axios.post(EDIT_RESEARCH_WORK,
             {
                 ...item,
@@ -305,6 +326,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -312,6 +334,7 @@ class CreationPlanStore {
     }
 
     async updateEduWork(item: any) {
+        AppStore.isLoading = true;
         return await axios.post(EDIT_EDUCATION_WORK,
             {
                 ...item,
@@ -321,6 +344,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -328,6 +352,7 @@ class CreationPlanStore {
     }
 
     async updateSocialWork(item: any) {
+        AppStore.isLoading = true;
         return await axios.post(EDIT_SOCIAL_WORK,
             {
                 ...item,
@@ -337,6 +362,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -344,6 +370,7 @@ class CreationPlanStore {
     }
 
     async deleteAcademicWorks(itemsToDelete: any[]) {
+        AppStore.isLoading = true;
         return await axios.post(DELETE_ACADEMIC_WORK,
             {
                 items: itemsToDelete
@@ -353,6 +380,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -360,6 +388,7 @@ class CreationPlanStore {
     }
 
     async deleteAcademicMethods(itemsToDelete: any[]) {
+        AppStore.isLoading = true;
         return await axios.post(DELETE_ACADEMIC_METHOD,
             {
                 items: itemsToDelete
@@ -369,6 +398,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -376,6 +406,7 @@ class CreationPlanStore {
     }
 
     async deleteResearchWorks(itemsToDelete: any[]) {
+        AppStore.isLoading = true;
         return await axios.post(DELETE_RESEARCH_WORK,
             {
                 items: itemsToDelete
@@ -385,6 +416,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -392,6 +424,7 @@ class CreationPlanStore {
     }
 
     async deleteEduWorks(itemsToDelete: any[]) {
+        AppStore.isLoading = true;
         return await axios.post(DELETE_EDUCATION_WORK,
             {
                 items: itemsToDelete
@@ -401,6 +434,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -408,6 +442,7 @@ class CreationPlanStore {
     }
 
     async deleteSocialWorks(itemsToDelete: any[]) {
+        AppStore.isLoading = true;
         return await axios.post(DELETE_SOCIAL_WORK,
             {
                 items: itemsToDelete
@@ -417,6 +452,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
@@ -488,12 +524,14 @@ class CreationPlanStore {
 
 
     async getKpiSections(namePosition:any, nameDegree:any) {
+        AppStore.isLoading = true;
         return await axios.get(GET_KPI_SECTIONS(nameDegree,namePosition),
             {
                 headers: {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.kpiSections = repos.data;
                 this.currentSection = this.kpiSections[this.step6.currentIndSection];
@@ -509,6 +547,7 @@ class CreationPlanStore {
     }
 
     async saveKpi(){
+        AppStore.isLoading = true;
         const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
         return await axios.post(ADD_KPI(this.plan.id,this.currentSection.id),
             {
@@ -527,6 +566,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = true;
             if(repos.status === 201){
                 this.getPlan(this.plan.id);
             }
@@ -534,6 +574,7 @@ class CreationPlanStore {
     }
 
     async updateKpi(id:any){
+        AppStore.isLoading = true;
         const isAverPer =this.currentSection.name === "Средний процент независимого анкетирования \"Преподаватель глазами студентов\""
         return await axios.post(EDIT_KPI,
             {
@@ -553,6 +594,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = true;
             if(repos.status === 200){
                 this.getPlan(this.plan.id);
             }
@@ -560,6 +602,7 @@ class CreationPlanStore {
     }
 
     async deleteKpis(items:any[]){
+        AppStore.isLoading = true;
         return await axios.post(DELETE_KPI,
             {
                 items:items
@@ -568,6 +611,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie('Authorization')
                 }
             }).then((repos: any) => {
+            AppStore.isLoading = true;
             if(repos.status === 200){
                 this.getPlan(this.plan.id);
             }

@@ -332,10 +332,10 @@ const Step6 = (props: any) => {
                                                     name:item.nameOfTheWork
                                                 },
                                                 deadlines:item.deadlines,
-                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                infoImplementation:(item.infoImplementation === "Executed" || item.infoImplementation === "In process") ? item.infoImplementation : "Other",
                                                 results:item.results,
                                                 comments:item.comments,
-                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                                otherInfoImpl: (item.infoImplementation !== "Executed" || item.infoImplementation !== "In process") ? item.infoImplementation : "",
                                             })}>
                                             {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
@@ -366,10 +366,10 @@ const Step6 = (props: any) => {
                                                     name:item.nameOfTheWork
                                                 },
                                                 deadlines:item.deadlines,
-                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                infoImplementation:(item.infoImplementation === "Executed" || item.infoImplementation === "In process") ? item.infoImplementation : "Other",
                                                 results:item.results,
                                                 comments:item.comments,
-                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                                otherInfoImpl: (item.infoImplementation !== "Executed" || item.infoImplementation !== "In process") ? item.infoImplementation : "",
                                             })}>
                                             {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
@@ -400,10 +400,10 @@ const Step6 = (props: any) => {
                                                     name:item.nameOfTheWork
                                                 },
                                                 deadlines:item.deadlines,
-                                                infoImplementation:(item.infoImplementation === "Online" || item.infoImplementation === "Offline") ? item.infoImplementation : "Other",
+                                                infoImplementation:(item.infoImplementation === "Executed" || item.infoImplementation === "In process") ? item.infoImplementation : "Other",
                                                 results:item.results,
                                                 comments:item.comments,
-                                                otherInfoImpl: (item.infoImplementation !== "Online" || item.infoImplementation !== "Offline") ? item.infoImplementation : "",
+                                                otherInfoImpl: (item.infoImplementation !== "Executed" || item.infoImplementation !== "In process") ? item.infoImplementation : "",
                                             })}>
                                             {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
