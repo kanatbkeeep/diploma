@@ -1,7 +1,9 @@
 const ru = {
     loginTitle: 'Вход',
+    registrationTitle: 'Регистрация',
     password: 'Пароль',
     forgotPassword: 'Забыли пароль?',
+    incorrect: 'Неверный адрес электронной почты или пароль',
     academicYear: 'Учебный год',
     academicWork: 'Академическая работа',
     academicMethods: 'Об. и метод. работа',

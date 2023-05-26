@@ -17,6 +17,7 @@ class EditProfileStore {
     departmentList: any = [];
 
     async updateUser() {
+        AppStore.isLoading = true;
         return await axios.post('http://localhost:8080/user/update', {
             firstName: this.model.firstName,
             lastName: this.model.lastName,
@@ -30,6 +31,7 @@ class EditProfileStore {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 AppStore.getUser();
             }
@@ -37,11 +39,13 @@ class EditProfileStore {
     }
 
     async updateUserDepartment() {
+        AppStore.isLoading = true;
         return await axios.post('http://localhost:8080/department/transfer-teacher', this.model.department,{
             headers: {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 AppStore.getDepartmentByTeacher();
             }
@@ -49,11 +53,13 @@ class EditProfileStore {
     }
 
     async getDepartmentList() {
+        AppStore.isLoading = true;
         return await axios.get('http://localhost:8080/department/get-all',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.departmentList = repos.data;
             }
@@ -61,11 +67,13 @@ class EditProfileStore {
     }
 
     async getPositions() {
+        AppStore.isLoading = true;
         return await axios.get('http://localhost:8080/user/getPositions',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.positionList = repos.data;
             }
@@ -73,11 +81,13 @@ class EditProfileStore {
     }
 
     async getDegrees() {
+        AppStore.isLoading = true;
         return await axios.get('http://localhost:8080/user/getDegrees',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
+            AppStore.isLoading = false;
             if (repos.status === 200) {
                 this.degreeList = repos.data;
             }

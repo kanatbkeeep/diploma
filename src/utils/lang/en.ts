@@ -1,7 +1,9 @@
 const en = {
     loginTitle: 'Log in',
+    registrationTitle: 'Registration',
     password: 'Password',
     forgotPassword: 'Forgot password?',
+    incorrect: 'Incorrect email or password',
     academicYear: 'Academic year',
     academicWork: 'Academic work',
     academicMethods: 'Ed. & Method. work',

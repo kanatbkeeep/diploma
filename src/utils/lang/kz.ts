@@ -1,7 +1,9 @@
 const kz = {
     loginTitle: 'Кіру',
+    registrationTitle: 'Тіркелу',
     password: 'Құпия сөз',
     forgotPassword: 'Құпия сөзді ұмыттыңыз ба?',
+    incorrect: 'Электрондық пошта немесе құпия сөз дұрыс емес',
     academicYear: 'Оқу жылы',
     academicWork: 'Академиялық жұмыс',
     academicMethods: 'Ак. және әдіс. жұмыс',
