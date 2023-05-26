@@ -42,7 +42,7 @@ const Step4 = (props: any) => {
 
     const copy = (item: any) => {
         planStore.editStep4Modal({...item});
-        if(item.infoImplementation !== "Online" && item.infoImplementation !== "Offline"){
+        if(item.infoImplementation !== "Executed" && item.infoImplementation !== "In process"){
             planStore.editStep4Modal({
                 infoImplementation:"Other",
                 anotherInfoImpl:item.infoImplementation,
@@ -70,6 +70,7 @@ const Step4 = (props: any) => {
                 maxWidth={144}
                 placeholder={t('academicYear')}
                 value={planStore.years}
+                required={!(planStore.years?.length > 0)}
                 onChange={(e: any) => {
                     planStore.years = e.target.value;
                     planStore.changeYear();

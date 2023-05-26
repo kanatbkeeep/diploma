@@ -65,14 +65,13 @@ const Step6 = (props: any) => {
 
 
     const anotherSection = () =>{
-        let section:any;
         if(planStore.step6.anotherSectionNumber){
             const ind = planStore.kpiSections.findIndex((item:any)=>{
                 return item.sectionNumber === planStore.step6.anotherSectionNumber;
             });
-            return section = planStore.kpiSections[ind];
+            return planStore.kpiSections[ind];
         }else{
-            return section = planStore.currentSection;
+            return planStore.currentSection;
         }
     }
 
@@ -92,10 +91,10 @@ const Step6 = (props: any) => {
         clear();
         planStore.editStep6Modal({
             deadlines:item.deadlines,
-            infoImplementation:(item.informationOnImplementation === "Online" || item.informationOnImplementation === "Offline") ? item.informationOnImplementation : "Other",
+            infoImplementation:(item.informationOnImplementation === "Executed" || item.informationOnImplementation === "In process") ? item.informationOnImplementation : "Other",
             results:item.results,
             comments:item.comments,
-            otherInfoImpl: (item.informationOnImplementation !== "Online" || item.informationOnImplementation !== "Offline") ? item.informationOnImplementation : "",
+            otherInfoImpl: (item.informationOnImplementation !== "Executed" || item.informationOnImplementation !== "In process") ? item.informationOnImplementation : "",
             numberAuthor: item.authorsNumber,
             chosenOption: item.nameOfTheWork,
             fileName:item.pdfFileName,
@@ -154,6 +153,7 @@ const Step6 = (props: any) => {
                 maxWidth={144}
                 placeholder={t('academicYear')}
                 value={planStore.years}
+                required={!(planStore.years?.length > 0)}
                 onChange={(e: any) => {
                     planStore.years = e.target.value;
                     planStore.changeYear();
@@ -214,9 +214,9 @@ const Step6 = (props: any) => {
                 <div className="percentages-container">
                     <div className="percentages">
                         <div
-                            className="per-1">{`Необходимое количество для выполнения: ${currentUser.rate === "1" ? anotherSection().rate_full : currentUser.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
-                        <div className="per-2">{`Доля, %: ${anotherSection().percentage}`}</div>
-                        <div className="per-3">{`Нынешняя доля, %: ${planStore.step6.currentPercentage}`}</div>
+                            className="per-1">{`${t('requiredPoints')} ${currentUser.rate === "1" ? anotherSection().rate_full : currentUser.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
+                        <div className="per-2">{`${t('fraction')} ${anotherSection().percentage}`}</div>
+                        <div className="per-3">{`${t('currentFraction')} ${planStore.step6.currentPercentage}`}</div>
                     </div>
                 </div>
 

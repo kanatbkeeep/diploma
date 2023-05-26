@@ -78,6 +78,10 @@ const ru = {
     sentNotificationPart2:" учебный год был направлен ",
     partToImprove:"Часть для улучшения:",
     noMoreNotifications:"Больше никаких уведомлений",
+    requiredToFill:"Обязательное поле",
+    requiredPoints:"Необходимое количество для выполнения:",
+    fraction:"Доля, %:",
+    currentFraction:"Нынешняя доля, %:"
 }
 
 export default ru;

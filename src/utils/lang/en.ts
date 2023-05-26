@@ -78,6 +78,10 @@ const en = {
     copyExisting3: "Copy from existing social works",
     commentPlaceholder: "Title of the article, journal, authors' surnames",
     numberAuthors: "Number of authors",
+    requiredToFill:"Required to fill in",
+    requiredPoints:"Required quantity to complete:",
+    fraction:"Share, %:",
+    currentFraction:"Current share, %:"
 }
 
 export default en;

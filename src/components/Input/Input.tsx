@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import visiblePass from "../../assets/icon/visible_pass.svg";
 import hiddenPass from "../../assets/icon/hidden_pass.svg";
+import t from "../../utils/Lang";
 
 const Input = (props:any) => {
     const [visible,setVisible] = useState(false);
@@ -88,9 +89,8 @@ const Input = (props:any) => {
                     id="forInput"
                     disabled={props.disabled}
                     value={props.value}
-                    style={props.login ? {border:"2px solid black"} : {}}
+                    style={props.login ? {border:"2px solid black"} : props.required ? {border:"1px solid red"} : {}}
                 />
-
             </div>
         )
 

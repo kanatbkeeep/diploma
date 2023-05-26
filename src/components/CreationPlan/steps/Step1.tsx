@@ -131,6 +131,7 @@ const Step1 = (props: any) => {
                 maxWidth={144}
                 placeholder={t('academicYear')}
                 value={planStore.years}
+                required={!(planStore.years?.length > 0)}
                 onChange={(e: any) => {
                     planStore.years = e.target.value;
                     planStore.changeYear();
