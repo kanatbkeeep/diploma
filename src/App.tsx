@@ -15,7 +15,7 @@ import Checkbox from "./components/Checkbox/Checkbox";
 import Profile from "./pages/profile/Profile";
 import CreationPlan from "./pages/creation_plan/CreationPlan";
 import Test from "./pages/test/Test";
-
+import Registration from "./pages/authorization/Registration";
 
 function App() {
     return (
@@ -24,6 +24,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Profile />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/registration" element={<Registration />} />
                     <Route path="/creation-plan" element={<CreationPlan/>}/>
                     <Route path="/plan/:id" element={<CreationPlan/>}/>
                     <Route path="/test" element={<Test/>} />

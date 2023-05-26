@@ -1,6 +1,6 @@
 import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
-import axios from 'axios'
+import axios, {AxiosError} from 'axios'
 
 function getCookie(name: any) {
     const value = `; ${document.cookie}`;
@@ -15,6 +15,7 @@ class AppStore {
     department: any;
     myPlans: any;
     myPlansToApprove: any;
+    incorrect: boolean = false;
     model: any;
     lang: any = lg ? lg: "ru";
     langs: any = ["ru", "kz", "en"];
@@ -42,6 +43,12 @@ class AppStore {
                 document.cookie = "Authorization=" + repos.data;
                 this.getUser();
             }
+        }).catch((reason: AxiosError) => {
+            if (reason.response!.status === 400) {
+                this.incorrect = true;
+                console.log(123123)
+            }
+            console.log(reason.message)
         });
 
     }

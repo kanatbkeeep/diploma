@@ -36,6 +36,17 @@
   font-size: 12px;
   color: #00171F;
   align-self: end;
-  margin-top: 43px;
+  margin-top: 25px;
   margin-right: 18px;
+}
+
+.loginBlock a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.errorMassage {
+  text-align: center;
+  font-size: 12px;
+  color: #d00000;
 }

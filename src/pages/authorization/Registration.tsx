@@ -5,11 +5,8 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import AppStore from "../../store/AppStore";
 import t from "../../utils/Lang";
-import {useNavigate} from "react-router-dom";
-import {observer} from "mobx-react";
 
-function Login() {
-    const navigate = useNavigate();
+function Registration() {
     return (
         <>
             <main className="bg_darker_blue full_screen centralized">
@@ -17,18 +14,16 @@ function Login() {
                     <img className={'logo'} src={Logo} alt={'logo'}/>
 
                     <aside>
-                        <h2>{t('loginTitle')}</h2>
+                        <h2>{t('registrationTitle')}</h2>
                         <Input label={'Email'} login onChange={(e: any) => {
                             AppStore.editModel({email: e.target.value});
                         }}/>
                         <Input label={t('password')} type={'password'} login onChange={(e: any) => {
                             AppStore.editModel({password: e.target.value})
                         }}/>
-                        <Button label={t('loginTitle')} onClick={() => {
+                        <Button label={t('registrationTitle')} onClick={() => {
                             AppStore.loadLogin()
                         }}/>
-                        {AppStore.incorrect ? <p className='errorMassage'>{t('incorrect')}</p> : null}
-                        <a onClick={() => navigate('/registration')}>{t('registrationTitle')}</a>
                     </aside>
                 </section>
             </main>
@@ -36,4 +31,4 @@ function Login() {
     )
 }
 
-export default observer(Login);
+export default Registration;
