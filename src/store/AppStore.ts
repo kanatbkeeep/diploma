@@ -19,6 +19,7 @@ class AppStore {
     model: any;
     lang: any = lg ? lg: "ru";
     langs: any = ["ru", "kz", "en"];
+    isLoading: any = false;
 
     isTeacher() {
         for (let i = 0; i < this.currentUser.roles.length; i++) {
@@ -35,18 +36,20 @@ class AppStore {
     }
 
     async loadLogin() {
+        this.isLoading = true;
         return await axios.post('http://localhost:8080/user/loginUser', {
             email: this.model.email,
             password: this.model.password
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 document.cookie = "Authorization=" + repos.data;
                 this.getUser();
             }
         }).catch((reason: AxiosError) => {
+            this.isLoading = false;
             if (reason.response!.status === 400) {
                 this.incorrect = true;
-                console.log(123123)
             }
             console.log(reason.message)
         });
@@ -54,11 +57,13 @@ class AppStore {
     }
 
     async getUser() {
+        this.isLoading = true;
         return await axios.get('http://localhost:8080/user/getUser', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 this.currentUser = repos.data;
                 if (window.location.href.includes('/login')) window.location.replace('/');
@@ -67,11 +72,13 @@ class AppStore {
     }
 
     async getDepartmentByTeacher() {
+        this.isLoading = true;
         return await axios.get('http://localhost:8080/department/getByTeacher', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 this.department = repos.data;
             }
@@ -79,11 +86,13 @@ class AppStore {
     }
 
     async getDepartmentByDirector() {
+        this.isLoading = true;
         return await axios.get('http://localhost:8080/department/get-by-director', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 this.department = repos.data;
             }
@@ -91,11 +100,13 @@ class AppStore {
     }
 
     async getMyPlans() {
+        this.isLoading = true;
         return await axios.get('http://localhost:8080/plan/get-my-plans', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 this.myPlans = repos.data.reverse();
             }
@@ -103,12 +114,14 @@ class AppStore {
     }
 
     async getMyPlansToApproveAwaiting() {
+        this.isLoading = true;
         return await axios.get('http://localhost:8080/plan/get-plans-to-me-by-status', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             },
             params: { status: 'AWAITING' }
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 this.myPlansToApprove = repos.data.reverse();
                 this.getMyPlansToApproveApproved();
@@ -117,12 +130,14 @@ class AppStore {
     }
 
     async getMyPlansToApproveApproved() {
+        this.isLoading = true;
         return await axios.get('http://localhost:8080/plan/get-plans-to-me-by-status', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             },
             params: { status: 'APPROVED' }
         }).then((repos: any) => {
+            this.isLoading = false;
             if (repos.status === 200) {
                 this.myPlansToApprove = this.myPlansToApprove.concat(repos.data.reverse());
             }
@@ -130,29 +145,35 @@ class AppStore {
     }
 
     async createPlan() {
+        this.isLoading = true;
         return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, {},{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
         });
     }
 
     async copyPlan() {
+        this.isLoading = true;
         return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
         });
     }
 
     async deletePlan(items: any) {
+        this.isLoading = true;
         return await axios.post(`http://localhost:8080/plan/delete`, {items: items},{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
         }).then((repos: any) => {
+            this.isLoading = false;
         });
     }
 

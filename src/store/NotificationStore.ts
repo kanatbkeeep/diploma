@@ -18,11 +18,13 @@ class NotificationStore {
     };
 
     async getNotification() {
+        AppStore.isLoading = false;
         return await axios.get('http://localhost:8080/notification/get-to-me',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
+            AppStore.isLoading = true;
             if (repos.status === 200) {
                 this.notifications = repos.data;
             }
