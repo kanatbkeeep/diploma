@@ -24,7 +24,6 @@ function Login() {
                         <Button label={t('loginTitle')} onClick={() => {
                             AppStore.loadLogin()
                         }}/>
-                        <a>{t('forgotPassword')}</a>
                     </aside>
                 </section>
             </main>
