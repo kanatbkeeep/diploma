@@ -80,6 +80,10 @@ const kz = {
     submissionClosing: "Басқа бөлімді жабуға өтініш беру?",
     supportingDoc:"Растайтын құжат",
     uploadPdf:"Pdf жүктеу",
+    requiredToFill:"Міндетті өріс",
+    requiredPoints: "Орындау үшін қажетті сома:",
+    fraction: "Үлес,%:",
+    currentFraction: "Қазіргі үлесі,%:"
 }
 
 export default kz;
