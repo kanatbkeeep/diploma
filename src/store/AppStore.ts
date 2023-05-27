@@ -38,7 +38,7 @@ class AppStore {
 
     async loadLogin() {
         this.isLoading = true;
-        return await axios.post('http://localhost:8080/user/loginUser', {
+        return await axios.post('http://aitu-plan.herokuapp.com/user/loginUser', {
             email: this.model.email,
             password: this.model.password
         }).then((repos: any) => {
@@ -60,7 +60,7 @@ class AppStore {
     async registrationUser() {
         this.isLoading = true;
         this.statusRegistration = null;
-        return await axios.post('http://localhost:8080/user/register',
+        return await axios.post('http://aitu-plan.herokuapp.com/user/register',
             {
                 firstName: this.model.firstName,
                 lastName: this.model.middleName,
@@ -87,7 +87,7 @@ class AppStore {
 
     async getUser() {
         this.isLoading = true;
-        return await axios.get('http://localhost:8080/user/getUser', {
+        return await axios.get('http://aitu-plan.herokuapp.com/user/getUser', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -102,7 +102,7 @@ class AppStore {
 
     async getDepartmentByTeacher() {
         this.isLoading = true;
-        return await axios.get('http://localhost:8080/department/getByTeacher', {
+        return await axios.get('http://aitu-plan.herokuapp.com/department/getByTeacher', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -116,7 +116,7 @@ class AppStore {
 
     async getDepartmentByDirector() {
         this.isLoading = true;
-        return await axios.get('http://localhost:8080/department/get-by-director', {
+        return await axios.get('http://aitu-plan.herokuapp.com/department/get-by-director', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -130,7 +130,7 @@ class AppStore {
 
     async getMyPlans() {
         this.isLoading = true;
-        return await axios.get('http://localhost:8080/plan/get-my-plans', {
+        return await axios.get('http://aitu-plan.herokuapp.com/plan/get-my-plans', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -144,7 +144,7 @@ class AppStore {
 
     async getMyPlansToApproveAwaiting() {
         this.isLoading = true;
-        return await axios.get('http://localhost:8080/plan/get-plans-to-me-by-status', {
+        return await axios.get('http://aitu-plan.herokuapp.com/plan/get-plans-to-me-by-status', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             },
@@ -160,7 +160,7 @@ class AppStore {
 
     async getMyPlansToApproveApproved() {
         this.isLoading = true;
-        return await axios.get('http://localhost:8080/plan/get-plans-to-me-by-status', {
+        return await axios.get('http://aitu-plan.herokuapp.com/plan/get-plans-to-me-by-status', {
             headers: {
                 Authorization: this.getCookie('Authorization')
             },
@@ -175,7 +175,7 @@ class AppStore {
 
     async createPlan() {
         this.isLoading = true;
-        return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, {},{
+        return await axios.post(`http://aitu-plan.herokuapp.com/plan/create?idDirector=${this.department.director.id}`, {},{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -186,7 +186,7 @@ class AppStore {
 
     async copyPlan() {
         this.isLoading = true;
-        return await axios.post(`http://localhost:8080/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
+        return await axios.post(`http://aitu-plan.herokuapp.com/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }
@@ -197,7 +197,7 @@ class AppStore {
 
     async deletePlan(items: any) {
         this.isLoading = true;
-        return await axios.post(`http://localhost:8080/plan/delete`, {items: items},{
+        return await axios.post(`http://aitu-plan.herokuapp.com/plan/delete`, {items: items},{
             headers: {
                 Authorization: this.getCookie('Authorization')
             }

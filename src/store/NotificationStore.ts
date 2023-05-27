@@ -19,7 +19,7 @@ class NotificationStore {
 
     async getNotification() {
         AppStore.isLoading = false;
-        return await axios.get('http://localhost:8080/notification/get-to-me',{
+        return await axios.get('http://aitu-plan.herokuapp.com/notification/get-to-me',{
             headers: {
                 Authorization: getCookie('Authorization')
             }

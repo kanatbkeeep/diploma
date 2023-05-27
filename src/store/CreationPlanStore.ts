@@ -152,7 +152,7 @@ class CreationPlanStore {
 
     async sendPlan(byTeacher: boolean) {
         AppStore.isLoading = true;
-        return await axios.post('http://localhost:8080/notification/send?planId=' + this.plan.id + '&byTeacher=' + byTeacher,
+        return await axios.post('http://aitu-plan.herokuapp.com/notification/send?planId=' + this.plan.id + '&byTeacher=' + byTeacher,
             {
                 status: 'AWAITING'
             },

@@ -26,7 +26,7 @@ class ApproveStore {
 
     async sendApprove(byTeacher: boolean) {
         AppStore.isLoading = true;
-        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&byTeacher=' + byTeacher,
+        return await axios.post('http://aitu-plan.herokuapp.com/notification/send?planId=' + this.model.selectedPlan.id + '&byTeacher=' + byTeacher,
             {
                 status: 'APPROVED'
             },
@@ -44,7 +44,7 @@ class ApproveStore {
 
     async sendDenied(byTeacher: boolean) {
         AppStore.isLoading = true;
-        return await axios.post('http://localhost:8080/notification/send?planId=' + this.model.selectedPlan.id + '&byTeacher=' + byTeacher,
+        return await axios.post('http://aitu-plan.herokuapp.com/notification/send?planId=' + this.model.selectedPlan.id + '&byTeacher=' + byTeacher,
             {
                 status: 'DENIED',
                 parts: this.model.parts,
