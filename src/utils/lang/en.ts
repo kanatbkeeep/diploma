@@ -83,7 +83,10 @@ const en = {
     requiredToFill:"Required to fill in",
     requiredPoints:"Required quantity to complete:",
     fraction:"Share, %:",
-    currentFraction:"Current share, %:"
+    currentFraction:"Current share, %:",
+    needToVerify:"Confirm your email",
+    userAlreadyExist:"Mail is already in use",
+    techError:"Technical error",
 }
 
 export default en;

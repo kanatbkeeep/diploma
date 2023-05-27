@@ -20,6 +20,7 @@ class AppStore {
     lang: any = lg ? lg: "ru";
     langs: any = ["ru", "kz", "en"];
     isLoading: any = false;
+    statusRegistration: any;
 
     isTeacher() {
         for (let i = 0; i < this.currentUser.roles.length; i++) {
@@ -54,6 +55,34 @@ class AppStore {
             console.log(reason.message)
         });
 
+    }
+
+    async registrationUser() {
+        this.isLoading = true;
+        this.statusRegistration = null;
+        return await axios.post('http://localhost:8080/user/register',
+            {
+                firstName: this.model.firstName,
+                lastName: this.model.middleName,
+                middleName: this.model.lastName,
+                email: this.model.email,
+                password: this.model.password
+            }).then((repos: any) => {
+            this.isLoading = false;
+            if (repos.status === 200) {
+                this.statusRegistration = "verify";
+                console.log(this.statusRegistration)
+            }
+        }).catch((reason: AxiosError)=>{
+            this.isLoading = false;
+            if (reason.response!.status === 400) {
+                this.statusRegistration = "found";
+                console.log(this.statusRegistration)
+            }else{
+                this.statusRegistration = "techError";
+            }
+
+        });
     }
 
     async getUser() {
@@ -193,10 +222,14 @@ class AppStore {
             password: null,
             selectedPlan: null,
             showMyPlans: false,
+            firstName:null,
+            lastName:null,
+            middleName:null,
         }
 
         this.currentUser = null;
         this.department = null;
+        this.statusRegistration = null;
 
         makeAutoObservable(this, {
             editModel: action.bound,
@@ -211,6 +244,7 @@ class AppStore {
             getMyPlansToApproveAwaiting: action,
             getMyPlansToApproveApproved: action,
             isDirector: action,
+            registrationUser: action.bound,
         })
     }
 }
