@@ -83,7 +83,10 @@ const kz = {
     requiredToFill:"Міндетті өріс",
     requiredPoints: "Орындау үшін қажетті сома:",
     fraction: "Үлес,%:",
-    currentFraction: "Қазіргі үлесі,%:"
+    currentFraction: "Қазіргі үлесі,%:",
+    needToVerify: "Поштаңызды растаңыз",
+    userAlreadyExist: "Пошта қазірдің өзінде қолданыста",
+    techError: "Техникалық қате",
 }
 
 export default kz;

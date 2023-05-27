@@ -68,8 +68,8 @@ const ru = {
     professor:"Профессор",
     revisionPart:"Выберите часть (части) для улучшения:",
     lastName:"Фамилия",
-    middleName:"Имя",
-    firstName:"Отчество",
+    middleName:"Отчество",
+    firstName:"Имя",
     addComment:"Добавить комментарий:",
     typeHere:"Пишите тут...",
     approvedNotificationPart1:"Утвержден план на  ",
@@ -83,7 +83,10 @@ const ru = {
     requiredToFill:"Обязательное поле",
     requiredPoints:"Необходимое количество для выполнения:",
     fraction:"Доля, %:",
-    currentFraction:"Нынешняя доля, %:"
+    currentFraction:"Нынешняя доля, %:",
+    needToVerify:"Подтвердите свою почту",
+    userAlreadyExist:"Почта уже используется",
+    techError:"Техническая ошибка",
 }
 
 export default ru;

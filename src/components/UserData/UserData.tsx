@@ -32,12 +32,12 @@ const TeacherPlanList = (props: any) => {
                     <div className="column mr-58 space-between">
                         <div>
                             <h4 className="mt-24">{t('position')}</h4>
-                            <span>{AppStore.currentUser?.position[l('name')]}</span>
+                            <span>{AppStore.currentUser?.position?.nameEn ? AppStore.currentUser?.position[l('name')] : ""}</span>
                         </div>
                         {AppStore.isTeacher() ? <div>
                             <div>
                                 <h4 className="mt-24">{t('degree')}</h4>
-                                <span>{AppStore.currentUser?.degree[l('name')]}</span>
+                                <span>{AppStore.currentUser?.degree?.nameEn ? AppStore.currentUser?.degree[l('name')] : ""}</span>
                             </div>
                         </div> : null}
                         <div>
@@ -52,7 +52,8 @@ const TeacherPlanList = (props: any) => {
                         </div> : null}
                         {AppStore.isTeacher() ? <div>
                             <h4 className="mt-24">{t('departmentDirector')}</h4>
-                            <span>{AppStore.department?.director.firstName + ' ' + AppStore.department?.director.lastName}</span>
+                            <span>{AppStore.department?.director?.firstName && AppStore.department?.director?.lastName ?
+                                AppStore.department?.director?.firstName + ' ' + AppStore.department?.director?.lastName : ""}</span>
                         </div> : null}
                     </div>
                     <div className="column profileEditBtnParent">
