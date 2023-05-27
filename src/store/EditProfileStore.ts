@@ -18,7 +18,7 @@ class EditProfileStore {
 
     async updateUser() {
         AppStore.isLoading = true;
-        return await axios.post('http://aitu-plan.herokuapp.com/user/update', {
+        return await axios.post('https://aitu-plan.herokuapp.com/user/update', {
             firstName: this.model.firstName,
             lastName: this.model.lastName,
             middleName: this.model.middleName,
@@ -40,7 +40,7 @@ class EditProfileStore {
 
     async updateUserDepartment() {
         AppStore.isLoading = true;
-        return await axios.post('http://aitu-plan.herokuapp.com/department/transfer-teacher', this.model.department,{
+        return await axios.post('https://aitu-plan.herokuapp.com/department/transfer-teacher', this.model.department,{
             headers: {
                 Authorization: getCookie('Authorization')
             }
@@ -54,7 +54,7 @@ class EditProfileStore {
 
     async getDepartmentList() {
         AppStore.isLoading = true;
-        return await axios.get('http://aitu-plan.herokuapp.com/department/get-all',{
+        return await axios.get('https://aitu-plan.herokuapp.com/department/get-all',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
@@ -68,7 +68,7 @@ class EditProfileStore {
 
     async getPositions() {
         AppStore.isLoading = true;
-        return await axios.get('http://aitu-plan.herokuapp.com/user/getPositions',{
+        return await axios.get('https://aitu-plan.herokuapp.com/user/getPositions',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
@@ -82,7 +82,7 @@ class EditProfileStore {
 
     async getDegrees() {
         AppStore.isLoading = true;
-        return await axios.get('http://aitu-plan.herokuapp.com/user/getDegrees',{
+        return await axios.get('https://aitu-plan.herokuapp.com/user/getDegrees',{
             headers: {
                 Authorization: getCookie('Authorization')
             }

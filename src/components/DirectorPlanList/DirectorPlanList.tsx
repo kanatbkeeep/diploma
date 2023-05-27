@@ -55,7 +55,7 @@ const DirectorPlanList = (props: any) => {
                                             icon={DownloadWhite}
                                             type={'smallDark'}
                                             onClick={()=>{
-                                                window.location.href = `http://aitu-plan.herokuapp.com/plan/create-docx?planId=${item.id}`
+                                                window.location.href = `https://aitu-plan.herokuapp.com/plan/create-docx?planId=${item.id}`
                                             }}
                                         />
                                     </div>

@@ -109,7 +109,7 @@ const CreationPlan = (props: any) => {
                         icon={Download}
                         label={t('getExcel')}
                         onClick={()=>{
-                            window.location.href = `http://aitu-plan.herokuapp.com/plan/create-excel?planId=${planStore.plan.id}`
+                            window.location.href = `https://aitu-plan.herokuapp.com/plan/create-excel?planId=${planStore.plan.id}`
                         }}
                     />
                     <Button
