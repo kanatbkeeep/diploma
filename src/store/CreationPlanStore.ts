@@ -12,6 +12,7 @@ import {
     GET_LATEST_PLAN, GET_PLAN_BY_ID, SEND_PLAN
 } from "../config/rest/creationPlanRest";
 import AppStore from "./AppStore";
+import t from "../utils/Lang";
 
 class CreationPlanStore {
 
@@ -172,7 +173,7 @@ class CreationPlanStore {
         return await axios.post(ADD_ACADEMIC_METHOD,
             {
                 idPlan: this.plan.id,
-                discipline: this.step2.discipline,
+                discipline: this.step2.discipline === t('other') ? this.step2.anotherDiscipline : this.step2.discipline,
                 nameWork: this.step2.nameWork,
                 deadlines: this.step2.deadlines,
                 infoImplementation: this.step2.infoImplementation !== "Other/Другое/Басқа" ? this.step2.infoImplementation : this.step2.anotherInfoImpl,
@@ -618,6 +619,7 @@ class CreationPlanStore {
 
         this.step2 = {
             discipline: "",
+            anotherDiscipline:"",
             nameWork: "",
             deadlines: "",
             infoImplementation: "",

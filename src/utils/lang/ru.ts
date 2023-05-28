@@ -25,7 +25,7 @@ const ru = {
     group:"Группа",
     lectures:"Лекции",
     practices:"Практики",
-    officeHours:"Часы работы",
+    officeHours:"Офис часы",
     total:"Общее",
     noData:"Нет данных",
     nameWork:"Название работы",
@@ -87,6 +87,8 @@ const ru = {
     needToVerify:"Подтвердите свою почту",
     userAlreadyExist:"Почта уже используется",
     techError:"Техническая ошибка",
+    other:"Другое",
+    otherDiscipline:"Другая дисциплина",
 }
 
 export default ru;

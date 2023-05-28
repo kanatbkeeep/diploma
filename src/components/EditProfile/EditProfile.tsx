@@ -24,7 +24,7 @@ const EditProfile = (props: any) => {
             <div className={"editProfileBox"}>
                 <div className='editProfileData'>
                     <div className='editProfileHeader'>
-                        <h1>Edit</h1>
+                        <h1>{t('edit')}</h1>
                     </div>
                     <section>
                         <FilePicker

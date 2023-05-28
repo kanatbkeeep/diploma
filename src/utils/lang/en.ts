@@ -87,6 +87,8 @@ const en = {
     needToVerify:"Confirm your email",
     userAlreadyExist:"Mail is already in use",
     techError:"Technical error",
+    other:"Other",
+    otherDiscipline:"Other discipline",
 }
 
 export default en;

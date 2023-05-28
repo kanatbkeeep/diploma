@@ -449,6 +449,7 @@ const Step6 = (props: any) => {
 
                 <div style={{display: "flex", flexDirection: "row"}}>
                     <Input
+                        type="date"
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step6.deadlines}

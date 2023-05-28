@@ -17,6 +17,7 @@ const Step2 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
     const [uniqNames, setUniqNames]: any = useState([]);
+    const [isOther,setIsOther]:any = useState(false);
 
     useEffect(() => {
         let arr: any[] = [];
@@ -31,20 +32,13 @@ const Step2 = (props: any) => {
 
 
     const validation = () => {
-        return (planStore.step2.discipline && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.comment
+        return ((planStore.step2.discipline !== t('other') ? planStore.step2.discipline : planStore.step2.anotherDiscipline) && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.comment
             && (planStore.step2.infoImplementation === "Other/Другое/Басқа" ? planStore.step2.anotherInfoImpl : planStore.step2.infoImplementation));
     }
 
     const addObject = () => {
         planStore.saveAcademicMethod();
-        planStore.editStep2Modal({
-            discipline: "",
-            nameWork: "",
-            deadlines: "",
-            infoImplementation: "",
-            anotherInfoImpl: "",
-            comment: "",
-        })
+        clear();
     }
 
     const clear = () => {
@@ -55,6 +49,7 @@ const Step2 = (props: any) => {
             infoImplementation: "",
             anotherInfoImpl: "",
             comment: "",
+            anotherDiscipline: "",
         })
         setItemEdit(null);
     }
@@ -67,12 +62,18 @@ const Step2 = (props: any) => {
                 anotherInfoImpl: item.infoImplementation,
             });
         }
+        if (!uniqNames.includes(item.discipline)) {
+            planStore.editStep2Modal({
+                discipline: t('other'),
+                anotherDiscipline: item.discipline,
+            });
+        }
     }
 
     const edit = (item: any) => {
         const toUpdate = {
             id: item.id,
-            discipline: planStore.step2.discipline,
+            discipline: planStore.step2.discipline === t('other') ? planStore.step2.anotherDiscipline : planStore.step2.discipline,
             nameWork: planStore.step2.nameWork,
             deadlines: planStore.step2.deadlines,
             infoImplementation: planStore.step2.infoImplementation !== "Other/Другое/Басқа" ? planStore.step2.infoImplementation : planStore.step2.anotherInfoImpl,
@@ -143,12 +144,33 @@ const Step2 = (props: any) => {
                     >
                         <ul>
                             {uniqNames.length > 0 ? uniqNames.map((item: any) => {
-                                return <li onClick={() => planStore.editStep2Modal({discipline: item})}>
+                                return <li onClick={() => {
+                                    planStore.editStep2Modal({discipline: item,anotherDiscipline:""});
+                                    setIsOther(false)
+                                } }>
                                     {item}
                                 </li>
-                            }) : <li>{t('noData')}</li>}
+                            }) : null}
+                            <li onClick={()=>{setIsOther(true)
+                                planStore.editStep2Modal({discipline: t('other')})
+                            }}>{t('other')}</li>
                         </ul>
                     </Dropdown>
+
+                    {
+                        planStore.step2.discipline === t('other') ?
+                            <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
+                                <Input
+                                    maxWidth={500}
+                                    label={t('otherDiscipline')}
+                                    value={planStore.step2.anotherDiscipline}
+                                    onChange={(e: any) => {
+                                        planStore.editStep2Modal({anotherDiscipline: e.target.value});
+                                    }
+                                    }
+                                />
+                            </div> : null
+                    }
 
                 </div>
                 <div style={{marginBottom: 20}}>
@@ -164,12 +186,14 @@ const Step2 = (props: any) => {
                 </div>
                 <div style={{display: "flex", marginBottom: 20}}>
                     <Input
+                        type="date"
                         maxWidth={180}
                         label={t('deadlines')}
                         placeholder={t('end')}
                         value={planStore.step2.deadlines}
                         onChange={(e: any) => {
                             planStore.editStep2Modal({deadlines: e.target.value});
+                            console.log(e.target.value)
                         }
                         }
                     />

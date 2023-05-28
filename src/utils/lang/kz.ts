@@ -25,7 +25,7 @@ const kz = {
     group:"Топ",
     lectures:"Дәрістер",
     practices:"Тәжірибелер",
-    officeHours:"Жұмыс уақыты",
+    officeHours:"Кеңсе сағат",
     total:"Жалпы",
     noData:"Деректер жоқ",
     nameWork:"Жұмыс атауы",
@@ -87,6 +87,8 @@ const kz = {
     needToVerify: "Поштаңызды растаңыз",
     userAlreadyExist: "Пошта қазірдің өзінде қолданыста",
     techError: "Техникалық қате",
+    other:"Басқа",
+    otherDiscipline: "Басқа пән",
 }
 
 export default kz;
