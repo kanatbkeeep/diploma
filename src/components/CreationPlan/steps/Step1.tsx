@@ -73,8 +73,8 @@ const Step1 = (props: any) => {
             practicesFact: "",
             hoursPlan: "",
             hoursFact: "",
-            totalPlan: "",
-            totalFact: "",
+            totalPlan: 0,
+            totalFact: 0,
         })
     }
 

@@ -28,11 +28,9 @@ const Step6 = (props: any) => {
     const validation = () => {
         if (planStore.currentSection.options?.length > 0) {
             return (planStore.step6.chosenOption && planStore.step6.results && planStore.step6.comments && planStore.step6.deadlines
-                && planStore.step6.fileName && planStore.step6.fileBase64
                 && (planStore.step6.infoImplementation !== "Other/Другое/Басқа" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
         } else {
             return ((isAveragePercentage() ? planStore.step6.averagePer:planStore.step6.results) && planStore.step6.comments && planStore.step6.deadlines
-                && planStore.step6.fileName && planStore.step6.fileBase64
                 && (planStore.step6.infoImplementation !== "Other/Другое/Басқа" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
         }
 
@@ -624,10 +622,12 @@ const Step6 = (props: any) => {
                                 <div className="hidden-scroll"
                                      style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[5]}}>
-                                    <a className="download-file" href={item.pdfFile} download={item.pdfFileName}>
-                                        <img src={File}/>
-                                        {textFile(item.pdfFileName)}
-                                    </a>
+                                    {item.pdfFile ? <>
+                                        <a className="download-file" href={item.pdfFile} download={item.pdfFileName}>
+                                            <img src={File}/>
+                                            {textFile(item.pdfFileName)}
+                                        </a>
+                                    </> : null}
                                 </div>
                                 <div style={{maxWidth: maxWidthColumns[6]}}>{`${item.percentage}%`}</div>
                                 <div style={{maxWidth: maxWidthColumns[7]}}>
