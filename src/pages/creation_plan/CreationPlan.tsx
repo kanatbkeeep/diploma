@@ -21,6 +21,7 @@ import Step4 from "../../components/CreationPlan/steps/Step4";
 import Step5 from "../../components/CreationPlan/steps/Step5";
 import Step6 from "../../components/CreationPlan/steps/Step6";
 import KpiStore from "../../store/KpiStore";
+import NotificationStore from "../../store/NotificationStore";
 
 export enum Steps {
     Step1,
@@ -38,24 +39,23 @@ const CreationPlan = (props: any) => {
     const kpiStore:any = KpiStore;
     const navigation = useNavigate();
     const {id} = useParams();
+    const {currentUser} = AppStore;
 
 
     useEffect(() => {
-        AppStore.getUser().then(() => {
+        AppStore.getUser().then(async () => {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')
             }
-
-            if (AppStore.currentUser?.roles[0].roleName === "TEACHER") {
-                planStore.getKpiSections(AppStore.currentUser.position.nameRu,AppStore.currentUser.degree.nameRu);
-            }
-
+            await planStore.getPlan( id ? id : null)
+            planStore.getKpiSections(planStore.user.position.nameRu,planStore.user.degree.nameRu);
+            NotificationStore.getNotification();
         }).catch(() => {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')
             }
         });
-        planStore.getPlan( id ? id : null);
+
     }, [])
 
     const handleModalStateChanged = useCallback((state: boolean) => {

@@ -10,6 +10,7 @@ import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 import moment from "moment/moment";
+import AppStore from "../../../store/AppStore";
 
 const Step2 = (props: any) => {
     const {planStore} = props;
@@ -17,21 +18,21 @@ const Step2 = (props: any) => {
     const [itemEdit, setItemEdit]: any = useState(null);
     const [uniqNames, setUniqNames]: any = useState([]);
 
-    useEffect(()=>{
-        let arr:any[] = [];
-        planStore.academWorks.map((item:any)=>{
-            if(!arr.includes(item.nameOfDiscipline)){
+    useEffect(() => {
+        let arr: any[] = [];
+        planStore.academWorks.map((item: any) => {
+            if (!arr.includes(item.nameOfDiscipline)) {
                 console.log("added");
                 arr.push(item.nameOfDiscipline);
             }
         })
         setUniqNames(arr);
-    },[])
+    }, [])
 
 
     const validation = () => {
         return (planStore.step2.discipline && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.comment
-            && (planStore.step2.infoImplementation === "Other" ? planStore.step2.anotherInfoImpl : planStore.step2.infoImplementation ));
+            && (planStore.step2.infoImplementation === "Other/Другое/Басқа" ? planStore.step2.anotherInfoImpl : planStore.step2.infoImplementation));
     }
 
     const addObject = () => {
@@ -60,10 +61,10 @@ const Step2 = (props: any) => {
 
     const copy = (item: any) => {
         planStore.editStep2Modal({...item});
-        if(item.infoImplementation !== "Executed" && item.infoImplementation !== "In process"){
+        if (item.infoImplementation !== "Executed/Выполнен/Орындалды" && item.infoImplementation !== "In process/В процессе/Жұмыс барысында") {
             planStore.editStep2Modal({
-                infoImplementation:"Other",
-                anotherInfoImpl:item.infoImplementation,
+                infoImplementation: "Other/Другое/Басқа",
+                anotherInfoImpl: item.infoImplementation,
             });
         }
     }
@@ -74,12 +75,43 @@ const Step2 = (props: any) => {
             discipline: planStore.step2.discipline,
             nameWork: planStore.step2.nameWork,
             deadlines: planStore.step2.deadlines,
-            infoImplementation: planStore.step2.infoImplementation !== "Other" ? planStore.step2.infoImplementation : planStore.step2.anotherInfoImpl,
+            infoImplementation: planStore.step2.infoImplementation !== "Other/Другое/Басқа" ? planStore.step2.infoImplementation : planStore.step2.anotherInfoImpl,
             comment: planStore.step2.comment,
         }
         planStore.updateAcademicMethod(toUpdate);
         clear();
     }
+
+    const implShow = (impl: String) => {
+        const lg = AppStore.lang;
+        if (impl === "Executed/Выполнен/Орындалды") {
+          if(lg === "en"){
+             return impl.substring(0,8);
+          }else if(lg === "ru"){
+              return impl.substring(9,17);
+          }else{
+              return impl.substring(18);
+          }
+        } else if (impl === "In process/В процессе/Жұмыс барысында") {
+            if(lg === "en"){
+                return impl.substring(0,10);
+            }else if(lg === "ru"){
+                return impl.substring(11,21);
+            }else{
+                return impl.substring(22);
+            }
+        } else if(impl === "Other/Другое/Басқа"){
+            if(lg === "en"){
+                return impl.substring(0,5);
+            }else if(lg === "ru"){
+                return impl.substring(6,12);
+            }else{
+                return impl.substring(13);
+            }
+        }
+        return impl;
+    }
+
     return (
         <div className="step-component">
             <Input
@@ -110,11 +142,11 @@ const Step2 = (props: any) => {
                         maxWidth={500}
                     >
                         <ul>
-                            {uniqNames.length > 0  ? uniqNames.map((item: any) => {
+                            {uniqNames.length > 0 ? uniqNames.map((item: any) => {
                                 return <li onClick={() => planStore.editStep2Modal({discipline: item})}>
                                     {item}
                                 </li>
-                            }) : <li>{t('noData')}</li> }
+                            }) : <li>{t('noData')}</li>}
                         </ul>
                     </Dropdown>
 
@@ -152,12 +184,12 @@ const Step2 = (props: any) => {
                               }}
                               open={open === "infoImplementation"}
                               label={t('infoOnImplementation')}
-                              value={planStore.step2.infoImplementation ? planStore.step2.infoImplementation : t('select')}
+                              value={planStore.step2.infoImplementation ? implShow(planStore.step2.infoImplementation) : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
                                 return <li onClick={() => planStore.editStep2Modal({infoImplementation: item.name})}>
-                                    {item.name}
+                                    {implShow(item.name)}
                                 </li>
                             })}
                         </ul>
@@ -165,7 +197,7 @@ const Step2 = (props: any) => {
                 </div>
 
                 {
-                    planStore.step2.infoImplementation === "Other" ?
+                    planStore.step2.infoImplementation === "Other/Другое/Басқа" ?
                         <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
                             <Input
                                 maxWidth={500}
@@ -225,7 +257,7 @@ const Step2 = (props: any) => {
                     maxWidthTable={1083}
                     maxWidthColumns={[250, 250, 100, 150, 150, 140]}
                     haveDelete={true}
-                    onDelete={(arr:any[]) => {
+                    onDelete={(arr: any[]) => {
                         planStore.deleteAcademicMethods(arr);
                     }}
                     renderHead={(maxWidthColumns) => {
@@ -246,7 +278,7 @@ const Step2 = (props: any) => {
                                 <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.infoImplementation}</div>
+                                <div style={{maxWidth: maxWidthColumns[3]}}>{implShow(item.infoImplementation)}</div>
                                 <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>
                                     {item.comment}
                                 </div>

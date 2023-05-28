@@ -10,6 +10,7 @@ import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 import moment from "moment/moment";
+import AppStore from "../../../store/AppStore";
 
 const Step3 = (props: any) => {
     const [open, setOpen] = useState("");
@@ -20,7 +21,8 @@ const Step3 = (props: any) => {
 
     const validation = () => {
         return (planStore.step3.nameOfTheWork && planStore.step3.deadlines&& planStore.step3.results
-            && planStore.step3.comments  && ((planStore.step3.infoImplementation !== "Other" && planStore.step3.infoImplementation) ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl ) );
+            && planStore.step3.comments  && ((planStore.step3.infoImplementation !== "Other/Другое/Басқа" && planStore.step3.infoImplementation)
+                ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl ) );
     }
 
     const addObject = () => {
@@ -42,9 +44,9 @@ const Step3 = (props: any) => {
 
     const copy = (item: any) => {
         planStore.editStep3Modal({...item});
-        if(item.infoImplementation !== "Executed" && item.infoImplementation !== "In process"){
+        if(item.infoImplementation !== "In process/В процессе/Жұмыс барысында" && item.infoImplementation !== "Executed/Выполнен/Орындалды"){
             planStore.editStep3Modal({
-                infoImplementation:"Other",
+                infoImplementation:"Other/Другое/Басқа",
                 anotherInfoImpl:item.infoImplementation,
             });
         }
@@ -55,7 +57,7 @@ const Step3 = (props: any) => {
             id: item.id,
             nameOfTheWork: planStore.step3.nameOfTheWork,
             deadlines: planStore.step3.deadlines,
-            infoImplementation: planStore.step3.infoImplementation !== "Other" ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl,
+            infoImplementation: planStore.step3.infoImplementation !== "Other/Другое/Басқа" ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl,
             results: planStore.step3.results,
             comments: planStore.step3.comments,
         }
@@ -63,6 +65,35 @@ const Step3 = (props: any) => {
         clear();
     }
 
+    const implShow = (impl: String) => {
+        const lg = AppStore.lang;
+        if (impl === "Executed/Выполнен/Орындалды") {
+            if(lg === "en"){
+                return impl.substring(0,8);
+            }else if(lg === "ru"){
+                return impl.substring(9,17);
+            }else{
+                return impl.substring(18);
+            }
+        } else if (impl === "In process/В процессе/Жұмыс барысында") {
+            if(lg === "en"){
+                return impl.substring(0,10);
+            }else if(lg === "ru"){
+                return impl.substring(11,21);
+            }else{
+                return impl.substring(22);
+            }
+        } else if(impl === "Other/Другое/Басқа"){
+            if(lg === "en"){
+                return impl.substring(0,5);
+            }else if(lg === "ru"){
+                return impl.substring(6,12);
+            }else{
+                return impl.substring(13);
+            }
+        }
+        return impl;
+    }
 
     return (
         <div className="step-component">
@@ -112,13 +143,13 @@ const Step3 = (props: any) => {
                               }}
                               open={open === "infoImplementation"}
                               label={t('infoOnImplementation')}
-                              value={planStore.step3.infoImplementation ? planStore.step3.infoImplementation : t('select')}
+                              value={planStore.step3.infoImplementation ? implShow(planStore.step3.infoImplementation) : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
                                 return <li
                                     onClick={() => planStore.editStep3Modal({infoImplementation: item.name})}>
-                                    {item.name}
+                                    {implShow(item.name)}
                                 </li>
                             })}
                         </ul>
@@ -127,7 +158,7 @@ const Step3 = (props: any) => {
                 </div>
 
                 {
-                    planStore.step3.infoImplementation === "Other" ?
+                    planStore.step3.infoImplementation === "Other/Другое/Басқа" ?
                         <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
                             <Input
                                 maxWidth={500}
@@ -222,7 +253,7 @@ const Step3 = (props: any) => {
                                 <div className="hidden-scroll"
                                      style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.infoImplementation}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{implShow(item.infoImplementation)}</div>
                                 <div className="hidden-scroll"
                                      style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
                                 <div className="hidden-scroll"

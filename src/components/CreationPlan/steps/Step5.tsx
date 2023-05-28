@@ -10,6 +10,7 @@ import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 import moment from "moment/moment";
+import AppStore from "../../../store/AppStore";
 
 const Step5 = (props: any) => {
     const [open, setOpen] = useState("");
@@ -20,7 +21,7 @@ const Step5 = (props: any) => {
 
     const validation = () => {
         return (planStore.step5.nameOfTheWork && planStore.step5.deadlines&& planStore.step5.results
-            && planStore.step5.comments  && ((planStore.step5.infoImplementation !== "Other" && planStore.step5.infoImplementation) ? planStore.step5.infoImplementation : planStore.step5.anotherInfoImpl ) );
+            && planStore.step5.comments  && ((planStore.step5.infoImplementation !== "Other/Другое/Басқа" && planStore.step5.infoImplementation) ? planStore.step5.infoImplementation : planStore.step5.anotherInfoImpl ) );
     }
 
     const addObject = () => {
@@ -42,9 +43,9 @@ const Step5 = (props: any) => {
 
     const copy = (item: any) => {
         planStore.editStep5Modal({...item});
-        if(item.infoImplementation !== "Executed" && item.infoImplementation !== "In process"){
+        if(item.infoImplementation !== "Executed/Выполнен/Орындалды" && item.infoImplementation !== "In process/В процессе/Жұмыс барысында"){
             planStore.editStep5Modal({
-                infoImplementation:"Other",
+                infoImplementation:"Other/Другое/Басқа",
                 anotherInfoImpl:item.infoImplementation,
             });
         }
@@ -55,7 +56,7 @@ const Step5 = (props: any) => {
             id: item.id,
             nameOfTheWork: planStore.step5.nameOfTheWork,
             deadlines: planStore.step5.deadlines,
-            infoImplementation: planStore.step5.infoImplementation !== "Other" ? planStore.step5.infoImplementation : planStore.step5.anotherInfoImpl,
+            infoImplementation: planStore.step5.infoImplementation !== "Other/Другое/Басқа" ? planStore.step5.infoImplementation : planStore.step5.anotherInfoImpl,
             results: planStore.step5.results,
             comments: planStore.step5.comments,
         }
@@ -63,6 +64,35 @@ const Step5 = (props: any) => {
         clear();
     }
 
+    const implShow = (impl: String) => {
+        const lg = AppStore.lang;
+        if (impl === "Executed/Выполнен/Орындалды") {
+            if(lg === "en"){
+                return impl.substring(0,8);
+            }else if(lg === "ru"){
+                return impl.substring(9,17);
+            }else{
+                return impl.substring(18);
+            }
+        } else if (impl === "In process/В процессе/Жұмыс барысында") {
+            if(lg === "en"){
+                return impl.substring(0,10);
+            }else if(lg === "ru"){
+                return impl.substring(11,21);
+            }else{
+                return impl.substring(22);
+            }
+        } else if(impl === "Other/Другое/Басқа"){
+            if(lg === "en"){
+                return impl.substring(0,5);
+            }else if(lg === "ru"){
+                return impl.substring(6,12);
+            }else{
+                return impl.substring(13);
+            }
+        }
+        return impl;
+    }
 
     return (
         <div className="step-component">
@@ -112,13 +142,13 @@ const Step5 = (props: any) => {
                               }}
                               open={open === "infoImplementation"}
                               label={t('infoOnImplementation')}
-                              value={planStore.step5.infoImplementation ? planStore.step5.infoImplementation : t('select')}
+                              value={planStore.step5.infoImplementation ? implShow(planStore.step5.infoImplementation) : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
                                 return <li
                                     onClick={() => planStore.editStep5Modal({infoImplementation: item.name})}>
-                                    {item.name}
+                                    {implShow(item.name)}
                                 </li>
                             })}
                         </ul>
@@ -127,7 +157,7 @@ const Step5 = (props: any) => {
                 </div>
 
                 {
-                    planStore.step5.infoImplementation === "Other" ?
+                    planStore.step5.infoImplementation === "Other/Другое/Басқа" ?
                         <div style={{marginTop: 20, marginBottom: 20, display: "flex"}}>
                             <Input
                                 maxWidth={500}
@@ -222,7 +252,7 @@ const Step5 = (props: any) => {
                                 <div className="hidden-scroll"
                                      style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.infoImplementation}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{implShow(item.infoImplementation)}</div>
                                 <div className="hidden-scroll"
                                      style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
                                 <div className="hidden-scroll"

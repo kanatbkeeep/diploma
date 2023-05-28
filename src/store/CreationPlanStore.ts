@@ -32,6 +32,7 @@ class CreationPlanStore {
     currentSection:any;
     checked: any;
     kpiSections: any;
+    user:any;
 
     editStep1Modal(obj: any) {
         this.step1 = {...this.step1, ...obj};
@@ -69,36 +70,13 @@ class CreationPlanStore {
         {id: 3, name: "3"},
     ];
 
-    groups = [
-        {id: 1, name: "SE-2014"},
-        {id: 2, name: "IT-2002"},
-        {id: 3, name: "SE-2015"},
-        {id: 4, name: "SE-2013"},
-        {id: 5, name: "SE-2012"},
-        {id: 6, name: "SE-2011"}
-    ];
-
-    disciplines = [
-        {id: 1, name: "Java programming"},
-        {id: 2, name: "C++ programming"},
-        {id: 3, name: "C# programming"},
-        {id: 4, name: "Python programming"},
-        {id: 5, name: "Web programming"},
-        {id: 6, name: "Machine learning"}
-    ];
-
     infoImplementation = [
-        {id: 1, name: "Executed"},
-        {id: 2, name: "In process"},
-        {id: 2, name: "Other"},
+        {id: 1, name: "Executed/Выполнен/Орындалды"},
+        {id: 2, name: "In process/В процессе/Жұмыс барысында"},
+        {id: 2, name: "Other/Другое/Басқа"},
     ]
 
-    typeWork = [
-        {id: 1, name: "Preparation of an Article"},
-        {id: 2, name: "Participation in a Conference"},
-        {id: 3, name: "Scientific guidance"},
-        {id: 4, name: "Other"},
-    ];
+
 
     getCookie(name: any) {
         const value = `; ${document.cookie}`;
@@ -119,6 +97,7 @@ class CreationPlanStore {
                 AppStore.isLoading = false;
                 if (repos.status === 200) {
                     this.plan = repos.data;
+                    this.user = this.plan.createdBy.email === AppStore.currentUser.email ? AppStore.currentUser : this.plan.createdBy;
                     this.academWorks = repos.data.academicWorks;
                     this.eduMethWorks = repos.data.academicMethods;
                     this.eduWorks = repos.data.educationalWorks;
@@ -137,6 +116,7 @@ class CreationPlanStore {
                 AppStore.isLoading = false;
                 if (repos.status === 200) {
                     this.plan = repos.data;
+                    this.user = this.plan.createdBy.email === AppStore.currentUser.email ? AppStore.currentUser : this.plan.createdBy;
                     this.academWorks = repos.data.academicWorks;
                     this.eduMethWorks = repos.data.academicMethods;
                     this.eduWorks = repos.data.educationalWorks;
@@ -195,7 +175,7 @@ class CreationPlanStore {
                 discipline: this.step2.discipline,
                 nameWork: this.step2.nameWork,
                 deadlines: this.step2.deadlines,
-                infoImplementation: this.step2.infoImplementation !== "Other" ? this.step2.infoImplementation : this.step2.anotherInfoImpl,
+                infoImplementation: this.step2.infoImplementation !== "Other/Другое/Басқа" ? this.step2.infoImplementation : this.step2.anotherInfoImpl,
                 comment: this.step2.comment,
             },
             {
@@ -217,7 +197,7 @@ class CreationPlanStore {
                 idPlan: this.plan.id,
                 nameOfTheWork: this.step3.nameOfTheWork,
                 deadlines: this.step3.deadlines,
-                infoImplementation: this.step3.infoImplementation !== "Other" ? this.step3.infoImplementation : this.step3.anotherInfoImpl,
+                infoImplementation: this.step3.infoImplementation !== "Other/Другое/Басқа" ? this.step3.infoImplementation : this.step3.anotherInfoImpl,
                 results: this.step3.results,
                 comments: this.step3.comments,
             },
@@ -240,7 +220,7 @@ class CreationPlanStore {
                 idPlan: this.plan.id,
                 nameOfTheWork: this.step4.nameOfTheWork,
                 deadlines: this.step4.deadlines,
-                infoImplementation: this.step4.infoImplementation !== "Other" ? this.step4.infoImplementation : this.step4.anotherInfoImpl,
+                infoImplementation: this.step4.infoImplementation !== "Other/Другое/Басқа" ? this.step4.infoImplementation : this.step4.anotherInfoImpl,
                 results: this.step4.results,
                 comments: this.step4.comments,
             },
@@ -263,7 +243,7 @@ class CreationPlanStore {
                 idPlan: this.plan.id,
                 nameOfTheWork: this.step5.nameOfTheWork,
                 deadlines: this.step5.deadlines,
-                infoImplementation: this.step5.infoImplementation !== "Other" ? this.step5.infoImplementation : this.step5.anotherInfoImpl,
+                infoImplementation: this.step5.infoImplementation !== "Other/Другое/Басқа" ? this.step5.infoImplementation : this.step5.anotherInfoImpl,
                 results: this.step5.results,
                 comments: this.step5.comments,
             },
@@ -553,7 +533,7 @@ class CreationPlanStore {
             {
                 nameOfTheWork:this.step6.chosenOption ? this.step6.chosenOption : this.currentSection.name,
                 deadlines:this.step6.deadlines,
-                informationOnImplementation: this.step6.infoImplementation !== "Other" ? this.step6.infoImplementation: this.step6.otherInfoImpl,
+                informationOnImplementation: this.step6.infoImplementation !== "Other/Другое/Басқа" ? this.step6.infoImplementation: this.step6.otherInfoImpl,
                 results: !isAverPer ? this.step6.results : this.step6.averagePer,
                 comments:this.step6.comments,
                 percentage:this.step6.currentPercentage,
@@ -581,7 +561,7 @@ class CreationPlanStore {
                 id:id,
                 nameOfTheWork:this.step6.chosenOption ? this.step6.chosenOption : this.currentSection.name,
                 deadlines:this.step6.deadlines,
-                informationOnImplementation: this.step6.infoImplementation !== "Other" ? this.step6.infoImplementation: this.step6.otherInfoImpl,
+                informationOnImplementation: this.step6.infoImplementation !== "Other/Другое/Басқа" ? this.step6.infoImplementation: this.step6.otherInfoImpl,
                 results: !isAverPer ? this.step6.results : this.step6.averagePer,
                 comments:this.step6.comments,
                 percentage:this.step6.currentPercentage,
@@ -626,12 +606,12 @@ class CreationPlanStore {
             course: "",
             trimester: "",
             groups: "",
-            lecturesPlan: 0,
-            lecturesFact: 0,
-            practicesPlan: 0,
-            practicesFact: 0,
-            hoursPlan: 0,
-            hoursFact: 0,
+            lecturesPlan: null,
+            lecturesFact: null,
+            practicesPlan: null,
+            practicesFact: null,
+            hoursPlan: null,
+            hoursFact: null,
             totalPlan: 0,
             totalFact: 0,
         }
@@ -702,6 +682,7 @@ class CreationPlanStore {
         this.socialWorks = [];
         this.kpiWorks = [];
         this.plan = null;
+        this.user = null;
 
 
         makeAutoObservable(this, {

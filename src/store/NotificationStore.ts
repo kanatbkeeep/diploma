@@ -18,16 +18,16 @@ class NotificationStore {
     };
 
     async getNotification() {
-        AppStore.isLoading = false;
+
         return await axios.get('https://aitu-plan.herokuapp.com/notification/get-to-me',{
             headers: {
                 Authorization: getCookie('Authorization')
             }
         }).then((repos: any) => {
-            AppStore.isLoading = true;
             if (repos.status === 200) {
                 this.notifications = repos.data;
             }
+
         });
     }
 

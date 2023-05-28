@@ -15,23 +15,25 @@ import moment from "moment/moment";
 import RadioButton from "../../RadioButton/RadioButton";
 import Checkbox from "../../Checkbox/Checkbox";
 import FilePicker from "../../FilePicker/FilePicker";
+import AppStore from "../../../store/AppStore";
 
 const Step6 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
     const {planStore,AppStore} = props;
     const {currentUser} = AppStore;
+    const user = planStore.plan.createdBy.email === currentUser.email ? currentUser : planStore.plan.createdBy;
     const [section, setSection] = useState(0);
 
     const validation = () => {
         if (planStore.currentSection.options?.length > 0) {
             return (planStore.step6.chosenOption && planStore.step6.results && planStore.step6.comments && planStore.step6.deadlines
                 && planStore.step6.fileName && planStore.step6.fileBase64
-                && (planStore.step6.infoImplementation !== "Other" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
+                && (planStore.step6.infoImplementation !== "Other/Другое/Басқа" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
         } else {
             return ((isAveragePercentage() ? planStore.step6.averagePer:planStore.step6.results) && planStore.step6.comments && planStore.step6.deadlines
                 && planStore.step6.fileName && planStore.step6.fileBase64
-                && (planStore.step6.infoImplementation !== "Other" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
+                && (planStore.step6.infoImplementation !== "Other/Другое/Басқа" ? planStore.step6.infoImplementation : planStore.step6.otherInfoImpl))
         }
 
     }
@@ -40,7 +42,7 @@ const Step6 = (props: any) => {
         console.log("isFinance:"+isFinance());
         let section:any = anotherSection();
 
-        let rate:any = currentUser.rate === "1" ? section.rate_full : currentUser.rate === "0.5" ? section.rate_half : section.rate_quarter;
+        let rate:any = user.rate === "1" ? section.rate_full : user.rate === "0.5" ? section.rate_half : section.rate_quarter;
 
         if(isAveragePercentage()){
           if(planStore.step6.averagePer >= 80){
@@ -91,10 +93,10 @@ const Step6 = (props: any) => {
         clear();
         planStore.editStep6Modal({
             deadlines:item.deadlines,
-            infoImplementation:(item.informationOnImplementation === "Executed" || item.informationOnImplementation === "In process") ? item.informationOnImplementation : "Other",
+            infoImplementation:(item.informationOnImplementation === "Executed/Выполнен/Орындалды" || item.informationOnImplementation === "In process/В процессе/Жұмыс барысында") ? item.informationOnImplementation : "Other/Другое/Басқа",
             results:item.results,
             comments:item.comments,
-            otherInfoImpl: (item.informationOnImplementation !== "Executed" || item.informationOnImplementation !== "In process") ? item.informationOnImplementation : "",
+            otherInfoImpl: (item.informationOnImplementation !== "Executed/Выполнен/Орындалды" || item.informationOnImplementation !== "In process/В процессе/Жұмыс барысында") ? item.informationOnImplementation : "",
             numberAuthor: item.authorsNumber,
             chosenOption: item.nameOfTheWork,
             fileName:item.pdfFileName,
@@ -147,6 +149,36 @@ const Step6 = (props: any) => {
         return planStore.currentSection.name === "Привлечение финансирования" || anotherSection().name === "Привлечение финансирования";
     }
 
+    const implShow = (impl: String) => {
+        const lg = AppStore.lang;
+        if (impl === "Executed/Выполнен/Орындалды") {
+            if(lg === "en"){
+                return impl.substring(0,8);
+            }else if(lg === "ru"){
+                return impl.substring(9,17);
+            }else{
+                return impl.substring(18);
+            }
+        } else if (impl === "In process/В процессе/Жұмыс барысында") {
+            if(lg === "en"){
+                return impl.substring(0,10);
+            }else if(lg === "ru"){
+                return impl.substring(11,21);
+            }else{
+                return impl.substring(22);
+            }
+        } else if(impl === "Other/Другое/Басқа"){
+            if(lg === "en"){
+                return impl.substring(0,5);
+            }else if(lg === "ru"){
+                return impl.substring(6,12);
+            }else{
+                return impl.substring(13);
+            }
+        }
+        return impl;
+    }
+
     return (
         <div className="step-component">
             <Input
@@ -163,8 +195,8 @@ const Step6 = (props: any) => {
             <div style={{marginBottom: 13}}/>
             <div className="inputs-step">
                 <div className="degree-position-container">
-                    <div>{currentUser.degree[l('name')]}</div>
-                    <div>{currentUser.position[l('name')]}</div>
+                    <div>{user.degree[l('name')]}</div>
+                    <div>{user.position[l('name')]}</div>
                 </div>
                 <div className="navigation-marks">
                     {planStore.step6.currentIndSection !== 0 ?
@@ -214,7 +246,7 @@ const Step6 = (props: any) => {
                 <div className="percentages-container">
                     <div className="percentages">
                         <div
-                            className="per-1">{`${t('requiredPoints')} ${currentUser.rate === "1" ? anotherSection().rate_full : currentUser.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
+                            className="per-1">{`${t('requiredPoints')} ${user.rate === "1" ? anotherSection().rate_full : user.rate === "0.5" ? anotherSection().rate_half : anotherSection().rate_quarter}`}</div>
                         <div className="per-2">{`${t('fraction')} ${anotherSection().percentage}`}</div>
                         <div className="per-3">{`${t('currentFraction')} ${planStore.step6.currentPercentage}`}</div>
                     </div>
@@ -332,10 +364,10 @@ const Step6 = (props: any) => {
                                                     name:item.nameOfTheWork
                                                 },
                                                 deadlines:item.deadlines,
-                                                infoImplementation:(item.infoImplementation === "Executed" || item.infoImplementation === "In process") ? item.infoImplementation : "Other",
+                                                infoImplementation:(item.infoImplementation === "Executed/Выполнен/Орындалды" || item.infoImplementation === "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "Other/Другое/Басқа",
                                                 results:item.results,
                                                 comments:item.comments,
-                                                otherInfoImpl: (item.infoImplementation !== "Executed" || item.infoImplementation !== "In process") ? item.infoImplementation : "",
+                                                otherInfoImpl: (item.infoImplementation !== "Executed/Выполнен/Орындалды" || item.infoImplementation !== "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "",
                                             })}>
                                             {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
@@ -366,10 +398,10 @@ const Step6 = (props: any) => {
                                                     name:item.nameOfTheWork
                                                 },
                                                 deadlines:item.deadlines,
-                                                infoImplementation:(item.infoImplementation === "Executed" || item.infoImplementation === "In process") ? item.infoImplementation : "Other",
+                                                infoImplementation:(item.infoImplementation === "Executed/Выполнен/Орындалды" || item.infoImplementation === "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "Other/Другое/Басқа",
                                                 results:item.results,
                                                 comments:item.comments,
-                                                otherInfoImpl: (item.infoImplementation !== "Executed" || item.infoImplementation !== "In process") ? item.infoImplementation : "",
+                                                otherInfoImpl: (item.infoImplementation !== "Executed/Выполнен/Орындалды" || item.infoImplementation !== "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "",
                                             })}>
                                             {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
@@ -400,10 +432,10 @@ const Step6 = (props: any) => {
                                                     name:item.nameOfTheWork
                                                 },
                                                 deadlines:item.deadlines,
-                                                infoImplementation:(item.infoImplementation === "Executed" || item.infoImplementation === "In process") ? item.infoImplementation : "Other",
+                                                infoImplementation:(item.infoImplementation === "Executed/Выполнен/Орындалды" || item.infoImplementation === "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "Other/Другое/Басқа",
                                                 results:item.results,
                                                 comments:item.comments,
-                                                otherInfoImpl: (item.infoImplementation !== "Executed" || item.infoImplementation !== "In process") ? item.infoImplementation : "",
+                                                otherInfoImpl: (item.infoImplementation !== "Executed/Выполнен/Орындалды" || item.infoImplementation !== "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "",
                                             })}>
                                             {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
@@ -436,7 +468,7 @@ const Step6 = (props: any) => {
                         }}
                         open={open === "infoImplementation"}
                         label={t('infoOnImplementation')}
-                        value={planStore.step6.infoImplementation ? planStore.step6.infoImplementation : t('select')}
+                        value={planStore.step6.infoImplementation ? implShow(planStore.step6.infoImplementation) : t('select')}
                     >
                         <ul>
                             {planStore.infoImplementation.map((item: any) => {
@@ -445,7 +477,7 @@ const Step6 = (props: any) => {
                                         infoImplementation: item.name,
                                         otherInfoImpl: ""
                                     })}>
-                                    {item.name}
+                                    {implShow(item.name)}
                                 </li>
                             })}
                         </ul>
@@ -453,7 +485,7 @@ const Step6 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20}}/>
 
-                {planStore.step6.infoImplementation === "Other" ?
+                {planStore.step6.infoImplementation === "Other/Другое/Басқа" ?
                     <Input
                         maxWidth={500}
                         label={t('infoOnImplementation')}
@@ -585,7 +617,7 @@ const Step6 = (props: any) => {
                                     {item.nameOfTheWork}
                                 </div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.informationOnImplementation}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{implShow(item.informationOnImplementation)}</div>
                                 <div className="hidden-scroll"
                                      style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
                                 <div className="hidden-scroll"
