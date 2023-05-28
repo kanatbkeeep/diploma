@@ -39,8 +39,8 @@ const Step1 = (props: any) => {
 
     const validation = () => {
         return (planStore.step1.nameOfDiscipline && planStore.step1.course && planStore.step1.trimester && planStore.step1.groups
-            && planStore.step1.lecturesPlan && planStore.step1.lecturesFact && planStore.step1.practicesPlan && planStore.step1.practicesFact
-            && planStore.step1.hoursPlan && planStore.step1.hoursFact && planStore.step1.totalPlan && planStore.step1.totalFact);
+            && planStore.step1.lecturesPlan  && planStore.step1.practicesPlan
+            && planStore.step1.hoursPlan && planStore.step1.totalPlan );
     }
 
     const addObject = () => {
