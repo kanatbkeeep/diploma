@@ -190,7 +190,6 @@ const Step2 = (props: any) => {
                     <Input
                         maxWidth={180}
                         label={t('deadlines')}
-                        placeholder={t('end')}
                         value={planStore.step2.deadlines}
                         onChange={(e: any) => {
                             planStore.editStep2Modal({deadlines: e.target.value});

@@ -16,27 +16,6 @@ const Step1 = (props: any) => {
     const [arraySearch, setArraySerch]:any[] = useState([]);
     const {planStore} = props;
 
-    // useEffect(()=>{
-    //     let arr:any[] = [];
-    //   planStore.academWorks.map((item:any,ind:any)=>{
-    //       arr.push({
-    //           id:ind,
-    //           nameDiscipline: item.nameOfDiscipline,
-    //           course:,
-    //           trimester:,
-    //           group:,
-    //           lecturesPlan:,
-    //           lecturesFact:,
-    //           practicesPlan:,
-    //           practicesFact:,
-    //           officeHoursPlan:,
-    //           officeHoursFact:,
-    //           totalPlan:,
-    //           totalFact,
-    //       })
-    //   })
-    // },[planStore.academWorks])
-
     const validation = () => {
         return (planStore.step1.nameOfDiscipline && planStore.step1.course && planStore.step1.trimester && planStore.step1.groups
             && planStore.step1.lecturesPlan  && planStore.step1.practicesPlan
@@ -76,6 +55,7 @@ const Step1 = (props: any) => {
             totalPlan: 0,
             totalFact: 0,
         })
+        setItemEdit(null);
     }
 
     const copy = (item: any) => {
