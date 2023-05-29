@@ -367,7 +367,7 @@ const Step6 = (props: any) => {
                                                 comments:item.comments,
                                                 otherInfoImpl: (item.infoImplementation !== "Executed/Выполнен/Орындалды" || item.infoImplementation !== "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "",
                                             })}>
-                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                            {item?.nameOfTheWork?.length > 80 ? item.nameOfTheWork.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
                                     }): <li>{t('noData')}</li>}
                                 </ul>
@@ -401,7 +401,7 @@ const Step6 = (props: any) => {
                                                 comments:item.comments,
                                                 otherInfoImpl: (item.infoImplementation !== "Executed/Выполнен/Орындалды" || item.infoImplementation !== "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "",
                                             })}>
-                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                            {item?.nameOfTheWork?.length > 80 ? item.nameOfTheWork.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
                                     }): <li>{t('noData')}</li>}
                                 </ul>
@@ -435,7 +435,7 @@ const Step6 = (props: any) => {
                                                 comments:item.comments,
                                                 otherInfoImpl: (item.infoImplementation !== "Executed/Выполнен/Орындалды" || item.infoImplementation !== "In process/В процессе/Жұмыс барысында") ? item.infoImplementation : "",
                                             })}>
-                                            {item?.nameOfTheWork?.length > 80 ? item.name.substring(0,80)+"..." : item?.nameOfTheWork}
+                                            {item?.nameOfTheWork?.length > 80 ? item.nameOfTheWork.substring(0,80)+"..." : item?.nameOfTheWork}
                                         </li>
                                     }): <li>{t('noData')}</li>}
                                 </ul>
@@ -447,7 +447,6 @@ const Step6 = (props: any) => {
 
                 <div style={{display: "flex", flexDirection: "row"}}>
                     <Input
-                        type="date"
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step6.deadlines}

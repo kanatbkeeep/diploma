@@ -9,7 +9,7 @@ import {
     DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_KPI, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
     EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_KPI, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK, GET_KPI_SECTIONS,
-    GET_LATEST_PLAN, GET_PLAN_BY_ID, SEND_PLAN
+    GET_LATEST_PLAN, GET_PLAN_BY_ID, IMPORT_PLAN, SEND_PLAN
 } from "../config/rest/creationPlanRest";
 import AppStore from "./AppStore";
 import t from "../utils/Lang";
@@ -130,6 +130,24 @@ class CreationPlanStore {
             });
         }
 
+    }
+
+    async importPlan(file: any) {
+        AppStore.isLoading = true;
+        return await axios.post(IMPORT_PLAN,
+            {
+                fileBase64: file
+            },
+            {
+                headers: {
+                    Authorization: this.getCookie(`Authorization`)
+                },
+            }).then((repos: any) => {
+            AppStore.getMyPlans();
+            AppStore.isLoading = false;
+        }).catch(() => {
+            AppStore.isLoading = false;
+        });
     }
 
     async sendPlan(byTeacher: boolean) {
@@ -719,6 +737,7 @@ class CreationPlanStore {
             resetChecked: action.bound,
             getKpiSections: action.bound,
             clean: action.bound,
+            importPlan: action.bound,
         },)
     }
 

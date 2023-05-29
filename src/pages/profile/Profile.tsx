@@ -17,6 +17,8 @@ import UserData from "../../components/UserData/UserData";
 import Revision from "../../components/Revision/Revision";
 import NotificationStore from "../../store/NotificationStore";
 import ToggleSwitch from "../../components/ToggleSwitch/ToggleSwitch";
+import CreationPlanStore from "../../store/CreationPlanStore";
+import FilePicker from "../../components/FilePicker/FilePicker";
 
 function Profile() {
     const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -83,6 +85,25 @@ function Profile() {
                     <TeacherPlanList/>
 
                     <section className={'createPlan'}>
+                        <FilePicker
+                            accept=".docx"
+                            sublabel={t('importPlan')}
+                            onChange={async (e: any) => {
+                                let selectedFile = e.target.files;
+                                if (selectedFile.length > 0) {
+                                    let fileToLoad = selectedFile[0];
+                                    let fileReader = new FileReader();
+                                    let base64;
+
+                                    fileReader.onload = async function (fileLoadedEvent: any) {
+                                        base64 = fileLoadedEvent.target.result;
+                                        base64 = base64.split(',')[1];
+                                        await CreationPlanStore.importPlan(base64);
+                                    };
+                                    fileReader.readAsDataURL(fileToLoad);
+                                }
+                            }}
+                        />
                         <Button
                             icon={Plus}
                             label={t('createPlan')}

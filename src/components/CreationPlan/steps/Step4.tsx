@@ -124,7 +124,6 @@ const Step4 = (props: any) => {
                 </div>
                 <div style={{marginBottom: 20, display: "flex"}}>
                     <Input
-                        type="date"
                         maxWidth={140}
                         label={t('deadlines')}
                         value={planStore.step4.deadlines}

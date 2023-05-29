@@ -12,6 +12,7 @@ const ru = {
     academicSocialWork: 'Социальная работа',
     status: 'Статус',
     createPlan: 'Создать план',
+    importPlan: 'Импортировать план',
     position: 'Должность',
     rate: 'Ставка',
     degree: 'Степень',
