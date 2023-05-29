@@ -36,7 +36,7 @@ const TeacherPlanList = (props: any) => {
                         </div>
                         {AppStore.isTeacher() ? <div>
                             <div>
-                                <h4 className="mt-24">{t('degree')}</h4>
+                                <h4 className="mt-24">KPI</h4>
                                 <span>{AppStore.currentUser?.degree?.nameEn ? AppStore.currentUser?.degree[l('name')] : ""}</span>
                             </div>
                         </div> : null}

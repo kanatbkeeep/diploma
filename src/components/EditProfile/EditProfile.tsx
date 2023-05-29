@@ -136,7 +136,7 @@ const EditProfile = (props: any) => {
                                     }
                                 }}
                                 open={open === "degree"}
-                                label={t('degree')}
+                                label="KPI"
                                 maxWidth={300}
                                 value={EditProfileStore.model.degree ? EditProfileStore.model.degree[l('name')] : "---"}
                             >
