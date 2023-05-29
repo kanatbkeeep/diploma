@@ -3,13 +3,13 @@ import React from 'react';
 import axios, {AxiosError} from 'axios'
 import {url} from "../config/rest/common";
 
-function getCookie(name: any) {
-    const value = '; ${document.cookie}';
-    const parts: any = value.split('; ${name}=');
+export function getCookie(name: any) {
+    const value = `; ${document.cookie}`;
+    const parts: any = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-let lg = getCookie('lang')?getCookie('lang'):getCookie('locale');
+export let lg = getCookie("lang")?getCookie("lang"):getCookie('locale');
 
 class AppStore {
     currentUser: any;

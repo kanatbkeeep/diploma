@@ -11,6 +11,7 @@ import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 import moment from "moment/moment";
 import AppStore from "../../../store/AppStore";
+import {getCookie} from "../../../store/AppStore";
 
 const Step2 = (props: any) => {
     const {planStore} = props;
