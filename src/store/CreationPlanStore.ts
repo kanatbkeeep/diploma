@@ -143,6 +143,7 @@ class CreationPlanStore {
                     Authorization: this.getCookie(`Authorization`)
                 },
             }).then((repos: any) => {
+            AppStore.getMyPlans();
             AppStore.isLoading = false;
         }).catch(() => {
             AppStore.isLoading = false;
