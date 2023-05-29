@@ -80,7 +80,6 @@ a {
   transition: all .3s;
   padding: 12px 25px;
   white-space: nowrap;
-  max-width: 203px;
 }
 
 button .icon {
@@ -921,6 +920,16 @@ body {
 
 .verifyEmail{
 color: green;
+}
+
+
+.kpi-warning{
+  display: flex;
+  justify-content: center;
+  margin-top: 128px;
+  font-size: 32px;
+  color: red;
+  font-weight: 700;
 }
 
 @font-face {

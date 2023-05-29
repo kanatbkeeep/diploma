@@ -11,6 +11,7 @@ import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
 import moment from "moment/moment";
 import AppStore from "../../../store/AppStore";
+import {getCookie} from "../../../store/AppStore";
 
 const Step2 = (props: any) => {
     const {planStore} = props;
@@ -32,7 +33,7 @@ const Step2 = (props: any) => {
 
 
     const validation = () => {
-        return ((planStore.step2.discipline !== t('other') ? planStore.step2.discipline : planStore.step2.anotherDiscipline) && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.comment
+        return ((planStore.step2.discipline !== t('other') ? planStore.step2.discipline : planStore.step2.anotherDiscipline) && planStore.step2.nameWork && planStore.step2.deadlines
             && (planStore.step2.infoImplementation === "Other/Другое/Басқа" ? planStore.step2.anotherInfoImpl : planStore.step2.infoImplementation));
     }
 
@@ -85,6 +86,7 @@ const Step2 = (props: any) => {
 
     const implShow = (impl: String) => {
         const lg = AppStore.lang;
+        console.log(lg);
         if (impl === "Executed/Выполнен/Орындалды") {
           if(lg === "en"){
              return impl.substring(0,8);
@@ -188,7 +190,6 @@ const Step2 = (props: any) => {
                     <Input
                         maxWidth={180}
                         label={t('deadlines')}
-                        placeholder={t('end')}
                         value={planStore.step2.deadlines}
                         onChange={(e: any) => {
                             planStore.editStep2Modal({deadlines: e.target.value});

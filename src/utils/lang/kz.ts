@@ -13,10 +13,10 @@ const kz = {
     incorrect: 'Электрондық пошта немесе құпия сөз дұрыс емес',
     academicYear: 'Оқу жылы',
     academicWork: 'Академиялық жұмыс',
-    academicMethods: 'Ак. және әдіс. жұмыс',
+    academicMethods: 'Оқу-әдістемелік жұмыс',
     academicResearchWork: 'Зерттеу жұмысы',
     academicEducationalWork: 'Тәрбие жұмысы',
-    academicSocialWork: 'Әлеуметтік жұмыс',
+    academicSocialWork :' Қоғамдық жұмыс ',
     status: 'Мәртебесі',
     createPlan: 'Жоспар құру',
     importPlan: 'Жоспарды импорттау',
@@ -39,7 +39,7 @@ const kz = {
     nameWork:"Жұмыс атауы",
     deadlines:"Мерзімдері",
     infoOnImplementation:"Енгізу туралы ақпарат",
-    comments:"Пікірлер",
+    comments:"Ескертпелер",
     nameArticle:"Мақаланың атауы",
     nameJournal:"Журнал атауы",
     typeOfWork:"Жұмыс түрі",
@@ -98,6 +98,7 @@ const kz = {
     other:"Басқа",
     otherDiscipline: "Басқа пән",
     mismatch:"Қате пошта немесе парольдер сәйкес келмейді",
+    kpiWarning:"Сіздің деректеріңіз үшін KPI жоқ",
 }
 
 export default kz;
