@@ -83,9 +83,17 @@ h4, span {
 
 .createPlan {
   display: flex;
-  align-self: flex-end;
-  padding-right: 20%;
+  justify-content: flex-end;
+  width: 1150px;
   margin-bottom: 20px;
+}
+
+.createPlan .file-input, .createPlan .file-group {
+  height: 42px;
+}
+
+.createPlan .file-group {
+  margin-right: 50px;
 }
 
 .profileEditBtnParent {
