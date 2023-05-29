@@ -29,6 +29,7 @@ function Login() {
                         }}/>
                         {AppStore.incorrect ? <p className='errorMassage'>{t('incorrect')}</p> : null}
                         <a onClick={() => navigate('/registration')}>{t('registrationTitle')}</a>
+                        <a onClick={() => navigate('/forget')}>{t('forgotPassword')}</a>
                     </aside>
                 </section>
             </main>
