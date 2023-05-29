@@ -32,7 +32,7 @@ const Step2 = (props: any) => {
 
 
     const validation = () => {
-        return ((planStore.step2.discipline !== t('other') ? planStore.step2.discipline : planStore.step2.anotherDiscipline) && planStore.step2.nameWork && planStore.step2.deadlines && planStore.step2.comment
+        return ((planStore.step2.discipline !== t('other') ? planStore.step2.discipline : planStore.step2.anotherDiscipline) && planStore.step2.nameWork && planStore.step2.deadlines
             && (planStore.step2.infoImplementation === "Other/Другое/Басқа" ? planStore.step2.anotherInfoImpl : planStore.step2.infoImplementation));
     }
 

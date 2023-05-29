@@ -922,6 +922,16 @@ body {
 color: green;
 }
 
+
+.kpi-warning{
+  display: flex;
+  justify-content: center;
+  margin-top: 128px;
+  font-size: 32px;
+  color: red;
+  font-weight: 700;
+}
+
 @font-face {
   font-family: 'Poppins';
   src: local("OpenSans"),

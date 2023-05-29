@@ -21,7 +21,7 @@ const Step3 = (props: any) => {
 
     const validation = () => {
         return (planStore.step3.nameOfTheWork && planStore.step3.deadlines&& planStore.step3.results
-            && planStore.step3.comments  && ((planStore.step3.infoImplementation !== "Other/Другое/Басқа" && planStore.step3.infoImplementation)
+             && ((planStore.step3.infoImplementation !== "Other/Другое/Басқа" && planStore.step3.infoImplementation)
                 ? planStore.step3.infoImplementation : planStore.step3.anotherInfoImpl ) );
     }
 

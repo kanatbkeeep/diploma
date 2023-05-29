@@ -51,6 +51,7 @@ const CreationPlan = (props: any) => {
             await planStore.getPlan( id ? id : null)
             planStore.getKpiSections(planStore.user.position.nameRu,planStore.user.degree.nameRu);
             NotificationStore.getNotification();
+            console.log(planStore.kpiSections.length);
         }).catch(() => {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')

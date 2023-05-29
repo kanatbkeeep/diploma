@@ -6,10 +6,10 @@ const kz = {
     incorrect: 'Электрондық пошта немесе құпия сөз дұрыс емес',
     academicYear: 'Оқу жылы',
     academicWork: 'Академиялық жұмыс',
-    academicMethods: 'Ак. және әдіс. жұмыс',
+    academicMethods: 'Оқу-әдістемелік жұмыс',
     academicResearchWork: 'Зерттеу жұмысы',
     academicEducationalWork: 'Тәрбие жұмысы',
-    academicSocialWork: 'Әлеуметтік жұмыс',
+    academicSocialWork :' Қоғамдық жұмыс ',
     status: 'Мәртебесі',
     createPlan: 'Жоспар құру',
     importPlan: 'Жоспарды импорттау',
@@ -90,6 +90,7 @@ const kz = {
     techError: "Техникалық қате",
     other:"Басқа",
     otherDiscipline: "Басқа пән",
+    kpiWarning:"Сіздің деректеріңіз үшін KPI жоқ",
 }
 
 export default kz;
