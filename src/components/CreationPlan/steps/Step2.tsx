@@ -186,7 +186,6 @@ const Step2 = (props: any) => {
                 </div>
                 <div style={{display: "flex", marginBottom: 20}}>
                     <Input
-                        type="date"
                         maxWidth={180}
                         label={t('deadlines')}
                         placeholder={t('end')}
