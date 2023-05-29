@@ -76,7 +76,7 @@ class AppStore {
             }
         }).catch((reason: AxiosError)=>{
             this.isLoading = false;
-            if (reason.response!.status === 400) {
+            if (reason.response?.status === 400) {
                 this.statusRegistration = "found";
                 console.log(this.statusRegistration)
             }else{

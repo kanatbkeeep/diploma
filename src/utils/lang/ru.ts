@@ -3,6 +3,13 @@ const ru = {
     registrationTitle: 'Регистрация',
     password: 'Пароль',
     forgotPassword: 'Забыли пароль?',
+    oldPassword: 'Старый пароль',
+    newPassword: 'Новый пароль',
+    newPasswordConfirm: 'Подтвердите пароль',
+    recover: 'Восстоновить',
+    resetPassword: 'Сброс пароля',
+    passwordWasReset: 'Пароль был сброшен',
+    mismatchPassword:"Не совпадают пароли",
     incorrect: 'Неверный адрес электронной почты или пароль',
     academicYear: 'Учебный год',
     academicWork: 'Академическая работа',
@@ -85,11 +92,12 @@ const ru = {
     requiredPoints:"Необходимое количество для выполнения:",
     fraction:"Доля, %:",
     currentFraction:"Нынешняя доля, %:",
-    needToVerify:"Подтвердите свою почту",
+    needToVerify:"Подтверждение пришло на почту",
     userAlreadyExist:"Почта уже используется",
     techError:"Техническая ошибка",
     other:"Другое",
     otherDiscipline:"Другая дисциплина",
+    mismatch:"Неправильная почта или не совпадают пароли",
 }
 
 export default ru;

@@ -19,6 +19,8 @@ import Test from "./pages/test/Test";
 import Registration from "./pages/authorization/Registration";
 import AppStore from "./store/AppStore";
 import LoadingSpinner from "./components/LoadingSpinner/LaodingSpinner";
+import ForgetPassword from "./pages/authorization/ForgetPassword";
+import ResetPassword from "./pages/authorization/ResetPassword";
 
 function App() {
 
@@ -32,6 +34,8 @@ function App() {
                     <Route path="/registration" element={<Registration />} />
                     <Route path="/creation-plan" element={<CreationPlan/>}/>
                     <Route path="/plan/:id" element={<CreationPlan/>}/>
+                    <Route path="/forget" element={<ForgetPassword/>}/>
+                    <Route path="/reset" element={<ResetPassword/>}/>
                     <Route path="/test" element={<Test/>} />
                 </Routes>
             </Router>

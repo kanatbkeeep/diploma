@@ -11,9 +11,11 @@ import Dropdown from "../Dropdown/Dropdown";
 import Button from "../Button/Button";
 import Profile from "../../pages/profile/Profile";
 import AppStore from "../../store/AppStore";
+import {useNavigate} from "react-router-dom";
 
 const EditProfile = (props: any) => {
     const [open, setOpen] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -176,6 +178,10 @@ const EditProfile = (props: any) => {
                                 </ul>
                             </Dropdown>
                         </section>
+
+                        <Button label={t('resetPassword')} className='mt-24' onClick={() => {
+                            navigate('/reset')
+                        }}/>
                     </> : null}
 
                     <section className="editButtons">
