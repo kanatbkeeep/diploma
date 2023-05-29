@@ -12,6 +12,7 @@ const kz = {
     academicSocialWork: 'Әлеуметтік жұмыс',
     status: 'Мәртебесі',
     createPlan: 'Жоспар құру',
+    importPlan: 'Жоспарды импорттау',
     position: 'Лауазым',
     rate: 'Ставка',
     degree: 'Ғылыми дәреже',
