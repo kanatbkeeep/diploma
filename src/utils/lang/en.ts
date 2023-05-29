@@ -12,6 +12,7 @@ const en = {
     academicSocialWork: 'Social work',
     status: 'Status',
     createPlan: 'Create Plan',
+    importPlan: 'Import Plan',
     position: 'Position',
     rate: 'Rate',
     degree: 'Degree',

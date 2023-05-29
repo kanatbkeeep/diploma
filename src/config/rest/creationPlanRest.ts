@@ -27,3 +27,4 @@ export const EDIT_RESEARCH_WORK = `${url}/research-work/update`;
 export const DELETE_RESEARCH_WORK = `${url}/research-work/delete`;
 
 export const SEND_PLAN = (id:any) => `${url}/plan/send?id=${id}`;
+export const IMPORT_PLAN = `${url}/plan/upload-docx`;
