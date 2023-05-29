@@ -6,10 +6,10 @@ const ru = {
     incorrect: 'Неверный адрес электронной почты или пароль',
     academicYear: 'Учебный год',
     academicWork: 'Академическая работа',
-    academicMethods: 'Об. и метод. работа',
+    academicMethods: 'Учебно-методическая работа',
     academicResearchWork: 'Исследовательская работа',
-    academicEducationalWork: 'Образовательная работа',
-    academicSocialWork: 'Социальная работа',
+    academicEducationalWork: 'Воспитательная работа',
+    academicSocialWork: 'Общественная  работа ',
     status: 'Статус',
     createPlan: 'Создать план',
     importPlan: 'Импортировать план',
@@ -32,7 +32,7 @@ const ru = {
     nameWork:"Название работы",
     deadlines:"Сроки",
     infoOnImplementation:"Информация о внедрении",
-    comments:"Комменты",
+    comments:"Примечания",
     nameArticle:"Название статьи",
     nameJournal:"Название журнала",
     typeOfWork:"Тип работы",
@@ -90,6 +90,7 @@ const ru = {
     techError:"Техническая ошибка",
     other:"Другое",
     otherDiscipline:"Другая дисциплина",
+    kpiWarning:"KPI не существует для ваших данных",
 }
 
 export default ru;

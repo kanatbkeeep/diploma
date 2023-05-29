@@ -6,7 +6,7 @@ const en = {
     incorrect: 'Incorrect email or password',
     academicYear: 'Academic year',
     academicWork: 'Academic work',
-    academicMethods: 'Ed. & Method. work',
+    academicMethods: 'Edu. and methodical work',
     academicResearchWork: 'Research work',
     academicEducationalWork: 'Educational work',
     academicSocialWork: 'Social work',
@@ -32,7 +32,7 @@ const en = {
     nameWork:"Name of work",
     deadlines:"Deadlines",
     infoOnImplementation:"Information on implementation",
-    comments:"Comments",
+    comments:"Notes",
     nameArticle:"Name of the Article",
     nameJournal:"Name of the Journal",
     typeOfWork:"Type of the work",
@@ -90,6 +90,7 @@ const en = {
     techError:"Technical error",
     other:"Other",
     otherDiscipline:"Other discipline",
+    kpiWarning:"KPI does not exist for your data",
 }
 
 export default en;
