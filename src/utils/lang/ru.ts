@@ -31,7 +31,7 @@ const ru = {
     nameWork:"Название работы",
     deadlines:"Сроки",
     infoOnImplementation:"Информация о внедрении",
-    comments:"Комменты",
+    comments:"Примечания",
     nameArticle:"Название статьи",
     nameJournal:"Название журнала",
     typeOfWork:"Тип работы",

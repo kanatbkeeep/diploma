@@ -31,7 +31,7 @@ const en = {
     nameWork:"Name of work",
     deadlines:"Deadlines",
     infoOnImplementation:"Information on implementation",
-    comments:"Comments",
+    comments:"Notes",
     nameArticle:"Name of the Article",
     nameJournal:"Name of the Journal",
     typeOfWork:"Type of the work",

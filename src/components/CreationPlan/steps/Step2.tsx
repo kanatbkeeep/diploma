@@ -85,6 +85,7 @@ const Step2 = (props: any) => {
 
     const implShow = (impl: String) => {
         const lg = AppStore.lang;
+        console.log(lg);
         if (impl === "Executed/Выполнен/Орындалды") {
           if(lg === "en"){
              return impl.substring(0,8);

@@ -31,7 +31,7 @@ const kz = {
     nameWork:"Жұмыс атауы",
     deadlines:"Мерзімдері",
     infoOnImplementation:"Енгізу туралы ақпарат",
-    comments:"Пікірлер",
+    comments:"Ескертпелер",
     nameArticle:"Мақаланың атауы",
     nameJournal:"Журнал атауы",
     typeOfWork:"Жұмыс түрі",
