@@ -2,6 +2,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios from 'axios'
 import AppStore from "./AppStore";
+import {url} from "../config/rest/common";
 
 function getCookie(name: any) {
     const value = `; ${document.cookie}`;
@@ -12,13 +13,13 @@ function getCookie(name: any) {
 class EditProfileStore {
     model: any;
     positionList: any = [];
-    rateList: any = ['1', '0.5', '0.25'];
+    rateList: any = [`1`, `0.5`, `0.25`];
     degreeList: any = [];
     departmentList: any = [];
 
     async updateUser() {
         AppStore.isLoading = true;
-        return await axios.post('https://aitu-plan.herokuapp.com/user/update', {
+        return await axios.post(`${url}/user/update`, {
             firstName: this.model.firstName,
             lastName: this.model.lastName,
             middleName: this.model.middleName,
@@ -28,7 +29,7 @@ class EditProfileStore {
             degree: this.model.degree
         },{
             headers: {
-                Authorization: getCookie('Authorization')
+                Authorization: getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -40,9 +41,9 @@ class EditProfileStore {
 
     async updateUserDepartment() {
         AppStore.isLoading = true;
-        return await axios.post('https://aitu-plan.herokuapp.com/department/transfer-teacher', this.model.department,{
+        return await axios.post(`${url}/department/transfer-teacher`, this.model.department,{
             headers: {
-                Authorization: getCookie('Authorization')
+                Authorization: getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -54,9 +55,9 @@ class EditProfileStore {
 
     async getDepartmentList() {
         AppStore.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/department/get-all',{
+        return await axios.get(`${url}/department/get-all`,{
             headers: {
-                Authorization: getCookie('Authorization')
+                Authorization: getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -68,9 +69,9 @@ class EditProfileStore {
 
     async getPositions() {
         AppStore.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/user/getPositions',{
+        return await axios.get(`${url}/user/getPositions`,{
             headers: {
-                Authorization: getCookie('Authorization')
+                Authorization: getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -82,9 +83,9 @@ class EditProfileStore {
 
     async getDegrees() {
         AppStore.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/user/getDegrees',{
+        return await axios.get(`${url}/user/getDegrees`,{
             headers: {
-                Authorization: getCookie('Authorization')
+                Authorization: getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             AppStore.isLoading = false;

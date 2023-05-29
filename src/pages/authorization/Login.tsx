@@ -18,10 +18,10 @@ function Login() {
 
                     <aside>
                         <h2>{t('loginTitle')}</h2>
-                        <Input label={'Email'} login onChange={(e: any) => {
+                        <Input label={'Email'} value={AppStore.model.email} login onChange={(e: any) => {
                             AppStore.editModel({email: e.target.value});
                         }}/>
-                        <Input label={t('password')} type={'password'} login onChange={(e: any) => {
+                        <Input label={t('password')} value={AppStore.model.password} type={'password'} login onChange={(e: any) => {
                             AppStore.editModel({password: e.target.value})
                         }}/>
                         <Button label={t('loginTitle')} onClick={() => {

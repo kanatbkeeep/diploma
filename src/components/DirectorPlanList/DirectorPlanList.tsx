@@ -10,6 +10,7 @@ import Table from "../Table/Table";
 import EyeBlack from "../../assets/icon/eyeBlack.svg";
 import DownloadWhite from "../../assets/icon/downloadWhite.svg";
 import {useNavigate} from "react-router-dom";
+import {url} from "../../config/rest/common";
 
 const DirectorPlanList = (props: any) => {
     const navigate = useNavigate();
@@ -55,7 +56,7 @@ const DirectorPlanList = (props: any) => {
                                             icon={DownloadWhite}
                                             type={'smallDark'}
                                             onClick={()=>{
-                                                window.location.href = `https://aitu-plan.herokuapp.com/plan/create-docx?planId=${item.id}`
+                                                window.location.href = `${url}/plan/create-docx?planId=${item.id}`
                                             }}
                                         />
                                     </div>

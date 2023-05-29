@@ -13,6 +13,7 @@ import {
 } from "../config/rest/creationPlanRest";
 import AppStore from "./AppStore";
 import t from "../utils/Lang";
+import {url} from "../config/rest/common";
 
 class CreationPlanStore {
 
@@ -82,7 +83,7 @@ class CreationPlanStore {
     getCookie(name: any) {
         const value = `; ${document.cookie}`;
         const parts: any = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+        if (parts.length === 2) return parts.pop().split(`;`).shift();
     }
 
 
@@ -92,7 +93,7 @@ class CreationPlanStore {
         if (id !== null) {
             return await axios.get(GET_PLAN_BY_ID(id), {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
                 AppStore.isLoading = false;
@@ -111,7 +112,7 @@ class CreationPlanStore {
         } else {
             return await axios.get(GET_LATEST_PLAN, {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
                 AppStore.isLoading = false;
@@ -133,13 +134,13 @@ class CreationPlanStore {
 
     async sendPlan(byTeacher: boolean) {
         AppStore.isLoading = true;
-        return await axios.post('https://aitu-plan.herokuapp.com/notification/send?planId=' + this.plan.id + '&byTeacher=' + byTeacher,
+        return await axios.post(`${url}/notification/send?planId=` + this.plan.id + `&byTeacher=` + byTeacher,
             {
-                status: 'AWAITING'
+                status: `AWAITING`
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 },
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -158,7 +159,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -173,7 +174,7 @@ class CreationPlanStore {
         return await axios.post(ADD_ACADEMIC_METHOD,
             {
                 idPlan: this.plan.id,
-                discipline: this.step2.discipline === t('other') ? this.step2.anotherDiscipline : this.step2.discipline,
+                discipline: this.step2.discipline === t(`other`) ? this.step2.anotherDiscipline : this.step2.discipline,
                 nameWork: this.step2.nameWork,
                 deadlines: this.step2.deadlines,
                 infoImplementation: this.step2.infoImplementation !== "Other/Другое/Басқа" ? this.step2.infoImplementation : this.step2.anotherInfoImpl,
@@ -181,7 +182,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -204,7 +205,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -227,7 +228,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -250,7 +251,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -268,7 +269,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -286,7 +287,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -304,7 +305,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -322,7 +323,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -340,7 +341,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -358,7 +359,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -376,7 +377,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -394,7 +395,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -412,7 +413,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -430,7 +431,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -448,7 +449,7 @@ class CreationPlanStore {
             },
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
 
@@ -509,7 +510,7 @@ class CreationPlanStore {
         return await axios.get(GET_KPI_SECTIONS(nameDegree,namePosition),
             {
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = false;
@@ -544,7 +545,7 @@ class CreationPlanStore {
                 anotherSectionNumber: this.step6.isAnotherSection ? this.step6.anotherSectionNumber : null,
             },{
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = true;
@@ -572,7 +573,7 @@ class CreationPlanStore {
                 anotherSectionNumber: this.step6.isAnotherSection ? this.step6.anotherSectionNumber : null,
             },{
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = true;
@@ -589,7 +590,7 @@ class CreationPlanStore {
                 items:items
             },{
                 headers: {
-                    Authorization: this.getCookie('Authorization')
+                    Authorization: this.getCookie(`Authorization`)
                 }
             }).then((repos: any) => {
             AppStore.isLoading = true;

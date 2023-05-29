@@ -22,6 +22,7 @@ import Step5 from "../../components/CreationPlan/steps/Step5";
 import Step6 from "../../components/CreationPlan/steps/Step6";
 import KpiStore from "../../store/KpiStore";
 import NotificationStore from "../../store/NotificationStore";
+import {url} from "../../config/rest/common";
 
 export enum Steps {
     Step1,
@@ -109,7 +110,7 @@ const CreationPlan = (props: any) => {
                         icon={Download}
                         label={t('getExcel')}
                         onClick={()=>{
-                            window.location.href = `https://aitu-plan.herokuapp.com/plan/create-excel?planId=${planStore.plan.id}`
+                            window.location.href = `${url}/plan/create-excel?planId=${planStore.plan.id}`
                         }}
                     />
                     <Button

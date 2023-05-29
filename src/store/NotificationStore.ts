@@ -2,11 +2,12 @@ import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios from 'axios'
 import AppStore from "./AppStore";
+import {url} from "../config/rest/common";
 
 function getCookie(name: any) {
     const value = `; ${document.cookie}`;
     const parts: any = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    if (parts.length === 2) return parts.pop().split(`;`).shift();
 }
 
 class NotificationStore {
@@ -19,9 +20,9 @@ class NotificationStore {
 
     async getNotification() {
 
-        return await axios.get('https://aitu-plan.herokuapp.com/notification/get-to-me',{
+        return await axios.get(`${url}/notification/get-to-me`,{
             headers: {
-                Authorization: getCookie('Authorization')
+                Authorization: getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             if (repos.status === 200) {

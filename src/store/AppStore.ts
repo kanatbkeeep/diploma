@@ -1,10 +1,11 @@
 import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios, {AxiosError} from 'axios'
+import {url} from "../config/rest/common";
 
 function getCookie(name: any) {
-    const value = `; ${document.cookie}`;
-    const parts: any = value.split(`; ${name}=`);
+    const value = '; ${document.cookie}';
+    const parts: any = value.split('; ${name}=');
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
@@ -38,7 +39,7 @@ class AppStore {
 
     async loadLogin() {
         this.isLoading = true;
-        return await axios.post('https://aitu-plan.herokuapp.com/user/loginUser', {
+        return await axios.post(`${url}/user/loginUser`, {
             email: this.model.email,
             password: this.model.password
         }).then((repos: any) => {
@@ -60,7 +61,7 @@ class AppStore {
     async registrationUser() {
         this.isLoading = true;
         this.statusRegistration = null;
-        return await axios.post('https://aitu-plan.herokuapp.com/user/register',
+        return await axios.post(`${url}/user/register`,
             {
                 firstName: this.model.firstName,
                 lastName: this.model.middleName,
@@ -87,24 +88,24 @@ class AppStore {
 
     async getUser() {
         this.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/user/getUser', {
+        return await axios.get(`${url}/user/getUser`, {
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
                 this.currentUser = repos.data;
-                if (window.location.href.includes('/login')) window.location.replace('/');
+                if (window.location.href.includes(`/login`)) window.location.replace(`/`);
             }
         });
     }
 
     async getDepartmentByTeacher() {
         this.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/department/getByTeacher', {
+        return await axios.get(`${url}/department/getByTeacher`, {
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
@@ -116,9 +117,9 @@ class AppStore {
 
     async getDepartmentByDirector() {
         this.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/department/get-by-director', {
+        return await axios.get(`${url}/department/get-by-director`, {
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
@@ -130,9 +131,9 @@ class AppStore {
 
     async getMyPlans() {
         this.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/plan/get-my-plans', {
+        return await axios.get(`${url}/plan/get-my-plans`, {
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
@@ -144,11 +145,11 @@ class AppStore {
 
     async getMyPlansToApproveAwaiting() {
         this.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/plan/get-plans-to-me-by-status', {
+        return await axios.get(`${url}/plan/get-plans-to-me-by-status`, {
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             },
-            params: { status: 'AWAITING' }
+            params: { status: `AWAITING` }
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
@@ -160,11 +161,11 @@ class AppStore {
 
     async getMyPlansToApproveApproved() {
         this.isLoading = true;
-        return await axios.get('https://aitu-plan.herokuapp.com/plan/get-plans-to-me-by-status', {
+        return await axios.get(`${url}/plan/get-plans-to-me-by-status`, {
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             },
-            params: { status: 'APPROVED' }
+            params: { status: `APPROVED` }
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
@@ -175,9 +176,9 @@ class AppStore {
 
     async createPlan() {
         this.isLoading = true;
-        return await axios.post(`https://aitu-plan.herokuapp.com/plan/create?idDirector=${this.department.director.id}`, {},{
+        return await axios.post(`${url}/plan/create?idDirector=${this.department.director.id}`, {},{
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
@@ -186,9 +187,9 @@ class AppStore {
 
     async copyPlan() {
         this.isLoading = true;
-        return await axios.post(`https://aitu-plan.herokuapp.com/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
+        return await axios.post(`${url}/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
@@ -197,9 +198,9 @@ class AppStore {
 
     async deletePlan(items: any) {
         this.isLoading = true;
-        return await axios.post(`https://aitu-plan.herokuapp.com/plan/delete`, {items: items},{
+        return await axios.post(`${url}/plan/delete`, {items: items},{
             headers: {
-                Authorization: this.getCookie('Authorization')
+                Authorization: this.getCookie(`Authorization`)
             }
         }).then((repos: any) => {
             this.isLoading = false;
@@ -209,7 +210,7 @@ class AppStore {
     getCookie(name: any) {
         const value = `; ${document.cookie}`;
         const parts: any = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
+        if (parts.length === 2) return parts.pop().split(`;`).shift();
     }
 
     editModel(obj: any) {
