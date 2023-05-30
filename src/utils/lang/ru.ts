@@ -38,7 +38,7 @@ const ru = {
     noData:"Нет данных",
     nameWork:"Название работы",
     deadlines:"Сроки",
-    infoOnImplementation:"Информация о внедрении",
+    infoOnImplementation:"Информация о выполнении",
     comments:"Примечания",
     nameArticle:"Название статьи",
     nameJournal:"Название журнала",
@@ -99,6 +99,11 @@ const ru = {
     otherDiscipline:"Другая дисциплина",
     mismatch:"Неправильная почта или не совпадают пароли",
     kpiWarning:"KPI не существует для ваших данных",
+    doYouWant:"Хотите",
+    approve:"соглосовать",
+    individualPlan:"индивидуальный план",
+    return:"вернуть",
+    forRevision:"для пересмотра",
 }
 
 export default ru;

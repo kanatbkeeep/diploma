@@ -21,7 +21,7 @@ const Approve = (props: any) => {
     return (props.open &&
         <div className={'approve'}>
             <div className="approveBlock">
-                <p>Do you want to <span style={{color: "#003459"}}>approve</span> <br/> <span style={{color: "#007EA7"}}>Berkinbayev Kanat Galymuly’s <br/> </span> individual plan?</p>
+                <p>{t('doYouWant')} <span style={{color: "#003459"}}>{t('approve')}</span> <br/> <span style={{color: "#007EA7"}}>{ApproveStore.model.selectedPlan.createdBy.firstName + ' ' + ApproveStore.model.selectedPlan.createdBy.lastName + ' ' + ApproveStore.model.selectedPlan.createdBy.middleName} <br/> </span> {t('individualPlan')}?</p>
                 <div>
                     <Button
                         icon={TickWhite}

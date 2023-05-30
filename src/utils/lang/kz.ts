@@ -99,6 +99,11 @@ const kz = {
     otherDiscipline: "Басқа пән",
     mismatch:"Қате пошта немесе парольдер сәйкес келмейді",
     kpiWarning:"Сіздің деректеріңіз үшін KPI жоқ",
+    doYouWant:"Сіз",
+    approve:"жоспарға",
+    individualPlan:"келісім беруге келе ме",
+    return:"жоспарды",
+    forRevision:"қайта оралғыңыз келе ме",
 }
 
 export default kz;
