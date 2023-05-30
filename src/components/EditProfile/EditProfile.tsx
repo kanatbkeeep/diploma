@@ -177,7 +177,7 @@ const EditProfile = (props: any) => {
                             </Dropdown>
                         </section>
 
-                        <Button label={t('resetPassword')} className='mt-24' onClick={() => {
+                        <Button label={t('resetPassword')} className='mt-24 maxWidth300' onClick={() => {
                             navigate('/reset')
                         }}/>
                     </> : null}

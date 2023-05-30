@@ -319,7 +319,7 @@ body {
 }
 
 .table-main {
-  box-shadow: 0px 5px 11px 4px rgba(34, 60, 80, 0.2);
+  box-shadow: 0 5px 11px 4px rgba(34, 60, 80, 0.2);
   border-radius: 10px;
   font-size: 12px;
   margin: 0;
@@ -446,6 +446,10 @@ body {
   height: 18px;
   margin-left: 22px;
   margin-right: 12px;
+}
+
+.maxWidth300 {
+  max-width: 300px;
 }
 
 .searching-container {
@@ -627,7 +631,7 @@ body {
 .commentData {
   padding: 5px 7px;
   background: #FFFFFF;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   font-size: 12px;
 }

@@ -4,12 +4,13 @@ import t, {l} from "../../utils/Lang";
 import Button from "../Button/Button";
 import AppStore from "../../store/AppStore";
 import EditWhite from "../../assets/icon/editWhtie.svg";
+import UserAvatar from "../../assets/image/userAvatar.svg";
 
 const TeacherPlanList = (props: any) => {
     return (
         <section className={'userInfo mt-38'}>
             <aside className={'userAvatar'}>
-                <img alt='userPhoto' src={AppStore.currentUser?.photo}/>
+                {AppStore.currentUser?.photo ? <img alt='userPhoto' src={AppStore.currentUser?.photo}/>: <img alt='userPhoto' src={UserAvatar}/>}
             </aside>
             <aside className={'userData'}>
                 <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>
