@@ -2,6 +2,7 @@ import {action, makeAutoObservable, runInAction} from 'mobx';
 import React from 'react';
 import axios from 'axios'
 import {ADD_KPI, DELETE_KPI, EDIT_KPI, GET_KPI_SECTIONS} from "../config/rest/creationPlanRest";
+import AppStore from "./AppStore";
 
 
 class KpiStore {
@@ -76,7 +77,7 @@ class KpiStore {
                 })
                 this.checked = arr;
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveKpi(idPlan:any, planStore:any){
@@ -101,7 +102,7 @@ class KpiStore {
                 if(repos.status === 201){
                     planStore.getPlan(idPlan);
                 }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateKpi(id:any, planStore:any){
@@ -127,7 +128,7 @@ class KpiStore {
             if(repos.status === 200){
                 planStore.getPlan(id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteKpis(items:any[], planStore:any){
@@ -142,7 +143,7 @@ class KpiStore {
             if(repos.status === 200){
                 planStore.getPlan(planStore.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
 

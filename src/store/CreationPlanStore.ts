@@ -108,7 +108,7 @@ class CreationPlanStore {
                     this.years = this.plan.year;
                     this.researchWorks = repos.data.researchWorks;
                 }
-            });
+            }).catch(() => {AppStore.isLoading = false;});
         } else {
             return await axios.get(GET_LATEST_PLAN, {
                 headers: {
@@ -127,7 +127,7 @@ class CreationPlanStore {
                     this.years = this.plan.year;
                     this.researchWorks = repos.data.researchWorks;
                 }
-            });
+            }).catch(() => {AppStore.isLoading = false;});
         }
 
     }
@@ -165,7 +165,7 @@ class CreationPlanStore {
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveAcademicWork() {
@@ -184,7 +184,7 @@ class CreationPlanStore {
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveAcademicMethod() {
@@ -207,7 +207,7 @@ class CreationPlanStore {
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveResearchWork() {
@@ -230,7 +230,7 @@ class CreationPlanStore {
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveEduWork() {
@@ -253,7 +253,7 @@ class CreationPlanStore {
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveSocialWork() {
@@ -276,7 +276,7 @@ class CreationPlanStore {
             if (repos.status === 201) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateAcademicWork(item: any) {
@@ -294,7 +294,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateAcademicMethod(item: any) {
@@ -312,7 +312,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateSearchWork(item: any) {
@@ -330,7 +330,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateEduWork(item: any) {
@@ -348,7 +348,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateSocialWork(item: any) {
@@ -366,7 +366,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteAcademicWorks(itemsToDelete: any[]) {
@@ -384,7 +384,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteAcademicMethods(itemsToDelete: any[]) {
@@ -402,7 +402,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteResearchWorks(itemsToDelete: any[]) {
@@ -420,7 +420,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteEduWorks(itemsToDelete: any[]) {
@@ -438,7 +438,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteSocialWorks(itemsToDelete: any[]) {
@@ -456,7 +456,7 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async changeYear() {
@@ -471,7 +471,7 @@ class CreationPlanStore {
                 }
             }).then((repos: any) => {
 
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     getKPIPercentage = () => {
@@ -543,7 +543,7 @@ class CreationPlanStore {
                 })
                 this.checked = arr;
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async saveKpi(){
@@ -570,7 +570,7 @@ class CreationPlanStore {
             if(repos.status === 201){
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateKpi(id:any){
@@ -598,7 +598,7 @@ class CreationPlanStore {
             if(repos.status === 200){
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async deleteKpis(items:any[]){
@@ -615,7 +615,7 @@ class CreationPlanStore {
             if(repos.status === 200){
                 this.getPlan(this.plan.id);
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
 

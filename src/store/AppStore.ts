@@ -98,7 +98,7 @@ class AppStore {
                 this.currentUser = repos.data;
                 if (window.location.href.includes(`/login`)) window.location.replace(`/`);
             }
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async getDepartmentByTeacher() {
@@ -112,7 +112,7 @@ class AppStore {
             if (repos.status === 200) {
                 this.department = repos.data;
             }
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async getDepartmentByDirector() {
@@ -126,7 +126,7 @@ class AppStore {
             if (repos.status === 200) {
                 this.department = repos.data;
             }
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async getMyPlans() {
@@ -140,7 +140,7 @@ class AppStore {
             if (repos.status === 200) {
                 this.myPlans = repos.data.reverse();
             }
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async getMyPlansToApproveAwaiting() {
@@ -156,7 +156,7 @@ class AppStore {
                 this.myPlansToApprove = repos.data.reverse();
                 this.getMyPlansToApproveApproved();
             }
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async getMyPlansToApproveApproved() {
@@ -171,7 +171,7 @@ class AppStore {
             if (repos.status === 200) {
                 this.myPlansToApprove = this.myPlansToApprove.concat(repos.data.reverse());
             }
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async createPlan() {
@@ -182,7 +182,7 @@ class AppStore {
             }
         }).then((repos: any) => {
             this.isLoading = false;
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async copyPlan() {
@@ -193,7 +193,7 @@ class AppStore {
             }
         }).then((repos: any) => {
             this.isLoading = false;
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     async deletePlan(items: any) {
@@ -204,7 +204,7 @@ class AppStore {
             }
         }).then((repos: any) => {
             this.isLoading = false;
-        });
+        }).catch(() => {this.isLoading = false;});
     }
 
     getCookie(name: any) {

@@ -37,10 +37,7 @@ class ApproveStore {
             },
         }).then((repos: any) => {
             AppStore.isLoading = false;
-            if (repos.status === 200) {
-
-            }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async sendDenied(byTeacher: boolean) {
@@ -60,7 +57,7 @@ class ApproveStore {
             if (repos.status === 200) {
 
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     constructor() {

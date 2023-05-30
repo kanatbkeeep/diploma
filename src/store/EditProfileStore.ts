@@ -36,7 +36,7 @@ class EditProfileStore {
             if (repos.status === 200) {
                 AppStore.getUser();
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async updateUserDepartment() {
@@ -50,7 +50,7 @@ class EditProfileStore {
             if (repos.status === 200) {
                 AppStore.getDepartmentByTeacher();
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async getDepartmentList() {
@@ -64,7 +64,7 @@ class EditProfileStore {
             if (repos.status === 200) {
                 this.departmentList = repos.data;
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async getPositions() {
@@ -78,7 +78,7 @@ class EditProfileStore {
             if (repos.status === 200) {
                 this.positionList = repos.data;
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     async getDegrees() {
@@ -92,7 +92,7 @@ class EditProfileStore {
             if (repos.status === 200) {
                 this.degreeList = repos.data;
             }
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     editModel(obj: any) {
