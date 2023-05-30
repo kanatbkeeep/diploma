@@ -239,3 +239,14 @@ h4, span {
   margin: 0 30px 20px 10px;
   white-space: nowrap;
 }
+
+.togglePlansReport {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.togglePlansReport .toggleSwitch {
+  margin: 0 0 15px 0;
+  width: 1150px;
+}

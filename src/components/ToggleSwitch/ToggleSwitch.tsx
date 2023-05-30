@@ -4,9 +4,9 @@ import {observer} from 'mobx-react';
 const ToggleSwitch = (props: any) => {
     return (
         <div className='toggleSwitch'>
-            <span>Plans to approve</span>
+            <span>{props.text1}</span>
             <input type="checkbox" id="switch" checked={props.checked} onChange={props.onChange}/><label htmlFor="switch">Toggle</label>
-            <span style={{marginLeft: "7px"}}>My plans</span>
+            <span style={{marginLeft: "7px"}}>{props.text2}</span>
         </div>
     )
 }

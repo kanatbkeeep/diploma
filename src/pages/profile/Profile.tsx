@@ -55,7 +55,9 @@ function Profile() {
                 AppStore.getDepartmentByDirector().then(() => {setDataForUpdate();});
                 AppStore.getMyPlansToApproveAwaiting().then();
             }
-            AppStore.getMyPlans().then();
+            AppStore.getMyPlans().then(() => {
+                AppStore.plansLoaded = true;
+            });
             EditProfileStore.getPositions().then();
             EditProfileStore.getDegrees().then();
             EditProfileStore.getDepartmentList().then();
@@ -75,6 +77,8 @@ function Profile() {
                 <UserData onModalStateChanged={handleModalStateChanged2}/>
                 {AppStore.isTeacher() && AppStore.isDirector() ? <>
                     <ToggleSwitch
+                        text1={t('plansToApprove')}
+                        text2={t('myPlans')}
                         onChange={(e: any) => {
                             AppStore.editModel({showMyPlans: e.target.checked});
                         }}

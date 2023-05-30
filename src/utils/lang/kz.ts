@@ -106,6 +106,8 @@ const kz = {
     forRevision:"қайта оралғыңыз келе ме",
     report:"Баяндама",
     type:"Түрі",
+    plansToApprove:"Бекіту жоспарлары",
+    myPlans:"Менің жоспарларым",
 }
 
 export default kz;

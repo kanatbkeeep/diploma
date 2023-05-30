@@ -106,6 +106,8 @@ const en = {
     forRevision:"for revision",
     report:"Report",
     type:"Type",
+    plansToApprove:"Plans to approval",
+    myPlans:"My plans",
 }
 
 export default en;

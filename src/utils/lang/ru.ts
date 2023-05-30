@@ -106,6 +106,8 @@ const ru = {
     forRevision:"для пересмотра",
     report:"Отчет",
     type:"Тип",
+    plansToApprove:"Планы для утверждения",
+    myPlans:"Мои планы",
 }
 
 export default ru;
