@@ -11,11 +11,9 @@ import File from "../../../assets/icon/file.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t, {l} from "../../../utils/Lang";
-import moment from "moment/moment";
 import RadioButton from "../../RadioButton/RadioButton";
 import Checkbox from "../../Checkbox/Checkbox";
 import FilePicker from "../../FilePicker/FilePicker";
-import AppStore from "../../../store/AppStore";
 
 const Step6 = (props: any) => {
     const [open, setOpen] = useState("");
@@ -23,7 +21,6 @@ const Step6 = (props: any) => {
     const {planStore, AppStore} = props;
     const {currentUser} = AppStore;
     const user = planStore.plan.createdBy.email === currentUser.email ? currentUser : planStore.plan.createdBy;
-    const [section, setSection] = useState(0);
 
     // const validation = () => {
     //     if (planStore.currentSection.options?.length > 0) {
@@ -219,7 +216,7 @@ const Step6 = (props: any) => {
                                          clear();
                                      }}
                                      className="back"
-                                     src={NavMark}/> : null}
+                                     src={NavMark} alt='backButton'/> : null}
                             {planStore.step6.currentIndSection !== planStore.kpiSections.length - 1 ?
                                 <img role="button"
                                      onClick={() => {
@@ -228,7 +225,7 @@ const Step6 = (props: any) => {
                                          clear();
                                      }}
                                      className="next"
-                                     src={NavMark}/> : null}
+                                     src={NavMark} alt='nextButton'/> : null}
                         </div>
                         <div
                             className="section">{`${planStore.currentSection.sectionNumber}. ${planStore.currentSection.name}`}</div>
@@ -306,7 +303,7 @@ const Step6 = (props: any) => {
                                                             }
                                                         }
                                                         return item.sectionNumber !== planStore.currentSection.sectionNumber && count >= 2;
-                                                    }).map((item: any, ind: any) => {
+                                                    }).map((item: any) => {
                                                         return <li
                                                             onClick={() => planStore.editStep6Modal({anotherSectionNumber: item.sectionNumber})}>
                                                             {item.sectionNumber}
@@ -647,7 +644,7 @@ const Step6 = (props: any) => {
                                         <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[5]}}>
                                             {item.pdfFile ? <>
                                                 <a className="download-file" href={item.pdfFile} download={item.pdfFileName}>
-                                                    <img src={File}/>
+                                                    <img alt='fileIcon' src={File}/>
                                                     {textFile(item.pdfFileName)}
                                                 </a>
                                             </> : null}

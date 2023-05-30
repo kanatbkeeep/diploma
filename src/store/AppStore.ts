@@ -1,5 +1,4 @@
-import {action, makeAutoObservable, runInAction} from 'mobx';
-import React from 'react';
+import {action, makeAutoObservable} from 'mobx';
 import axios, {AxiosError} from 'axios'
 import {url} from "../config/rest/common";
 
@@ -180,7 +179,7 @@ class AppStore {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             }
-        }).then((repos: any) => {
+        }).then(() => {
             this.isLoading = false;
         }).catch(() => {this.isLoading = false;});
     }
@@ -191,7 +190,7 @@ class AppStore {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             }
-        }).then((repos: any) => {
+        }).then(() => {
             this.isLoading = false;
         }).catch(() => {this.isLoading = false;});
     }
@@ -202,7 +201,7 @@ class AppStore {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             }
-        }).then((repos: any) => {
+        }).then(() => {
             this.isLoading = false;
         }).catch(() => {this.isLoading = false;});
     }

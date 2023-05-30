@@ -33,15 +33,13 @@ export enum Steps {
     Step6
 }
 
-const CreationPlan = (props: any) => {
+const CreationPlan = () => {
     const [step, setStep] = useState(Steps.Step1);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const planStore:any = CreationPlanStore;
     const kpiStore:any = KpiStore;
     const navigation = useNavigate();
     const {id} = useParams();
-    const {currentUser} = AppStore;
-
 
     useEffect(() => {
         AppStore.getUser().then(async () => {
@@ -58,7 +56,7 @@ const CreationPlan = (props: any) => {
             }
         });
 
-    }, [])
+    }, [id, planStore])
 
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
@@ -81,7 +79,7 @@ const CreationPlan = (props: any) => {
         <div className={modalOpen ? "main-container darker" : "main-container"}>
 
             <aside>
-                <img className="logo" src={Logo}/>
+                <img alt='logo' className="logo" src={Logo}/>
                 <div className="list-btn">
                     <Button
                         type='secondaryLightButton'

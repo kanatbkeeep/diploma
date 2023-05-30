@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -9,7 +9,6 @@ import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
-import moment from "moment/moment";
 import AppStore from "../../../store/AppStore";
 
 const Step4 = (props: any) => {
@@ -20,7 +19,7 @@ const Step4 = (props: any) => {
 
 
     const validation = () => {
-        return (planStore.step4.nameOfTheWork && planStore.step4.deadlines&& planStore.step4.results
+        return (planStore.step4.nameOfTheWork && planStore.step4.deadlines
            && ((planStore.step4.infoImplementation !== "Other/Другое/Басқа" && planStore.step4.infoImplementation) ? planStore.step4.infoImplementation : planStore.step4.anotherInfoImpl ) );
     }
 

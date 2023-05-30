@@ -34,7 +34,7 @@ const DirectorPlanList = (props: any) => {
                             <div style={{maxWidth: maxWidthColumns[2]}}>{t('status')}</div>
                         </div>
                     }}
-                    renderBody={(item, index, maxWidthColumns, checkbox) => {
+                    renderBody={(item, index, maxWidthColumns) => {
                         return (
                             <div key={index}>
                                 <div style={{maxWidth: 50}}></div>

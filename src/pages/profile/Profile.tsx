@@ -53,13 +53,13 @@ function Profile() {
                 AppStore.getDepartmentByTeacher().then(() => {setDataForUpdate();});
             } else {
                 AppStore.getDepartmentByDirector().then(() => {setDataForUpdate();});
-                AppStore.getMyPlansToApproveAwaiting();
+                AppStore.getMyPlansToApproveAwaiting().then();
             }
-            AppStore.getMyPlans();
-            EditProfileStore.getPositions();
-            EditProfileStore.getDegrees();
-            EditProfileStore.getDepartmentList();
-            NotificationStore.getNotification();
+            AppStore.getMyPlans().then();
+            EditProfileStore.getPositions().then();
+            EditProfileStore.getDegrees().then();
+            EditProfileStore.getDepartmentList().then();
+            NotificationStore.getNotification().then();
         }).catch(() => {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')

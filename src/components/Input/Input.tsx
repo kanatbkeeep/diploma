@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import visiblePass from "../../assets/icon/visible_pass.svg";
 import hiddenPass from "../../assets/icon/hidden_pass.svg";
-import t from "../../utils/Lang";
 
 const Input = (props:any) => {
     const [visible,setVisible] = useState(false);
@@ -36,7 +35,7 @@ const Input = (props:any) => {
                       value={props.value}
                   />
                   <button onClick={()=>{setVisible(!visible)}}>
-                      <img src={visible ? hiddenPass : visiblePass}/>
+                      <img alt='imgVisibility' src={visible ? hiddenPass : visiblePass}/>
                   </button>
               </div>
           </div>

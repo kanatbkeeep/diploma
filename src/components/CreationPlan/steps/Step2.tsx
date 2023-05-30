@@ -9,28 +9,24 @@ import Copy from "../../../assets/icon/copy.svg";
 import Table from "../../Table/Table";
 import {observer} from "mobx-react";
 import t from "../../../utils/Lang";
-import moment from "moment/moment";
 import AppStore from "../../../store/AppStore";
-import {getCookie} from "../../../store/AppStore";
 
 const Step2 = (props: any) => {
     const {planStore} = props;
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
     const [uniqNames, setUniqNames]: any = useState([]);
-    const [isOther,setIsOther]:any = useState(false);
 
     useEffect(() => {
         let arr: any[] = [];
-        planStore.academWorks.map((item: any) => {
+        planStore.academWorks.forEach((item: any) => {
             if (!arr.includes(item.nameOfDiscipline)) {
                 console.log("added");
                 arr.push(item.nameOfDiscipline);
             }
         })
         setUniqNames(arr);
-    }, [])
-
+    }, [planStore.academWorks])
 
     const validation = () => {
         return ((planStore.step2.discipline !== t('other') ? planStore.step2.discipline : planStore.step2.anotherDiscipline) && planStore.step2.nameWork && planStore.step2.deadlines
@@ -148,12 +144,11 @@ const Step2 = (props: any) => {
                             {uniqNames.length > 0 ? uniqNames.map((item: any) => {
                                 return <li onClick={() => {
                                     planStore.editStep2Modal({discipline: item,anotherDiscipline:""});
-                                    setIsOther(false)
                                 } }>
                                     {item}
                                 </li>
                             }) : null}
-                            <li onClick={()=>{setIsOther(true)
+                            <li onClick={()=>{
                                 planStore.editStep2Modal({discipline: t('other')})
                             }}>{t('other')}</li>
                         </ul>

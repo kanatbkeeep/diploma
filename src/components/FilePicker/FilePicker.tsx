@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "../Button/Button";
 import Plus from "../../assets/icon/blackPlus.svg";
 import t from "../../utils/Lang";
 
@@ -10,7 +9,7 @@ const FilePicker = (props:any) =>{
             <div style={{display:"flex", flexDirection:"column"}}>
                 <div className="file-label">{props.label}</div>
                 <div className="file-input">
-                    <img src={Plus}/>
+                    <img alt='plusIcon' src={Plus}/>
                     {props?.sublabel ? props.sublabel : t('uploadPdf')}
                 </div>
             </div>

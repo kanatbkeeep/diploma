@@ -1,5 +1,4 @@
-import React from "react";
-import Plus from '../../assets/icon/plus.svg'
+import React from "react"
 
 const Button = (props: any) => {
     //типы которые возможны primaryButton, secondaryButton, secondaryButtonBlack
