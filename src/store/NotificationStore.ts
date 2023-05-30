@@ -29,7 +29,7 @@ class NotificationStore {
                 this.notifications = repos.data;
             }
 
-        });
+        }).catch(() => {AppStore.isLoading = false;});
     }
 
     constructor() {
