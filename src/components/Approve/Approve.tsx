@@ -28,9 +28,9 @@ const Approve = (props: any) => {
                         type={'smallBlue'}
                         onClick={() => {
                             ApproveStore.sendApprove(false).then(() => {
-                                ApproveStore.editModel({selectedPlan: null});
                                 AppStore.getMyPlansToApproveAwaiting();
                                 props.onModalStateChanged(false);
+                                ApproveStore.editModel({selectedPlan: null});
                             });
                         }}
                     />
