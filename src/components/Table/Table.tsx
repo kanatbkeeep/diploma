@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Delete from "../../assets/icon/delete.svg";
 import Checkbox from "../Checkbox/Checkbox";
 import Search from "../../assets/icon/search.svg"
@@ -27,7 +27,6 @@ const Table = ({
                    onDelete,
                    search,
                    array,
-                   ...props
                }: Props & Record<string, unknown>) => {
 
     const [data, setData]: any = useState(array);
@@ -59,7 +58,7 @@ const Table = ({
 
     const showData = () => {
         if (search && nameSearch && nameSearch.trim()) {
-            let length = data.filter((i: any, ind: any) => {
+            let length = data.filter((i: any) => {
                 if (nameSearch && nameSearch.trim()) {
                     let obj: any = "";
                     keysOfData?.map((key: any) => {
@@ -77,7 +76,6 @@ const Table = ({
                 } else {
                     return i
                 }
-                ;
             })?.length;
 
             copyData = data.filter((i: any, ind: any) => {
@@ -98,7 +96,6 @@ const Table = ({
                 } else {
                     return i
                 }
-                ;
             })
 
             if (length === 0) length++;
@@ -128,7 +125,6 @@ const Table = ({
                     totalPages = copyTotalPages;
                     return i
                 }
-                ;
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
                     return renderBody(item, index, maxWidthColumns, getCheckbox(item, index));

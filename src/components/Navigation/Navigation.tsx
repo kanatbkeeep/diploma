@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {observer} from 'mobx-react';
-import t, {l} from "../../utils/Lang";
+import t from "../../utils/Lang";
 import Dropdown from "../Dropdown/Dropdown";
 import Button from "../Button/Button";
 import AppStore from "../../store/AppStore";

@@ -18,7 +18,6 @@ export const GET_PLAN_BY_ID = (id: any) => `${url}/plan/get-by-id?id=${id}`;
 export const ADD_KPI = (idPlan:any,id:any) => `${url}/plan/add-kpi?id=${idPlan}&idSection=${id}`;
 export const EDIT_KPI = `${url}/kpi/update`;
 export const DELETE_KPI = `${url}/kpi/delete`;
-export const UPLOAD_FILE_KPI = `${url}/kpi/upload-supporting-document`;
 export const GET_KPI_SECTIONS = (degree:any,position:any) => `${url}/kpi-section/get-all?positionName=${position}&degreeName=${degree}`;
 export const CHANGE_YEAR_PLAN = `${url}/plan/change-year`;
 

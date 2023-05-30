@@ -36,14 +36,14 @@ function Registration() {
                         }}/>
 
                         <Button label={t('registrationTitle')} onClick={() => {
-                            AppStore.registrationUser()
+                            AppStore.registrationUser().then();
                         }}/>
 
                         {AppStore.statusRegistration && AppStore.statusRegistration === "found" ? <div className="errorMassage">{t('userAlreadyExist')}</div>:null}
                         {AppStore.statusRegistration && AppStore.statusRegistration === "verify" ? <div className="verifyEmail">{t('needToVerify')}</div>:null}
                         {AppStore.statusRegistration && AppStore.statusRegistration === "techError" ? <div className="errorMassage">{t('techError')}</div>:null}
 
-                        <a onClick={() => navigate('/login')}>{t('loginTitle')}</a>
+                        <a href="#/" onClick={() => navigate('/login')}>{t('loginTitle')}</a>
                     </aside>
                 </section>
             </main>

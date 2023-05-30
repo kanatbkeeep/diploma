@@ -7,15 +7,13 @@ import Table from "../Table/Table";
 import Edit from "../../assets/icon/edit.svg";
 import Copy from "../../assets/icon/copy.svg";
 import {useNavigate} from "react-router-dom";
-import {Simulate} from "react-dom/test-utils";
-import select = Simulate.select;
 import CreationPlanStore from "../../store/CreationPlanStore";
 
-const TeacherPlanList = (props: any) => {
+const TeacherPlanList = () => {
     const navigate = useNavigate();
     const validation = (item: any) => {
         let percentage = 0;
-        item.kpis.map((item: any) => {
+        item.kpis.forEach((item: any) => {
             percentage += item.percentage;
         })
 
@@ -98,38 +96,38 @@ const TeacherPlanList = (props: any) => {
 
                                                 AppStore.copyPlan().then(() => {
                                                     CreationPlanStore.getPlan().then(() => {
-                                                        planCopy.academicWorks.map((i: any) => {
+                                                        planCopy.academicWorks.forEach((i: any) => {
                                                             console.log(123123123)
                                                             delete i.id;
                                                             CreationPlanStore.step1 = i;
                                                             CreationPlanStore.saveAcademicWork();
                                                         })
 
-                                                        planCopy.academicMethods.map((i: any) => {
+                                                        planCopy.academicMethods.forEach((i: any) => {
                                                             delete i.id;
                                                             CreationPlanStore.step2 = i;
                                                             CreationPlanStore.saveAcademicMethod();
                                                         })
 
-                                                        planCopy.researchWorks.map((i: any) => {
+                                                        planCopy.researchWorks.forEach((i: any) => {
                                                             delete i.id;
                                                             CreationPlanStore.step3 = i;
                                                             CreationPlanStore.saveResearchWork();
                                                         })
 
-                                                        planCopy.educationalWorks.map((i: any) => {
+                                                        planCopy.educationalWorks.forEach((i: any) => {
                                                             delete i.id;
                                                             CreationPlanStore.step4 = i;
                                                             CreationPlanStore.saveEduWork();
                                                         })
 
-                                                        planCopy.socialWorks.map((i: any) => {
+                                                        planCopy.socialWorks.forEach((i: any) => {
                                                             delete i.id;
                                                             CreationPlanStore.step5 = i;
                                                             CreationPlanStore.saveSocialWork();
                                                         })
 
-                                                        planCopy.kpis.map((i: any) => {
+                                                        planCopy.kpis.forEach((i: any) => {
                                                             CreationPlanStore.currentSection = i.kpiSection;
                                                             CreationPlanStore.step6 = {
                                                                 fileName:i.pdfFileName,

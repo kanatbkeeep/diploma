@@ -1,30 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {observer} from 'mobx-react';
 import t, {l} from "../../utils/Lang";
-import FilePicker from "../FilePicker/FilePicker";
-import Cross from "../../assets/icon/cross.svg";
-import CrossWhite from "../../assets/icon/crossWhite.svg";
-import TickWhite from "../../assets/icon/tickWhite.svg";
-import Input from "../Input/Input";
-import EditProfileStore from "../../store/EditProfileStore";
-import Dropdown from "../Dropdown/Dropdown";
 import Button from "../Button/Button";
-import Profile from "../../pages/profile/Profile";
 import AppStore from "../../store/AppStore";
-import ApproveStore from "../../store/ApproveStore";
-import Table from "../Table/Table";
-import EyeBlack from "../../assets/icon/eyeBlack.svg";
-import DownloadWhite from "../../assets/icon/downloadWhite.svg";
-import Edit from "../../assets/icon/edit.svg";
-import Copy from "../../assets/icon/copy.svg";
-import {useNavigate} from "react-router-dom";
 import EditWhite from "../../assets/icon/editWhtie.svg";
+import UserAvatar from "../../assets/image/userAvatar.svg";
 
 const TeacherPlanList = (props: any) => {
     return (
         <section className={'userInfo mt-38'}>
             <aside className={'userAvatar'}>
-                <img src={AppStore.currentUser?.photo}/>
+                {AppStore.currentUser?.photo ? <img alt='userPhoto' src={AppStore.currentUser?.photo}/>: <img alt='userPhoto' src={UserAvatar}/>}
             </aside>
             <aside className={'userData'}>
                 <h2>{AppStore.currentUser?.lastName + ' ' + AppStore.currentUser?.firstName + ' ' + AppStore.currentUser?.middleName}</h2>

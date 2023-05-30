@@ -1,5 +1,4 @@
-import {action, makeAutoObservable, runInAction} from 'mobx';
-import React from 'react';
+import {action, makeAutoObservable} from 'mobx';
 import axios from 'axios'
 import {ADD_KPI, DELETE_KPI, EDIT_KPI, GET_KPI_SECTIONS} from "../config/rest/creationPlanRest";
 import AppStore from "./AppStore";
@@ -50,8 +49,8 @@ class KpiStore {
 
     resetChecked(){
         let arr:any = [];
-        this.kpiSections.map((item:any,ind:any)=>{
-            item.options.map((item:any,ind:any)=>{
+        this.kpiSections.forEach((item:any)=>{
+            item.options.forEach((item:any)=>{
                 arr.push({id:item, checked:false});
             })
         })
@@ -70,8 +69,8 @@ class KpiStore {
                 this.kpiSections = repos.data;
                 this.currentSection = this.kpiSections[this.model.currentIndSection];
                 let arr:any = [];
-                this.kpiSections.map((item:any,ind:any)=>{
-                    item.options.map((item:any,ind:any)=>{
+                this.kpiSections.forEach((item:any)=>{
+                    item.options.forEach((item:any)=>{
                         arr.push({id:item, checked:false});
                     })
                 })
@@ -146,9 +145,6 @@ class KpiStore {
         }).catch(() => {AppStore.isLoading = false;});
     }
 
-
-
-
     constructor() {
         this.model = {
             fileName:"",
@@ -178,6 +174,7 @@ class KpiStore {
             clean: action.bound,
             resetChecked: action.bound,
             updateKpi:action.bound,
+            deleteKpis:action.bound,
         })
     }
 }

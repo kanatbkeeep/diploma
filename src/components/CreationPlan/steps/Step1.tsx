@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Input from "../../Input/Input";
 import Dropdown from "../../Dropdown/Dropdown";
 import Button from "../../Button/Button";
@@ -13,7 +13,6 @@ import t from "../../../utils/Lang";
 const Step1 = (props: any) => {
     const [open, setOpen] = useState("");
     const [itemEdit, setItemEdit]: any = useState(null);
-    const [arraySearch, setArraySerch]:any[] = useState([]);
     const {planStore} = props;
 
     const validation = () => {

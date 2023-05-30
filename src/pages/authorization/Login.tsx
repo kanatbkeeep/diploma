@@ -25,11 +25,11 @@ function Login() {
                             AppStore.editModel({password: e.target.value})
                         }}/>
                         <Button label={t('loginTitle')} onClick={() => {
-                            AppStore.loadLogin()
+                            AppStore.loadLogin().then();
                         }}/>
                         {AppStore.incorrect ? <p className='errorMassage'>{t('incorrect')}</p> : null}
-                        <a onClick={() => navigate('/registration')}>{t('registrationTitle')}</a>
-                        <a onClick={() => navigate('/forget')}>{t('forgotPassword')}</a>
+                        <a href="#/" onClick={() => navigate('/registration')}>{t('registrationTitle')}</a>
+                        <a href="#/" onClick={() => navigate('/forget')}>{t('forgotPassword')}</a>
                     </aside>
                 </section>
             </main>

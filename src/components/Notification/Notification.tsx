@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useMemo, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import Cross from "../../assets/icon/cross.svg"
 import CrossIcon from "../../assets/icon/notification/cross.svg"
 import TickIcon from "../../assets/icon/notification/tick.svg"
@@ -17,7 +17,7 @@ const Notification: FC<Props> = ({open, onModalStateChanged}) => {
 
     useEffect(() => {
         onModalStateChanged?.(opened);
-    }, [opened]);
+    }, [onModalStateChanged, opened]);
 
     useEffect(() => {
         setOpened(!!open);

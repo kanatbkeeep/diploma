@@ -1,5 +1,4 @@
-import {action, makeAutoObservable, runInAction} from 'mobx';
-import React from 'react';
+import {action, makeAutoObservable} from 'mobx';
 import axios from "axios";
 import {
     ADD_ACADEMIC_METHOD,
@@ -9,7 +8,7 @@ import {
     DELETE_ACADEMIC_WORK, DELETE_EDUCATION_WORK, DELETE_KPI, DELETE_RESEARCH_WORK, DELETE_SOCIAL_WORK,
     EDIT_ACADEMIC_METHOD,
     EDIT_ACADEMIC_WORK, EDIT_EDUCATION_WORK, EDIT_KPI, EDIT_RESEARCH_WORK, EDIT_SOCIAL_WORK, GET_KPI_SECTIONS,
-    GET_LATEST_PLAN, GET_PLAN_BY_ID, IMPORT_PLAN, SEND_PLAN
+    GET_LATEST_PLAN, GET_PLAN_BY_ID, IMPORT_PLAN,
 } from "../config/rest/creationPlanRest";
 import AppStore from "./AppStore";
 import t from "../utils/Lang";
@@ -142,7 +141,7 @@ class CreationPlanStore {
                 headers: {
                     Authorization: this.getCookie(`Authorization`)
                 },
-            }).then((repos: any) => {
+            }).then(() => {
             AppStore.getMyPlans();
             AppStore.isLoading = false;
         }).catch(() => {
@@ -469,7 +468,7 @@ class CreationPlanStore {
                 headers: {
                     Authorization: this.getCookie(`Authorization`)
                 }
-            }).then((repos: any) => {
+            }).then(() => {
 
         }).catch(() => {AppStore.isLoading = false;});
     }
@@ -478,7 +477,7 @@ class CreationPlanStore {
         if (this.kpiWorks.length > 0) {
             let per: any = 0.0;
 
-            this.kpiWorks.map((item: any) => {
+            this.kpiWorks.forEach((item: any) => {
                 per = per + item.percentage;
             })
 
@@ -514,8 +513,8 @@ class CreationPlanStore {
 
     resetChecked(){
         let arr:any = [];
-        this.kpiSections.map((item:any,ind:any)=>{
-            item.options.map((item:any,ind:any)=>{
+        this.kpiSections.forEach((item:any)=>{
+            item.options.forEach((item:any)=>{
                 arr.push({id:item, checked:false});
             })
         })
@@ -536,8 +535,8 @@ class CreationPlanStore {
                 this.kpiSections = repos.data;
                 this.currentSection = this.kpiSections[this.step6.currentIndSection];
                 let arr:any = [];
-                this.kpiSections.map((item:any,ind:any)=>{
-                    item.options.map((item:any,ind:any)=>{
+                this.kpiSections.forEach((item:any)=>{
+                    item.options.forEach((item:any)=>{
                         arr.push({id:item, checked:false});
                     })
                 })

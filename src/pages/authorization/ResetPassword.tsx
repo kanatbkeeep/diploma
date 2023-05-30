@@ -29,13 +29,13 @@ function ResetPassword() {
                             ResetPasswordStore.editModel({confirmNewPassword: e.target.value})
                         }}/>
                         <Button label={t('recover')} onClick={() => {
-                            ResetPasswordStore.resetPassword()
+                            ResetPasswordStore.resetPassword().then();
                         }}/>
 
                         {ResetPasswordStore.status === "found" ? <div className="errorMassage">{t('mismatchPassword')}</div>:null}
                         {ResetPasswordStore.status === "verify" ? <div className="verifyEmail">{t('passwordWasReset')}</div>:null}
                         {ResetPasswordStore.status === "techError" ? <div className="errorMassage">{t('techError')}</div>:null}
-                        <a onClick={() => navigate('/')}>{t('home')}</a>
+                        <a href="#/" onClick={() => navigate('/')}>{t('home')}</a>
                     </aside>
                 </section>
             </main>

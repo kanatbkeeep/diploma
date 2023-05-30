@@ -14,7 +14,7 @@ const Dropdown = (props: any) => {
             <div className="dropdown" onClick={props.onClick}>
                 <div style={props?.lang ? {display: "flex", justifyContent: "center", padding: "0"} : {}} className={isActive ? "dropdown-btn dropdown-btn-active" : "dropdown-btn"} onClick={()=>{setIsActive(!isActive)}}>
                     {props.value}
-                    {!props?.noIcon ? <img src={arrow} style={{transform: isActive ? "rotate(180deg)" : ""}}/>: null}
+                    {!props?.noIcon ? <img alt='arrowImg' src={arrow} style={{transform: isActive ? "rotate(180deg)" : ""}}/>: null}
                 </div>
 
                 {isActive && (

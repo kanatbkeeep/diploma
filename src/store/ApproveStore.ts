@@ -1,5 +1,4 @@
-import {action, makeAutoObservable, runInAction} from 'mobx';
-import React from 'react';
+import {action, makeAutoObservable} from 'mobx';
 import axios from 'axios'
 import AppStore from "./AppStore";
 import {url} from "../config/rest/common";
@@ -35,7 +34,7 @@ class ApproveStore {
             headers: {
                 Authorization: getCookie(`Authorization`)
             },
-        }).then((repos: any) => {
+        }).then(() => {
             AppStore.isLoading = false;
         }).catch(() => {AppStore.isLoading = false;});
     }
