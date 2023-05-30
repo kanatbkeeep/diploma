@@ -99,6 +99,11 @@ const en = {
     otherDiscipline:"Other discipline",
     mismatch:"Incorrect email or passwords don't match",
     kpiWarning:"KPI does not exist for your data",
+    doYouWant:"Do you want to",
+    approve:"approve",
+    individualPlan:"individual plan",
+    return:"return",
+    forRevision:"for revision",
 }
 
 export default en;
