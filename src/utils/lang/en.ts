@@ -104,6 +104,8 @@ const en = {
     individualPlan:"individual plan",
     return:"return",
     forRevision:"for revision",
+    report:"Report",
+    type:"Type",
 }
 
 export default en;

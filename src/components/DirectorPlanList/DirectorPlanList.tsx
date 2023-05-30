@@ -21,27 +21,29 @@ const DirectorPlanList = (props: any) => {
                     array={AppStore.myPlansToApprove}
                     rowsPerPage={4}
                     maxWidthTable={1000}
-                    maxWidthColumns={[400, 120, 120, 310]}
+                    maxWidthColumns={[80, 345, 120, 120, 310]}
                     haveDelete={false}
                     onDelete={() => {
                         console.log("deleted");
                     }}
                     renderHead={(maxWidthColumns) => {
                         return <div>
-                            <div style={{maxWidth: 50}}></div>
-                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('professor')}</div>
-                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('academicYear')}</div>
-                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('status')}</div>
+                            <div style={{maxWidth: 25}}></div>
+                            <div style={{maxWidth: maxWidthColumns[0]}}>{t('type')}</div>
+                            <div style={{maxWidth: maxWidthColumns[1]}}>{t('professor')}</div>
+                            <div style={{maxWidth: maxWidthColumns[2]}}>{t('academicYear')}</div>
+                            <div style={{maxWidth: maxWidthColumns[3]}}>{t('status')}</div>
                         </div>
                     }}
                     renderBody={(item, index, maxWidthColumns) => {
                         return (
                             <div key={index}>
-                                <div style={{maxWidth: 50}}></div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.createdBy.firstName + ' ' + item.createdBy.lastName + ' ' + item.createdBy.middleName}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.year}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.status}</div>
-                                <div style={{maxWidth: maxWidthColumns[3], display: "flex", justifyContent: "space-between"}}>
+                                <div style={{maxWidth: 25}}></div>
+                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.report ? t('report') : t('plan')}</div>
+                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.createdBy.firstName + ' ' + item.createdBy.lastName + ' ' + item.createdBy.middleName}</div>
+                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.year}</div>
+                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.status}</div>
+                                <div style={{maxWidth: maxWidthColumns[4], display: "flex", justifyContent: "space-between"}}>
                                     <div>
                                         <Button
                                             icon={EyeBlack}

@@ -104,6 +104,8 @@ const ru = {
     individualPlan:"индивидуальный план",
     return:"вернуть",
     forRevision:"для пересмотра",
+    report:"Отчет",
+    type:"Тип",
 }
 
 export default ru;

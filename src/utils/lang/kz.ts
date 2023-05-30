@@ -104,6 +104,8 @@ const kz = {
     individualPlan:"келісім беруге келе ме",
     return:"жоспарды",
     forRevision:"қайта оралғыңыз келе ме",
+    report:"Баяндама",
+    type:"Түрі",
 }
 
 export default kz;

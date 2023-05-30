@@ -26,6 +26,7 @@ const TeacherPlanList = () => {
             step6: item?.socialWorks?.length > 0 ? 'Filled' : 'Not filled',
             step7: percentage + '%',
             step8: item.status ? item.status : 'Not sent',
+            step9: item.report ? t('report') : t('plan'),
         };
     }
 
@@ -36,7 +37,7 @@ const TeacherPlanList = () => {
                     array={AppStore.myPlans}
                     rowsPerPage={4}
                     maxWidthTable={1150}
-                    maxWidthColumns={[120, 120, 150, 120, 130, 100, 100, 120, 140]}
+                    maxWidthColumns={[120, 120, 150, 120, 130, 100, 60, 80, 80, 140]}
                     haveDelete={true}
                     onDelete={(es: any) => {
                         AppStore.deletePlan(es);
@@ -52,6 +53,7 @@ const TeacherPlanList = () => {
                             <div style={{maxWidth: maxWidthColumns[5]}}>{t('academicSocialWork')}</div>
                             <div style={{maxWidth: maxWidthColumns[6]}}>{'KPI'}</div>
                             <div style={{maxWidth: maxWidthColumns[7]}}>{t('status')}</div>
+                            <div style={{maxWidth: maxWidthColumns[8]}}>{t('type')}</div>
                         </div>
                     }}
                     renderBody={(item, index, maxWidthColumns, checkbox) => {
@@ -66,7 +68,8 @@ const TeacherPlanList = () => {
                                 <div style={{maxWidth: maxWidthColumns[5]}}>{validation(item).step6}</div>
                                 <div style={{maxWidth: maxWidthColumns[6]}}>{validation(item).step7}</div>
                                 <div style={{maxWidth: maxWidthColumns[7]}}>{validation(item).step8}</div>
-                                <div style={{maxWidth: maxWidthColumns[8]}}>
+                                <div style={{maxWidth: maxWidthColumns[8]}}>{validation(item).step9}</div>
+                                <div style={{maxWidth: maxWidthColumns[9]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button
                                             className="secondaryButton"
