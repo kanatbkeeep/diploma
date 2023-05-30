@@ -102,9 +102,9 @@ const Revision = (props: any) => {
                         disabled={!(ApproveStore.model.description && ApproveStore.model.parts.length > 0)}
                         onClick={() => {
                             ApproveStore.sendDenied(false).then(() => {
-                                ApproveStore.nullifyModel();
                                 AppStore.getMyPlansToApproveAwaiting();
-                                props.onModalStateChanged(false);
+                                props.onModalStateChanged(false)
+                                ApproveStore.nullifyModel();
                             });
                         }}
                     />
