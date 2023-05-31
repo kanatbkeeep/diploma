@@ -8,7 +8,7 @@ export function getCookie(name: any) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-export let lg = getCookie("lang")?getCookie("lang"):getCookie('locale');
+export let lg = getCookie("lang") ? getCookie("lang") : getCookie('locale');
 
 class AppStore {
     currentUser: any;
@@ -18,7 +18,7 @@ class AppStore {
     plansLoaded: boolean = false;
     incorrect: boolean = false;
     model: any;
-    lang: any = lg ? lg: "ru";
+    lang: any = lg ? lg : "ru";
     langs: any = ["ru", "kz", "en"];
     isLoading: any = false;
     statusRegistration: any;
@@ -74,12 +74,12 @@ class AppStore {
                 this.statusRegistration = "verify";
                 console.log(this.statusRegistration)
             }
-        }).catch((reason: AxiosError)=>{
+        }).catch((reason: AxiosError) => {
             this.isLoading = false;
             if (reason.response?.status === 400) {
                 this.statusRegistration = "found";
                 console.log(this.statusRegistration)
-            }else{
+            } else {
                 this.statusRegistration = "techError";
             }
 
@@ -98,7 +98,10 @@ class AppStore {
                 this.currentUser = repos.data;
                 if (window.location.href.includes(`/login`)) window.location.replace(`/`);
             }
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+            window.location.replace(`/login`);
+        });
     }
 
     async getDepartmentByTeacher() {
@@ -112,7 +115,9 @@ class AppStore {
             if (repos.status === 200) {
                 this.department = repos.data;
             }
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async getDepartmentByDirector() {
@@ -126,7 +131,9 @@ class AppStore {
             if (repos.status === 200) {
                 this.department = repos.data;
             }
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async getMyPlans() {
@@ -140,7 +147,9 @@ class AppStore {
             if (repos.status === 200) {
                 this.myPlans = repos.data.reverse();
             }
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async getMyPlansToApproveAwaiting() {
@@ -149,14 +158,16 @@ class AppStore {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             },
-            params: { status: `AWAITING` }
+            params: {status: `AWAITING`}
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
                 this.myPlansToApprove = repos.data.reverse();
                 this.getMyPlansToApproveApproved();
             }
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async getMyPlansToApproveApproved() {
@@ -165,47 +176,55 @@ class AppStore {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             },
-            params: { status: `APPROVED` }
+            params: {status: `APPROVED`}
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
                 this.myPlansToApprove = this.myPlansToApprove.concat(repos.data.reverse());
             }
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async createPlan() {
         this.isLoading = true;
-        return await axios.post(`${url}/plan/create?idDirector=${this.department.director.id}`, {},{
+        return await axios.post(`${url}/plan/create?idDirector=${this.department.director.id}`, {}, {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             }
         }).then(() => {
             this.isLoading = false;
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async copyPlan() {
         this.isLoading = true;
-        return await axios.post(`${url}/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan,{
+        return await axios.post(`${url}/plan/create?idDirector=${this.department.director.id}`, this.model.selectedPlan, {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             }
         }).then(() => {
             this.isLoading = false;
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     async deletePlan(items: any) {
         this.isLoading = true;
-        return await axios.post(`${url}/plan/delete`, {items: items},{
+        return await axios.post(`${url}/plan/delete`, {items: items}, {
             headers: {
                 Authorization: this.getCookie(`Authorization`)
             }
         }).then(() => {
             this.isLoading = false;
             this.getMyPlans();
-        }).catch(() => {this.isLoading = false;});
+        }).catch(() => {
+            this.isLoading = false;
+        });
     }
 
     getCookie(name: any) {
@@ -225,9 +244,9 @@ class AppStore {
             selectedPlan: null,
             showMyPlans: false,
             showReport: false,
-            firstName:null,
-            lastName:null,
-            middleName:null,
+            firstName: null,
+            lastName: null,
+            middleName: null,
         }
 
         this.currentUser = null;
