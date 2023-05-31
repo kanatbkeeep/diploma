@@ -14,8 +14,6 @@ class AppStore {
     currentUser: any;
     department: any;
     myPlans: any;
-    myPlansPlan: any;
-    myPlansReport: any = [];
     myPlansToApprove: any = [];
     plansLoaded: boolean = false;
     incorrect: boolean = false;
@@ -140,13 +138,7 @@ class AppStore {
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
-                this.myPlans = repos.data;
-                this.myPlans.forEach((item: any) => {
-                    if (item.report) this.myPlansReport.push(item);
-                    else this.myPlansPlan.push(item);
-                });
-                this.myPlansReport = this.myPlansReport.reverse();
-                this.myPlansPlan = this.myPlansPlan.reverse();
+                this.myPlans = repos.data.reverse();
             }
         }).catch(() => {this.isLoading = false;});
     }
@@ -212,6 +204,7 @@ class AppStore {
             }
         }).then(() => {
             this.isLoading = false;
+            this.getMyPlans();
         }).catch(() => {this.isLoading = false;});
     }
 
@@ -237,8 +230,6 @@ class AppStore {
             middleName:null,
         }
 
-        this.myPlansReport = [];
-        this.myPlansPlan = [];
         this.currentUser = null;
         this.department = null;
         this.statusRegistration = null;
