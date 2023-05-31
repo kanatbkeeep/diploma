@@ -42,6 +42,10 @@ class AppStore {
         return await axios.post(`${url}/user/loginUser`, {
             email: this.model.email,
             password: this.model.password
+        }, {
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
