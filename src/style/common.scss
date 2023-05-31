@@ -884,7 +884,7 @@ body {
   top: 1px;
   left: 1px;
   width: 22px;
-  height: 22px;
+  height: 23px;
   background: #fff;
   border-radius: 22px;
   transition: 0.3s;
@@ -895,12 +895,12 @@ body {
 }
 
 .toggleSwitch input:checked + label:after {
-  left: calc(100% - 5px);
+  left: calc(100% - 1px);
   transform: translateX(-100%);
 }
 
 .toggleSwitch label:active:after {
-  width: 32px;
+  width: 25px;
 }
 
 .toggleSwitch {
