@@ -77,15 +77,19 @@ function Profile() {
                 <UserData onModalStateChanged={handleModalStateChanged2}/>
                 {AppStore.isTeacher() && AppStore.isDirector() ? <>
                     <ToggleSwitch
+                        key={'teacherDirectorPlan'}
+                        id={'teacherDirectorPlanId'}
                         text1={t('plansToApprove')}
                         text2={t('myPlans')}
+                        checked={AppStore.model.showMyPlans}
                         onChange={(e: any) => {
                             AppStore.editModel({showMyPlans: e.target.checked});
+                            console.log(AppStore.model.showMyPlans);
                         }}
                     />
                 </> :null}
 
-                {AppStore.isTeacher() || (AppStore.isTeacher() && AppStore.isDirector() && AppStore.model.showMyPlans) ? <>
+                {(AppStore.isTeacher() && !AppStore.isDirector()) || (AppStore.isTeacher() && AppStore.isDirector() && AppStore.model.showMyPlans) ? <>
                     <TeacherPlanList/>
 
                     <section className={'createPlan'}>

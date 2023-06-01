@@ -20,6 +20,8 @@ const DirectorPlanList = (props: any) => {
             {AppStore.myPlansToApprove ? <>
                 <div className="togglePlansReportDirector">
                     <ToggleSwitch
+                        key={'directorPlan'}
+                        id={'directorPlanId'}
                         text2={t('report')}
                         text1={t('myPlans')}
                         checked={AppStore.model.showReport}

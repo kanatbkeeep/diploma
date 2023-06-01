@@ -37,6 +37,8 @@ const TeacherPlanList = () => {
             {AppStore.plansLoaded ? <>
                 <div className="togglePlansReport">
                     <ToggleSwitch
+                        key={'directorPlan'}
+                        id={'directorPlan'}
                         text2={t('report')}
                         text1={t('myPlans')}
                         checked={AppStore.model.showReport}
