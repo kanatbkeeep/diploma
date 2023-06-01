@@ -53,6 +53,7 @@ const Table = ({
         setChecked(Array.from({length: array.length}, (_, i) => ({id: i, checked: false})));
         setItemsChecked([...checked])
         keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
+        console.log(itemsChecked);
     }, [array.length, checked.length])
 
 
@@ -127,12 +128,14 @@ const Table = ({
                 }
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, index));
+                    const indObj = data.findIndex((i:any)=> i.id === item.id);
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, indObj));
                 });
         } else {
             return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, index));
+                    const indObj = data.findIndex((i:any)=> i.id === item.id);
+                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, indObj));
                 })
         }
     }
