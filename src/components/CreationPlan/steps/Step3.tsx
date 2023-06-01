@@ -250,13 +250,50 @@ const Step3 = (props: any) => {
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
                                 <div className="hidden-scroll"
-                                     style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfTheWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{implShow(item.infoImplementation)}</div>
+                                     style={{
+                                         maxWidth: maxWidthColumns[0],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.nameOfTheWork}</div>
                                 <div className="hidden-scroll"
-                                     style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
+                                     style={{
+                                         maxWidth: maxWidthColumns[1],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.deadlines}</div>
                                 <div className="hidden-scroll"
-                                     style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
+                                     style={{
+                                         maxWidth: maxWidthColumns[2],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{implShow(item.infoImplementation)}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[3],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start"
+                                     }}>{item.results}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[4],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start"
+                                     }}>{item.comments}</div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>
                                     <div style={{width: 54, marginRight: 10}}>
                                         <Button className="secondaryButton"

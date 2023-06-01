@@ -628,19 +628,53 @@ const Step6 = (props: any) => {
                                         <div className="hidden-scroll"
                                              style={{
                                                  maxWidth: maxWidthColumns[0],
-                                                 paddingRight: 16,
                                                  display: "flex",
-                                                 flexDirection: "column"
+                                                 flexDirection: "column",
+                                                 justifyContent:"center",
+                                                 paddingRight: 16,
+                                                 alignItems:"flex-start"
                                              }}>
                                             {item.nameOfTheWork}
                                         </div>
-                                        <div style={{maxWidth: maxWidthColumns[1]}}>{item.deadlines}</div>
+                                        <div className="hidden-scroll"
+                                             style={{
+                                                 maxWidth: maxWidthColumns[1],
+                                                 display: "flex",
+                                                 flexDirection: "column",
+                                                 justifyContent:"center",
+                                                 paddingRight: 16,
+                                                 alignItems:"flex-start"
+                                             }}>
+                                            {item.deadlines}
+                                        </div>
                                         <div
-                                            style={{maxWidth: maxWidthColumns[2]}}>{implShow(item.informationOnImplementation)}</div>
+                                            className="hidden-scroll"
+                                            style={{
+                                                maxWidth: maxWidthColumns[2],
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                justifyContent:"center",
+                                                paddingRight: 16,
+                                                alignItems:"flex-start"
+                                            }}>{implShow(item.informationOnImplementation)}</div>
                                         <div className="hidden-scroll"
-                                             style={{maxWidth: maxWidthColumns[3]}}>{item.results}</div>
+                                             style={{
+                                                 maxWidth: maxWidthColumns[3],
+                                                 display: "flex",
+                                                 flexDirection: "column",
+                                                 justifyContent:"center",
+                                                 paddingRight: 16,
+                                                 alignItems:"flex-start"
+                                             }}>{item.results}</div>
                                         <div className="hidden-scroll"
-                                             style={{maxWidth: maxWidthColumns[4]}}>{item.comments}</div>
+                                             style={{
+                                                 maxWidth: maxWidthColumns[4],
+                                                 display: "flex",
+                                                 flexDirection: "column",
+                                                 justifyContent:"center",
+                                                 paddingRight: 16,
+                                                 alignItems:"flex-start"
+                                             }}>{item.comments}</div>
                                         <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[5]}}>
                                             {item.pdfFile ? <>
                                                 <a className="download-file" href={item.pdfFile} download={item.pdfFileName}>

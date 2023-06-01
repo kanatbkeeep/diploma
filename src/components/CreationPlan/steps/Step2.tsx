@@ -294,11 +294,51 @@ const Step2 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.discipline}</div>
-                                <div style={{maxWidth: maxWidthColumns[1]}}>{item.nameWork}</div>
-                                <div style={{maxWidth: maxWidthColumns[2]}}>{item.deadlines}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{implShow(item.infoImplementation)}</div>
-                                <div className="hidden-scroll" style={{maxWidth: maxWidthColumns[4]}}>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[0],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.discipline}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[1],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.nameWork}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[2],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.deadlines}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[3],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{implShow(item.infoImplementation)}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[4],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>
                                     {item.comment}
                                 </div>
                                 <div style={{maxWidth: maxWidthColumns[5]}}>
