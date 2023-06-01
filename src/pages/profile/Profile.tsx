@@ -53,7 +53,7 @@ function Profile() {
                 AppStore.getDepartmentByTeacher().then(() => {setDataForUpdate();});
             }
 
-            if (AppStore.isTeacher()) {
+            if (AppStore.isDirector()) {
                 AppStore.getDepartmentByDirector().then(() => {setDataForUpdate();});
                 AppStore.getMyPlansToApproveAwaiting().then();
             }
