@@ -129,13 +129,13 @@ const Table = ({
             }).slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
                     const indObj = data.findIndex((i:any)=> i.id === item.id);
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, indObj));
+                    return renderBody(item, indObj, maxWidthColumns, getCheckbox(item, indObj));
                 });
         } else {
             return data.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
                 .map((item: any, index: number) => {
                     const indObj = data.findIndex((i:any)=> i.id === item.id);
-                    return renderBody(item, index, maxWidthColumns, getCheckbox(item, indObj));
+                    return renderBody(item, indObj, maxWidthColumns, getCheckbox(item, indObj));
                 })
         }
     }

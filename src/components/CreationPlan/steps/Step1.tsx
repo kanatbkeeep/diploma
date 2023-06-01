@@ -339,10 +339,26 @@ const Step1 = (props: any) => {
                         return (
                             <div key={index}>
                                 <div style={checkbox ? {maxWidth: 50} : {}}>{checkbox}</div>
-                                <div style={{maxWidth: maxWidthColumns[0]}}>{item.nameOfDiscipline}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[0],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.nameOfDiscipline}</div>
                                 <div style={{maxWidth: maxWidthColumns[1]}}>{item.course}</div>
                                 <div style={{maxWidth: maxWidthColumns[2]}}>{item.trimester}</div>
-                                <div style={{maxWidth: maxWidthColumns[3]}}>{item.groups}</div>
+                                <div className="hidden-scroll"
+                                     style={{
+                                         maxWidth: maxWidthColumns[3],
+                                         display: "flex",
+                                         flexDirection: "column",
+                                         justifyContent:"center",
+                                         paddingRight: 16,
+                                         alignItems:"flex-start",
+                                     }}>{item.groups}</div>
                                 <div style={{maxWidth: maxWidthColumns[4]}}>
                                     <p style={{width: "100%", maxWidth: 50, color: "#003459"}}>{item.lecturesPlan}</p>
                                     <p style={{width: "100%", maxWidth: 50, color: "#007EA7"}}>{item.lecturesFact}</p>

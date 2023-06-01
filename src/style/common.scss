@@ -760,6 +760,7 @@ body {
 
 // убрать скролл
 .hidden-scroll {
+  box-sizing: border-box;
   overflow-y: scroll;
   word-break: break-all;
 }
