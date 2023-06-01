@@ -6,7 +6,7 @@ const ru = {
     oldPassword: 'Старый пароль',
     newPassword: 'Новый пароль',
     newPasswordConfirm: 'Подтвердите пароль',
-    recover: 'Восстоновить',
+    recover: 'Восстановить',
     resetPassword: 'Сброс пароля',
     passwordWasReset: 'Пароль был сброшен',
     mismatchPassword:"Не совпадают пароли",
@@ -100,14 +100,14 @@ const ru = {
     mismatch:"Неправильная почта или не совпадают пароли",
     kpiWarning:"KPI не существует для ваших данных",
     doYouWant:"Хотите",
-    approve:"соглосовать",
+    approve:"согласовать",
     individualPlan:"индивидуальный план",
     return:"вернуть",
     forRevision:"для пересмотра",
     report:"Отчет",
     type:"Тип",
     plansToApprove:"Планы для утверждения",
-    myPlans:"Мои планы",
+    myPlans:"Планы",
 }
 
 export default ru;

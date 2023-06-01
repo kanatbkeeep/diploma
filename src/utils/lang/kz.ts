@@ -107,7 +107,7 @@ const kz = {
     report:"Баяндама",
     type:"Түрі",
     plansToApprove:"Бекіту жоспарлары",
-    myPlans:"Менің жоспарларым",
+    myPlans:"Жоспарларым",
 }
 
 export default kz;

@@ -68,9 +68,7 @@ const CreationPlan = () => {
 
     const validationSend = () =>{
         return(
-            (planStore.plan?.status === null || planStore.plan?.status === "DENIED") && planStore.plan.academicWorks.length > 0 && planStore.plan.academicMethods.length > 0 &&
-            planStore.plan.educationalWorks.length > 0 && planStore.plan.kpis.length > 0 && planStore.plan.researchWorks.length > 0
-            && planStore.plan.socialWorks.length > 0 && planStore.years && AppStore.isTeacher()
+            (planStore.plan?.status === null || planStore.plan?.status === "DENIED") && planStore.years && AppStore.isTeacher()
         )
     }
 
