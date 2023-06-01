@@ -107,7 +107,7 @@ const ru = {
     report:"Отчет",
     type:"Тип",
     plansToApprove:"Планы для утверждения",
-    myPlans:"Мои планы",
+    myPlans:"Планы",
 }
 
 export default ru;

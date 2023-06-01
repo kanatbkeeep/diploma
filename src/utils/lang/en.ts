@@ -107,7 +107,7 @@ const en = {
     report:"Report",
     type:"Type",
     plansToApprove:"Plans to approval",
-    myPlans:"My plans",
+    myPlans:"Plans",
 }
 
 export default en;
