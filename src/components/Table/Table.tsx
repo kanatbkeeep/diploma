@@ -54,7 +54,7 @@ const Table = ({
         setItemsChecked([...checked])
         keysOfData = data.length > 0 ? Object.keys(data[0]) : null;
         console.log(itemsChecked);
-    }, [array.length, checked.length])
+    }, [array.length, checked.length, array])
 
 
     const showData = () => {
