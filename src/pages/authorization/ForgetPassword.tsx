@@ -22,13 +22,13 @@ function ForgetPassword() {
 
                     <aside>
                         <h2>{t('forgotPassword')}</h2>
-                        <Input label={'Email'} value={AppStore.model.email} login onChange={(e: any) => {
+                        <Input label={'Email'} value={ResetPasswordStore.model.email} login onChange={(e: any) => {
                             ResetPasswordStore.editModel({email: e.target.value});
                         }}/>
-                        <Input label={t('newPassword')} value={AppStore.model.newPassword} type={'password'} login onChange={(e: any) => {
+                        <Input label={t('newPassword')} value={ResetPasswordStore.model.newPassword} type={'password'} login onChange={(e: any) => {
                             ResetPasswordStore.editModel({newPassword: e.target.value})
                         }}/>
-                        <Input label={t('newPasswordConfirm')} value={AppStore.model.confirmNewPassword} type={'password'} login onChange={(e: any) => {
+                        <Input label={t('newPasswordConfirm')} value={ResetPasswordStore.model.confirmNewPassword} type={'password'} login onChange={(e: any) => {
                             ResetPasswordStore.editModel({confirmNewPassword: e.target.value})
                         }}/>
                         <Button label={t('recover')} onClick={() => {
