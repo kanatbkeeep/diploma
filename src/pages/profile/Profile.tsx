@@ -69,7 +69,9 @@ function Profile() {
                 window.location.replace('/login')
             }
         });
+        document.title = 'Profile';
     }, [])
+
 
     return (AppStore.currentUser &&
         <>

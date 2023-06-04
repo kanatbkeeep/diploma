@@ -58,6 +58,10 @@ const CreationPlan = () => {
 
     }, [id, planStore])
 
+    useEffect(() => {
+        document.title = 'Creation Plan';
+    }, []);
+
     const handleModalStateChanged = useCallback((state: boolean) => {
         setModalOpen(state);
     }, []);

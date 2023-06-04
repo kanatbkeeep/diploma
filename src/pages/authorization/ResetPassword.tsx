@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Logo from '../../assets/icon/logo.svg'
 import '../../style/loginPage.scss';
 import Input from "../../components/Input/Input";
@@ -11,6 +11,9 @@ import ResetPasswordStore from "../../store/ResetPasswordStore";
 
 function ResetPassword() {
     const navigate = useNavigate();
+    useEffect(() => {
+        document.title = 'Reset password';
+    }, []);
     return (
         <>
             <main className="bg_darker_blue full_screen centralized">

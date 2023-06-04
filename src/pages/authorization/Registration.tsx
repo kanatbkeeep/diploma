@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Logo from '../../assets/icon/logo.svg'
 import '../../style/loginPage.scss';
 import Input from "../../components/Input/Input";
@@ -10,6 +10,9 @@ import {useNavigate} from "react-router-dom";
 function Registration() {
     const navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = 'Registration';
+    }, []);
     return (
         <>
             <main className="bg_darker_blue full_screen centralized">
