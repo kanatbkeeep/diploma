@@ -64,8 +64,8 @@ class AppStore {
         return await axios.post(`${url}/user/register`,
             {
                 firstName: this.model.firstName,
-                lastName: this.model.middleName,
-                middleName: this.model.lastName,
+                lastName: this.model.lastName,
+                middleName: this.model.middleName,
                 email: this.model.email,
                 password: this.model.password
             }).then((repos: any) => {
