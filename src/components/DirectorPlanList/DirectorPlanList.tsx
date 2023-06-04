@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {observer} from 'mobx-react';
 import t from "../../utils/Lang";
 import CrossWhite from "../../assets/icon/crossWhite.svg";
@@ -15,6 +15,9 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 const DirectorPlanList = (props: any) => {
     const navigate = useNavigate();
+
+    useEffect(() => {}, [AppStore.myPlansToApproveReport.length && AppStore.myPlansToApprovePlan.length])
+
     return (
         <section className="tableProfile">
             {AppStore.myPlansToApprove ? <>
@@ -32,7 +35,7 @@ const DirectorPlanList = (props: any) => {
                 </div>
 
                 <Table
-                    array={AppStore.myPlansToApprove}
+                    array={AppStore.model.showReport ? AppStore.myPlansToApproveReport : AppStore.myPlansToApprovePlan}
                     rowsPerPage={4}
                     maxWidthTable={1000}
                     maxWidthColumns={[80, 345, 120, 120, 310]}

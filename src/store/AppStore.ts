@@ -17,6 +17,8 @@ class AppStore {
     plans: any;
     reports: any;
     myPlansToApprove: any = [];
+    myPlansToApprovePlan: any = [];
+    myPlansToApproveReport: any = [];
     plansLoaded: boolean = false;
     incorrect: boolean = false;
     model: any;
@@ -192,7 +194,13 @@ class AppStore {
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
+                this.myPlansToApproveReport = [];
+                this.myPlansToApprovePlan = [];
                 this.myPlansToApprove = this.myPlansToApprove.concat(repos.data.reverse());
+                this.myPlansToApprove.map((item: any) => {
+                    if (item.report) this.myPlansToApproveReport.push(item);
+                    else this.myPlansToApprovePlan.push(item)
+                });
             }
         }).catch(() => {
             this.isLoading = false;
