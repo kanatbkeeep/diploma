@@ -165,7 +165,7 @@ const TeacherPlanList = () => {
                                                             };
                                                             CreationPlanStore.saveKpi();
                                                         })
-                                                    }).then(() => {
+                                                    }).finally(() => {
                                                         AppStore.getMyPlans();
                                                     });
                                                 });
