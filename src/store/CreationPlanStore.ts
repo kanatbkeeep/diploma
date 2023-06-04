@@ -617,6 +617,92 @@ class CreationPlanStore {
         }).catch(() => {AppStore.isLoading = false;});
     }
 
+    clear = () =>{
+        this.step1 = {
+            nameOfDiscipline: "",
+            course: "",
+            trimester: "",
+            groups: "",
+            lecturesPlan: null,
+            lecturesFact: null,
+            practicesPlan: null,
+            practicesFact: null,
+            hoursPlan: null,
+            hoursFact: null,
+            totalPlan: 0,
+            totalFact: 0,
+        }
+
+        this.step2 = {
+            discipline: "",
+            anotherDiscipline:"",
+            nameWork: "",
+            deadlines: "",
+            infoImplementation: "",
+            anotherInfoImpl:"",
+            comment: "",
+        }
+
+        this.step3 = {
+            nameOfTheWork: "",
+            deadlines: "",
+            infoImplementation: "",
+            anotherInfoImpl: "",
+            results: "",
+            comments: "",
+        }
+
+        this.step4 = {
+            nameOfTheWork: "",
+            deadlines: "",
+            infoImplementation: "",
+            anotherInfoImpl: "",
+            results: "",
+            comments: "",
+        }
+
+        this.step5 = {
+            nameOfTheWork: "",
+            deadlines: "",
+            infoImplementation: "",
+            anotherInfoImpl: "",
+            results: "",
+            comments: "",
+        }
+
+        this.step6 = {
+            fileName:"",
+            fileBase64:"",
+            currentIndSection: 0,
+            chosenOption: "",
+            isAnotherSection: false,
+            anotherSectionNumber: null,
+            deadlines:"",
+            infoImplementation:"",
+            results:"",
+            comments:"",
+            otherInfoImpl:"",
+            numberAuthor: 1,
+            currentPercentage: 0.0,
+            averagePer:0,
+            anotherWork: null,
+        }
+        this.kpiSections = [];
+        this.currentSection = null;
+        this.checked = [];
+
+        this.years = "";
+
+        this.eduMethWorks = [];
+        this.academWorks = [];
+        this.researchWorks = [];
+        this.eduWorks = [];
+        this.socialWorks = [];
+        this.kpiWorks = [];
+        this.plan = null;
+        this.user = null;
+    }
+
 
     constructor() {
 
@@ -737,6 +823,7 @@ class CreationPlanStore {
             getKpiSections: action.bound,
             clean: action.bound,
             importPlan: action.bound,
+            clear: action.bound,
         },)
     }
 

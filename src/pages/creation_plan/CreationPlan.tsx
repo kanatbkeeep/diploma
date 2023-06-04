@@ -42,6 +42,7 @@ const CreationPlan = () => {
     const {id} = useParams();
 
     useEffect(() => {
+        planStore.clear();
         AppStore.getUser().then(async () => {
             if (!AppStore.currentUser) {
                 window.location.replace('/login')
