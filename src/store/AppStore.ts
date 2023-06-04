@@ -14,6 +14,8 @@ class AppStore {
     currentUser: any;
     department: any;
     myPlans: any;
+    plans: any;
+    reports: any;
     myPlansToApprove: any = [];
     plansLoaded: boolean = false;
     incorrect: boolean = false;
@@ -145,7 +147,17 @@ class AppStore {
         }).then((repos: any) => {
             this.isLoading = false;
             if (repos.status === 200) {
-                this.myPlans = repos.data.reverse();
+                this.plans = [];
+                this.reports = [];
+                this.myPlans = repos.data;
+
+                repos.data.map((item: any) => {
+                    if (item.report) this.reports.push(item);
+                    else this.plans.push(item);
+                })
+
+                this.plans = this.plans.reverse();
+                this.reports = this.reports.reverse();
             }
         }).catch(() => {
             this.isLoading = false;
@@ -252,6 +264,8 @@ class AppStore {
         this.currentUser = null;
         this.department = null;
         this.statusRegistration = null;
+        this.plans = [];
+        this.reports = [];
 
         makeAutoObservable(this, {
             editModel: action.bound,

@@ -13,6 +13,8 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 const TeacherPlanList = () => {
     const navigate = useNavigate()
 
+    useEffect(() => {}, [AppStore.plans.length && AppStore.reports.length])
+
     const validation = (item: any) => {
         let percentage = 0;
         item.kpis.forEach((item: any) => {
@@ -49,7 +51,7 @@ const TeacherPlanList = () => {
                 </div>
 
                 <Table
-                    array={AppStore.myPlans}
+                    array={AppStore.model.showReport ? AppStore.reports : AppStore.plans}
                     rowsPerPage={4}
                     maxWidthTable={1150}
                     maxWidthColumns={[120, 120, 150, 120, 130, 100, 60, 80, 80, 140]}
