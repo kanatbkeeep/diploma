@@ -293,7 +293,9 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        }).catch(() => {AppStore.isLoading = false;});
+        }).catch(() => {AppStore.isLoading = false;}).finally(()=>{
+            window.location.reload();
+        });
     }
 
     async updateAcademicMethod(item: any) {
@@ -311,7 +313,9 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        }).catch(() => {AppStore.isLoading = false;});
+        }).catch(() => {AppStore.isLoading = false;}).finally(()=>{
+            window.location.reload();
+        });
     }
 
     async updateSearchWork(item: any) {
@@ -329,7 +333,9 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        }).catch(() => {AppStore.isLoading = false;});
+        }).catch(() => {AppStore.isLoading = false;}).finally(()=>{
+            window.location.reload();
+        });
     }
 
     async updateEduWork(item: any) {
@@ -347,7 +353,9 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        }).catch(() => {AppStore.isLoading = false;});
+        }).catch(() => {AppStore.isLoading = false;}).finally(()=>{
+            window.location.reload();
+        });
     }
 
     async updateSocialWork(item: any) {
@@ -365,7 +373,9 @@ class CreationPlanStore {
             if (repos.status === 200) {
                 this.getPlan(this.plan.id);
             }
-        }).catch(() => {AppStore.isLoading = false;});
+        }).catch(() => {AppStore.isLoading = false;}).finally(()=>{
+            window.location.reload();
+        });
     }
 
     async deleteAcademicWorks(itemsToDelete: any[]) {
@@ -597,7 +607,9 @@ class CreationPlanStore {
             if(repos.status === 200){
                 this.getPlan(this.plan.id);
             }
-        }).catch(() => {AppStore.isLoading = false;});
+        }).catch(() => {AppStore.isLoading = false;}).finally(()=>{
+            window.location.reload();
+        });
     }
 
     async deleteKpis(items:any[]){
