@@ -630,7 +630,7 @@ const Step6 = (props: any) => {
                                                  maxWidth: maxWidthColumns[0],
                                                  display: "flex",
                                                  flexDirection: "column",
-                                                 justifyContent:"center",
+                                                 justifyContent:"flex-start",
                                                  paddingRight: 16,
                                                  alignItems:"flex-start"
                                              }}>
